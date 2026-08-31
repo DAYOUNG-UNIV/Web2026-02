@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹프로그래밍개론 - 2026 오리엔테이션</title>
+
+    <!-- Tailwind CSS v4 Play CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        body {
+            font-family:
+                'Pretendard', -apple-system, BlinkMacSystemFont,
+                system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+                'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+                sans-serif;
+            background-color: #FAFAFA;
+            color: #111827;
+        }
+
+        /* Theme */
+        .text-navy { color: #0F172A; }
+        .bg-navy { background-color: #0F172A; }
+        .border-navy { border-color: #0F172A; }
+        
+        .text-ai-orange { color: #F97316; }
+        .bg-ai-orange { background-color: #F97316; }
+        .border-ai-orange { border-color: #F97316; }
+        
+        .text-ai-blue { color: #3B82F6; }
+        .bg-ai-blue { background-color: #3B82F6; }
+
+        /* Card */
+        .studio-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.25s ease;
+        }
+
+        .studio-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+            border-color: #D1D5DB;
+            transform: translateY(-2px);
+        }
+
+        /* Slide-like sections */
+        section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+
+        /* Harness editor */
+        #harness-file-content {
+            tab-size: 4;
+        }
+
+        .harness-file-btn {
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- =========================================================
+         NAV
+    ========================================================== -->
+    <nav class="fixed w-full z-50 bg-[#FAFAFA]/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="font-bold text-lg tracking-tight text-navy">
+                웹프로그래밍개론
+            </div>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-500">
+                <a href="#intro" class="hover:text-navy transition">OT</a>
+                <a href="#core" class="hover:text-navy transition">핵심방향</a>
+                <a href="#ai-rule" class="hover:text-navy transition">AI활용</a>
+                <a href="#tools" class="hover:text-navy transition">개발도구</a>
+                <a href="#engineering" class="hover:text-navy transition">엔지니어링</a>
+                <a href="#project" class="hover:text-navy transition">프로젝트</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =========================================================
+         INTRO
+    ========================================================== -->
+    <section id="intro" class="pt-32 pb-16 px-6">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <p class="text-gray-500 font-medium tracking-widest mb-4">
+                2026년 가을 · 매주 화요일 10:00–12:50
+            </p>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-navy tracking-tight mb-6 leading-tight">
+                웹프로그래밍개론
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-600 font-light mb-10">
+                <span class="text-ai-orange font-medium">AI</span>와 함께 만들고, 이해하고, 검증하는 웹
+            </p>
+
+            <!-- Beginner reassurance -->
+            <div class="max-w-2xl mx-auto bg-white border border-gray-200 rounded-xl px-6 py-5 mb-10">
+                <p class="font-bold text-navy mb-1">
+                    처음부터 모든 도구를 알 필요는 없습니다.
+                </p>
+                <p class="text-sm text-gray-500">
+                    웹의 구조를 이해한 뒤, 필요한 도구를 하나씩 추가해 갑니다.
+                </p>
+            </div>
+
+            <div class="inline-block border-t border-gray-300 pt-6">
+                <p class="text-lg text-gray-800 font-medium">
+                    담당교수 이다영
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         CORE
+    ========================================================== -->
+    <section id="core" class="px-6 border-t border-gray-200 bg-white">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-4xl md:text-5xl font-bold text-navy mb-16 leading-tight">
+                웹을 만드는 일이 쉬워진 지금,<br>우리는 무엇을 배워야 할까?
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                <div class="text-xl text-gray-400 line-through decoration-1">
+                    코드를 얼마나 많이 외우고 입력하는가?
+                </div>
+                <div class="text-xl text-navy font-bold flex items-center gap-3">
+                    <i class="fas fa-arrow-right text-ai-orange"></i>
+                    무엇을 만들지 정의하는 능력
+                </div>
+                <div class="text-xl text-navy font-bold flex items-center gap-3">
+                    <i class="fas fa-arrow-right text-ai-orange"></i>
+                    문제를 작은 작업으로 나누는 능력
+                </div>
+                <div class="text-xl text-navy font-bold flex items-center gap-3">
+                    <i class="fas fa-arrow-right text-ai-orange"></i>
+                    AI가 만든 결과를 판단하고 검증하는 능력
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-navy mb-8">
+                    웹을 네 가지 관점에서 배웁니다
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="studio-card border-t-4 border-navy">
+                        <div class="text-3xl mb-4 text-gray-300"><i class="fas fa-cogs"></i></div>
+                        <h4 class="font-bold text-lg mb-2">작동 원리</h4>
+                        <p class="text-sm text-gray-600">웹은 어떻게 작동하는가</p>
+                    </div>
+                    <div class="studio-card border-t-4 border-navy">
+                        <div class="text-3xl mb-4 text-gray-300"><i class="fas fa-eye"></i></div>
+                        <h4 class="font-bold text-lg mb-2">사용자 경험</h4>
+                        <p class="text-sm text-gray-600">웹으로 어떤 경험을 만들 수 있는가</p>
+                    </div>
+                    <div class="studio-card border-t-4 border-ai-orange bg-orange-50/30">
+                        <div class="text-3xl mb-4 text-ai-orange"><i class="fas fa-robot"></i></div>
+                        <h4 class="font-bold text-lg mb-2 text-ai-orange">AI 협업</h4>
+                        <p class="text-sm text-gray-600">AI에게 무엇을 맡기고 무엇을 판단할 것인가</p>
+                    </div>
+                    <div class="studio-card border-t-4 border-navy">
+                        <div class="text-3xl mb-4 text-gray-300"><i class="fas fa-users"></i></div>
+                        <h4 class="font-bold text-lg mb-2">팀 협업</h4>
+                        <p class="text-sm text-gray-600">여러 사람이 어떻게 함께 완성할 것인가</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         AI POLICY
+    ========================================================== -->
+    <section id="ai-rule" class="px-6 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto w-full">
+            <!-- Header -->
+            <div class="mb-14">
+                <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-700 font-bold text-sm mb-4">
+                    AI POLICY · 2026
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">
+                    AI 사용은 예외가 아니라 기본입니다
+                </h2>
+                <p class="text-xl text-gray-600 leading-relaxed">
+                    이 수업에서는 AI 활용을 기본적으로 허용하고 적극 권장합니다.<br>
+                    중요한 것은
+                    <strong class="text-navy">AI를 사용했는가</strong>가 아니라
+                    <strong class="text-ai-orange">AI와 함께 어떻게 문제를 해결했는가</strong>입니다.
+                </p>
+            </div>
+
+            <!-- Tool policy -->
+            <div class="bg-indigo-50/70 border border-indigo-100 p-6 rounded-xl mb-16 flex items-start gap-4">
+                <i class="fas fa-robot text-indigo-500 mt-1 text-2xl shrink-0"></i>
+                <div class="text-sm text-gray-700 leading-relaxed">
+                    <p class="font-bold text-indigo-900 mb-2 text-lg">특정 AI 제품을 배우는 수업은 아닙니다</p>
+                    <p class="mb-3">ChatGPT / Codex, Claude / Claude Code, GitHub Copilot, Cursor 등 어떤 도구를 사용해도 괜찮습니다.</p>
+                    <p>수업에서는 특정 서비스의 버튼 위치보다 AI Coding Agent가 <strong>프로젝트를 읽고 → 작업하고 → 실행하고 → 검증하는</strong> 공통 원리를 배웁니다. 유료 서비스 이용 여부가 성적 차이로 이어지지 않도록 평가합니다.</p>
+                </div>
+            </div>
+
+            <!-- AI Levels -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold text-navy mb-3">과제마다 AI 활용 범위가 다를 수 있습니다</h3>
+                <p class="text-gray-600 mb-8">별도 안내가 없다면 기본적으로 <strong class="text-indigo-700">AI Allowed</strong> 입니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                        <div class="text-xs font-bold text-orange-600 tracking-widest mb-3">AI REQUIRED</div>
+                        <h4 class="font-bold text-navy text-lg mb-3">AI 활용 필수</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">AI와 협업하는 과정 자체가 학습 목표입니다.</p>
+                    </div>
+                    <div class="bg-indigo-50 border-2 border-indigo-300 rounded-xl p-6 shadow-sm">
+                        <div class="text-xs font-bold text-indigo-600 tracking-widest mb-3">AI ALLOWED</div>
+                        <h4 class="font-bold text-navy text-lg mb-3">자유롭게 활용</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">대부분의 수업과 프로젝트에 적용됩니다.</p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-xl p-6">
+                        <div class="text-xs font-bold text-gray-500 tracking-widest mb-3">AI LIMITED</div>
+                        <h4 class="font-bold text-navy text-lg mb-3">일부만 활용</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">지정된 범위에서만 사용할 수 있습니다.</p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-xl p-6">
+                        <div class="text-xs font-bold text-gray-400 tracking-widest mb-3">NO AI</div>
+                        <h4 class="font-bold text-navy text-lg mb-3">AI 없이 수행</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">기초 개념을 직접 확인해야 할 때만 적용합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="mb-20">
+                <div class="text-center mb-10">
+                    <p class="text-xs text-gray-500 font-bold tracking-widest mb-2">AI-NATIVE WORKFLOW</p>
+                    <h3 class="text-3xl font-bold text-navy">좋은 AI 활용은 한 번의 프롬프트가 아닙니다</h3>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 overflow-x-auto">
+                    <div class="flex items-center justify-between gap-2 min-w-[780px]">
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-navy text-white rounded-full flex items-center justify-center font-bold mb-3">1</div>
+                            <div class="font-bold text-navy">문제 정의</div>
+                            <div class="text-xs text-gray-400 mt-1">Define</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-300"></i>
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-ai-orange text-white rounded-full flex items-center justify-center font-bold mb-3">2</div>
+                            <div class="font-bold text-ai-orange">AI 위임</div>
+                            <div class="text-xs text-gray-400 mt-1">Delegate</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-300"></i>
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-navy text-white rounded-full flex items-center justify-center font-bold mb-3">3</div>
+                            <div class="font-bold text-navy">검토</div>
+                            <div class="text-xs text-gray-400 mt-1">Inspect</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-300"></i>
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-navy text-white rounded-full flex items-center justify-center font-bold mb-3">4</div>
+                            <div class="font-bold text-navy">테스트</div>
+                            <div class="text-xs text-gray-400 mt-1">Test</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-300"></i>
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-navy text-white rounded-full flex items-center justify-center font-bold mb-3">5</div>
+                            <div class="font-bold text-navy">수정</div>
+                            <div class="text-xs text-gray-400 mt-1">Revise</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-300"></i>
+                        <div class="text-center flex-1">
+                            <div class="w-12 h-12 mx-auto bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold mb-3">6</div>
+                            <div class="font-bold text-indigo-700">통합</div>
+                            <div class="text-xs text-gray-400 mt-1">Integrate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI vs Human -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+                <div class="bg-white p-8 border border-orange-200 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-ai-orange"></div>
+                    <h3 class="text-2xl font-bold text-ai-orange mb-6 flex items-center gap-2">
+                        <i class="fas fa-robot"></i> AI에게 맡길 수 있습니다
+                    </h3>
+                    <ul class="space-y-4 text-gray-700 font-medium">
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 아이디어와 대안 탐색</li>
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 코드 초안 작성</li>
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 코드 설명 · 리팩터링</li>
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 오류 탐색과 디버깅</li>
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 테스트 · 문서 초안 작성</li>
+                        <li class="flex gap-3"><i class="fas fa-check mt-1 text-gray-400"></i> 반복 작업과 GitHub 작업 지원</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 border border-navy rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-navy"></div>
+                    <h3 class="text-2xl font-bold text-navy mb-6 flex items-center gap-2">
+                        <i class="fas fa-user"></i> 이것은 사람이 책임집니다
+                    </h3>
+                    <ul class="space-y-4 text-gray-700 font-bold">
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 무엇을 만들지 결정하기</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 요구사항과 성공 기준 정하기</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 실제로 작동하는지 확인하기</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 중요한 설계 선택하기</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 사용자와 팀원에게 미치는 영향 판단하기</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-exclamation mt-1 text-ai-blue"></i> 최종 결과에 책임지기</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Responsibility -->
+            <div class="bg-navy text-white rounded-2xl p-8 md:p-10 mb-16">
+                <div class="flex items-start gap-5">
+                    <div class="text-ai-orange text-3xl shrink-0"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold tracking-widest mb-2">YOUR CODE, YOUR RESPONSIBILITY</p>
+                        <h3 class="text-2xl font-bold mb-4">AI가 만들었더라도 설명하고 검증할 수 있어야 합니다</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">모든 코드를 처음부터 직접 작성할 필요는 없습니다. 그러나 제출한 결과물의 핵심 구조와 동작, 중요한 설계 판단, 테스트 방법과 한계는 설명할 수 있어야 합니다.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+                            <div class="bg-white/10 rounded-lg p-3 text-center">구조</div>
+                            <div class="bg-white/10 rounded-lg p-3 text-center">동작</div>
+                            <div class="bg-white/10 rounded-lg p-3 text-center">선택 이유</div>
+                            <div class="bg-white/10 rounded-lg p-3 text-center">테스트</div>
+                            <div class="bg-white/10 rounded-lg p-3 text-center col-span-2 md:col-span-1">한계 · 위험</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Red line -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold text-navy mb-3">AI를 자유롭게 사용하되, 이 선은 지킵니다</h3>
+                <p class="text-gray-600 mb-8">도구와 관계없이 적용되는 공통 원칙입니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="bg-white border border-red-100 rounded-xl p-6 flex gap-4">
+                        <i class="fas fa-ban text-red-400 text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-navy mb-2">검증 없는 제출</h4>
+                            <p class="text-sm text-gray-600">AI가 만든 코드나 글을 실행·검토하지 않은 채 제출하지 않습니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-red-100 rounded-xl p-6 flex gap-4">
+                        <i class="fas fa-key text-red-400 text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-navy mb-2">비밀정보 입력</h4>
+                            <p class="text-sm text-gray-600">API Key, 비밀번호, Access Token, 개인정보, 비공개 팀 자료를 외부 AI에 입력하지 않습니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-red-100 rounded-xl p-6 flex gap-4">
+                        <i class="fas fa-book-open text-red-400 text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-navy mb-2">확인하지 않은 정보 · 출처</h4>
+                            <p class="text-sm text-gray-600">AI가 제시한 사실, 논문, API, 라이브러리나 패키지는 원 출처에서 확인합니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-red-100 rounded-xl p-6 flex gap-4">
+                        <i class="fas fa-triangle-exclamation text-red-400 text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-navy mb-2">무조건적인 에이전트 권한</h4>
+                            <p class="text-sm text-gray-600">파일 삭제, 패키지 설치, DB 변경, 배포, 유료 API 실행 등 영향이 큰 행동은 사람이 확인합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Use Note -->
+            <div class="bg-slate-50 p-8 rounded-xl border border-gray-200">
+                <div class="text-center mb-8">
+                    <p class="text-xs text-indigo-500 font-bold tracking-widest mb-2">AI USE NOTE</p>
+                    <h3 class="text-2xl font-bold mb-3">AI 사용도 작업 과정의 일부입니다</h3>
+                    <p class="text-gray-600 leading-relaxed">모든 프롬프트를 제출할 필요는 없습니다.<br><strong>결과물에 실질적인 영향을 준 AI 활용</strong>을 짧게 기록합니다.</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-3 text-sm font-medium mb-6">
+                    <button onclick="showAiLog(0)" class="ai-log-btn bg-navy text-white px-5 py-2.5 rounded-full shadow-sm">어떤 도구를 사용했는가?</button>
+                    <button onclick="showAiLog(1)" class="ai-log-btn bg-white text-gray-600 border border-gray-300 px-5 py-2.5 rounded-full">어떤 작업을 맡겼는가?</button>
+                    <button onclick="showAiLog(2)" class="ai-log-btn bg-white text-gray-600 border border-gray-300 px-5 py-2.5 rounded-full">무엇을 판단했는가?</button>
+                    <button onclick="showAiLog(3)" class="ai-log-btn bg-white text-gray-600 border border-gray-300 px-5 py-2.5 rounded-full">어떻게 검증했는가?</button>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-indigo-100 shadow-sm min-h-[110px] flex items-center justify-center text-center">
+                    <div id="ai-log-content" class="text-gray-700 leading-relaxed transition-opacity duration-300">
+                        <strong class="text-navy">예시:</strong> "ChatGPT와 Claude Code를 사용했습니다. 아이디어 탐색에는 ChatGPT를, 프로젝트 파일 수정과 JavaScript 구현에는 Claude Code를 활용했습니다."
+                    </div>
+                </div>
+                <div class="mt-8 bg-indigo-50 border border-indigo-100 rounded-lg p-5">
+                    <p class="font-bold text-indigo-900 mb-2"><i class="fas fa-circle-info mr-1"></i> AI를 많이 사용하면 감점되나요?</p>
+                    <p class="text-sm text-gray-700">아닙니다. <strong>AI 사용량 자체는 평가 기준이 아닙니다.</strong> 이해 · 판단 · 검증 · 수정이 평가의 핵심입니다.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-20">
+                <p class="text-lg text-gray-500 mb-3">이 수업에서 배우고 싶은 것은</p>
+                <p class="text-2xl md:text-3xl font-bold text-navy leading-relaxed">
+                    AI보다 코드를 빨리 쓰는 사람이 아니라,<br>
+                    <span class="text-ai-orange">AI에게 일을 잘 맡기고 그 결과를 판단할 수 있는 사람</span>입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         LEARNING TOOLS
+    ========================================================== -->
+    <section id="tools" class="px-6 border-t border-gray-200 bg-white">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <p class="text-xs text-indigo-500 font-bold tracking-widest mb-3">LEARNING PATH</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-5">이번 학기에 도구를 하나씩 늘려갑니다</h2>
+                <p class="text-xl text-gray-600">오늘 이 모든 것을 배울 필요는 없습니다.</p>
+            </div>
+
+            <!-- Tool progression -->
+            <div class="overflow-x-auto mb-20">
+                <div class="flex items-stretch gap-3 min-w-[1000px]">
+                    <div class="flex-1 bg-slate-50 border border-gray-200 rounded-xl p-5">
+                        <div class="text-2xl text-blue-500 mb-4"><i class="fab fa-chrome"></i></div>
+                        <p class="text-xs text-gray-400 font-bold mb-1">01</p>
+                        <h3 class="font-bold text-navy mb-2">Browser</h3>
+                        <p class="text-sm text-gray-500">결과를 본다</p>
+                    </div>
+                    <div class="flex items-center text-gray-300"><i class="fas fa-plus"></i></div>
+                    
+                    <div class="flex-1 bg-slate-50 border border-gray-200 rounded-xl p-5">
+                        <div class="text-2xl text-blue-600 mb-4"><i class="fas fa-code"></i></div>
+                        <p class="text-xs text-gray-400 font-bold mb-1">02</p>
+                        <h3 class="font-bold text-navy mb-2">VS Code</h3>
+                        <p class="text-sm text-gray-500">파일과 코드를 본다</p>
+                    </div>
+                    <div class="flex items-center text-gray-300"><i class="fas fa-plus"></i></div>
+                    
+                    <div class="flex-1 bg-slate-50 border border-gray-200 rounded-xl p-5">
+                        <div class="text-2xl text-gray-700 mb-4"><i class="fab fa-git-alt"></i></div>
+                        <p class="text-xs text-gray-400 font-bold mb-1">03</p>
+                        <h3 class="font-bold text-navy mb-2">Git</h3>
+                        <p class="text-sm text-gray-500">변화를 기록한다</p>
+                    </div>
+                    <div class="flex items-center text-gray-300"><i class="fas fa-plus"></i></div>
+                    
+                    <div class="flex-1 bg-slate-50 border border-gray-200 rounded-xl p-5">
+                        <div class="text-2xl text-gray-700 mb-4"><i class="fas fa-terminal"></i></div>
+                        <p class="text-xs text-gray-400 font-bold mb-1">04</p>
+                        <h3 class="font-bold text-navy mb-2">Terminal</h3>
+                        <p class="text-sm text-gray-500">프로젝트를 실행한다</p>
+                    </div>
+                    <div class="flex items-center text-gray-300"><i class="fas fa-plus"></i></div>
+                    
+                    <div class="flex-1 bg-orange-50 border border-orange-200 rounded-xl p-5">
+                        <div class="text-2xl text-ai-orange mb-4"><i class="fas fa-robot"></i></div>
+                        <p class="text-xs text-orange-400 font-bold mb-1">05</p>
+                        <h3 class="font-bold text-ai-orange mb-2">AI Agent</h3>
+                        <p class="text-sm text-gray-500">작업을 일부 맡긴다</p>
+                    </div>
+                    <div class="flex items-center text-gray-300"><i class="fas fa-plus"></i></div>
+                    
+                    <div class="flex-1 bg-indigo-50 border border-indigo-200 rounded-xl p-5">
+                        <div class="text-2xl text-indigo-600 mb-4"><i class="fas fa-shield-halved"></i></div>
+                        <p class="text-xs text-indigo-400 font-bold mb-1">06</p>
+                        <h3 class="font-bold text-indigo-800 mb-2">Harness</h3>
+                        <p class="text-sm text-gray-500">안정적인 환경을 만든다</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VS Code -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <div class="bg-[#1e1e1e] text-white rounded-2xl overflow-hidden shadow-xl">
+                    <div class="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs text-gray-400 ml-2">Visual Studio Code</span>
+                    </div>
+                    <div class="grid grid-cols-4 min-h-[330px]">
+                        <div class="col-span-1 border-r border-gray-700 p-4 text-xs text-gray-400">
+                            <p class="font-bold text-gray-200 mb-4">EXPLORER</p>
+                            <p class="mb-2">📄 index.html</p>
+                            <p class="mb-2">📄 style.css</p>
+                            <p>📄 script.js</p>
+                        </div>
+                        <div class="col-span-3 flex flex-col">
+                            <div class="flex-1 p-5 font-mono text-sm text-gray-300">
+                                <span class="text-blue-300">&lt;button</span>
+                                <span class="text-yellow-300">id=</span>
+                                <span class="text-green-300">"menu"</span>
+                                <span class="text-blue-300">&gt;</span><br>
+                                &nbsp;&nbsp;메뉴<br>
+                                <span class="text-blue-300">&lt;/button&gt;</span>
+                            </div>
+                            <div class="border-t border-gray-700 p-4 font-mono text-xs">
+                                <p class="text-gray-500 mb-2">TERMINAL</p>
+                                <p class="text-green-300">$ npm run dev</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <p class="text-xs text-blue-600 font-bold tracking-widest mb-3">OUR BASE WORKSPACE</p>
+                    <h3 class="text-3xl font-bold text-navy mb-5">VS Code는 코드를 입력하는 메모장이 아닙니다</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">프로젝트의 <strong>파일 · 코드 · 오류 · Terminal · Git 변경사항 · AI가 수정한 결과</strong>를 한곳에서 확인하는 작업 공간입니다.</p>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 text-sm text-gray-700">
+                        <strong class="text-blue-800">중요한 점</strong>
+                        <p class="mt-2">수업의 목표는 VS Code 사용법을 외우는 것이 아닙니다. 에디터의 기본 구조를 이해하면 Cursor나 다른 개발환경으로 옮겨도 같은 개념을 사용할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLI vs editor -->
+            <div class="bg-slate-50 border border-gray-200 rounded-2xl p-8 md:p-10 mb-16">
+                <h3 class="text-2xl font-bold text-navy mb-8 text-center">IDE와 AI CLI는 서로 대체하는 도구가 아닙니다</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+                    <div class="bg-white border border-gray-200 rounded-xl p-6">
+                        <i class="fas fa-code text-blue-500 text-2xl mb-4"></i>
+                        <h4 class="font-bold text-navy text-lg mb-3">Editor / IDE</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">파일을 보고, AI가 무엇을 수정했는지 비교하고, 문제가 생긴 위치를 직접 확인합니다.</p>
+                        <p class="text-xs text-gray-400 mt-4">VS Code · Cursor 등</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-6">
+                        <i class="fas fa-terminal text-gray-700 text-2xl mb-4"></i>
+                        <h4 class="font-bold text-navy text-lg mb-3">Terminal</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">현재 프로젝트에 실행·설치·Git 등의 명령을 내리는 창입니다.</p>
+                        <p class="text-xs text-gray-400 mt-4">npm · git · build · test</p>
+                    </div>
+                    <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                        <i class="fas fa-robot text-ai-orange text-2xl mb-4"></i>
+                        <h4 class="font-bold text-navy text-lg mb-3">AI Coding Agent</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">프로젝트 전체를 읽고, 여러 파일을 수정하고, 명령을 실행하며 작업을 수행합니다.</p>
+                        <p class="text-xs text-orange-500 mt-4">Codex · Claude Code · Copilot CLI 등</p>
+                    </div>
+                </div>
+                <p class="text-center text-gray-500 mt-8"><strong class="text-navy">Editor + Terminal + Agent</strong>를 필요에 따라 오가는 것이 현대적인 개발 방식입니다.</p>
+            </div>
+
+            <!-- Development progression -->
+            <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-6">
+                <h4 class="font-bold text-indigo-900 mb-3">개발환경도 단계적으로 바뀝니다</h4>
+                <div class="flex flex-col md:flex-row gap-3 md:items-center text-sm">
+                    <span class="bg-white border border-indigo-100 rounded-lg px-4 py-3">초반 <strong class="block">HTML · CSS · JS</strong></span>
+                    <i class="fas fa-arrow-right text-indigo-300 hidden md:block"></i>
+                    <span class="bg-white border border-indigo-100 rounded-lg px-4 py-3">중반 <strong class="block">Terminal · npm</strong></span>
+                    <i class="fas fa-arrow-right text-indigo-300 hidden md:block"></i>
+                    <span class="bg-white border border-indigo-100 rounded-lg px-4 py-3">프로젝트 <strong class="block">AI Agent · GitHub</strong></span>
+                    <i class="fas fa-arrow-right text-indigo-300 hidden md:block"></i>
+                    <span class="bg-white border border-indigo-100 rounded-lg px-4 py-3">후반 <strong class="block">AI Agent · Harness</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         ENGINEERING
+    ========================================================== -->
+    <section id="engineering" class="px-6 border-t border-gray-200 bg-white">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <p class="text-xs text-blue-600 font-bold tracking-widest mb-3">UNDERSTANDING BEFORE AUTOMATION</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-5">AI가 만들어도 구조는 사라지지 않습니다</h2>
+                <p class="text-xl text-gray-600">구조를 알아야 AI가 어디에서 틀렸는지 판단할 수 있습니다.</p>
+            </div>
+
+            <!-- Web structure -->
+            <div class="mb-24 bg-slate-50 p-6 md:p-10 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="flex flex-col md:flex-row gap-8 items-stretch">
+                    <div class="w-full md:w-1/3 flex flex-col relative justify-between">
+                        <div class="absolute left-1/2 top-4 bottom-4 w-0.5 bg-gray-300 -translate-x-1/2 z-0 hidden md:block"></div>
+                        <button onclick="showStructure(0)" id="struct-btn-0" class="struct-btn relative z-10 w-full text-center py-4 px-6 bg-white border-2 border-gray-300 text-gray-600 rounded-xl font-bold mb-4 md:mb-0 shadow-sm">
+                            <i class="fas fa-user mr-2"></i> 사용자
+                        </button>
+                        <button onclick="showStructure(1)" id="struct-btn-1" class="struct-btn relative z-10 w-full text-center py-4 px-6 bg-navy border-2 border-navy text-white rounded-xl font-bold mb-4 md:mb-0 shadow-md">
+                            <i class="fas fa-laptop-code mr-2"></i> HTML · CSS · JS
+                        </button>
+                        <button onclick="showStructure(2)" id="struct-btn-2" class="struct-btn relative z-10 w-full text-center py-4 px-6 bg-white border-2 border-gray-300 text-gray-600 rounded-xl font-bold mb-4 md:mb-0 shadow-sm">
+                            <i class="fas fa-globe mr-2"></i> 브라우저 · 네트워크
+                        </button>
+                        <button onclick="showStructure(3)" id="struct-btn-3" class="struct-btn relative z-10 w-full text-center py-4 px-6 bg-white border-2 border-gray-300 text-gray-600 rounded-xl font-bold shadow-sm">
+                            <i class="fas fa-server mr-2"></i> API · 서버 · 데이터
+                        </button>
+                    </div>
+
+                    <div class="w-full md:w-2/3 bg-white p-8 rounded-xl border border-gray-200 shadow-inner flex flex-col justify-center min-h-[300px]">
+                        <div id="struct-content" class="transition-opacity duration-300">
+                            <div class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-full mb-4">현재 학습 범위</div>
+                            <h3 class="text-2xl font-bold text-navy mb-4">HTML · CSS · JS</h3>
+                            <p class="text-gray-700">화면 구조, 디자인, 사용자와의 상호작용을 담당합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-8 text-gray-500 text-sm text-center">각 단계를 클릭해 어떤 종류의 문제가 어디에서 생기는지 확인하세요.</p>
+            </div>
+
+            <!-- =================================================
+                 HARNESS
+            ================================================== -->
+            <div class="mb-24">
+                <div class="mt-28 mb-12">
+                    <p class="text-xs text-ai-orange font-bold tracking-widest mb-3">HARNESS ENGINEERING</p>
+                    <h3 class="text-3xl md:text-4xl font-bold text-navy mb-5">이제 AI가 프로젝트 안에서<br>길을 잃지 않게 만들어 봅니다</h3>
+                    <p class="text-lg text-gray-600 max-w-3xl leading-relaxed">사람에게 기획서와 작업 목록이 필요하듯, AI에게도 무엇을 만들고 있는지, 지금 무엇을 해야 하는지, 언제 작업이 끝났다고 볼 수 있는지를 알려줄 수 있습니다.</p>
+                </div>
+
+                <!-- Prompt vs Harness -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                        <p class="text-xs text-gray-400 font-bold tracking-widest mb-3">PROMPT ENGINEERING</p>
+                        <h4 class="text-xl font-bold text-gray-700 mb-3">“이번 일을 어떻게 설명할까?”</h4>
+                        <p class="text-sm text-gray-600">한 번의 요청을 잘 전달하는 문제</p>
+                    </div>
+                    <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                        <p class="text-xs text-ai-orange font-bold tracking-widest mb-3">HARNESS ENGINEERING</p>
+                        <h4 class="text-xl font-bold text-navy mb-3">“AI가 계속 잘 일하려면 어떤 환경이 필요할까?”</h4>
+                        <p class="text-sm text-gray-600">프로젝트의 문서 · 규칙 · 검사 · 기록을 함께 설계하는 문제</p>
+                    </div>
+                </div>
+
+                <!-- Simple harness concepts -->
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-3 mb-12">
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fas fa-bullseye text-ai-orange text-xl mb-3"></i>
+                        <p class="font-bold text-sm">목표</p>
+                        <p class="text-xs text-gray-400 mt-1">Intent</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fas fa-book text-blue-500 text-xl mb-3"></i>
+                        <p class="font-bold text-sm">자료</p>
+                        <p class="text-xs text-gray-400 mt-1">Context</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fas fa-list-check text-indigo-500 text-xl mb-3"></i>
+                        <p class="font-bold text-sm">할 일</p>
+                        <p class="text-xs text-gray-400 mt-1">Tasks</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fas fa-shield text-teal-500 text-xl mb-3"></i>
+                        <p class="font-bold text-sm">안전장치</p>
+                        <p class="text-xs text-gray-400 mt-1">Guardrails</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fas fa-circle-check text-purple-500 text-xl mb-3"></i>
+                        <p class="font-bold text-sm">확인</p>
+                        <p class="text-xs text-gray-400 mt-1">Verify</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                        <i class="fab fa-git-alt text-gray-700 text-xl mb-3"></i>
+                        <p class="font-bold text-sm">기록</p>
+                        <p class="text-xs text-gray-400 mt-1">Feedback</p>
+                    </div>
+                </div>
+
+                <!-- Growth explanation -->
+                <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mb-8">
+                    <p class="font-bold text-indigo-900 mb-2">처음부터 복잡하게 시작할 필요는 없습니다.</p>
+                    <p class="text-sm text-gray-700 leading-relaxed">처음에는 <strong>무엇을 만들지 · 지금 무엇을 할지 · 제대로 되었는지</strong> 기록하는 세 개의 문서만 있어도 충분합니다. 프로젝트가 커지면 필요한 규칙과 자동화를 조금씩 추가할 수 있습니다.</p>
+                </div>
+
+                <!-- Harness mode -->
+                <div class="flex justify-center gap-2 mb-6">
+                    <button id="harness-mode-basic" onclick="setHarnessMode('basic')" class="px-5 py-2.5 rounded-full bg-navy text-white font-bold text-sm transition">기본 단계</button>
+                    <button id="harness-mode-project" onclick="setHarnessMode('project')" class="px-5 py-2.5 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-sm transition">프로젝트 단계</button>
+                </div>
+
+                <!-- Interactive explorer -->
+                <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-800 bg-[#1e1e1e] mb-10">
+                    <div class="bg-[#2d2d2d] px-4 py-2.5 flex items-center justify-between border-b border-black">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span id="harness-window-title" class="text-gray-400 ml-2 text-xs font-mono">MY-FIRST-WEB</span>
+                        </div>
+                        <span class="text-xs text-gray-500 hidden md:block">왼쪽 파일을 클릭해 실제 예시를 확인하세요</span>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row min-h-[560px]">
+                        <!-- Explorer -->
+                        <div class="w-full md:w-[34%] bg-[#181818] border-b md:border-b-0 md:border-r border-gray-700">
+                            <div class="px-4 py-3 text-xs font-bold text-gray-500 tracking-widest border-b border-gray-800">EXPLORER</div>
+                            <!-- Basic explorer -->
+                            <div id="harness-basic-tree" class="p-3 font-mono text-sm text-gray-400">
+                                <div class="text-gray-200 font-bold mb-3 px-2"><i class="fas fa-chevron-down text-xs mr-2 text-gray-500"></i> MY-FIRST-WEB</div>
+                                <button type="button" data-harness-file="index" onclick="showHarnessFile('index')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-html5 text-orange-400 mr-2 w-4"></i> index.html</button>
+                                <button type="button" data-harness-file="style" onclick="showHarnessFile('style')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-css3-alt text-blue-400 mr-2 w-4"></i> style.css</button>
+                                <button type="button" data-harness-file="script" onclick="showHarnessFile('script')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-js text-yellow-300 mr-2 w-4"></i> script.js</button>
+                                <div class="px-3 py-1.5 mt-2 text-gray-300"><i class="fas fa-chevron-down text-[10px] mr-2 text-gray-600"></i> <i class="fas fa-folder-open text-blue-400 mr-2"></i> docs/</div>
+                                <div class="ml-6">
+                                    <button type="button" data-harness-file="requirements" onclick="showHarnessFile('requirements')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-markdown text-blue-300 mr-2 w-4"></i> requirements.md <span class="ml-auto text-[10px] text-blue-300">무엇을 만들까?</span></button>
+                                    <button type="button" data-harness-file="tasks" onclick="showHarnessFile('tasks')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fas fa-list-check text-green-300 mr-2 w-4"></i> tasks.md <span class="ml-auto text-[10px] text-green-300">지금 무엇을 할까?</span></button>
+                                    <button type="button" data-harness-file="checklist" onclick="showHarnessFile('checklist')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fas fa-circle-check text-teal-300 mr-2 w-4"></i> checklist.md <span class="ml-auto text-[10px] text-teal-300">제대로 되었나?</span></button>
+                                </div>
+                            </div>
+                            <!-- Project explorer -->
+                            <div id="harness-project-tree" class="hidden p-3 font-mono text-sm text-gray-400">
+                                <div class="text-gray-200 font-bold mb-3 px-2"><i class="fas fa-chevron-down text-xs mr-2 text-gray-500"></i> MY-WEB-PROJECT</div>
+                                <button type="button" data-harness-file="agents" onclick="showHarnessFile('agents')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-markdown text-orange-300 mr-2 w-4"></i> AGENTS.md <span class="ml-auto text-[10px] text-orange-300">AI 지도</span></button>
+                                <button type="button" data-harness-file="claude" onclick="showHarnessFile('claude')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-markdown text-orange-200 mr-2 w-4"></i> CLAUDE.md</button>
+                                <button type="button" data-harness-file="readme" onclick="showHarnessFile('readme')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400 flex items-center"><i class="fab fa-markdown text-gray-300 mr-2 w-4"></i> README.md</button>
+                                <div class="px-3 py-1.5 mt-2 text-gray-300"><i class="fas fa-chevron-down text-[10px] mr-2 text-gray-600"></i> <i class="fas fa-folder-open text-blue-400 mr-2"></i> docs/</div>
+                                <div class="ml-6">
+                                    <button type="button" data-harness-file="requirements" onclick="showHarnessFile('requirements')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">requirements.md</button>
+                                    <button type="button" data-harness-file="architecture" onclick="showHarnessFile('architecture')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">architecture.md</button>
+                                    <button type="button" data-harness-file="design" onclick="showHarnessFile('design')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">design.md</button>
+                                    <button type="button" data-harness-file="tasks" onclick="showHarnessFile('tasks')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">tasks.md</button>
+                                </div>
+                                <div class="px-3 py-1.5 mt-2 text-gray-300"><i class="fas fa-chevron-down text-[10px] mr-2 text-gray-600"></i> <i class="fas fa-folder-open text-yellow-400 mr-2"></i> src/</div>
+                                <div class="ml-6">
+                                    <button type="button" data-harness-file="index" onclick="showHarnessFile('index')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">index.html</button>
+                                    <button type="button" data-harness-file="style" onclick="showHarnessFile('style')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">style.css</button>
+                                    <button type="button" data-harness-file="script" onclick="showHarnessFile('script')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">script.js</button>
+                                </div>
+                                <div class="px-3 py-1.5 mt-2 text-gray-300"><i class="fas fa-chevron-down text-[10px] mr-2 text-gray-600"></i> <i class="fas fa-folder-open text-green-400 mr-2"></i> tests/</div>
+                                <div class="ml-6">
+                                    <button type="button" data-harness-file="checklist" onclick="showHarnessFile('checklist')" class="harness-file-btn w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 text-gray-400">checklist.md</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Viewer -->
+                        <div class="w-full md:w-[66%] flex flex-col bg-[#1e1e1e]">
+                            <div class="h-11 border-b border-gray-700 bg-[#181818] flex items-end">
+                                <div class="h-full px-5 flex items-center gap-2 bg-[#1e1e1e] border-t-2 border-blue-400">
+                                    <i class="fas fa-file-code text-blue-400"></i>
+                                    <span id="harness-file-tab" class="text-sm font-mono text-gray-200">docs/requirements.md</span>
+                                </div>
+                            </div>
+                            <div class="px-6 pt-5 flex flex-wrap items-center justify-between gap-3">
+                                <div>
+                                    <span id="harness-file-badge" class="inline-block text-[10px] font-bold tracking-widest px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 mb-2">INTENT</span>
+                                    <p id="harness-file-description" class="text-sm text-gray-400">무엇을 왜 만드는지 기록합니다.</p>
+                                </div>
+                                <a id="harness-file-doc-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden text-xs px-3 py-2 border border-gray-600 rounded-lg text-gray-300 hover:text-white hover:border-gray-400 transition">
+                                    관련 공식 문서 <i class="fas fa-arrow-up-right-from-square ml-1"></i>
+                                </a>
+                            </div>
+                            <div class="flex-1 p-6 overflow-auto">
+                                <pre id="harness-file-content" class="text-sm leading-7 text-gray-300 font-mono whitespace-pre-wrap transition-opacity duration-150"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced -->
+                <details class="bg-slate-50 border border-gray-200 rounded-xl mb-10">
+                    <summary class="cursor-pointer p-5 font-bold text-navy">프로젝트가 더 커지면 무엇이 추가되나요?</summary>
+                    <div class="px-5 pb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg border border-gray-200 p-4">
+                            <p class="font-bold text-sm mb-2">Permissions</p>
+                            <p class="text-xs text-gray-500">AI가 할 수 있는 행동과 확인이 필요한 행동을 구분합니다.</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 p-4">
+                            <p class="font-bold text-sm mb-2">Automated Tests</p>
+                            <p class="text-xs text-gray-500">사람이 매번 확인하지 않아도 프로그램이 완료 조건을 검사합니다.</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 p-4">
+                            <p class="font-bold text-sm mb-2">Hooks / Automation</p>
+                            <p class="text-xs text-gray-500">특정 작업 뒤 필요한 검사를 자동으로 실행합니다.</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 p-4">
+                            <p class="font-bold text-sm mb-2">CI</p>
+                            <p class="text-xs text-gray-500">GitHub에 코드를 올렸을 때도 테스트를 다시 확인합니다.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- References -->
+                <div class="pt-6 border-t border-gray-200">
+                    <p class="text-xs text-gray-500 font-bold tracking-widest mb-4">OFFICIAL REFERENCES</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://openai.com/index/harness-engineering/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">OpenAI · Harness Engineering ↗</a>
+                        <a href="https://agents.md/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">AGENTS.md ↗</a>
+                        <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">Claude Code · Memory ↗</a>
+                        <a href="https://docs.github.com/en/copilot/reference/custom-instructions-support" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">GitHub Copilot · Instructions ↗</a>
+                        <a href="https://code.visualstudio.com/docs/agents/overview" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">VS Code · Agents ↗</a>
+                        <a href="https://tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">Tailwind CSS ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================
+                 GITHUB
+            ================================================== -->
+            <div class="mb-16 bg-blue-50/50 p-8 rounded-xl border border-blue-100">
+                <h3 class="text-2xl font-bold text-navy mb-4 flex items-center gap-3">
+                    <i class="fab fa-github text-3xl"></i> 처음 만나는 GitHub
+                </h3>
+                <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                    GitHub는 단순히 코드를 올려두는 온라인 저장공간이 아닙니다.
+                    <strong>무엇이 어떻게 바뀌었는지를 기록하고, 되돌리고, 함께 검토하는 공간</strong>입니다.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-white p-5 rounded-lg border border-gray-200">
+                        <i class="fas fa-clock-rotate-left text-ai-blue text-2xl mb-3"></i>
+                        <h4 class="font-bold text-navy mb-2">변경 기록</h4>
+                        <p class="text-sm text-gray-600">언제 무엇이 바뀌었는지 확인하고 필요하면 과거 상태로 돌아갑니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-gray-200">
+                        <i class="fas fa-users text-ai-blue text-2xl mb-3"></i>
+                        <h4 class="font-bold text-navy mb-2">협업</h4>
+                        <p class="text-sm text-gray-600">각자 작업한 내용을 안전하게 비교하고 합칩니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-gray-200">
+                        <i class="fas fa-code-compare text-ai-blue text-2xl mb-3"></i>
+                        <h4 class="font-bold text-navy mb-2">AI 작업 검토</h4>
+                        <p class="text-sm text-gray-600">AI가 어느 파일을 어떻게 수정했는지도 Diff로 확인할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub flow -->
+            <div class="mb-24">
+                <h3 class="text-3xl font-bold text-navy mb-8">GitHub는 코드 보관함이 아니라 협업 기록입니다</h3>
+                <div class="bg-slate-50 p-8 rounded-xl border border-gray-200 overflow-x-auto">
+                    <div class="flex items-center gap-4 min-w-[760px]">
+                        <div class="px-4 py-2 bg-white border border-gray-300 rounded font-bold text-sm">Issue</div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="px-4 py-2 bg-white border border-gray-300 rounded font-bold text-sm">Branch</div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="px-4 py-2 bg-orange-50 border border-orange-300 text-orange-700 rounded font-bold text-sm"><i class="fas fa-robot mr-1"></i> AI 작업</div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="px-4 py-2 bg-white border border-gray-300 rounded font-bold text-sm">Diff · Test</div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="px-4 py-2 bg-white border border-gray-300 rounded font-bold text-sm">Pull Request</div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="px-4 py-2 bg-navy text-white rounded font-bold text-sm">Review · Merge</div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-5">처음부터 이 전체 과정을 외우지 않습니다. 개인 작업에서 기록과 복구를 먼저 경험한 뒤, 팀 프로젝트에서 Branch와 Pull Request로 확장합니다.</p>
+            </div>
+
+            <!-- =================================================
+                 FIRST LAB
+            ================================================== -->
+            <div class="pt-16 border-t border-gray-200">
+                <div class="text-center mb-10">
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-700 font-bold text-sm mb-3">ACTION ITEMS</span>
+                    <h3 class="text-3xl font-bold text-navy">첫 실습을 위한 세 가지 준비</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Chrome -->
+                    <div class="bg-white p-7 border border-gray-200 rounded-2xl shadow-sm">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center text-2xl mb-5"><i class="fab fa-chrome"></i></div>
+                        <h4 class="text-xl font-bold text-navy mb-3">Chrome</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-5">만든 웹을 실행하고, 개발자 도구로 구조와 오류를 확인합니다.</p>
+                        <div class="text-xs bg-slate-50 border border-gray-200 p-4 rounded-lg">
+                            Windows: <strong>F12</strong><br><br>Mac: <strong>Cmd + Option + I</strong>
+                        </div>
+                    </div>
+
+                    <!-- VS Code -->
+                    <div class="bg-white p-7 border-2 border-blue-200 rounded-2xl shadow-sm">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-5"><i class="fas fa-code"></i></div>
+                        <h4 class="text-xl font-bold text-navy mb-3">Visual Studio Code</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-5">수업에서 사용할 기본 작업공간입니다. 파일·Terminal·Git을 한곳에서 확인합니다.</p>
+                        <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-blue-600 text-white text-center font-bold rounded-lg hover:bg-blue-700 transition">VS Code 다운로드 ↗</a>
+                    </div>
+
+                    <!-- GitHub -->
+                    <div class="bg-white p-7 border border-gray-200 rounded-2xl shadow-sm">
+                        <div class="w-12 h-12 bg-gray-100 text-gray-800 rounded-full flex items-center justify-center text-2xl mb-5"><i class="fab fa-github"></i></div>
+                        <h4 class="text-xl font-bold text-navy mb-3">GitHub 계정</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-5">프로젝트의 변경을 기록하고 이후 팀원·AI와 협업하기 위한 기준점입니다.</p>
+                        <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-[#24292F] text-white text-center font-bold rounded-lg hover:bg-black transition">GitHub 가입 ↗</a>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-8">Terminal · npm · AI Coding Agent는 이후 수업에서 함께 설정합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         PROJECT
+    ========================================================== -->
+    <section id="project" class="px-6 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl font-bold text-navy mb-4">15주의 흐름과 두 개의 프로젝트</h2>
+            <p class="text-lg text-gray-600 mb-6">전반부에는 기반을 만들고, 후반부에는 프로젝트를 발전시킵니다.</p>
+
+            <div class="bg-amber-50 border border-amber-200 p-5 rounded-lg mb-12 flex items-start gap-4">
+                <i class="fas fa-bullhorn text-amber-500 mt-1 text-xl"></i>
+                <div class="text-sm text-gray-700">
+                    <p class="font-bold text-amber-800 mb-1 text-base">일정 안내</p>
+                    <p>파워플랜트 대관 및 전시 일정 등 일부 주차는 조율 중입니다. 이번 주에는 전체 프로젝트의 흐름과 방식을 중심으로 확인합니다.</p>
+                </div>
+            </div>
+
+            <!-- Tool track -->
+            <div class="bg-navy text-white rounded-xl p-6 mb-12">
+                <p class="text-xs text-gray-400 font-bold tracking-widest mb-4">TOOL TRACK</p>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-sm">
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <span class="text-gray-400 text-xs">시작</span>
+                        <strong class="block mt-1">Browser</strong>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <span class="text-gray-400 text-xs">기초</span>
+                        <strong class="block mt-1">VS Code</strong>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <span class="text-gray-400 text-xs">협업</span>
+                        <strong class="block mt-1">GitHub</strong>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <span class="text-gray-400 text-xs">중반</span>
+                        <strong class="block mt-1">Terminal · npm</strong>
+                    </div>
+                    <div class="bg-orange-500/20 rounded-lg p-3">
+                        <span class="text-orange-300 text-xs">확장</span>
+                        <strong class="block mt-1">AI Agent</strong>
+                    </div>
+                    <div class="bg-indigo-500/20 rounded-lg p-3">
+                        <span class="text-indigo-300 text-xs">프로젝트</span>
+                        <strong class="block mt-1">Harness · Test</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project timeline -->
+            <div class="relative w-full rounded-xl bg-white border border-gray-200 p-4 md:p-8">
+                <div class="grid grid-cols-12 gap-4 mb-6 font-bold text-sm text-center">
+                    <div class="col-span-2 text-gray-500">주차</div>
+                    <div class="col-span-5 text-indigo-700 border-b-2 border-indigo-700 pb-3"><i class="fas fa-user mr-2"></i> 개인 프로젝트</div>
+                    <div class="col-span-5 text-teal-700 border-b-2 border-teal-700 pb-3"><i class="fas fa-users mr-2"></i> 팀 프로젝트</div>
+                </div>
+
+                <!-- 1-5 -->
+                <div class="grid grid-cols-12 gap-4 mb-4 items-center">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500">1~5주</div>
+                    <div class="col-span-10 bg-gray-50 border border-gray-200 rounded-lg p-5 text-center">
+                        <span class="font-bold text-navy block text-lg mb-1">웹의 구조와 구현 기초</span>
+                        <p class="text-sm text-gray-500">배운 내용을 매주 하나의 작업에 축적하며 개인 관심사 탐색</p>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="grid grid-cols-12 gap-4 mb-4 items-center">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500">6주</div>
+                    <div class="col-span-10 bg-gray-50 border border-gray-200 rounded-lg p-5 text-center">
+                        <span class="font-bold text-navy block text-lg mb-1">전면 온라인 수업</span>
+                        <p class="text-sm text-gray-500">개인 아이디어 구체화</p>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="grid grid-cols-12 gap-4 mb-10 items-center">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500">7주</div>
+                    <div class="col-span-10 bg-orange-50 border border-orange-100 rounded-lg p-5 text-center">
+                        <span class="font-bold text-ai-orange block text-lg mb-1">Claude Code × 미디어 아트 특강</span>
+                        <p class="text-sm text-gray-500">AI Coding Agent를 실제 창작 작업에서 활용하는 사례</p>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="grid grid-cols-12 gap-4 mb-3 items-stretch">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500 flex items-center justify-center">8주</div>
+                    <div class="col-span-5 bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+                        <span class="font-bold text-indigo-900 block mb-1">프로토타입 발표</span>
+                        <p class="text-xs text-indigo-600">개인 관심사 기획 공유</p>
+                    </div>
+                    <div class="col-span-5 bg-teal-50 border border-teal-100 rounded-lg p-4">
+                        <span class="font-bold text-teal-900 block mb-1">관심사 탐색 · 팀 구성</span>
+                        <p class="text-xs text-teal-600">발표 기반 팀 빌딩</p>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="grid grid-cols-12 gap-4 mb-3 items-stretch">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500 flex items-center justify-center">9주</div>
+                    <div class="col-span-5 bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+                        <span class="font-bold text-indigo-900">전시 수정 계획</span>
+                    </div>
+                    <div class="col-span-5 bg-teal-50 border border-teal-100 rounded-lg p-4">
+                        <span class="font-bold text-teal-900">공통 질문 · 기획</span>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="grid grid-cols-12 gap-4 mb-3 items-stretch">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500 flex items-center justify-center">10주</div>
+                    <div class="col-span-5 bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+                        <span class="font-bold text-indigo-900">전시 버전 제작</span>
+                    </div>
+                    <div class="col-span-5 bg-teal-50 border border-teal-100 rounded-lg p-4">
+                        <span class="font-bold text-teal-900">저장소 · 기본 하네스 구성</span>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="grid grid-cols-12 gap-4 mb-6 items-stretch">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500 flex items-center justify-center">11주</div>
+                    <div class="col-span-5 bg-indigo-600 text-white rounded-lg p-4">
+                        <span class="font-bold block mb-1">전시 버전 동결 · 회고</span>
+                        <p class="text-xs text-indigo-200">개인 프로젝트 완성</p>
+                    </div>
+                    <div class="col-span-5 bg-teal-50 border border-teal-100 rounded-lg p-4">
+                        <span class="font-bold text-teal-900">수직 프로토타입 완성</span>
+                    </div>
+                </div>
+
+                <!-- 12-14 -->
+                <div class="grid grid-cols-12 gap-4 mb-4 items-center">
+                    <div class="col-span-2 text-center font-mono text-sm text-gray-500">12~14주</div>
+                    <div class="col-span-10 bg-teal-50 border border-teal-200 rounded-lg p-5 text-center">
+                        <span class="font-bold text-teal-900 block text-lg mb-1">테스트 · 기술 개선 · 베타 시연</span>
+                        <p class="text-sm text-teal-700">팀 프로젝트 고도화와 사용자 피드백 반영</p>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div class="grid grid-cols-12 gap-4 items-center">
+                    <div class="col-span-2 text-center font-bold text-navy">15주</div>
+                    <div class="col-span-10 bg-navy text-white rounded-lg p-5 text-center">
+                        <span class="font-bold text-lg"><i class="fas fa-rocket mr-2 text-ai-orange"></i> 아카이빙 · 포스트모템</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50/50 p-6 rounded-xl border border-blue-100 flex items-start gap-4">
+                <i class="fas fa-lightbulb text-ai-blue text-xl mt-1"></i>
+                <div class="text-sm text-gray-700">
+                    <p class="font-bold text-navy mb-1 text-base">팀 프로젝트는 한 명의 아이디어를 채택하는 과정이 아닙니다</p>
+                    <p>개인 프로젝트를 통해 서로의 관심사를 확인한 뒤, 이를 연결하고 발전시켜 새로운 프로젝트를 만듭니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         EVENTS
+    ========================================================== -->
+    <section class="px-6 border-t border-gray-200 bg-[#F4F4F5]">
+        <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div>
+                <h2 class="text-3xl font-bold text-navy mb-8">주요 일정</h2>
+                <div class="space-y-5">
+                    <div class="bg-white border border-gray-200 rounded-xl p-5">
+                        <time class="text-xs font-mono text-gray-500">10월 6일</time>
+                        <div class="font-bold text-navy mt-1">전면 온라인 수업</div>
+                        <div class="text-sm text-gray-600 mt-1">개인 아이디어 구체화</div>
+                    </div>
+                    <div class="bg-white border border-orange-200 rounded-xl p-5">
+                        <time class="text-xs font-mono text-gray-500">10월 13일</time>
+                        <div class="font-bold text-ai-orange mt-1">Claude Code 특강</div>
+                        <div class="text-sm text-gray-600 mt-1">미디어 아트 작가 초청 실습</div>
+                    </div>
+                    <div class="bg-white border border-indigo-200 rounded-xl p-5">
+                        <time class="text-xs font-mono text-gray-500">11월 중</time>
+                        <div class="font-bold text-indigo-800 mt-1">파워플랜트 워크숍</div>
+                        <div class="text-sm text-gray-600 mt-1">Anthropic 연계 전시</div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-5">
+                        <time class="text-xs font-mono text-gray-500">11월 17일 · 24일</time>
+                        <div class="font-bold text-navy mt-1">알파 테스트 / 개발자 AI 특강</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-3xl font-bold text-navy mb-4">WIP Show:<br>《만들기로 한 것들》</h2>
+                <p class="text-gray-600 mb-8">완성품만이 아니라 선택과 과정을 공개합니다.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white border border-gray-200 rounded-xl p-6">
+                        <i class="fas fa-magnifying-glass text-gray-400 text-2xl mb-3"></i>
+                        <p class="font-bold text-navy">Research</p>
+                        <p class="text-sm text-gray-500">질문과 조사</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-6">
+                        <i class="fas fa-pencil text-gray-400 text-2xl mb-3"></i>
+                        <p class="font-bold text-navy">Sketch · Code</p>
+                        <p class="text-sm text-gray-500">실험과 구현 과정</p>
+                    </div>
+                    <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                        <i class="fas fa-robot text-ai-orange text-2xl mb-3"></i>
+                        <p class="font-bold text-navy">AI Process</p>
+                        <p class="text-sm text-gray-500">요청 · 판단 · 수정</p>
+                    </div>
+                    <div class="bg-red-50 border border-red-100 rounded-xl p-6">
+                        <i class="fas fa-flask text-red-400 text-2xl mb-3"></i>
+                        <p class="font-bold text-navy">Failed Attempts</p>
+                        <p class="text-sm text-gray-500">실패와 배운 점</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         EVALUATION
+    ========================================================== -->
+    <section class="px-6 border-t border-gray-200 bg-white">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 pb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-navy mb-8">평가 구성</h2>
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-bold text-gray-700">출석</span>
+                            <span class="text-navy font-bold text-lg">10%</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-bold text-gray-700">개인 과제 · 프로젝트</span>
+                            <span class="text-navy font-bold text-lg">40%</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-bold text-gray-700">팀 프로젝트</span>
+                            <span class="text-navy font-bold text-lg">40%</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-bold text-gray-700">수업 참여</span>
+                            <span class="text-navy font-bold text-lg">10%</span>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+                        <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">중요한 평가 기준</p>
+                        <p class="font-bold text-navy tracking-widest">이해 · 판단 · 검증 · 협업 · 기록</p>
+                        <p class="text-sm text-gray-500 mt-4">직접 작성한 코드의 양이나 사용한 AI의 가격으로 평가하지 않습니다.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-3xl font-bold text-navy mb-8">Learning by Doing</h2>
+                    <div class="bg-navy text-white p-8 rounded-xl h-full flex flex-col justify-center">
+                        <p class="mb-8 text-gray-300">강의를 듣고 암기하기보다 직접 만들고 확인하는 시간을 중심으로 진행합니다.</p>
+                        <ol class="space-y-3 font-medium text-lg">
+                            <li class="flex items-center gap-3"><span class="text-gray-500 text-sm">01</span> 개념과 사례</li>
+                            <li class="flex items-center gap-3"><span class="text-gray-500 text-sm">02</span> 가이드 실습</li>
+                            <li class="flex items-center gap-3"><span class="text-gray-500 text-sm">03</span> 개인 · 팀 제작</li>
+                            <li class="flex items-center gap-3"><span class="text-gray-500 text-sm">04</span> 실행 · 검토 · 수정</li>
+                            <li class="flex items-center gap-3 text-ai-orange"><span class="text-orange-900/50 text-sm">05</span> 결과와 과정 공유</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 p-8 rounded-2xl flex flex-col md:flex-row items-start gap-6">
+                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-2xl text-ai-blue shadow-sm shrink-0"><i class="fas fa-seedling"></i></div>
+                <div>
+                    <h3 class="text-xl font-bold text-navy mb-3">더 나은 방법을 발견했다면 공유해 주세요</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        웹과 AI 기술은 빠르게 변화합니다. 수업에서 소개하는 도구가 항상 유일한 정답인 것은 아닙니다. 더 좋은 도구나 새로운 활용 방식을 발견했다면 프로젝트에 적용해 보고, 후반부 <strong>마이크로워크숍</strong>에서 동료들과 공유할 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+    <footer class="bg-navy text-white py-12 text-center">
+        <p class="text-sm text-gray-400 mb-2">만들고 · 이해하고 · 검증하고 · 협업하는 15주</p>
+        <h2 class="text-2xl font-bold mb-6">웹프로그래밍개론</h2>
+        <div class="inline-block px-6 py-3 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-lg">
+            <i class="fas fa-info-circle text-gray-400 mr-2"></i> 수업 관련 질문은 eTL(사이버캠퍼스) 내 메시지를 우선으로 이용해 주세요.
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+    <script>
+        /* =====================================================
+           AI USE NOTE
+        ====================================================== */
+        const aiLogs = [
+            `<strong class="text-navy">예시:</strong>
+            "ChatGPT와 Claude Code를 사용했습니다. 초기 아이디어 탐색에는 ChatGPT를, 프로젝트 파일 수정과 JavaScript 구현에는 Claude Code를 활용했습니다."`,
+            
+            `<strong class="text-navy">예시:</strong>
+            "반응형 내비게이션의 구조 초안 작성, 모바일 메뉴 구현, JavaScript 오류 원인 탐색을 요청했습니다."`,
+            
+            `<strong class="text-navy">예시:</strong>
+            "AI가 외부 UI 라이브러리를 제안했지만 이번 과제의 학습 목표와 맞지 않아 사용하지 않았습니다. HTML, CSS, Vanilla JavaScript 기반으로 다시 수정했습니다."`,
+            
+            `<strong class="text-navy">예시:</strong>
+            "Chrome DevTools에서 모바일 화면과 Console을 확인했습니다. 주요 버튼을 직접 눌러보았고, 기존 기능이 깨지지 않았는지도 확인했습니다."`
+        ];
+
+        function showAiLog(index) {
+            const buttons = document.querySelectorAll('.ai-log-btn');
+            const content = document.getElementById('ai-log-content');
+
+            buttons.forEach((button, i) => {
+                if (i === index) {
+                    button.className = 'ai-log-btn bg-navy text-white px-5 py-2.5 rounded-full shadow-sm';
+                } else {
+                    button.className = 'ai-log-btn bg-white text-gray-600 border border-gray-300 px-5 py-2.5 rounded-full';
+                }
+            });
+
+            content.style.opacity = '0';
+
+            setTimeout(() => {
+                content.innerHTML = aiLogs[index];
+                content.style.opacity = '1';
+            }, 120);
+        }
+
+        /* =====================================================
+           WEB STRUCTURE
+        ====================================================== */
+        const structureData = [
+            {
+                badge: "출발점",
+                badgeClass: "bg-gray-200 text-gray-700",
+                title: "사용자",
+                role: "웹사이트를 보고, 누르고, 입력하며 실제 서비스를 경험하는 사람입니다.",
+                tip: `문제가 발생했다면 먼저 <strong>어떤 기기와 브라우저에서 어떤 행동을 했을 때</strong> 문제가 생겼는지 확인합니다.<br><span class="text-blue-700 font-semibold block mt-2">"모바일 Safari에서 메뉴 버튼을 눌렀을 때..."</span>`
+            },
+            {
+                badge: "현재 학습 범위",
+                badgeClass: "bg-indigo-100 text-indigo-800",
+                title: "HTML · CSS · JavaScript",
+                role: "HTML은 화면의 구조, CSS는 디자인, JavaScript는 사용자와 상호작용하는 동작을 담당합니다.",
+                tip: `버튼 자체가 보이지 않는다면 HTML/CSS, 버튼은 보이지만 눌러도 아무 일도 없다면 JavaScript를 먼저 살펴볼 수 있습니다.<br><span class="text-blue-700 font-semibold block mt-2">"메뉴 버튼은 보이는데 클릭 이벤트가 실행되지 않아."</span>`
+            },
+            {
+                badge: "통로",
+                badgeClass: "bg-orange-100 text-orange-800",
+                title: "브라우저 · 네트워크",
+                role: "브라우저는 웹페이지를 실행하고, 네트워크는 필요한 데이터를 다른 서버와 주고받습니다.",
+                tip: `화면은 보이지만 데이터가 오지 않는다면 Network 탭이나 요청 주소를 확인합니다.<br><span class="text-blue-700 font-semibold block mt-2">"Network 탭에서 요청이 404로 실패하고 있어."</span>`
+            },
+            {
+                badge: "도착점",
+                badgeClass: "bg-teal-100 text-teal-800",
+                title: "API · 서버 · 데이터",
+                role: "화면에서 받은 요청을 처리하고 필요한 정보를 저장하거나 다시 전달합니다.",
+                tip: `요청은 성공했는데 엉뚱한 정보가 돌아오거나 저장이 되지 않는다면 서버나 데이터 구조를 확인합니다.<br><span class="text-blue-700 font-semibold block mt-2">"API 응답 JSON 구조가 예상과 달라."</span>`
+            }
+        ];
+
+        function showStructure(index) {
+            const buttons = document.querySelectorAll('.struct-btn');
+            const content = document.getElementById('struct-content');
+
+            buttons.forEach((button, i) => {
+                if (i === index) {
+                    button.className = 'struct-btn relative z-10 w-full text-center py-4 px-6 bg-navy border-2 border-navy text-white rounded-xl font-bold mb-4 md:mb-0 shadow-md';
+                } else {
+                    button.className = 'struct-btn relative z-10 w-full text-center py-4 px-6 bg-white border-2 border-gray-300 text-gray-600 rounded-xl font-bold mb-4 md:mb-0 shadow-sm';
+                }
+            });
+
+            const data = structureData[index];
+            content.style.opacity = '0';
+
+            setTimeout(() => {
+                content.innerHTML = `
+                    <div class="inline-block px-3 py-1 ${data.badgeClass} text-xs font-bold rounded-full mb-4">
+                        ${data.badge}
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">
+                        ${data.title}
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-5">
+                        ${data.role}
+                    </p>
+                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-bold text-blue-800 mb-2">
+                            <i class="fas fa-robot mr-1"></i>
+                            AI와 문제를 해결할 때
+                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            ${data.tip}
+                        </p>
+                    </div>
+                `;
+                content.style.opacity = '1';
+            }, 120);
+        }
+
+        /* =====================================================
+           HARNESS EXPLORER
+        ====================================================== */
+        // NOTE: 에디터의 하이라이팅 버그를 막기 위해 <script> 텍스트를 리터럴 평가로 조립합니다.
+        const harnessFiles = {
+            /* ---------- Basic source ---------- */
+            index: {
+                name: "index.html",
+                badge: "WEB PAGE",
+                badgeClass: "bg-orange-500/20 text-orange-300",
+                description: "브라우저가 처음 읽는 웹페이지입니다.",
+                doc: null,
+                content:
+`<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Making Things</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Making Things</h1>
+    </header>
+
+    <main id="artworks"></main>
+
+    <${"script"} src="./script.js"></${"script"}>
+
+</body>
+</html>`
+            },
+
+            style: {
+                name: "style.css",
+                badge: "STYLE",
+                badgeClass: "bg-pink-500/20 text-pink-300",
+                description: "웹페이지의 모양과 배치를 정의합니다.",
+                doc: null,
+                content:
+`body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #ffffff;
+    color: #111827;
+}
+
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.artwork {
+    margin-bottom: 48px;
+}`
+            },
+
+            script: {
+                name: "script.js",
+                badge: "INTERACTION",
+                badgeClass: "bg-yellow-500/20 text-yellow-300",
+                description: "사용자 행동에 반응하는 동작을 작성합니다.",
+                doc: null,
+                content:
+`const menuButton = document.querySelector("#menu-button");
+const navigation = document.querySelector("#navigation");
+
+menuButton.addEventListener("click", () => {
+    navigation.classList.toggle("open");
+});`
+            },
+
+            /* ---------- Common docs ---------- */
+            requirements: {
+                name: "docs/requirements.md",
+                badge: "INTENT",
+                badgeClass: "bg-blue-500/20 text-blue-300",
+                description: "무엇을 왜 만드는지 정리합니다.",
+                doc: null,
+                content:
+`# Requirements
+
+## Goal
+전시장 관람객이 미디어 아트 작품을 모바일에서 쉽게 탐색할 수 있는 웹사이트를 만든다.
+
+## Target User
+- 전시장 관람객
+- 모바일 사용자
+- 작품에 대한 사전 지식이 없는 사람
+
+## Must Have
+- 작품 3개를 볼 수 있다.
+- 작품 이미지와 설명을 제공한다.
+- 모바일에서도 사용할 수 있다.
+
+## Not Required
+- 로그인
+- 회원가입
+- 결제
+- 데이터베이스
+
+## Success
+사용자가 첫 화면에서 사이트가 무엇을 보여주는지 쉽게 이해할 수 있어야 한다.`
+            },
+
+            tasks: {
+                name: "docs/tasks.md",
+                badge: "TASKS",
+                badgeClass: "bg-green-500/20 text-green-300",
+                description: "지금 해야 할 일을 작은 단위로 정리합니다.",
+                doc: null,
+                content:
+`# Tasks
+
+## 이번 작업
+- [x] 기본 HTML 작성
+- [x] 작품 카드 만들기
+- [ ] 모바일 메뉴 만들기
+- [ ] 작품 상세 화면 만들기
+- [ ] 모바일 화면 확인하기
+
+## 지금 할 일
+
+### 모바일 메뉴 만들기
+완료 조건:
+- 768px 이하에서 메뉴 버튼이 보인다.
+- 버튼을 누르면 메뉴가 열린다.
+- 다시 누르면 메뉴가 닫힌다.
+- Console Error가 없다.
+
+## 아직 하지 않을 일
+- 검색 기능
+- 다크모드
+- 복잡한 애니메이션`
+            },
+
+            checklist: {
+                name: "docs/checklist.md",
+                badge: "CHECK",
+                badgeClass: "bg-teal-500/20 text-teal-300",
+                description: "완료됐다고 말하기 전에 실제 결과를 확인합니다.",
+                doc: "https://developer.chrome.com/docs/devtools/",
+                content:
+`# Checklist
+
+## Desktop
+- [ ] 페이지가 정상적으로 열린다.
+- [ ] Console Error가 없다.
+- [ ] 작품 3개가 모두 보인다.
+
+## Mobile
+- [ ] 가로 스크롤이 생기지 않는다.
+- [ ] 글자가 화면 밖으로 나가지 않는다.
+- [ ] 메뉴 버튼을 누를 수 있다.
+
+## Interaction
+- [ ] 메뉴가 열린다.
+- [ ] 메뉴가 닫힌다.
+- [ ] 작품 상세 화면을 열 수 있다.
+
+## Accessibility
+- [ ] 버튼은 실제 button 요소인가?
+- [ ] 이미지에 alt가 있는가?
+- [ ] 키보드로 사용할 수 있는가?`
+            },
+
+            /* ---------- Project ---------- */
+            agents: {
+                name: "AGENTS.md",
+                badge: "PROJECT MAP",
+                badgeClass: "bg-orange-500/20 text-orange-300",
+                description: "AI 에이전트에게 프로젝트의 공통 지도와 작업 규칙을 제공합니다.",
+                doc: "https://agents.md/",
+                content:
+`# AGENTS.md
+
+## Project
+미디어 아트 작품을 소개하는 반응형 웹사이트입니다.
+
+## Read First
+작업 전에 다음 문서를 확인하세요.
+- docs/requirements.md
+- docs/architecture.md
+- docs/design.md
+- docs/tasks.md
+
+## Tech Stack
+- HTML
+- CSS
+- Vanilla JavaScript
+- Vite
+
+## Working Rules
+- 요청하지 않은 기능을 임의로 추가하지 않습니다.
+- 기존 기능을 삭제하기 전에 이유를 설명합니다.
+- 새로운 dependency 설치 전 확인합니다.
+- 기존 디자인 언어를 유지합니다.
+
+## Verification
+작업 후 다음을 확인합니다.
+- npm run build
+- Console Error
+- 모바일 화면
+- 기존 기능 회귀 여부
+
+## Finish
+작업이 끝나면 다음을 요약합니다.
+1. 변경한 파일
+2. 변경한 내용
+3. 실행한 테스트
+4. 남아 있는 문제`
+            },
+
+            claude: {
+                name: "CLAUDE.md",
+                badge: "TOOL ADAPTER",
+                badgeClass: "bg-orange-500/20 text-orange-300",
+                description: "Claude Code에 필요한 프로젝트별 추가 지침입니다.",
+                doc: "https://code.claude.com/docs/en/memory",
+                content:
+`# CLAUDE.md
+
+@AGENTS.md
+
+## Planning
+큰 작업은 코드를 수정하기 전에 간단한 계획을 먼저 제시합니다.
+
+## Changes
+기존 기능 삭제나 큰 구조 변경이 필요하면 먼저 이유를 설명합니다.
+
+## Verification
+완료라고 말하기 전에
+- 변경 파일 확인
+- npm run build
+- Console 확인
+- 주요 인터랙션 확인
+을 수행합니다.
+
+## Report
+작업 후
+- 무엇을 바꾸었는지
+- 무엇을 확인했는지
+- 아직 확인하지 못한 것은 무엇인지
+간단히 요약합니다.`
+            },
+
+            readme: {
+                name: "README.md",
+                badge: "HUMAN ENTRY",
+                badgeClass: "bg-gray-500/20 text-gray-300",
+                description: "사람이 프로젝트에 처음 들어왔을 때 읽는 안내입니다.",
+                doc: "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+                content:
+`# Making Things
+
+미디어 아트 작품을 소개하는 반응형 웹사이트입니다.
+
+## 시작하기
+npm install
+npm run dev
+
+## 주요 기능
+- 작품 목록
+- 작품 상세 화면
+- 반응형 레이아웃
+- 모바일 메뉴
+
+## 기술
+- Vite
+- HTML
+- CSS
+- Vanilla JavaScript
+
+## 문서
+세부 기획은 /docs 폴더를 확인하세요.`
+            },
+
+            packagejson: {
+                name: "package.json",
+                badge: "PROJECT SETUP",
+                badgeClass: "bg-red-500/20 text-red-300",
+                description: "프로젝트가 어떻게 실행되고 어떤 도구를 사용하는지 기록합니다.",
+                doc: "https://docs.npmjs.com/cli/configuring-npm/package-json",
+                content:
+`{
+  "name": "making-things",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "npm run build"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}`
+            },
+
+            architecture: {
+                name: "docs/architecture.md",
+                badge: "STRUCTURE",
+                badgeClass: "bg-purple-500/20 text-purple-300",
+                description: "프로젝트가 어떤 구조로 작동하는지 설명합니다.",
+                doc: null,
+                content:
+`# Architecture
+
+## Overview
+User
+  ↓
+Browser
+  ↓
+HTML / CSS / JavaScript
+  ↓
+External API
+
+## Frontend
+src/
+├── main.js
+├── style.css
+└── data.js
+
+## Data
+작품 정보는 data.js 안에서 관리합니다.
+
+## Deployment
+GitHub
+  ↓
+Build
+  ↓
+Static Hosting`
+            },
+
+            design: {
+                name: "docs/design.md",
+                badge: "DESIGN",
+                badgeClass: "bg-pink-500/20 text-pink-300",
+                description: "프로젝트의 시각적 원칙을 고정합니다.",
+                doc: null,
+                content:
+`# Design
+
+## Direction
+작품보다 인터페이스가 더 눈에 띄지 않게 한다.
+
+## Layout
+- Mobile First
+- 충분한 여백
+- 한 화면에 너무 많은 정보 금지
+
+## Typography
+- Pretendard
+- 읽기 쉬운 본문
+- 명확한 제목 계층
+
+## Interaction
+애니메이션은 콘텐츠 이해를 돕는 경우에만 사용한다.`
+            },
+
+            ci: {
+                name: ".github/workflows/ci.yml",
+                badge: "AUTOMATION",
+                badgeClass: "bg-indigo-500/20 text-indigo-300",
+                description: "GitHub에 코드가 올라왔을 때 기본 검사를 자동 실행하는 예시입니다.",
+                doc: "https://docs.github.com/en/actions",
+                content:
+`name: Check
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build`
+            }
+        };
+
+        function setHarnessMode(mode) {
+            const basicTree = document.getElementById('harness-basic-tree');
+            const projectTree = document.getElementById('harness-project-tree');
+            const basicButton = document.getElementById('harness-mode-basic');
+            const projectButton = document.getElementById('harness-mode-project');
+            const windowTitle = document.getElementById('harness-window-title');
+
+            if (mode === 'basic') {
+                basicTree.classList.remove('hidden');
+                projectTree.classList.add('hidden');
+                basicButton.className = 'px-5 py-2.5 rounded-full bg-navy text-white font-bold text-sm transition';
+                projectButton.className = 'px-5 py-2.5 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-sm transition';
+                windowTitle.textContent = 'MY-FIRST-WEB';
+                showHarnessFile('requirements');
+            } else {
+                basicTree.classList.add('hidden');
+                projectTree.classList.remove('hidden');
+                projectButton.className = 'px-5 py-2.5 rounded-full bg-navy text-white font-bold text-sm transition';
+                basicButton.className = 'px-5 py-2.5 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-sm transition';
+                windowTitle.textContent = 'MY-WEB-PROJECT';
+                showHarnessFile('agents');
+            }
+        }
+
+        function showHarnessFile(key) {
+            const data = harnessFiles[key];
+            if (!data) return;
+
+            document.querySelectorAll('.harness-file-btn').forEach(button => {
+                button.classList.remove('bg-blue-500/20', 'text-blue-200');
+                button.classList.add('text-gray-400');
+            });
+
+            const selected = Array.from(document.querySelectorAll('[data-harness-file]'))
+                .find(button => !button.closest('.hidden') && button.dataset.harnessFile === key);
+
+            if (selected) {
+                selected.classList.add('bg-blue-500/20', 'text-blue-200');
+                selected.classList.remove('text-gray-400');
+            }
+
+            const tab = document.getElementById('harness-file-tab');
+            const badge = document.getElementById('harness-file-badge');
+            const description = document.getElementById('harness-file-description');
+            const content = document.getElementById('harness-file-content');
+            const link = document.getElementById('harness-file-doc-link');
+
+            content.style.opacity = '0';
+
+            setTimeout(() => {
+                tab.textContent = data.name;
+                badge.textContent = data.badge;
+                badge.className = `inline-block text-[10px] font-bold tracking-widest px-2.5 py-1 rounded mb-2 ${data.badgeClass}`;
+                description.textContent = data.description;
+                content.textContent = data.content;
+
+                if (data.doc) {
+                    link.href = data.doc;
+                    link.classList.remove('hidden');
+                } else {
+                    link.classList.add('hidden');
+                }
+
+                content.style.opacity = '1';
+            }, 100);
+        }
+
+        /* =====================================================
+           INITIALIZE
+        ====================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            setHarnessMode('basic');
+            showStructure(1);
+        });
+    </script>
+
+</body>
+</html>
