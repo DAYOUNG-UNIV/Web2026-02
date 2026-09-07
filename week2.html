@@ -634,7 +634,7 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   <a href="#s9">9 Git·GitHub</a>
   <a href="#s10">10 AI 연결</a>
   <a href="#hw">과제</a>
-  <a href="#worktime">과제 착수 25분</a><a href="#todo">체크리스트</a>
+  <a href="#worktime">과제 작성 시작</a><a href="#todo">체크리스트</a>
   <a href="#next">다음 주</a>
 </div></nav>
 
@@ -667,7 +667,7 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   </div>
   <div class="ot-guide-section">
     <h2 class="ot-guide-title"><span class="pill">이번 과제 · AI ALLOWED</span></h2>
-    <p>AI 사용은 허용·권장하며, 가상 사례를 이용한 동등한 대체 활동도 가능합니다. 실제 개인정보나 비공개 자료를 외부 AI에 넣지 않습니다.</p>
+    <p>AI 사용은 허용·권장합니다. 활동에서는 실제 정보·가상 정보·플레이스홀더 중 원하는 방식을 사용할 수 있습니다. 최종 자기소개 페이지는 본인의 정보로 완성해 조별 자기소개와 토의에 사용합니다. AI에 실제 개인정보를 제공할 필요는 없습니다.</p>
   </div>
 </div>
 
@@ -3590,7 +3590,7 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   <p>활동 1에서는 AI 응답에 포함된 주장의 근거를 확인합니다. 응답만으로 저장된 메모리 전체를 검증할 수는 없으므로 입력에 근거한 사실과 추론을 구분합니다.</p>
 
   <h4>그렇다면 어떻게 해야 할까</h4>
-  <p>AI의 도움을 받으면서 제공하는 정보를 줄이는 방법을 비교합니다. 아래 전략을 출발점으로 실제 또는 가상 사례에 적용하고, 목적에 필요한 정보의 범위와 결과의 차이를 기록합니다.</p>
+  <p>AI의 도움을 받으면서 제공하는 정보를 줄이는 방법을 비교합니다. 아래 전략을 자신의 자기소개 작성에 적용하고, 목적에 필요한 정보의 범위와 결과의 차이를 기록합니다.</p>
 
   <div class="tblwrap">
   <table>
@@ -3611,7 +3611,7 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   <div class="box act">
     <span class="tag">한 걸음 더 — API는 왜 다를까</span>
     <p>학기 후반에 다룰 API 호출은 채팅 화면 없이 프로그램이 모델에 요청을 보내는 방식입니다. 개발자가 전송 내용을 설계할 수 있지만, 앱의 대화 저장·서비스 운영 로그·상태를 저장하는 API 기능은 별도로 확인해야 합니다. 전송·저장·모델 학습을 구분해 검토합니다.</p>
-    <p>AI 기능을 포함한 서비스를 개발할 때는 사용자 정보 중 무엇을 모델에 보낼지 설계해야 합니다. 이번 활동은 자신의 정보나 가상 정보를 대상으로 전송 범위를 정하는 연습이며, 이후 사용자 데이터를 다루는 설계와 연결됩니다.</p>
+    <p>AI 기능을 포함한 서비스를 개발할 때는 사용자 정보 중 무엇을 모델에 보낼지 설계해야 합니다. 이번 활동은 자신의 소개 내용 중 AI에 전달할 범위를 정하는 연습이며, 이후 사용자 데이터를 다루는 설계와 연결됩니다.</p>
   </div>
 
   <div class="box warn">
@@ -3635,41 +3635,52 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 <li><b>04 · 다시 열기</b><span>제출한 ZIP을 내려받아 확인</span><span>새 폴더에서 HTML 열기</span></li>
 </ol><p class="vfoot">GitHub 업로드와 웹사이트 공개는 이 경로에 포함되지 않습니다.</p></figure>
 
+<div class="box plain" id="activity-submission-scope"><span class="tag">활동과 최종 제출의 구분</span><p><strong>활동:</strong> AI에 전달하는 정보는 실제·가상·범주·플레이스홀더 중 자유롭게 선택합니다. 개인정보를 제공하지 않고 문서의 구조만 요청해도 됩니다.</p><p><strong>최종 제출:</strong> <code>index.html</code>은 본인의 이름 또는 수업에서 사용하는 이름, 실제 관심 분야와 경험, 이번 주의 웹사이트 아이디어로 완성합니다. 토의 그룹에서 이 페이지를 바탕으로 서로를 소개합니다. eTL에 제출하며 공개 웹사이트에는 올리지 않습니다.</p></div>
 <h3>활동 1 — AI가 말하는 ‘나’를 관찰하기</h3>
-<p>평소 사용하는 AI가 있다면 새 개인정보를 넣지 않고 아래처럼 물어볼 수 있습니다. <strong>메모리 기능을 새로 켜거나 과거 대화를 가져올 필요는 없습니다.</strong></p>
-<pre><code>현재 이 대화에서 참고할 수 있는 정보만으로 나를 소개해줘.
+<p>평소 사용하는 AI가 자신에 대해 어떤 정보를 참고하고 있는지 아래 요청으로 확인합니다. <strong>메모리 기능을 새로 켜거나 과거 대화를 가져올 필요는 없습니다.</strong></p>
+<pre><code>현재 참조할 수 있는 메모리나 대화 정보만으로 나를 소개해줘.
 새로운 정보를 추측하지 말고, 각 내용이 직접 제공된 사실인지
-추론인지 구분해줘. 확인할 수 없으면 없다고 말해줘.</code></pre>
+추론인지 구분해줘. 참고할 정보가 없으면 없다고 말해줘.</code></pre>
 <p>이 응답은 저장된 메모리 전체를 검증한 목록이 아닙니다. AI의 자기 설명도 틀릴 수 있습니다. 직접 알려준 사실, AI의 추론, 확인할 수 없는 주장을 구별해 관찰합니다. 응답을 최종 페이지의 초안으로 쓸 필요도 없습니다.</p>
-<div class="box plain"><span class="tag">계정이 없거나 개인 응답을 다루고 싶지 않을 때</span>
-<p><strong>동등한 대체 활동:</strong> 아래 교육용 가상 사례를 분석합니다. 실제 서비스에서 얻은 응답이 아니라 이 수업을 위해 만든 예시입니다. AI 미사용, 메모리 없음, 가상 사례 선택에 따른 평가 차이는 없습니다.</p>
-<div class="vgrid"><div><h4>입력된 정보</h4><p>“가상 인물 A는 미디어 관련 전공 학생이며, 이번 주 HTML을 배우기 시작했다.”</p></div><div><h4>가상의 응답</h4><p>“A는 미디어 전공 학생이며 HTML을 배우고 있다. 내성적이고 유명한 디자이너가 되고 싶어 한다.”</p></div></div>
-<details class="answer"><summary>분류 예시 보기</summary><p>전공과 HTML 학습은 입력에 근거가 있습니다. 성격과 진로 희망은 입력에 없는 주장입니다. 문장이 자연스럽다는 이유만으로 사실로 채택하지 않습니다.</p></details>
-<p>성찰 기록에는 결과 전체 대신 <strong>“근거 있는 항목 / 추론·오류 / 내가 제외한 내용”의 요약</strong>만 적습니다. 실제 민감한 내용은 “개인 경험 1건 삭제”처럼 범주로 기록해도 됩니다.</p></div>
+<div class="box plain"><span class="tag">AI가 참고할 내 정보가 없는 경우</span>
+<p>메모리를 사용하지 않았거나 이전 대화에 자기소개 정보가 없다면, <strong>그 사실과 확인한 이유를 성찰 기록에 적고 활동 1의 응답 분석을 생략합니다.</strong> 자기소개는 자신의 내용을 직접 작성합니다.</p>
+<ul><li>“메모리를 사용하지 않아 참고할 정보가 없음.”</li><li>“이전 대화에 나에 관한 정보가 없어 응답 분석을 생략함.”</li><li>원인을 확인할 수 없다면 “참고할 정보 없음 · 원인은 확인하지 못함”으로 기록합니다.</li></ul>
+<p>AI를 사용하지 않았거나 접속하지 못한 경우에도 해당 사유를 기록합니다. 활동에서 어떤 방식을 사용했든 최종 자기소개 페이지는 본인의 내용으로 작성합니다.</p>
+</div>
 
 <h3>활동 2 — AI에 알려줄 정보를 설계하고 비교하기</h3>
 <h4>단계 1 · 시작 전에 선을 긋기</h4>
 <p>아래 세 범위를 구별해 적습니다. “AI에게 주지 않을 것”에는 그 정보의 실제 값을 쓰지 말고 범주만 씁니다.</p>
 <ul><li><strong>페이지에 표현할 것:</strong> 가명, 관심 분야 등 내가 선택한 소개 내용</li><li><strong>AI에 전달할 것:</strong> 구조를 만드는 데 필요한 최소 정보</li><li><strong>제출 기록에 남길 것:</strong> 판단 이유, 수정 과정, 개인정보를 지운 짧은 예시</li></ul>
 <h4>단계 2 · 두 가지 방식으로 시도하기</h4>
-<p>비교에는 <strong>두 방식 모두 가상 인물</strong>을 사용해도 됩니다. 실명·학교·학년을 자세히 제공해야 좋은 평가를 받는 활동이 아닙니다. 아래 A와 B는 같은 출력 요구를 유지하면서 구체 정보의 양을 바꾼 예입니다.</p>
+<p><strong>비교 활동의 입력 방식은 자유롭게 선택합니다.</strong> 실제 정보, 가상 정보, 범주화한 정보, 플레이스홀더를 사용할 수 있습니다. 아래는 구체적인 정보와 범주·빈칸을 비교하는 예시입니다. 어떤 방식을 선택했는지 기록하며, 최종 자기소개 페이지는 활동 결과를 수정해 본인의 정보로 완성합니다.</p>
 <div class="vgrid prompt-pair">
-<div><span class="pill">방식 A · 구체적인 가상 정보</span><pre><code>아래 정보는 모두 가상이다.
-이름: 하늘 / 전공: 미디어 디자인
-관심: 인터랙티브 아트 / 취미: 클라이밍
+<div><span class="pill">방식 A · 구체적인 정보</span><pre><code>아래는 비교 활동에 사용할 정보다.
+정보 유형: [실제 정보 또는 가상 정보]
+관심 분야: [구체적인 관심 분야]
+최근 경험: [그 관심과 관련된 경험]
+취미: [비교에 사용할 취미]
 
 웹 자기소개에 쓸 제목 1개,
 소개 문단 2문장, 관심 분야 목록 3개를 작성해줘.
 입력에 없는 사실은 만들지 말고 [추가 입력]으로 남겨줘.</code></pre></div>
-<div><span class="pill">방식 B · 범주와 빈칸</span><pre><code>아래 정보는 모두 가상이다.
-이름: [이름] / 전공: 미디어 관련 전공
-관심: [관심 분야] / 취미: [취미]
+<div><span class="pill">방식 B · 범주와 빈칸</span><pre><code>내 자기소개를 작성하려고 한다.
+관심 분야: [같은 관심 분야를 넓은 범주로 표현]
+최근 경험: [경험의 종류만 표현]
+취미: [나중에 직접 입력]
 
 웹 자기소개에 쓸 제목 1개,
 소개 문단 2문장, 관심 분야 목록 3개를 작성해줘.
 입력에 없는 사실은 만들지 말고 [추가 입력]으로 남겨줘.</code></pre></div></div>
 <p>가능하면 같은 도구와 모델, 같은 출력 요구를 사용하고 각각 새 대화에서 실행합니다. B가 A의 내용을 참조하지 않도록 메모리·대화 참조 설정도 확인합니다. 완전히 통제하기 어렵다면 그 한계를 기록합니다. <strong>한 번의 비교만으로 정보량이 차이의 원인이라고 확정할 수는 없습니다.</strong></p>
-<div class="box plain"><span class="tag">AI를 사용하지 않는 동등한 비교 경로</span><p>가상의 결과 A: “하늘은 미디어 디자인을 공부합니다. 인터랙티브 아트와 클라이밍에 관심이 있습니다.”<br>가상의 결과 B: “[이름]은 미디어 관련 전공을 공부합니다. [관심 분야]와 [취미]에 관심이 있습니다.”</p><p>이 두 문장 틀을 직접 완성하고, 빈칸을 채우는 데 드는 노력과 정보 노출 차이를 비교합니다. 이것은 실제 모델 출력의 품질 실험이 아니라 <strong>정보 제공 전략을 분석하는 대체 활동</strong>이라고 표시합니다.</p></div>
+<div class="box plain"><span class="tag">비교 활동을 진행하지 못한 경우</span><p>AI를 사용하지 않거나 접속 문제로 비교를 진행하지 못했다면 성찰 기록에 사유와 진행한 범위를 적습니다. 실제 자신을 소개하는 HTML 작성은 계속 진행하며, 필요한 사항은 수업 중 또는 eTL로 질문합니다.</p></div>
+<div class="box plain" id="placeholder-workflow"><span class="tag">개인정보 없이 AI 초안을 만드는 방법</span><ol><li><strong>AI에 구조 요청:</strong> 이름·전공·관심 분야를 <code>[이름]</code>, <code>[전공]</code>, <code>[관심 분야]</code>처럼 표시하도록 요청합니다. 플레이스홀더는 나중에 실제 내용을 넣을 자리를 표시한 것입니다.</li><li><strong>내 HTML에서 직접 수정:</strong> 받은 코드를 <code>index.html</code>에 저장하고 편집기의 찾기 기능(Ctrl+F / Cmd+F)으로 각 표시를 찾아 본인의 내용으로 바꿉니다.</li><li><strong>제출 전 확인:</strong> 저장한 파일을 브라우저에서 열어 제목·문단·목록을 읽습니다. <code>title</code>과 웹사이트 아이디어 영역도 본인의 내용으로 완성했는지 확인합니다.</li></ol><details class="answer"><summary>AI 요청 예시 · 플레이스홀더로 HTML 만들기</summary><pre><code>자기소개 HTML 문서의 구조를 작성해줘.
+실제 개인정보는 제공하지 않을 것이므로
+이름, 전공, 관심 분야에는 [이름], [전공], [관심 분야]를 사용해줘.
+'만들고 싶은 웹사이트 · 2주차 아이디어' 영역에는
+[웹사이트 목적], [이용 대상], [내용·기능], [관심 이유]를 넣어줘.
+빈칸을 임의의 사실이나 가상 인물로 채우지 마.
+HTML을 받은 뒤 내 편집기에서 직접 내용을 입력할 거야.</code></pre></details><p>AI에 개인정보를 전달하지 않아도 최종 제출물은 본인의 소개로 완성할 수 있습니다. 성찰 기록에는 선택한 방식과 직접 수정한 부분을 적습니다.</p></div>
 <h4>단계 3 · 무엇이 달라졌는지 확인하기</h4>
 <div class="tblwrap"><table><caption>비교 기준 — “더 좋다” 대신 관찰 가능한 차이를 적습니다</caption><thead><tr><th scope="col">기준</th><th scope="col">기록할 내용</th></tr></thead><tbody>
 <tr><td>사실성</td><td>입력에 없는 정보가 만들어졌는가? 어떤 항목인가?</td></tr>
@@ -3680,9 +3691,16 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 <p>정보를 줄이면 반드시 결과가 나빠지는 것도, 자세히 주면 반드시 좋아지는 것도 아닙니다. <strong>어떤 정보가 어떤 목적에 필요한지</strong> 판단하는 것이 목표입니다. 범주화, 가명 처리, 구조만 요청 등 다른 방법을 고르면 이유도 적습니다.</p>
 
 <h3>최종 — 내가 표현하기로 선택한 나</h3>
-<p>활동 뒤 <code>index.html</code>을 작성합니다. 자신의 가명·활동명으로 소개하거나 개인정보가 없는 가상 인물로 구성해도 됩니다. 사진·실명·연락처는 필수가 아닙니다. AI의 문장을 고치고 지우며, 남긴 요소의 역할을 설명할 수 있게 만드세요.</p>
+<p>활동 뒤 <code>index.html</code>에 <strong>실제 자신을 소개하는 내용</strong>을 작성합니다. 조원이 누구의 소개인지 알 수 있도록 이름 또는 수업에서 사용하는 이름을 적고, 자신의 관심 분야·경험·취미 등 소개하고 싶은 내용을 선택합니다. 사진·연락처·상세한 개인사는 필수가 아닙니다. AI의 응답은 사실과 의도에 맞게 수정하며, 작성한 요소의 역할을 설명합니다.</p>
+<div class="box plain" id="project-idea-guide">
+<span class="tag">내용 조건 · 이번 주의 개인 프로젝트 아이디어</span>
+<p>자기소개 페이지에 <strong>“만들고 싶은 웹사이트 · 2주차 아이디어”</strong>라는 제목의 영역을 추가합니다. 개인 프로젝트로 만들고 싶은 웹사이트를 상상해 <strong>3–5문장 또는 짧은 목록</strong>으로 작성합니다.</p>
+<ul><li><strong>주제와 목적:</strong> 어떤 웹사이트를 만들고 싶은가?</li><li><strong>이용 대상과 내용:</strong> 누가 이용하며, 어떤 내용이나 기능 1–2개를 제공할 것인가?</li><li><strong>관심을 갖게 된 이유:</strong> 이 아이디어가 자신의 관심 분야와 어떻게 연결되는가?</li></ul>
+<p><strong>2주차 시점의 아이디어이며, 이후 수업과 피드백을 통해 변경할 수 있습니다.</strong> 이번에는 아이디어를 글로 설명합니다. 기능 구현이나 사용할 기술의 선정은 요구하지 않습니다. 웹사이트 아이디어는 본인의 현재 관심을 바탕으로 적습니다.</p>
+<details class="answer"><summary>작성 예시 · 전시 관람 기록 웹사이트</summary><p>전시를 본 뒤 인상 깊었던 작품과 생각을 모아 두는 웹사이트를 만들고 싶습니다. 전시를 자주 보는 학생이 자신의 관람 기록을 정리할 수 있도록 전시별 기록과 주제별 목록을 제공하고 싶습니다. 이미지와 짧은 글을 함께 배치하는 방식에 관심이 있어 이 주제를 생각했습니다. 이번 주에 구상한 아이디어이며 이후 변경할 수 있습니다.</p></details>
+</div>
 <h4>요구사항</h4>
-<ul class="check"><li><code>&lt;!DOCTYPE html&gt;</code>, <code>lang="ko"</code>, UTF-8, viewport, title이 있는 온전한 HTML 문서</li><li>이 과제의 주제 제목 <code>h1</code> 하나와 내용에 맞는 <code>h2</code>; 필요하면 그 아래 <code>h3</code></li><li>소개 문단 <code>p</code>, <code>ul</code> 또는 <code>ol</code> 목록 하나 이상, 의미 있는 이름의 링크 <code>a</code> 하나 이상</li><li><code>main</code> 등 내용에 맞는 시맨틱 요소 하나 이상; 요소를 많이 넣는 것이 목표는 아님</li><li>이미지를 쓰면 직접 만들거나 사용 조건이 맞는 이미지와 맥락에 맞는 <code>alt</code>; 장식 이미지라면 <code>alt=""</code></li><li><code>README.md</code>와 <code>REFLECTION.md</code> 작성. AI를 쓰지 않았으면 그 사실과 대체 활동을 기록</li></ul>
+<ul class="check"><li><strong>실제 자신을 소개하는 내용:</strong> 이름 또는 수업에서 사용하는 이름과 자신의 관심 분야·경험 등을 작성. 조별 토의에서 서로를 소개하는 자료로 활용. 활동에 쓴 가상 인물이나 미입력 플레이스홀더를 최종 소개에 남기지 않음</li><li><strong>개인 프로젝트로 만들고 싶은 웹사이트 아이디어:</strong> 주제·목적, 이용 대상, 내용이나 기능 1–2개, 관심 이유를 소개 페이지 본문에 작성. 2주차 시점의 초안이며 이후 변경 가능</li><li><code>&lt;!DOCTYPE html&gt;</code>, <code>lang="ko"</code>, UTF-8, viewport, title이 있는 온전한 HTML 문서</li><li>이 과제의 주제 제목 <code>h1</code> 하나와 내용에 맞는 <code>h2</code>; 필요하면 그 아래 <code>h3</code></li><li>소개 문단 <code>p</code>, <code>ul</code> 또는 <code>ol</code> 목록 하나 이상, 의미 있는 이름의 링크 <code>a</code> 하나 이상</li><li><code>main</code> 등 내용에 맞는 시맨틱 요소 하나 이상; 요소를 많이 넣는 것이 목표는 아님</li><li>이미지를 쓰면 직접 만들거나 사용 조건이 맞는 이미지와 맥락에 맞는 <code>alt</code>; 장식 이미지라면 <code>alt=""</code></li><li><code>README.md</code>와 <code>REFLECTION.md</code> 작성. AI를 쓰지 않았으면 그 사실과 직접 작성한 과정을 기록</li></ul>
 
 <h4>제출 폴더</h4>
 <div class="tree">학번_이름_week02.zip
@@ -3691,10 +3709,10 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
     ├── <b>README.md</b>        ← 파일과 실행 방법
     ├── <b>REFLECTION.md</b>    ← 활동 1·2, 판단과 수정 기록
     └── images/          ← 이미지가 있을 때만</div>
-<p>학번과 이름은 eTL 제출 파일명에서만 사용합니다. HTML 본문·가상 인물 프롬프트·이미지 파일명에 반복해 넣을 필요는 없습니다. 세 파일 모두 <strong>eTL 제출용</strong>입니다.</p>
+<p>학번과 이름은 eTL 제출 파일명에 사용합니다. HTML 본문에는 조원이 알아볼 수 있는 이름을 적되, 학번·연락처 등은 반복해 넣을 필요가 없습니다. 세 파일 모두 <strong>eTL 제출용</strong>이며 GitHub 등에는 공개하지 않습니다.</p>
 <details class="answer" open><summary>README.md 양식</summary><pre><code># HTML 자기소개 페이지
 ## 소개
-(표현하기로 선택한 내용과 문서 구조)
+(자기소개, 2주차 웹사이트 아이디어와 문서 구조)
 ## 파일과 실행
 - index.html: 브라우저에서 열기
 - REFLECTION.md: 활동과 수정 기록
@@ -3710,7 +3728,8 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 <details class="answer" open><summary>REFLECTION.md 양식</summary><pre><code># 활동과 수정 기록
 ## 활동 경로
 - 사용 도구·모델(확인 가능한 경우) 또는 AI 미사용:
-- 실제 계정 응답 / 가상 사례 중 선택:
+- AI가 참고할 내 정보의 유무:
+- 정보가 없거나 응답 분석을 생략한 경우의 사유:
 ## 활동 1
 - 근거 있는 항목:
 - 추론·오류·불확실한 항목:
@@ -3719,6 +3738,7 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 - 페이지에 표현할 것:
 - AI에 전달할 것:
 - AI에 전달하지 않을 정보의 범주:
+- 활동에 사용한 정보 유형(실제·가상·범주·플레이스홀더):
 - A와 B의 전략 및 개인정보를 지운 프롬프트 요약:
 - 사실성 / 구조 / 구체성 / 수정 노력 비교:
 - 비교 조건과 한계:
@@ -3732,8 +3752,8 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 <ol><li>완성 폴더를 ZIP으로 압축합니다. 파일 하나씩 올리지 않습니다.</li><li><strong>9월 14일 (월) 23:59까지</strong> eTL의 해당 과제 게시판에 올리고 최종 제출 상태를 확인합니다.</li><li>가능하면 제출 파일을 다시 내려받아 다른 폴더에서 압축을 풀고 <code>index.html</code>을 엽니다.</li></ol>
 <p><strong>제출 여부만 확인하며 완성도에 따라 점수를 나누지 않습니다.</strong> 위 요구사항과 기록은 학습 완료를 점검하고 피드백하기 위한 기준입니다. 유료 도구, 실제 개인정보, AI 사용 여부, 공개 여부로 평가 차이를 두지 않습니다. 누락된 항목은 피드백에 따라 보완합니다.</p>
 <h4>제출 전에 확인할 것</h4>
-<ul class="check"><li>UTF-8로 저장했고 한글이 잘 보인다.</li><li>제목 계층과 목록 선택 이유를 말할 수 있다.</li><li>Tab으로 링크에 이동하고 Enter로 열 수 있다.</li><li>이미지 경로·대소문자·확장자가 실제 파일과 일치한다.</li><li>전체 대화, API 키, 비밀번호, 불필요한 개인정보가 남아 있지 않다.</li><li>압축을 푼 새 폴더에서도 열린다. 제출 완료 상태를 확인했다.</li></ul>
-<p>표준 문법은 <a href="https://validator.w3.org/nu/">Nu HTML Checker</a>로 추가 점검할 수 있습니다. 온라인 검사기에 파일을 올리는 것도 외부 전송이므로, <strong>개인정보를 지운 가상 예제 사본</strong>으로 검사합니다. 검사 통과가 접근성·내용·경로까지 보장하지는 않습니다.</p>
+<ul class="check"><li>UTF-8로 저장했고 한글이 잘 보인다.</li><li>소개 본문의 플레이스홀더를 본인의 정보로 바꾸고, title·제목·문단·목록에 다른 인물의 정보나 예시 문구가 남지 않았는지 확인했다.</li><li>제목 계층과 목록 선택 이유를 말할 수 있다.</li><li>만들고 싶은 웹사이트의 목적·대상·내용과 관심 이유를 적고, 이번 주 시점의 아이디어임을 표시했다.</li><li>Tab으로 링크에 이동하고 Enter로 열 수 있다.</li><li>이미지 경로·대소문자·확장자가 실제 파일과 일치한다.</li><li>전체 대화, API 키, 비밀번호, 불필요한 개인정보가 남아 있지 않다.</li><li>압축을 푼 새 폴더에서도 열린다. 제출 완료 상태를 확인했다.</li></ul>
+<p>표준 문법은 <a href="https://validator.w3.org/nu/">Nu HTML Checker</a>로 추가 점검할 수 있습니다. 온라인 검사기에 파일을 올리는 것도 외부 전송이므로, <strong>개인정보를 지운 검사 전용 사본</strong>으로 검사합니다. 검사 통과가 접근성·내용·경로까지 보장하지는 않습니다.</p>
 
 <h4>이미지를 넣는다면 — 원본과 사용 조건 함께 확인하기</h4>
 <p>직접 찍거나 그린 것, 또는 사용이 허락된 이미지를 고릅니다. 나중에 별도 프로젝트를 전시할 때도 출처를 추적할 수 있도록 <code>README.md</code>에 제작자, 원문 링크, 확인한 사용 조건을 적어두세요. 이미지 사용은 이번 과제의 필수 조건이 아닙니다.</p>
@@ -3804,26 +3824,27 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   <h3>생각해올 질문</h3>
   <p>다음 주 조별 토의에서 다룰 질문입니다. 조원들에게 말로 설명할 수 있을 정도면 됩니다.</p>
   <ol>
-    <li>AI의 응답 또는 가상 사례의 인물과 내가 표현한 인물은 어떻게 달랐나요?</li>
+    <li>AI가 소개한 나와 내가 직접 소개한 나는 어떻게 달랐나요? 참고할 정보가 없었다면 무엇을 소개할지 어떤 기준으로 골랐나요?</li>
     <li>AI는 무엇을 중요하게 봤고, 나는 무엇을 중요하게 여겼나요?</li>
     <li><strong>정보를 아껴서 줬을 때 결과물이 정말 나빠졌나요?</strong> 어디가 어떻게?</li>
     <li>AI가 좋은 결과를 내기 위해 정말 내 개인정보를 알아야 했나요?</li>
     <li>웹에서 '나를 소개한다'는 것은 사실을 나열하는 것과 어떻게 다를까요?</li>
+    <li>만들고 싶은 웹사이트는 누구에게 어떤 경험을 제공하나요? 이를 만들기 위해 앞으로 무엇을 배우고 싶나요?</li>
   </ol>
 </section>
 
 <!-- ================= 체크리스트 ================= -->
 
-<section id="worktime"><span class="snum">수업 중 과제 착수 · 12:15–12:40</span><h2>25분 동안, 제출할 초안을 시작합니다</h2>
-<p class="sublede">오늘의 완료 지점은 HTML 초안과 짧은 활동 기록입니다. 최종 완성·보완 후 eTL 제출은 9월 14일 23:59까지입니다.</p>
-<figure class="vcard"><figcaption class="vtitle">완성하기보다 한 번 끝까지 연결하기</figcaption><ol class="vflow">
-<li><b>0–5분 · 정하기</b><span>가명·가상 인물 선택</span><span>표현할 정보 3개와 제외할 범주를 적기</span></li>
-<li><b>5–15분 · 만들기</b><span>h1 · h2 · p · 목록 · 링크</span><span>초안을 직접 쓰거나 AI 초안을 검토·수정</span></li>
-<li><b>15–22분 · 비교하기</b><span>활동 1 + A/B 비교 시작</span><span>가상 사례 사용 가능 · 차이 한 가지 기록</span></li>
-<li><b>22–25분 · 확인하기</b><span>저장 → 브라우저 확인</span><span>고친 것·남은 일 한 줄씩 남기기</span></li></ol></figure>
-<div class="box act"><span class="tag">시작 파일</span><p><a id="starter-download" class="btn" download="week02-starter.zip" href="data:application/zip;base64,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">실습 시작 파일 ZIP 내려받기</a>를 풀고 <code>index.html</code>을 브라우저와 편집기에서 엽니다. 같은 폴더의 README와 성찰 기록 틀을 작성합니다. 시작 파일을 그대로 제출하는 것이 완료 목표는 아닙니다.</p><p>설치가 막히면 <a href="#lab">HTML 실험실</a>에서 먼저 작성하고 HTML 파일을 내려받습니다. AI 접속이 막히면 과제의 가상 사례로 진행합니다.</p></div>
-<ul class="check"><li>제목과 문단, 목록, 링크가 있는 초안을 열었다.</li><li>내가 선택하거나 바꾼 요소 하나의 이유를 말할 수 있다.</li><li>개인정보를 지운 비교 관찰 한 가지와 남은 일을 기록했다.</li></ul>
-<details class="answer"><summary>먼저 끝났다면 · 내용을 더 늘리지 않고 검증하기</summary><p>목록을 ul에서 ol로 바꿔 순서가 의미를 갖는지 판단합니다. 링크 이름만 읽어도 목적을 알 수 있는지, Tab으로 이동할 수 있는지 확인합니다. 필요하면 pages/about.html을 하나 만들고 상대경로를 직접 시험합니다. AI 제안 중 채택하지 않은 것 한 가지의 이유도 적을 수 있습니다.</p></details>
+<section id="worktime"><span class="snum">과제 작성 시작하기</span><h2>자기소개 페이지의 초안을 작성합니다</h2>
+<p class="sublede">수업 진행 상황에 따라 가능한 범위까지 작성하고, 남은 작업은 수업 후 이어서 진행합니다. 아래 순서를 참고해 현재 작성한 내용과 다음 할 일을 기록합니다. 최종 완성·보완 후 eTL 제출은 9월 14일 23:59까지입니다.</p>
+<figure class="vcard"><figcaption class="vtitle">과제 작성 순서</figcaption><ol class="vflow">
+<li><b>1 · 내용 정하기</b><span>자신의 소개 내용 선택</span><span>표현할 정보 3개·제외할 범주·웹사이트 아이디어 한 줄 적기</span></li>
+<li><b>2 · HTML 작성하기</b><span>h1 · h2 · p · 목록 · 링크</span><span>자기소개·아이디어를 직접 작성하거나 AI 초안을 검토·수정</span></li>
+<li><b>3 · AI 활동·비교하기</b><span>활동 1 + A/B 비교 시작</span><span>참고 정보가 없으면 사유 기록 · 가능한 범위에서 비교</span></li>
+<li><b>4 · 저장하고 확인하기</b><span>저장 → 브라우저 확인</span><span>고친 것·남은 일 한 줄씩 남기기</span></li></ol></figure>
+<div class="box act"><span class="tag">시작 파일</span><p><a id="starter-download" class="btn" download="week02-starter.zip" href="data:application/zip;base64,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">실습 시작 파일 ZIP 내려받기</a>를 풀고 <code>index.html</code>을 브라우저와 편집기에서 엽니다. 같은 폴더의 README와 성찰 기록 틀을 작성합니다. 시작 파일을 그대로 제출하는 것이 완료 목표는 아닙니다.</p><p>설치가 막히면 <a href="#lab">HTML 실험실</a>에서 먼저 작성하고 HTML 파일을 내려받습니다. AI 접속이 막히면 사유를 기록하고 자신의 소개와 웹사이트 아이디어를 직접 작성합니다.</p></div>
+<h3>진행 상황 점검</h3><p>진행한 항목을 확인하고, 아직 다루지 못한 항목은 다음 할 일로 남깁니다.</p><ul class="check"><li>제목과 문단, 목록, 링크가 있는 초안을 열었다.</li><li>만들고 싶은 웹사이트 아이디어를 한 줄 이상 적었다.</li><li>내가 선택하거나 바꾼 요소 하나의 이유를 말할 수 있다.</li><li>개인정보를 지운 비교 관찰 한 가지와 남은 일을 기록했다. 제출 전에는 소개 본문의 빈칸을 본인의 정보로 바꾼다.</li></ul>
+<details class="answer"><summary>초안을 작성했다면 · 구조와 동작 점검하기</summary><p>목록을 ul에서 ol로 바꿔 순서가 의미를 갖는지 판단합니다. 링크 이름만 읽어도 목적을 알 수 있는지, Tab으로 이동할 수 있는지 확인합니다. 필요하면 pages/about.html을 하나 만들고 상대경로를 직접 시험합니다. AI 제안 중 채택하지 않은 것 한 가지의 이유도 적을 수 있습니다.</p></details>
 </section>
 
 <section id="exit"><span class="snum">Exit ticket · 3분</span><h2>오늘의 이해를 네 문장으로</h2><p class="sublede">해설을 확인하기 전에 설명합니다. 옆 사람에게 설명하거나 자신의 노트에 적습니다.</p>
@@ -3835,18 +3856,15 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
 <section id="todo">
   <span class="snum">마무리</span>
   <h2>오늘 끝나기 전에</h2>
-  <p class="sublede">여기저기서 나온 할 일을 한 곳에 모았습니다.</p>
+  <p class="sublede">과제 작성을 시작하고, 이번 주에 이어서 할 일을 확인합니다.</p>
 
   <div class="todo">
     <div class="it now"><span class="bx"></span>
-      <span class="tx">QuizN 설문 · 진단 평가 응답<small>조 편성에 쓰입니다. 미응답자는 수업 중 또는 eTL로 담당자에게 알립니다</small></span>
-      <span class="wh">수업 중</span></div>
-    <div class="it now"><span class="bx"></span>
-      <span class="tx">VS Code 설치하고 <code>week02-intro</code> 폴더 열어두기<small>Live Server 확장까지</small></span>
-      <span class="wh">수업 중</span></div>
-    <div class="it now"><span class="bx"></span>
-      <span class="tx">Codex 확장과 학교 계정 이용 가능 여부 확인<small>접속이 막히면 HTML 실험실·가상 사례로 동일하게 참여</small></span>
-      <span class="wh">수업 중</span></div>
+      <span class="tx"><a href="#worktime">자기소개 과제 작성 시작하기</a><small>소개 내용과 2주차 웹사이트 아이디어를 적고 HTML 초안을 저장합니다. 남은 작업도 기록합니다.</small></span>
+      <span class="wh">오늘 시작</span></div>
+    
+    
+    
     <div class="it soon"><span class="bx"></span>
       <span class="tx">GitHub 가입 · 학교 메일 등록<small>사용자 이름은 오래 씁니다. 신중하게</small></span>
       <span class="wh">이번 주</span></div>
@@ -3877,14 +3895,15 @@ caption{text-align:left;padding:12px;font-size:13px;color:var(--muted);backgroun
   <div class="flow">
     <ol>
       <li><span class="step">1</span><span class="what"><strong>조 발표</strong> — QuizN 설문 결과로 짠 조를 공개합니다</span><span class="who">10분</span></li>
-      <li><span class="step">2</span><span class="what">조원끼리 <strong>공유에 동의한 페이지나 가상 예제를 열어보기</strong>. 설명은 나중에, 일단 보기만</span><span class="who">10분</span></li>
-      <li><span class="step">3</span><span class="what">다섯 가지 질문으로 <strong>조별 토의</strong></span><span class="who">25분</span></li>
+      <li><span class="step">2</span><span class="what"><strong>제출한 자기소개 페이지로 서로 소개하기</strong> — 관심 분야와 이번 주의 웹사이트 아이디어를 나눕니다</span><span class="who">10분</span></li>
+      <li><span class="step">3</span><span class="what">여섯 가지 질문으로 <strong>조별 토의</strong></span><span class="who">25분</span></li>
       <li><span class="step">4</span><span class="what"><strong>조별 발표</strong> — 조당 2~3분</span><span class="who">20분</span></li>
       <li><span class="step">5</span><span class="what"><strong>우리 반의 AI 활용 원칙</strong> 함께 만들기</span><span class="who">10분</span></li>
       <li><span class="step">6</span><span class="what">그리고 <strong>CSS</strong> 시작</span><span class="who">남은 시간</span></li>
     </ol>
   </div>
 
+<p>조별 토의에서는 공유에 동의한 웹사이트 아이디어를 살펴보고 공통 관심 주제와 앞으로 배우고 싶은 기능을 정리합니다. 이번 주의 아이디어는 확정된 프로젝트 계획이 아닙니다.</p>
   <h4>조별 발표에서 말할 것 두 가지</h4>
   <ol>
     <li>내용과 HTML 구조의 관계가 명확한 페이지 1개를 조에서 선정하고 이유를 설명합니다.</li>
@@ -4439,7 +4458,7 @@ Object.keys(ANAT).forEach(function(id){
   var PRE={
 readme:"# 나를 소개합니다\n\n서울대학교 정보문화학과에서 웹프로그래밍개론을 듣고 있습니다.\n\n## 이 저장소는\n\nHTML만으로 만든 자기소개 페이지입니다. CSS는 아직 쓰지 않았습니다.\n\n- `index.html` — 자기소개 페이지\n- `README.md` — 이 문서\n\n## 만들면서 배운 것\n\n1. `h1`은 글씨 크기가 아니라 문서의 가장 상위 제목이다\n2. `alt`은 맥락에 필요한 이미지 정보를 글로 대신한다\n3. 한글 파일명도 가능하지만 실습은 소문자 영문과 하이픈으로 통일한다\n\n## 남은 일\n\n- [x] 자기소개 문단 쓰기\n- [x] 관심 분야 목록 추가\n- [ ] 사진 넣기\n- [ ] 압축을 풀어 확인하고 eTL에 제출하기\n\n> AI에게 구조만 물어보고 내용은 직접 썼습니다.\n\n[MDN에서 HTML 찾아보기](https://developer.mozilla.org/ko/)\n",
 syntax:"# 제목 1\n## 제목 2\n### 제목 3\n\n**굵게** 그리고 *기울임*, 문장 속 `코드`.\n\n- 순서 없는 목록\n- 두 번째\n\n1. 순서 있는 목록\n1. 번호를 다 1로 써도\n1. 알아서 매겨집니다\n\n- [x] 끝난 일\n- [ ] 아직 안 한 일\n\n> 인용문은 이렇게 씁니다.\n\n| 태그 | 뜻 |\n|---|---|\n| h1 | 가장 상위 제목 |\n| p | 문단 |\n\n```\n<p>코드 덩어리</p>\n```\n\n---\n\n[링크](https://developer.mozilla.org/ko/)\n",
-hw:"# 활동과 수정 기록\n\n## 활동 경로\n- AI 도구 또는 AI 미사용:\n- 실제 응답 또는 가상 사례:\n\n## 활동 1\n- 근거 있는 항목:\n- 추론·오류:\n- 제외한 내용의 범주:\n\n## 활동 2\n- 표현할 정보 / 전달할 정보:\n- A와 B의 프롬프트 요약:\n- 사실성 / 구조 / 구체성 / 수정 노력:\n- 비교 조건과 한계:\n\n## 직접 수정한 것과 확인 결과\n\n## 주요 발견\n\n전체 대화와 민감한 정보는 첨부하지 않습니다. eTL에만 제출하며 GitHub에 올리지 않습니다.\n"
+hw:"# 활동과 수정 기록\n\n## 활동 경로\n- AI 도구 또는 AI 미사용:\n- AI가 참고할 내 정보의 유무:\n- 정보가 없거나 응답 분석을 생략한 사유:\n\n## 활동 1\n- 근거 있는 항목:\n- 추론·오류:\n- 제외한 내용의 범주:\n\n## 활동 2\n- 표현할 정보 / 전달할 정보:\n- 정보 유형(실제·가상·범주·플레이스홀더):\n- A와 B의 프롬프트 요약:\n- 사실성 / 구조 / 구체성 / 수정 노력:\n- 비교 조건과 한계:\n\n## 직접 수정한 것과 확인 결과\n\n## 주요 발견\n\n전체 대화와 민감한 정보는 첨부하지 않습니다. eTL에만 제출하며 GitHub에 올리지 않습니다.\n"
   };
   function draw(){ out.srcdoc=protectedPreview(render(ta.value),false); }
   ta.addEventListener("input",draw);
