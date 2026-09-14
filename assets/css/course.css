@@ -1,0 +1,67 @@
+/* Optional web fonts shared by all weeks; system fonts remain available offline. */
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap");
+
+/* Web Programming · shared course design
+   Week 02 is the visual reference. Edit this file to update every linked week.
+   The HTML/CSS inside code labs is teaching material and remains in each page.
+*/
+:root{
+
+  --paper:#F4F6F5; --surface:#FFFFFF; --sunken:#EAEFEE;
+  --ink:#131A1B; --ink-2:#39494A; --muted:#637375;
+  --line:#D9E0DF; --line-soft:#E8EDEC;
+  --solo:#1B6E68; --solo-bg:#E4EFED;
+  --show:#9D2A62; --show-bg:#F6E6EE;
+  --team:#2E4E9E; --team-bg:#E4EAF6;
+  --warn:#8A5A00; --warn-bg:#F8EEDA;
+  --ok:#1B6E68; --bad:#A33A2A;
+  --code-bg:#12201F; --code-ink:#DCE8E6;
+  --code-tag:#7FD1C4; --code-attr:#E4A0BF; --code-str:#C9D98A; --code-cmt:#9FB7B1;
+  --display:"Gothic A1","IBM Plex Sans KR",'Apple SD Gothic Neo',system-ui,sans-serif;
+  --sans:"IBM Plex Sans KR",'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --course-reading-width:1020px;
+  --course-reading-gutter:30px;
+  --course-body-size:16.5px;
+  --course-body-leading:1.72;
+  --course-radius:4px;
+  --course-section-space:74px;
+  /* Compatibility names used by Week 03 interactive components. */
+  --green:var(--solo); --green-bg:var(--solo-bg);
+  --blue:var(--team); --blue-bg:var(--team-bg);
+  --pink:var(--show); --pink-bg:var(--show-bg);
+  --amber:var(--warn); --amber-bg:var(--warn-bg);
+  --code:var(--code-bg);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:var(--course-body-size);
+  line-height:var(--course-body-leading);letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;
+}
+h1,h2,h3,h4,h5,h6{font-family:var(--display)}
+h1,h2{font-weight:800;letter-spacing:-.028em}
+a{color:var(--solo);text-underline-offset:3px}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--show);outline-offset:3px}
+code,pre,kbd{font-family:var(--mono)}
+pre code{background:none;padding:0;color:inherit}
+html[data-course-view="read"] :is(.wrap,.reading){
+  max-width:var(--course-reading-width);margin-inline:auto;
+}
+html[data-course-view="read"] :is(.box,.note,.task,.demo,.lab,.card,.render-card){
+  border-radius:var(--course-radius);
+}
+html[data-course-view="read"] :is(.box,.note,.task){line-height:1.6}
+html[data-course-view="read"] :is(.box,.note,.task) p:last-child{margin-bottom:0}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*::before,*::after{scroll-behavior:auto!important}
+}
+
+/* Korean prose wraps between words; long URLs can still wrap to fit the screen. */
+html[data-course-view="read"] :is(.wrap,.lesson-content) :is(p,li){
+  word-break:keep-all;overflow-wrap:break-word;
+}
