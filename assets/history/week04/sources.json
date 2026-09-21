@@ -1,0 +1,35 @@
+{
+  "source": "02_A Brief History of Web_HTML_CSS_JS.pdf",
+  "images": [
+    {
+      "file": "nexus.png",
+      "page": 3,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    },
+    {
+      "file": "mosaic.jpg",
+      "page": 10,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    },
+    {
+      "file": "hakon.jpg",
+      "page": 38,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    },
+    {
+      "file": "css1.png",
+      "page": 39,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    },
+    {
+      "file": "netscape-notice.jpg",
+      "page": 54,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    },
+    {
+      "file": "firefox.png",
+      "page": 60,
+      "treatment": "embedded image extracted, re-encoded without cropping"
+    }
+  ]
+}
