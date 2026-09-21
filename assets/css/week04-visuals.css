@@ -1,0 +1,48 @@
+/* Shared by the reading and Show versions of Week 04. */
+.pdf-visual{border:1px solid #b7cec8;border-radius:12px;background:#f6f9f7;padding:18px;margin:18px 0;color:#173c35;min-width:0}
+.pdf-visual h4{margin:0 0 12px;font-size:1.05rem}
+.pv-choices{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.pv-choices button,.pv-footer button{appearance:none;border:1px solid #adc3bd;border-radius:6px;padding:7px 12px;background:#fff;color:#24483f;font:inherit;font-size:.86rem;line-height:1.4;cursor:pointer;text-align:left}
+.pv-choices button[aria-pressed=true]{background:#225d53;color:white;border-color:#225d53}
+.pdf-visual button:focus-visible,.pdf-visual select:focus-visible{outline:3px solid #c08b21;outline-offset:3px}
+.pv-controls:empty{display:none}
+.pv-controls{margin:0 0 10px}
+.pv-controls label{display:flex;align-items:center;gap:10px;font-size:.85rem}
+.pv-controls select{padding:5px 10px;border:1px solid #9ab5ac;border-radius:5px;background:white;color:#173c35;font:inherit}
+.pv-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(230px,1fr);gap:16px;align-items:start}
+.pv-preview{min-width:0;border:1px solid #ccdad6;border-radius:8px;background:white;overflow:hidden}
+.pv-screen-label{display:block;padding:6px 12px;border-bottom:1px solid #dce5e1;background:#edf3f0;font-size:.76rem;color:#47655d}
+.pv-preview iframe{display:block;width:100%;height:270px;border:0;background:white}
+.pv-measure{display:block;font:600 .79rem/1.6 system-ui,sans-serif;color:#3d574f;padding:8px 12px;background:#fff7e3;border-top:1px solid #eadfc4;overflow-wrap:anywhere}
+.pv-measure:empty{display:none}
+.pv-reading{min-width:0}
+.pdf-visual .pv-code{margin:0;padding:14px;font:13px/1.6 Consolas,monospace;max-height:240px;overflow:auto;background:#17372f;color:#e6f4ee;border-radius:7px;white-space:pre;word-break:normal}
+.pdf-visual .pv-code code{padding:0;background:none;color:inherit;font:inherit}
+.pdf-visual .pv-explanation{margin:12px 0 0;font-size:.94rem;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+.pv-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #dce5e1;padding-top:10px;margin-top:12px}
+.pv-footer span{font-size:.77rem;color:#546d65}
+.pv-footer button{flex-shrink:0;font-size:.78rem}
+.mode-show .pdf-visual{padding:12px;margin:10px 0}
+.mode-show .pdf-visual h4{font-size:17px;margin-bottom:9px}
+.mode-show .pv-choices{gap:5px;margin-bottom:9px}
+.mode-show .pv-choices button{padding:5px 9px;font-size:13px}
+.mode-show .pv-layout{grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:13px}
+.mode-show .pv-preview iframe{height:252px}
+.mode-show .pv-explanation{font-size:15px;line-height:1.55;margin-top:10px}
+.mode-show .pv-code{font-size:13px;line-height:1.5;max-height:205px;padding:11px}
+.mode-show .pv-footer{padding-top:7px;margin-top:8px}
+.mode-show .pv-measure{font-size:12px;line-height:1.45;padding:6px 9px}
+.mode-show .pdf-visual+.note{font-size:14px;padding:10px;line-height:1.5}
+.mode-show .pdf-visual~.source{display:inline-block;font-size:11px;margin:4px 12px 0 0}
+@media(max-width:760px){
+ .mode-read .pdf-visual{padding:12px}
+ .mode-read .pv-layout{grid-template-columns:minmax(0,1fr)}
+ .mode-read .pv-preview iframe{height:270px}
+ .mode-read .pv-explanation{font-size:14px}
+ .mode-read .pv-choices button{font-size:12px;padding:6px 8px}
+ .mode-read .pv-footer span{max-width:65%}
+}
+@media(prefers-reduced-motion:reduce){.pdf-visual *{scroll-behavior:auto!important}}
+
+.pv-pan-hint{display:none}
+@media(max-width:760px){.mode-read .pv-pan-hint{display:block;margin-top:4px;color:#365d52}}
