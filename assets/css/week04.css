@@ -511,3 +511,12 @@
 
 /* Keep the class sequence readable within the presentation viewport. */
 .mode-show #week4-progression td,.mode-show #week4-progression th{padding:7px 12px;font-size:15px;line-height:1.4}.mode-show #week4-progression .note{font-size:14px;line-height:1.55;padding:12px 15px}
+
+/* Late-class archive activity: keep three discussion points in one Show row. */
+.mode-show [data-reading-part="part-team-readme"] .cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mode-show [data-reading-part="part-team-readme"] .card{padding:20px}
+.mode-show [data-reading-part="part-team-readme"] .card p{font-size:20px;line-height:1.6}
+.mode-show [data-reading-part="part-team-readme"] .source{display:inline-block;margin:8px 15px 0 0;font-size:14px}
+
+.mode-show #assignment-criteria table{font-size:18px}.mode-show #assignment-criteria td,.mode-show #assignment-criteria th{padding:10px 14px}.mode-show #assignment-criteria .note{font-size:18px;padding:12px 16px}.mode-show #assignment-criteria .lesson-content>p:last-child{font-size:17px}
+.mode-show #submission pre{font-size:16px;line-height:1.45}
