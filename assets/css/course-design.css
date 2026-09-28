@@ -7292,6 +7292,153 @@ html:where([data-course-ui~="classic"]) {scroll-padding-top:90px}
 :where(html[data-course-ui~="workbench"]) .mode-show [data-foundation] .concept-path li { padding: 7px 10px; }
 
 :where(html[data-course-ui~="workbench"]) .mode-show [data-foundation] .concept-values > div { padding: 9px; }
+/* Nested code regions for the introductory variable-scope comparison. */
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .scope-regions { margin: 0 0 12px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone] { padding: 10px; border: 2px solid var(--line); border-radius: 6px; background: var(--surface); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone] > [data-f-zone] { margin-top: 8px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone].is-current { border-color: var(--show); background: var(--show-bg); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone].is-current > h5::after { content: ' · 값을 읽는 곳'; font-weight: 500; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone] h5 { margin: 0 0 4px; font-size: 15px; line-height: 1.5; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-zone] span { font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .scope-location { margin: 8px 0; font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-output], :where(html[data-course-ui~="workbench"]) [data-foundation="binding-first"] [data-f-output] { min-height: 48px; margin: 8px 0 12px; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .concept-controls label { min-width: 0; flex: 1 1 180px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .concept-controls select { width: 100%; max-width: 100%; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show [data-foundation="scope-boundaries"] .concept-source pre { font-size: 17px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .concept-observe > h5, :where(html[data-course-ui~="workbench"]) [data-foundation="binding-first"] .concept-observe > h5 { margin: 0; font: 600 15px/1.5 var(--sans); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .scope-regions, :where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] .scope-location { margin: 0; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="scope-boundaries"] [data-f-output], :where(html[data-course-ui~="workbench"]) [data-foundation="binding-first"] [data-f-output] { margin: 0; }
+/* First-programming routes and optional language comparisons. */
+:where(html[data-course-ui~="workbench"]) .js-path-map { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 22px 0; }
+
+:where(html[data-course-ui~="workbench"]) .js-path-map a { display: grid; gap: 8px; padding: 18px; border: 1px solid var(--line); border-left: 4px solid var(--solo); background: var(--surface); text-decoration: none; min-width: 0; }
+
+:where(html[data-course-ui~="workbench"]) .js-path-map strong { color: var(--solo); font-size: 18px; }
+
+:where(html[data-course-ui~="workbench"]) .js-path-map span { color: var(--ink-2); line-height: 1.6; }
+
+:where(html[data-course-ui~="workbench"]) .js-path-map a:hover { background: var(--solo-bg); }
+
+:where(html[data-course-ui~="workbench"]) .js-core-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin-top: 24px; padding: 15px 0; border-top: 1px solid var(--line); font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) .js-core-nav > span { color: var(--muted); flex-basis: 100%; }
+
+:where(html[data-course-ui~="workbench"]) .js-core-nav a:last-child { margin-left: auto; }
+
+:where(html[data-course-ui~="workbench"]) .language-note { border-left: 3px solid var(--team); margin-top: 22px; }
+
+:where(html[data-course-ui~="workbench"]) .language-note > summary { color: var(--ink-2); line-height: 1.6; }
+
+:where(html[data-course-ui~="workbench"]) .language-note p { line-height: 1.72; }
+
+:where(html[data-course-ui~="workbench"]) .learning-prerequisite { padding: 14px 18px; margin-bottom: 22px; background: var(--solo-bg); border-left: 3px solid var(--solo); }
+
+:where(html[data-course-ui~="workbench"]) .learning-prerequisite > p:first-child { margin-top: 0; }
+
+:where(html[data-course-ui~="workbench"]) .learning-prerequisite > :last-child { margin-bottom: 0; }
+
+:where(html[data-course-ui~="workbench"]) .concept-question { margin-top: 22px; padding: 18px; border: 1px solid var(--line); background: var(--paper); }
+
+:where(html[data-course-ui~="workbench"]) .concept-question h4 { margin: 0 0 10px; font-size: 16px; }
+
+:where(html[data-course-ui~="workbench"]) .concept-question > p { margin: 0 0 12px; }
+
+:where(html[data-course-ui~="workbench"]) .concept-question details { margin: 0; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="primitive-first"] .concept-values { grid-template-columns: minmax(0, 1fr); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="loop-first"] .concept-observe { gap: 10px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="loop-first"] .concept-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="loop-first"] .concept-steps li { font-family: var(--sans); font-size: 13px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="loop-first"] .concept-observe h5 { margin: 0; font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="loop-first"] [data-f-output] { margin: 0; min-height: 50px; max-height: 120px; padding: 10px; white-space: pre-wrap; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .js-path-map { margin: 14px 0; gap: 10px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .js-path-map a { padding: 14px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .js-path-map span { font-size: 17px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .learning-prerequisite { font-size: 17px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show [data-foundation="loop-first"] .concept-source pre { font-size: 17px; }
+
+@media (max-width: 620px) {
+:where(html[data-course-ui~="workbench"]) .js-path-map { grid-template-columns: minmax(0, 1fr); }
+
+:where(html[data-course-ui~="workbench"]) .js-core-nav a:last-child { margin-left: 0; }
+
+:where(html[data-course-ui~="workbench"]) .language-note > summary { overflow-wrap: anywhere; }}
+
+@media (max-width: 760px) {
+:where(html[data-course-ui~="workbench"]) [data-foundation="primitive-first"] .concept-values:has(> :nth-child(3):last-child) { grid-template-columns: minmax(0, 1fr); }}
+/* Basic Boolean/return diagrams and quiz screen transitions. */
+:where(html[data-course-ui~="workbench"]) .condition-circuit { display: grid; grid-template-columns: 1.25fr .9fr 1fr; gap: 12px; align-items: stretch; }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit > div { position: relative; min-width: 0; border: 1px solid var(--line); padding: 12px 9px; background: var(--paper); }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit > div + div::before { content: '→'; position: absolute; top: 35%; left: -12px; color: var(--solo); }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit span { display: block; color: var(--muted); font: 12px/1.5 var(--sans); margin-bottom: 8px; }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit strong, :where(html[data-course-ui~="workbench"]) .condition-circuit output { display: block; margin: 0; font: 600 14px/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit output[data-value="true"] { color: var(--solo); }
+
+:where(html[data-course-ui~="workbench"]) .condition-circuit output[data-value="false"] { color: var(--ink); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="return-or-log"] .concept-observe h5 { margin: 0; font: 600 14px/1.6 var(--sans); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="return-or-log"] [data-f-output] { min-height: 52px; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-screen-states { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-screen-states li { position: relative; margin: 0; padding: 8px; text-align: center; border: 1px solid var(--line); font: 14px/1.5 var(--sans); }
+
+:where(html[data-course-ui~="workbench"]) .quiz-screen-states li + li::before { content: '→'; position: absolute; left: -12px; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-screen-states .is-current { background: var(--solo-bg); border-color: var(--solo); font-weight: 700; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-screen-states .is-current::after { content: ' · 현재'; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-state-preview { border: 1px solid var(--line); background: var(--paper); padding: 12px; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-state-preview strong { font-size: 16px; }
+
+:where(html[data-course-ui~="workbench"]) .quiz-state-preview p { margin: 6px 0 0; font-size: 13px; line-height: 1.6; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="quiz-screen-flow"] .concept-answers { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="quiz-screen-flow"] .concept-answers:empty { display: none; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="quiz-screen-flow"] .concept-answers button { text-align: left; overflow-wrap: anywhere; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="quiz-screen-flow"] .concept-values output { font-size: 16px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show [data-foundation="quiz-screen-flow"] .concept-source pre { font-size: 15px; }
+
+@media (max-width: 760px) {
+:where(html[data-course-ui~="workbench"]) [data-foundation="boolean-conditions"] .concept-controls label { flex-basis: 100%; }
+
+:where(html[data-course-ui~="workbench"]) [data-foundation="return-or-log"] .concept-values { grid-template-columns: minmax(0, 1fr); }}
 /* A compact framework comparison using the shared lesson controls and code view. */
 :where(html[data-course-ui~="workbench"]) .design-bridge-demo { padding: 18px 0 0; overflow: hidden; }
 
@@ -7391,6 +7538,59 @@ html:where([data-course-ui~="classic"]) {scroll-padding-top:90px}
 :where(html[data-course-ui~="workbench"]) .mode-read .design-md-lab .concept-columns { grid-template-columns: 1fr; }
 
 :where(html[data-course-ui~="workbench"]) .design-md-lab .concept-source pre { max-height: 280px; }}
+/* Scope this comparison to its teaching surface; preserve the lesson theme. */
+:where(html[data-course-ui~="workbench"]) .design-system-demo { overflow: hidden; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-controls { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .w5-choices { margin: 0 0 12px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .concept-controls { margin: 0; align-items: end; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .concept-controls label { display: grid; gap: 6px; flex: 1 1 180px; font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo select { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font: inherit; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-connection { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px 20px; background: var(--solo-bg); font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-preview-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 20px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-example { min-width: 0; padding: var(--demo-space); border: 1px solid #cbd5e1; border-radius: 8px; color: #1f2937; background: #fff; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-example h4 { margin: 4px 0 10px; font-size: 19px; line-height: 1.5; color: #1f2937; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-example p { margin: 0 0 16px; font: 15px/1.65 var(--sans); color: #374151; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-example .ds-screen-label { margin-bottom: 4px; font-size: 12px; color: #475569; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-sample-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-sample-actions button { border: 1px solid var(--demo-action); border-radius: 6px; padding: 9px 12px; font: 600 14px/1.5 var(--sans); background: #fff; color: var(--demo-action); cursor: pointer; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-sample-actions .ds-primary { color: #fff; background: var(--demo-action); }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-sample-actions button:hover { text-decoration: underline; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-sample-actions button:focus-visible { outline: 3px solid var(--demo-action); outline-offset: 3px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-readings { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; padding: 0 20px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-readings p { margin: 0; font: 13px/1.6 var(--mono); overflow-wrap: anywhere; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo > .concept-status { margin: 0; padding: 14px 20px; font-size: 14px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-rules { margin: 0 20px 18px; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-rules pre { max-height: 330px; overflow: auto; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .design-system-demo .ds-controls { padding: 12px 16px; }
+
+:where(html[data-course-ui~="workbench"]) .mode-show .design-system-demo .ds-preview-grid { padding: 16px; }
+
+@media (max-width: 680px) {
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-preview-grid, :where(html[data-course-ui~="workbench"]) .design-system-demo .ds-readings { grid-template-columns: 1fr; }
+
+:where(html[data-course-ui~="workbench"]) .design-system-demo .ds-controls, :where(html[data-course-ui~="workbench"]) .design-system-demo .ds-preview-grid { padding: 14px; }}
 
 /* VS Code Dark+ token palette; shared by static examples, trace diagrams and editors. */
 :where(html[data-course-ui~="syntax"]) .course-code, :where(html[data-course-ui~="syntax"]) .course-code-editor {
