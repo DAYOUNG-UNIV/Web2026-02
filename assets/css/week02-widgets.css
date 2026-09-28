@@ -1,3 +1,4 @@
+/* Compatibility output. Edit design-system sources, then rebuild. */
 /* ---- URL dissector ---- */
 .urlbox{border:1px solid var(--line);border-radius:4px;background:var(--surface);
   padding:16px 18px;margin-bottom:18px}

@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html data-course-assets="shared" data-course-week="02" data-course-view="show" lang="ko">
+<html data-course-assets="shared" data-course-week="02" data-course-view="show" lang="ko" data-course-ui="book book-presenter syntax">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Show · 2주차 · 웹페이지를 만든다는 것 — 웹프로그래밍개론</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/css/course.css">
-<link rel="stylesheet" href="assets/css/week02.css">
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="assets/css/week02-show.css">
+<link rel="stylesheet" href="assets/css/course-design.css"><link rel="stylesheet" href="assets/css/course-book-presenter-print.css" media="print">
+<script defer src="assets/vendor/prism/prism-course.min.js" data-course-syntax-dependency></script>
+<script defer src="assets/vendor/prism/prism-markdown.min.js" data-course-syntax-dependency></script>
+<script defer src="assets/vendor/prism/prism-bash.min.js" data-course-syntax-dependency></script>
+<script defer src="assets/vendor/prism/prism-diff.min.js" data-course-syntax-dependency></script>
+<script defer src="assets/js/course-syntax-legacy.js" data-course-syntax-dependency></script>
+<script defer src="assets/js/course-syntax.js" data-course-syntax-dependency></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -3942,7 +3937,7 @@ document.body.append(deck);deck.append(source);
 const chrome=el('div');
 chrome.innerHTML=`<header class="show-toolbar" aria-label="발표 도구">
  <div class="show-brand">웹프로그래밍개론 <span>WEEK 02 · SHOW</span></div>
- <a class="show-ui-btn show-full-link" id="show-full" href="week02_8_improved.html" target="_blank" rel="noopener">배포용 자료 ↗</a>
+ <a class="show-ui-btn show-full-link" id="show-full" href="week2.html" target="_blank" rel="noopener">배포용 자료 ↗</a>
  <button class="show-ui-btn" id="show-overview-btn" type="button">목차 <kbd>O</kbd></button>
  <button class="show-ui-btn" id="show-notes-btn" type="button" aria-expanded="false" aria-controls="show-notes">메모 <kbd>N</kbd></button>
  <button class="show-ui-btn" id="show-fullscreen-btn" type="button">전체화면 <kbd>F</kbd></button>
@@ -3959,7 +3954,7 @@ chrome.innerHTML=`<header class="show-toolbar" aria-label="발표 도구">
  <header><h2>강의 메모</h2><button class="show-ui-btn" data-close-notes type="button" aria-label="메모 닫기">닫기</button></header>
  <p class="show-panel-warning">메모는 현재 발표 화면에 함께 표시됩니다.</p>
  <h3 id="show-notes-title"></h3><p id="show-notes-text"></p>
- <a id="show-notes-link" href="week02_8_improved.html" target="_blank" rel="noopener">이 부분의 배포용 자료 열기 ↗</a>
+ <a id="show-notes-link" href="week2.html" target="_blank" rel="noopener">이 부분의 배포용 자료 열기 ↗</a>
 </aside>
 <dialog class="show-dialog" id="show-overview" aria-labelledby="show-overview-title">
  <header><h2 id="show-overview-title">강의 목차</h2><button class="show-ui-btn" data-close-dialog type="button">닫기 <kbd>Esc</kbd></button></header>
@@ -3979,7 +3974,7 @@ deck.append(chrome);
 const $=id=>document.getElementById(id), overview=$('show-overview'),help=$('show-help');
 function fit(){const z=Math.min(innerWidth/1600,innerHeight/900);document.body.style.setProperty('--show-zoom',z);updateScrollHint();}
 function updateScrollHint(){const c=slides[current]?.content;if(c)$('show-scroll-hint').hidden=c.scrollHeight<=c.clientHeight+8||c.scrollTop+c.clientHeight>=c.scrollHeight-8;}
-function noteSync(){const s=slides[current];$('show-notes-title').textContent=s.title;$('show-notes-text').textContent=notes[s.chapter];$('show-notes-link').href='week02_8_improved.html#'+s.chapter;$('show-full').href='week02_8_improved.html#'+s.chapter;}
+function noteSync(){const s=slides[current];$('show-notes-title').textContent=s.title;$('show-notes-text').textContent=notes[s.chapter];$('show-notes-link').href='week2.html#'+s.chapter;$('show-full').href='week2.html#'+s.chapter;}
 function go(i,{hash=true,focus=false}={}){
  i=Math.max(0,Math.min(slides.length-1,i));
  const previous=slides[current];
