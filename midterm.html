@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8주차 WIP 발표와 팀 편성</title>
+<meta name="description" content="웹프로그래밍개론 8주차 수업 자료. 보드, 발표, TAG 피드백, 투표, 질문 묶기, 팀 정하기, 팀 시트, 다음 주 일정.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#1a1a1a; --ink2:#3d3d3d; --sub:#6f6f6f; --faint:#a8a8a8; --line:#ececec; --line2:#d8d8d8; --panel:#f5f5f3;
+  --em:#d92b1a;
+  /* 피그잼 보드와 같은 색 */
+  --y:#ffe299; --b:#a8daff; --g:#b3efbd; --v:#d3bdff; --t:#b3f4ef;
+  --vy:#ffecbd; --vyb:#f2b92c; --vb:#c2e5ff; --vbb:#3dadff; --vr:#ffcdc2; --vrb:#ff7556;
+  --tg:#ffa24c; --tgb:#e8811f; --tgl:#ffe4c8;
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+}
+*{box-sizing:border-box}
+html{font-size:clamp(14px,calc(.95vw + .45vh),20px)}
+html,body{height:100%;margin:0}
+body{font-family:var(--font);color:var(--ink);background:#fff;overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+p,h1,h2,h3,h4,h5,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+p,li,dd{text-wrap:pretty}
+b,strong{font-weight:700}
+button{font-family:inherit;color:inherit}
+.em{color:var(--em)}
+.e{font-family:var(--emoji);font-style:normal;font-weight:400}
+
+/* ---------- 위쪽 단계 표시 ---------- */
+#steps{position:fixed;top:0;left:0;right:0;height:2.9rem;z-index:20;display:flex;align-items:center;gap:.15rem;padding:0 2rem;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+#steps::-webkit-scrollbar{display:none}
+#steps button{flex:none;border:0;background:none;padding:.4rem .6rem;border-radius:.4rem;font-size:.8rem;color:var(--faint);display:flex;align-items:center;gap:.4rem;cursor:pointer}
+#steps button i{font-style:normal;font-size:.66rem;font-weight:700;width:1.15rem;height:1.15rem;border-radius:50%;border:1px solid currentColor;display:inline-flex;align-items:center;justify-content:center}
+#steps button.done{color:var(--sub)}
+#steps button.on{color:var(--ink);font-weight:700}
+#steps button.on i{background:var(--ink);border-color:var(--ink);color:#fff}
+#steps button:hover{background:var(--panel)}
+#steps .gap{flex:none;width:.8rem;height:1px;background:var(--line2)}
+body.is-cover #steps{visibility:hidden}
+
+/* ---------- 슬라이드 틀 ---------- */
+.slide{position:fixed;left:0;right:0;top:2.9rem;bottom:3rem;display:flex;justify-content:center;align-items:center;align-items:safe center;padding:1.8rem 2.6rem 1.4rem;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
+.slide.active{opacity:1;visibility:visible}
+.slide.cover{top:0}
+.wrap{width:100%;max-width:min(92vw,68rem);min-width:0}
+.notes{display:none}
+h2{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+.lead{font-size:1.12rem;color:var(--sub);line-height:1.6;margin-top:.7rem;max-width:46rem}
+.lead b{color:var(--ink)}
+.body{margin-top:2.3rem}
+.note{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.95rem;color:var(--sub);line-height:1.65;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}
+.note b{color:var(--ink)}
+.two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3.2rem;align-items:center}
+.lb{font-size:.78rem;font-weight:600;color:var(--sub)}
+.h3{font-size:1.3rem;font-weight:700}
+.txt{font-size:1rem;color:var(--sub);line-height:1.6;margin-top:1rem}
+
+/* 번호 목록 */
+.pts{display:grid;gap:1.25rem}
+.pts>li{display:grid;grid-template-columns:2.2rem minmax(0,1fr);align-items:baseline}
+.pts>li>i{font-style:normal;font-size:1.15rem;font-weight:700;color:var(--faint)}
+.pts b{display:block;font-size:1.2rem;line-height:1.45}
+.pts span{display:block;font-size:1rem;color:var(--sub);line-height:1.6;margin-top:.2rem}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chips span{border:1px solid var(--line2);border-radius:999px;padding:.4rem .95rem;font-size:.95rem;background:#fff}
+.tbtn{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:.3rem .85rem;font-size:.85rem;cursor:pointer}
+.tbtn:hover{border-color:var(--ink);color:var(--ink)}
+
+/* 화살표 */
+.arr{display:inline-block;flex:none;width:2.4rem;height:2px;background:var(--ink);position:relative;vertical-align:middle}
+.arr::after{content:"";position:absolute;right:-2px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left:9px solid var(--ink);border-right:0}
+.arr.dash{background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 10px)}
+.arr.left{transform:scaleX(-1)}
+.arr.down{width:2px;height:1.5rem}
+.arr.down::after{right:auto;left:50%;top:auto;bottom:-2px;transform:translateX(-50%);border:6px solid transparent;border-top:9px solid var(--ink);border-bottom:0}
+
+/* 투표 스티커 */
+.dot{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:2.3rem;height:2.3rem;border-radius:50%;background:var(--bg);border:1.5px solid var(--bd);line-height:1}
+.dot .e{font-size:1rem}
+.dot b{font-size:.6rem;margin-top:.08rem}
+.dot.big{width:6.6rem;height:6.6rem;border-width:3px}
+.dot.big .e{font-size:2.8rem}
+.dot.big b{font-size:1.05rem;margin-top:.3rem}
+.d-new{--bg:var(--vy);--bd:var(--vyb)}
+.d-web{--bg:var(--vb);--bd:var(--vbb)}
+.d-fire{--bg:var(--vr);--bd:var(--vrb)}
+
+/* ---------- 1 표지 ---------- */
+.cov{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4rem;align-items:center}
+.cov .k{font-size:1.05rem;color:var(--sub)}
+.cov h1{font-size:4.6rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;margin-top:1.1rem}
+.cov .s{font-size:1.2rem;color:var(--sub);margin-top:1.3rem}
+.cov .d{font-size:1.05rem;color:var(--ink2);margin-top:2.6rem}
+.c25{display:flex;align-items:center;gap:1.6rem}
+.g25{display:grid;grid-template-columns:repeat(5,1rem);gap:.5rem}
+.g25 i{width:1rem;height:1rem;border-radius:50%;background:#d4d4d4}
+.g5{display:grid;gap:.55rem}
+.g5 div{display:flex;gap:.32rem;padding:.38rem .55rem;border-radius:999px;background:var(--panel)}
+.g5 i{width:1rem;height:1rem;border-radius:50%;background:var(--c)}
+.cfig figcaption{margin-top:1.1rem;text-align:center;font-size:.9rem;color:var(--sub)}
+
+/* ---------- 2 달라진 점 ---------- */
+.chg{display:flex;align-items:center;gap:2rem}
+.chg>div{flex:1 1 0;min-width:0;border:1px solid var(--line2);border-radius:.9rem;padding:1.5rem 1.7rem}
+.chg span{font-size:.9rem;color:var(--sub)}
+.chg strong{display:block;font-size:2rem;letter-spacing:-.02em;margin-top:.45rem}
+.chg p{font-size:.95rem;color:var(--sub);line-height:1.55;margin-top:.6rem}
+.chg .now{border:2px solid var(--ink)}
+
+/* ---------- 3 진행 순서 ---------- */
+.flow7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.flow7 li{position:relative;padding:1.5rem .9rem 0 0;border-top:2px solid var(--ink)}
+.flow7 li>i{position:absolute;top:-.85rem;left:0;width:1.6rem;height:1.6rem;border-radius:50%;background:#fff;border:2px solid var(--ink);font-style:normal;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.flow7 li.hl>i{background:var(--ink);color:#fff}
+.flow7 b{display:block;font-size:1.2rem;margin-top:.4rem}
+.flow7 span{display:block;font-size:.88rem;color:var(--sub);line-height:1.55;margin-top:.45rem}
+
+/* ---------- 4 보드 구성 ---------- */
+.bmap{display:grid;grid-template-columns:.85fr 2fr 1.35fr 1.8fr .85fr;gap:.6rem;min-height:15rem}
+.z{min-width:0;border:1px solid var(--line2);border-radius:.7rem;padding:.9rem .9rem 1rem;background:#fff;display:flex;flex-direction:column;gap:.2rem}
+.z>i{font-style:normal;font-size:.75rem;font-weight:700;color:var(--faint)}
+.z>b{font-size:1.05rem}
+.z>span{font-size:.82rem;color:var(--sub);line-height:1.45}
+.zc{display:grid;grid-template-rows:1.4fr 1fr;gap:.6rem;min-width:0}
+.z2{background:#f8f5ff;border-color:#dccdff}
+.mini{margin-top:auto;padding-top:.7rem;display:grid;gap:.22rem}
+.m25{grid-template-columns:repeat(9,minmax(0,1fr))}
+.m25 i{aspect-ratio:1;border:1px solid var(--line2);border-radius:.15rem;background:var(--panel)}
+.mq{grid-template-columns:repeat(5,minmax(0,1fr))}
+.mq i{height:.75rem;border-radius:.12rem;background:var(--v)}
+.m5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.m5 i{height:2.8rem;border-radius:.2rem;background:var(--vy);border:1px solid var(--vyb)}
+
+/* ---------- 6 슬롯 구성 ---------- */
+.slotm{border:1px solid var(--line2);border-radius:.8rem;padding:1rem;background:#fff;display:grid;gap:.55rem;box-shadow:0 14px 30px -20px rgba(0,0,0,.3)}
+.sm-h{display:flex;align-items:center;gap:.9rem}
+.sm-h b{font-size:2.2rem;font-weight:800;letter-spacing:-.03em}
+.sm-h span{font-size:.75rem;color:var(--sub);line-height:1.5}
+.sm-r{position:relative;display:flex;gap:.5rem;align-items:center;padding:.55rem .55rem .55rem 2.1rem;border-radius:.45rem}
+.sm-r>i{position:absolute;left:.5rem;top:50%;transform:translateY(-50%);width:1.2rem;height:1.2rem;border-radius:50%;background:var(--ink);color:#fff;font-style:normal;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sm-w{background:var(--panel)}
+.sm-w span{flex:1;height:2.6rem;background:#fff;border-radius:.2rem;box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.sm-t span{flex:1;height:4.4rem;border-radius:.35rem;border:1.5px solid;font-size:.7rem;font-weight:700;padding:.3rem .45rem}
+.sm-t .t{border-color:#f5c542;background:#fffaeb}
+.sm-t .a{border-color:#4aa8f0;background:#f2f9ff}
+.sm-t .g{border-color:#5cc46c;background:#effbf1}
+.sm-v{border:1.5px dashed var(--line2);height:2.9rem;font-size:.72rem;color:var(--sub);font-weight:600}
+.sm-l{border:1.5px solid #b79cff;background:#faf7ff}
+.sm-l .n1,.sm-l .n2{width:3.6rem;height:1.8rem;border-radius:.55rem}
+.sm-l .n1{background:var(--tg);border:1.5px solid var(--tgb);margin-left:.5rem}
+.sm-l .n2{background:var(--tgl);border:1.5px dashed var(--tgb)}
+
+/* ---------- 7 흰 카드 ---------- */
+.w3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.wc{min-width:0;background:#fff;border:1px solid var(--line2);border-radius:.3rem;padding:1.3rem 1.4rem;min-height:12.5rem;box-shadow:0 14px 26px -18px rgba(0,0,0,.4);display:flex;flex-direction:column;gap:.55rem}
+.wc b{font-size:1.05rem;font-weight:600}
+.wc p{font-size:.92rem;color:var(--sub);line-height:1.55}
+
+/* ---------- 8 질문 카드 ---------- */
+.qc{background:var(--v);border-radius:.35rem;padding:1.5rem 1.6rem;box-shadow:0 16px 28px -18px rgba(60,30,140,.5);display:grid;gap:.3rem;max-width:30rem}
+.qc p{font-size:.98rem}
+.qc .w{font-size:1.2rem;font-weight:600;color:#24125c;margin:.1rem 0 .8rem}
+.qc .w:last-child{margin-bottom:0}
+
+/* ---------- 9 발표 구성 ---------- */
+.talk{display:flex;gap:.3rem}
+.seg{flex:var(--w) 1 0;min-width:0}
+.seg b{display:block;padding:.95rem .8rem;background:var(--panel);border-radius:.4rem;font-size:1.05rem;white-space:nowrap}
+.seg.hi b{background:var(--ink);color:#fff}
+.seg span{display:block;font-size:.82rem;color:var(--sub);line-height:1.5;margin-top:.6rem;padding-right:.4rem}
+
+/* ---------- 11 TAG ---------- */
+.tag3{display:grid;grid-template-columns:repeat(3,minmax(0,17rem));gap:1.8rem}
+.st{background:var(--c);border-radius:.3rem;padding:1.3rem 1.35rem;aspect-ratio:1;box-shadow:0 16px 26px -18px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.st b{font-size:1.2rem}
+.st p{font-size:1rem;line-height:1.6;margin-top:1rem}
+
+/* ---------- 12 TAG 담당 ---------- */
+.ring{position:relative;width:21rem;height:21rem;margin:0 auto}
+.ring::before{content:"";position:absolute;inset:1.05rem;border-radius:50%;border:1px solid var(--line)}
+.ring i{position:absolute;left:50%;top:50%;width:2rem;height:2rem;margin:-1rem;border-radius:50%;background:#fff;border:1px solid var(--line2);font-style:normal;font-size:.78rem;font-weight:600;color:var(--sub);display:flex;align-items:center;justify-content:center;--a:calc(var(--k) * 14.4deg - 90deg);transform:rotate(var(--a)) translate(9.5rem) rotate(calc(var(--a) * -1))}
+.ring i.me{background:var(--ink);border-color:var(--ink);color:#fff}
+.ring i.to{background:var(--y);border-color:#e3bf4f;color:var(--ink)}
+.ring i.me2{border:2px solid #2f6fc7;color:#1d5bb8}
+.ring i.to2{background:var(--b);border-color:#78b4e6;color:var(--ink)}
+.ring p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.05rem;font-weight:600;line-height:1.5}
+.ex li{display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;font-size:1.05rem;margin-bottom:1.1rem}
+.ex li>span{padding:.3rem .75rem;border-radius:999px}
+.ex .me{background:var(--ink);color:#fff}
+.ex .to{background:var(--y)}
+.ex .me2{border:2px solid #2f6fc7;color:#1d5bb8}
+.ex .to2{background:var(--b)}
+.ex .arr{width:1.6rem;margin:0 .3rem}
+.ex .mut{color:var(--sub);font-size:.98rem;margin-top:1.6rem}
+
+/* ---------- 13 투표 스티커 ---------- */
+.v3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;text-align:center}
+.v3>div{display:flex;flex-direction:column;align-items:center}
+.v3 strong{font-size:1.4rem;margin-top:1.1rem;letter-spacing:-.01em}
+.v3 small{font-size:.9rem;color:var(--sub);margin-top:.35rem}
+
+/* ---------- 14 투표 방법 ---------- */
+.vote{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:1.4rem;align-items:center}
+.mine{border:1.5px solid #b79cff;background:#faf7ff;border-radius:.7rem;padding:.9rem 1rem;display:grid;gap:.6rem;justify-items:start}
+.mine div{display:flex;gap:.4rem}
+.tgts{display:grid;gap:.5rem;min-width:0}
+.tgt{display:flex;align-items:center;gap:.7rem;border:1px solid var(--line2);border-radius:.6rem;padding:.45rem .7rem}
+.tgt>b{font-size:.92rem;min-width:3rem}
+.tgt .vb{flex:1;min-height:2.7rem;border:1.5px dashed var(--line2);border-radius:.4rem;display:flex;align-items:center;padding:0 .35rem}
+.tgt.no{background:var(--panel)}
+.tgt.no .vb{justify-content:center;font-size:.9rem;color:var(--em);font-weight:700;border-color:transparent}
+
+/* ---------- 15 개표 ---------- */
+.cnt{display:grid;gap:.6rem}
+.cnt .vb{border:1.5px dashed var(--line2);border-radius:.6rem;padding:1rem;display:flex;flex-wrap:wrap;gap:.5rem;min-height:5rem;align-items:center}
+.tally{border-collapse:collapse;font-size:1.1rem}
+.tally th,.tally td{border:1px solid var(--line2);padding:.65rem 1.1rem;text-align:center}
+.tally th{background:var(--ink);color:#fff;font-weight:600}
+.tally th.c1{background:var(--vy);color:var(--ink)}
+.tally th.c2{background:var(--vb);color:var(--ink)}
+.tally th.c3{background:var(--vr);color:var(--ink)}
+.tally td b{font-size:1.25rem}
+
+/* ---------- 16 질문 묶기 ---------- */
+.step4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.9rem}
+.step4 li{position:relative;border:1px solid var(--line2);border-radius:.8rem;padding:1.1rem 1.2rem;min-width:0}
+.step4 li>i{font-style:normal;font-size:.8rem;font-weight:700;color:var(--faint)}
+.step4 b{display:block;font-size:1.25rem;margin-top:.3rem}
+.step4 span{display:block;font-size:.88rem;color:var(--sub);margin-top:.35rem;line-height:1.5}
+.step4 li+li::before{content:"";position:absolute;left:-.66rem;top:50%;width:.42rem;height:.42rem;border-top:2px solid var(--faint);border-right:2px solid var(--faint);transform:translateY(-50%) rotate(45deg)}
+.crit{margin-top:2.4rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.4rem}
+.crit p{font-size:1.25rem;font-weight:700}
+
+/* 질문 카드 조각 */
+.cg{display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem;border-radius:.5rem;background:var(--panel);min-height:2.6rem;align-content:flex-start}
+.cg i,.cl i{width:2.7rem;height:1.6rem;border-radius:.15rem;background:var(--v);font-style:normal;font-size:.7rem;font-weight:700;color:#2a1660;display:flex;align-items:center;justify-content:center;flex:none}
+.cg i.hi,.cl i.me{outline:2px solid var(--ink);outline-offset:1px}
+.cg.s{max-width:8rem}
+.cg.s i{width:1.6rem;height:1rem}
+
+/* ---------- 17 내 카드 옮기기 ---------- */
+.mv{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.5fr);gap:1.6rem;align-items:center}
+.mv-a,.mv-b{display:grid;gap:.5rem;min-width:0}
+.mvg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.35rem;padding:.8rem;border-radius:.6rem;background:var(--panel)}
+.mvg i{aspect-ratio:1.7;border-radius:.15rem;background:var(--v);font-style:normal;font-size:.68rem;font-weight:700;color:#7b5cd6;display:flex;align-items:center;justify-content:center}
+.mvg i.gone{background:transparent;border:1.5px dashed #a98bf0}
+.mvb{position:relative;height:13rem;border:1.5px dashed #b79cff;border-radius:.6rem;background:#fff}
+.cl{position:absolute;display:flex;flex-wrap:wrap;gap:.3rem;max-width:8.7rem}
+
+/* ---------- 18 함께 다듬기 ---------- */
+.mend{display:grid;gap:1rem}
+.mp{border:1px solid var(--line2);border-radius:.7rem;padding:.9rem 1rem;display:grid;gap:.7rem}
+.mr{display:flex;align-items:center;gap:1rem}
+.mr .cg{flex:1}
+
+/* ---------- 19 다섯 묶음 ---------- */
+.five{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.fp{border:1px solid var(--line2);border-radius:.7rem;padding:1rem 1.1rem;display:grid;gap:.9rem;align-content:start;min-width:0}
+.fr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.fr .arr{width:1.5rem}
+.fr .plus{font-weight:700;color:var(--sub)}
+.nm{background:var(--ink);color:#fff;border-radius:.4rem;padding:.45rem .75rem;font-size:.85rem;justify-self:start}
+
+/* ---------- 20 대표 질문 ---------- */
+.rq{display:grid;gap:.8rem;justify-items:start}
+.rq-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;width:100%;padding:1rem;border-radius:.7rem;background:var(--panel)}
+.qm{position:relative;background:var(--v);border-radius:.3rem;padding:.7rem .8rem;min-height:4.6rem}
+.qm b{font-size:.85rem}
+.qm em{position:absolute;right:.5rem;bottom:.45rem;font-style:normal;font-size:.8rem;font-weight:700;background:#fff;border-radius:999px;padding:.1rem .55rem}
+.qm.top{outline:3px solid var(--vyb);outline-offset:2px}
+.qm.top span{position:absolute;left:.7rem;top:-.8rem;background:var(--vyb);font-size:.7rem;font-weight:700;padding:.1rem .45rem;border-radius:.3rem}
+
+/* ---------- 21 팀 테이블 ---------- */
+.tt{border:1px solid var(--line2);border-radius:.8rem;padding:1rem;display:grid;gap:.55rem;background:#fff;box-shadow:0 14px 30px -22px rgba(0,0,0,.35)}
+.tt-h{display:flex;align-items:baseline;gap:.7rem}
+.tt-h b{font-size:1.6rem;font-weight:800}
+.tt-h span{font-size:.8rem;color:var(--sub)}
+.tt-a{background:var(--vy);border:1.5px solid var(--vyb);border-radius:.45rem;padding:.6rem .8rem}
+.tt-a p{font-size:.95rem;font-weight:600;margin-top:.2rem}
+.tt-q{border:1.5px solid #b79cff;background:#faf7ff;border-radius:.45rem;padding:.6rem .8rem}
+.tt-q div,.tt-s div{display:flex;gap:.35rem;margin-top:.4rem}
+.tt-q i{width:2.8rem;height:1.6rem;border-radius:.15rem;background:var(--v)}
+.tt-s{border:1.5px solid var(--tgb);background:#fff8f1;border-radius:.45rem;padding:.6rem .8rem}
+.tt-s i{flex:1;height:1.8rem;border-radius:.5rem;border:1.5px dashed #f3b47a}
+.tt-w{border:1.5px dashed var(--line2);border-radius:.45rem;padding:.6rem .8rem;min-height:2.7rem}
+
+/* ---------- 22 이름표 ---------- */
+.nt{display:grid;gap:1.5rem}
+.nt .row{display:flex;align-items:center;gap:1rem}
+.n1,.n2{flex:none;width:8.4rem;padding:.7rem .8rem;border-radius:1rem;font-size:.85rem;font-weight:600;line-height:1.5;text-align:center}
+.n1{background:var(--tg);border:2px solid var(--tgb)}
+.n2{background:var(--tgl);border:2px dashed var(--tgb)}
+.dest{font-size:1.05rem;line-height:1.5}
+
+/* ---------- 23 자리 정하는 순서 ---------- */
+.flow{display:grid;grid-template-columns:15rem 7rem minmax(0,1fr);align-items:center;justify-items:center}
+.flow>*{grid-column:1}
+.f-q{grid-row:1;position:relative;width:15rem;height:7.6rem;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:1.05rem;line-height:1.4}
+.f-q::before,.f-q::after{content:"";position:absolute;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.f-q::before{inset:0;background:var(--ink)}
+.f-q::after{inset:2px 4px;background:#fff}
+.f-q span{position:relative;z-index:1}
+.f-yes{grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.85rem;color:var(--sub)}
+.f-ok{grid-column:3;grid-row:1;justify-self:start;border:2px solid var(--ink);border-radius:.6rem;padding:.9rem 1.2rem;font-weight:700;font-size:1.05rem}
+.f-no,.f-d{display:flex;align-items:center;gap:.5rem;height:2.2rem;font-size:.85rem;color:var(--sub)}
+.f-b{width:15rem;border:1px solid var(--line2);border-radius:.6rem;padding:.8rem 1rem}
+.f-b b{display:block;font-size:1rem}
+.f-b span{display:block;font-size:.88rem;color:var(--sub);margin-top:.3rem;line-height:1.55}
+.f-b.mut{background:var(--panel);border-color:var(--panel)}
+
+/* ---------- 24 자주 묻는 질문 ---------- */
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 2.6rem}
+.faq dt{font-size:1.12rem;font-weight:700;line-height:1.45}
+.faq dd{margin-top:.45rem;font-size:1rem;color:var(--sub);line-height:1.6}
+
+/* ---------- 25 팀 시트 ---------- */
+.sheet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+.sheet li{position:relative;border:1px solid var(--line2);border-radius:.6rem;padding:.9rem 1rem;min-height:6.6rem;background:#fff;min-width:0}
+.sheet li>i{font-style:normal;font-size:1.1rem;font-weight:700;color:var(--faint)}
+.sheet b{display:block;font-size:1.02rem;margin-top:.3rem}
+.sheet span{display:block;font-size:.82rem;color:var(--sub);margin-top:.3rem;line-height:1.5}
+.sheet li.today{border:2px solid var(--ink)}
+.sheet li.today::after{content:"먼저";position:absolute;right:.7rem;top:.75rem;font-size:.68rem;font-weight:700;background:var(--ink);color:#fff;border-radius:999px;padding:.1rem .5rem}
+.sheet li.t6{background:#effcfb}
+
+/* ---------- 26 첫 실험 ---------- */
+.frame{font-size:2.1rem;font-weight:700;letter-spacing:-.02em;line-height:1.7}
+.blank{display:inline-block;width:6.5rem;height:1.1em;border-bottom:3px solid var(--ink);vertical-align:-.15em;margin:0 .25rem}
+.frame-ex{font-size:1.05rem;color:var(--sub);margin-top:.8rem}
+.ex3{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:2.2rem}
+.ex3 .wc{min-height:4.6rem;width:11rem;position:relative;justify-content:center}
+.stp{position:absolute;top:-.7rem;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--em);color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+
+/* ---------- 27 사용자 테스트 ---------- */
+.tc{background:var(--t);border-radius:.35rem;padding:1.4rem 1.5rem;box-shadow:0 16px 28px -18px rgba(0,90,90,.45)}
+.tc>b{font-size:1.15rem}
+.tc dl{margin-top:.9rem;display:grid;gap:.65rem}
+.tc dl div{display:grid;grid-template-columns:5.8rem minmax(0,1fr);gap:.8rem}
+.tc dt{font-weight:700;font-size:.92rem}
+.tc dd{font-size:.98rem;line-height:1.5}
+
+/* ---------- 28 다음 주 일정 ---------- */
+.tl{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-top:1.6rem}
+.tl::before{content:"";position:absolute;left:0;right:0;top:.55rem;height:2px;background:var(--line2)}
+.tl li{position:relative;min-width:0}
+.tl li::before{content:"";position:absolute;top:-1.42rem;left:0;width:.95rem;height:.95rem;border-radius:50%;background:#fff;border:2px solid var(--ink)}
+.tl li.today::before{background:var(--ink)}
+.tl li>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.tl b{display:block;font-size:1.35rem;margin-top:.35rem}
+.tl span{display:block;font-size:.95rem;color:var(--ink2);margin-top:.35rem;line-height:1.5}
+.box{margin-top:2.6rem;background:var(--panel);border-radius:.8rem;padding:1.1rem 1.3rem;font-size:1rem;line-height:1.6}
+.box b{margin-right:.6rem}
+
+/* ---------- 29 9주차 ---------- */
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.lane{border:1px solid var(--line2);border-radius:.8rem;padding:1.2rem 1.3rem;min-width:0}
+.lane>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.lane>b{display:block;font-size:1.25rem;margin-top:.35rem}
+.lane>p{font-size:.98rem;color:var(--ink2);line-height:1.6;margin-top:.6rem}
+.lane ol{margin-top:.7rem;display:grid;gap:.45rem}
+.lane ol li{font-size:.98rem;display:flex;gap:.6rem}
+.lane ol li i{font-style:normal;color:var(--faint);font-weight:700}
+
+/* ---------- 아래 메뉴 · 메모 · 목차 · 타이머 ---------- */
+#hud{position:fixed;left:0;right:0;bottom:0;height:3rem;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1.2rem 0 2rem;background:#fff;border-top:1px solid var(--line);font-size:.78rem;color:var(--sub)}
+#hud .l{display:flex;gap:.5rem;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hud .l b{color:var(--ink);font-weight:600}
+#hud .r{display:flex;align-items:center;gap:.15rem;flex:none}
+.hb{border:0;background:none;padding:.4rem .6rem;border-radius:.4rem;font-size:.78rem;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}
+.hb:hover{background:var(--panel);color:var(--ink)}
+.hb.on{color:var(--ink);font-weight:700}
+.hb kbd{font-family:inherit;font-size:.64rem;border:1px solid var(--line2);border-radius:.25rem;padding:0 .3rem;color:var(--faint)}
+.hb.nav{font-size:1.15rem;padding:.15rem .6rem;color:var(--ink)}
+#pg{min-width:3.8rem;text-align:center;font-variant-numeric:tabular-nums;color:var(--ink)}
+#bar{position:fixed;left:0;bottom:3rem;height:2px;background:var(--ink);z-index:31;transition:width .25s}
+#notes{position:fixed;left:1rem;bottom:3.6rem;z-index:40;width:min(30rem,calc(100vw - 2rem));max-height:55vh;overflow:auto;background:#1c1c1c;color:#eee;border-radius:.8rem;padding:1rem 1.2rem;font-size:.88rem;line-height:1.6;display:none;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+#notes.open{display:block}
+#notes h4{font-size:.78rem;color:#aaa;font-weight:600;margin-bottom:.5rem}
+#notes ul{list-style:disc;padding-left:1.1rem}
+#toc{position:fixed;right:1rem;top:3.6rem;bottom:3.6rem;z-index:40;width:min(19rem,calc(100vw - 2rem));overflow:auto;background:#fff;border:1px solid var(--line2);border-radius:.8rem;padding:.6rem .7rem .9rem;display:none;box-shadow:0 20px 40px -20px rgba(0,0,0,.35)}
+#toc.open{display:block}
+#toc h5{font-size:.72rem;color:var(--faint);margin:.8rem .5rem .3rem;font-weight:600}
+#toc button{display:flex;gap:.6rem;width:100%;text-align:left;border:0;background:none;padding:.42rem .5rem;border-radius:.4rem;font-size:.86rem;cursor:pointer}
+#toc button i{font-style:normal;color:var(--faint);min-width:1.4rem;font-variant-numeric:tabular-nums}
+#toc button:hover{background:var(--panel)}
+#toc button.cur{background:var(--ink);color:#fff}
+#toc button.cur i{color:#bbb}
+#tmr{position:fixed;right:1.2rem;top:3.6rem;z-index:35;background:#fff;border:1px solid var(--line2);border-radius:.9rem;padding:.8rem .9rem;box-shadow:0 20px 40px -24px rgba(0,0,0,.35);display:grid;gap:.6rem;width:15.5rem}
+#tmr.hide{display:none}
+.tm-p{display:flex;gap:.3rem}
+.tm-p button{flex:1;border:1px solid var(--line2);background:#fff;border-radius:.45rem;padding:.3rem 0;font-size:.78rem;cursor:pointer}
+.tm-p button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tm-m{display:flex;align-items:center;gap:.4rem}
+#tm-num{flex:1;font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tm-m button{border:1px solid var(--line2);background:#fff;border-radius:.45rem;padding:.35rem .6rem;font-size:.78rem;cursor:pointer}
+.tm-m .go{background:var(--ink);color:#fff;border-color:var(--ink)}
+#tmr.warn #tm-num{color:#c26a00}
+#tmr.over #tm-num{color:var(--em)}
+
+/* ---------- 좁은 화면 ---------- */
+@media (max-width:760px){
+  #steps{padding:0 .7rem}
+  .slide{padding:1.3rem 1.1rem}
+  h2{font-size:2rem}
+  .lead{font-size:1rem}
+  .two,.w3,.v3,.five,.lanes,.faq{grid-template-columns:minmax(0,1fr)}
+  .two{gap:2rem}
+  .tag3{grid-template-columns:minmax(0,1fr);gap:1rem}
+  .st{aspect-ratio:auto;min-height:8.5rem}
+  .v3{gap:1.4rem}
+  .v3 strong{margin-top:.7rem}
+  .dot.big{width:5.2rem;height:5.2rem}
+  .dot.big .e{font-size:2.2rem}
+  .cl{max-width:5.8rem}
+  #steps button:not(.on){font-size:0;padding:.4rem .25rem}
+  #steps .gap{width:.35rem}
+  .chg{flex-direction:column;align-items:stretch;gap:1rem}
+  .chg>.arr{align-self:center;transform:rotate(90deg)}
+  .flow7,.step4,.sheet{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:2.2rem}
+  .step4,.sheet{row-gap:.9rem}
+  .step4 li+li::before{display:none}
+  .bmap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .zc{grid-column:1/-1}
+  .cov{grid-template-columns:minmax(0,1fr);gap:2.4rem}
+  .cov h1{font-size:3.1rem}
+  .talk{flex-direction:column;gap:.7rem}
+  .seg{display:flex;align-items:center;gap:.8rem}
+  .seg b{width:calc(var(--w) * .1rem + 4rem);flex:none}
+  .seg span{margin:0}
+  .vote,.mv{grid-template-columns:minmax(0,1fr)}
+  .vote>.arr,.mv>.arr{justify-self:center;transform:rotate(90deg)}
+  .flow{grid-template-columns:minmax(0,1fr)}
+  .flow>*{grid-column:1 !important;grid-row:auto !important}
+  .f-ok{justify-self:center}
+  .f-yes{flex-direction:row}
+  .f-yes .arr{transform:rotate(90deg);margin:.6rem 0}
+  .tl{grid-template-columns:minmax(0,1fr);padding:0 0 0 1.8rem;gap:1.4rem}
+  .tl::before{left:.45rem;right:auto;top:.4rem;bottom:.4rem;width:2px;height:auto}
+  .tl li::before{left:-1.8rem;top:.15rem}
+  .frame{font-size:1.5rem}
+  .blank{width:4.5rem}
+  .ring{width:19rem;height:19rem}
+  .ring i{transform:rotate(var(--a)) translate(8.4rem) rotate(calc(var(--a) * -1))}
+  #hud{padding:0 .5rem 0 1rem}
+  #hud .l span,.hb kbd,#b-fs{display:none}
+}
+
+/* ---------- 인쇄 ---------- */
+@media print{
+  @page{size:16in 9in;margin:0}
+  html,body{height:auto;overflow:visible}
+  #steps,#hud,#bar,#notes,#toc,#tmr{display:none !important}
+  .slide{position:relative;inset:auto;top:auto;bottom:auto;height:100vh;opacity:1;visibility:visible;break-after:page;overflow:hidden}
+}
+</style>
+</head>
+<body>
+
+<nav id="steps" aria-label="진행 단계"></nav>
+
+<main>
+
+<!-- 1 -->
+<section class="slide cover" data-title="표지">
+  <div class="wrap cov">
+    <div>
+      <p class="k">웹프로그래밍개론 · 8주차</p>
+      <h1>WIP 발표와<br>팀 편성</h1>
+      <p class="s">Things We Chose to Make</p>
+      <p class="d">2026. 10. 20 (화)</p>
+    </div>
+    <figure class="cfig" aria-hidden="true">
+      <div class="c25"><div class="g25" data-fill="g25"></div><span class="arr"></span><div class="g5" data-fill="g5"></div></div>
+      <figcaption>25명, 5명씩 다섯 팀</figcaption>
+    </figure>
+  </div>
+  <aside class="notes"><ul><li>보드 링크는 eTL 공지에서 열게 하기. 편집하려면 Figma 로그인 필요</li><li>발표 순서가 슬롯 번호라는 것부터 알리기</li></ul></aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="팀 편성 일정">
+  <div class="wrap">
+    <h2>팀 편성 일정</h2>
+    <div class="body chg">
+      <div class="now"><span>8주차 · 오늘</span><strong>팀으로 다룰 질문 정하기</strong><p>팀 편성은 할 수 있는 데까지 합니다.</p></div>
+      <span class="arr" aria-hidden="true"></span>
+      <div><span>9주차</span><strong>남은 팀 편성 마무리</strong><p>개별 프로젝트 전시 참여자분들은 작가님 피드백도 받습니다.</p></div>
+    </div>
+    <p class="note">공지대로 팀 편성은 9주차까지입니다. 오늘 다 못 정하면 9주차 처음에 마저 정합니다.</p>
+  </div>
+  <aside class="notes"><ul><li>공지와 달라진 것은 없음. 오늘은 팀 질문을 먼저 정하고, 편성은 할 수 있는 데까지</li><li>편성이 남으면 9주차 처음에 자리 정하기부터 이어서</li></ul></aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="진행 순서">
+  <div class="wrap">
+    <h2>진행 순서</h2>
+    <ol class="body flow7">
+      <li><i>1</i><b>준비</b><span>내 슬롯과 질문 카드 채우기</span></li>
+      <li><i>2</i><b>발표</b><span>1부 1~13번<br>쉬는 시간<br>2부 14~25번</span></li>
+      <li><i>3</i><b>투표</b><span>갤러리 워크<br>투표와 개표</span></li>
+      <li class="hl"><i>4</i><b>질문 묶기</b><span>다 같이 카드를 옮겨 다섯 묶음, 묶음마다 대표 질문</span></li>
+      <li><i>5</i><b>팀 정하기</b><span>팀 테이블, 이름표, 자리. 남으면 9주차에</span></li>
+      <li><i>6</i><b>팀 시트</b><span>팀이 정해지면 첫 모임</span></li>
+      <li><i>7</i><b>다음 주</b><span>9주차 안내</span></li>
+    </ol>
+  </div>
+  <aside class="notes"><ul><li>시간은 현장에서 조정. 발표가 밀리면 갤러리 워크를 줄이기</li><li>질문 묶기와 대표 질문까지는 오늘 끝내고, 자리 정하기가 남으면 9주차로</li><li>위쪽 단계 표시를 누르면 그 단계 첫 장으로 이동</li></ul></aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="보드 구성">
+  <div class="wrap">
+    <h2>보드 구성</h2>
+    <p class="lead">피그잼 보드 한 장입니다. 왼쪽에서 오른쪽으로 진행합니다.</p>
+    <div class="body bmap">
+      <div class="z"><i>00</i><b>시작하기</b><span>흐름, 규칙, 바로가기</span></div>
+      <div class="z"><i>01</i><b>WIP 발표</b><span>번호별 슬롯 25개</span><div class="mini m25" data-fill="m25" aria-hidden="true"></div></div>
+      <div class="zc">
+        <div class="z z2"><i>02</i><b>질문 모음</b><span>질문 카드, 질문 묶기</span><div class="mini mq" data-fill="mq" aria-hidden="true"></div></div>
+        <div class="z"><i>03</i><b>개표판</b><span>스티커 수</span></div>
+      </div>
+      <div class="z"><i>04</i><b>팀 테이블</b><span>A~E, 팀 시트</span><div class="mini m5" data-fill="m5" aria-hidden="true"></div></div>
+      <div class="z"><i>05</i><b>9주차</b><span>다음 주 안내</span></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>공유 설정: 링크가 있는 모든 사람, 편집 가능</li><li>보드가 넓어서 바로가기 링크로 움직이는 게 빠름</li></ul></aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="보드 규칙">
+  <div class="wrap">
+    <h2>보드 규칙</h2>
+    <ol class="body pts">
+      <li><i>1</i><div><b>들어가기</b><span>eTL 공지의 보드 링크를 열고 Figma에 로그인합니다. 00 시작하기의 바로가기에서 내 번호를 누릅니다.</span></div></li>
+      <li><i>2</i><div><b>내 것만 고치기</b><span>내 슬롯과 내 질문 카드만 고칩니다.</span></div></li>
+      <li><i>3</i><div><b>남의 카드는 지우지 않기</b><span>의견은 스티커로 남기고, 작성자 이름이 보이게 둡니다.</span></div></li>
+    </ol>
+    <p class="note">질문 묶기 때는 다른 사람의 질문 카드도 옮길 수 있습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>실수로 지운 것은 Ctrl+Z나 버전 기록으로 되돌릴 수 있음</li></ul></aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-phase="준비" data-title="슬롯 구성">
+  <div class="wrap">
+    <h2>슬롯 구성</h2>
+    <p class="lead">슬롯 번호가 발표 순서입니다.</p>
+    <div class="body two">
+      <div class="slotm" aria-hidden="true">
+        <div class="sm-h"><b>07</b><span>1부 7번째 발표<br>TAG 담당 4, 5, 6번</span></div>
+        <div class="sm-r sm-w"><i>1</i><span></span><span></span><span></span></div>
+        <div class="sm-r sm-t"><i>2</i><span class="t">T</span><span class="a">A</span><span class="g">G</span></div>
+        <div class="sm-r sm-v"><i>3</i>투표 칸</div>
+        <div class="sm-r sm-l"><i>4</i><span class="dot d-new"><span class="e">💡</span><b>7</b></span><span class="dot d-web"><span class="e">🌐</span><b>7</b></span><span class="dot d-fire"><span class="e">🔥</span><b>7</b></span><span class="n1"></span><span class="n2"></span></div>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>흰 카드 3장</b><span>발표 전에 채웁니다.</span></div></li>
+        <li><i>2</i><div><b>TAG 칸</b><span>발표를 들으며 씁니다.</span></div></li>
+        <li><i>3</i><div><b>투표 칸</b><span>다른 사람의 투표 스티커가 붙습니다.</span></div></li>
+        <li><i>4</i><div><b>내 스티커</b><span>투표 스티커 3개와 이름표 2장. 투표하고 팀을 정할 때 옮깁니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>지금 채울 곳은 흰 카드 3장과 질문 카드</li><li>투표 스티커와 이름표는 그대로 두기</li></ul></aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-phase="준비" data-title="흰 카드 3장">
+  <div class="wrap">
+    <h2>흰 카드 3장</h2>
+    <p class="lead">내 슬롯 맨 위의 카드입니다. 발표 전에 채웁니다.</p>
+    <div class="body w3">
+      <div class="wc"><b>프로젝트명 :</b><b>이름 :</b><b>질문 한 문장 :</b><b>사용자가 해 볼 행동 :</b></div>
+      <div class="wc"><b>링크 :</b><p>GitHub Pages, 시연 영상, PDF 중 하나</p></div>
+      <div class="wc"><b>받고 싶은 피드백 :</b><p>발표 끝에 말한 것을 적어 둡니다.</p></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>공지의 '관객이 해볼 액션'이 보드의 '사용자가 해 볼 행동'</li><li>링크는 무엇이든 괜찮음</li></ul></aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-phase="준비" data-title="질문 카드">
+  <div class="wrap">
+    <h2>질문 카드</h2>
+    <p class="lead">02 질문 모음에 있는 내 번호 카드에 씁니다. 개인 과제 질문과 달라도 됩니다.</p>
+    <div class="body two">
+      <div class="qc">
+        <p><b>7번</b>&nbsp; 팀으로 다루고 싶은 질문 :</p>
+        <p class="w">내가 남긴 메모를 다른 사람은 어떻게 분류할까?</p>
+        <p>사용자가 웹에서 하는 행동 :</p>
+        <p class="w">분류한다</p>
+      </div>
+      <div>
+        <p class="h3">행동은 동사 하나로</p>
+        <div class="chips" style="margin-top:1rem"><span>기록한다</span><span>비교한다</span><span>고른다</span><span>함께 쓴다</span></div>
+        <p class="txt">동사가 있으면 묶음마다 만들 기능 후보가 생깁니다. 이 카드로 나중에 질문을 묶습니다.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>카드 예시는 설명용. 학생 질문을 미리 정해 주는 것이 아님</li></ul></aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-phase="발표" data-title="발표 구성">
+  <div class="wrap">
+    <h2>발표 구성</h2>
+    <p class="lead">한 사람 3분입니다. 순서는 공지와 같습니다.</p>
+    <div class="body talk">
+      <div class="seg" style="--w:20"><b>질문</b><span>질문 한 문장</span></div>
+      <div class="seg" style="--w:30"><b>리서치</b><span>찾아본 것 한두 개</span></div>
+      <div class="seg" style="--w:50"><b>시연</b><span>사용자가 해 볼 행동 하나</span></div>
+      <div class="seg hi" style="--w:60"><b>과정</b><span>결정, 시도, 실패, AI와 한 일</span></div>
+      <div class="seg" style="--w:20"><b>피드백</b><span>받고 싶은 것 하나</span></div>
+    </div>
+    <p class="note"><span><b>과정</b>에 가장 많은 시간을 씁니다.</span><button type="button" class="tbtn" data-timer="180">3분 타이머</button></p>
+  </div>
+  <aside class="notes"><ul><li>이번 과제의 초점이 결과물보다 과정이라 '과정'을 가장 길게 잡음</li><li>타이머는 이 장의 버튼이나 아래 메뉴에서</li></ul></aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-phase="발표" data-title="발표 진행">
+  <div class="wrap">
+    <h2>발표 진행</h2>
+    <ol class="body pts">
+      <li><i>1</i><div><b>강사 PC 한 대로 발표합니다</b><span>내 슬롯의 링크를 눌러 바로 시연합니다. 노트북은 바꾸지 않습니다.</span></div></li>
+      <li><i>2</i><div><b>3분이 되면 마칩니다</b><span>다음 사람은 앞자리에서 기다립니다.</span></div></li>
+      <li><i>3</i><div><b>덜 만든 부분은 그림으로</b><span>화면 스케치나 사용 흐름으로 보여 주고, 못 만든 이유와 다음 계획을 말합니다.</span></div></li>
+    </ol>
+    <p class="note">1부 1~13번, 쉬는 시간, 2부 14~25번</p>
+  </div>
+  <aside class="notes"><ul><li>강사 PC에 보드를 미리 열어 두기</li></ul></aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-phase="발표" data-title="TAG 피드백">
+  <div class="wrap">
+    <h2>TAG 피드백</h2>
+    <p class="lead">발표를 들으면서 바로 씁니다. 스티커 첫머리에 T, A, G를 적습니다.</p>
+    <div class="body tag3">
+      <div class="st" style="--c:var(--y)"><b>T 좋았던 점</b><p>예) 메모를 올리자마자 분류 결과가 바뀌어서 질문이 바로 이해됐어요.</p></div>
+      <div class="st" style="--c:var(--b)"><b>A 궁금한 점</b><p>예) 여러 사람이 동시에 분류하면 결과는 누구 기준으로 저장되나요?</p></div>
+      <div class="st" style="--c:var(--g)"><b>G 제안할 점</b><p>예) 다른 사람의 분류와 내 분류를 나란히 비교하는 화면이 있으면 좋겠어요.</p></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>예시는 공지의 '일상 기록을 분류해 보는 도구' 질문을 가정한 문장</li></ul></aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-phase="발표" data-title="TAG 담당">
+  <div class="wrap">
+    <h2>TAG 담당</h2>
+    <p class="lead">내 다음 세 명에게는 꼭 씁니다. 25번 다음은 1번입니다.</p>
+    <div class="body two">
+      <div class="ring" data-fill="ring" aria-hidden="true"><p>7번이<br>8, 9, 10번에게</p></div>
+      <ul class="ex">
+        <li><span class="me">7번</span><span class="arr" aria-hidden="true"></span><span class="to">8번</span><span class="to">9번</span><span class="to">10번</span></li>
+        <li><span class="me2">24번</span><span class="arr" aria-hidden="true"></span><span class="to2">25번</span><span class="to2">1번</span><span class="to2">2번</span></li>
+        <li class="mut">담당이 아니어도 더 써도 됩니다.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>모든 카드가 스티커를 9장 이상 받는 구조</li><li>방금 발표를 끝낸 사람들이 담당이라 다음 발표자는 준비에 집중할 수 있음</li></ul></aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-phase="투표" data-title="투표 스티커">
+  <div class="wrap">
+    <h2>투표 스티커</h2>
+    <p class="lead">한 사람이 세 개를 가집니다. 스티커마다 뜻이 다릅니다.</p>
+    <div class="body v3">
+      <div><span class="dot big d-new"><span class="e">💡</span><b>7</b></span><strong>질문이 새로워요</strong><small>질문의 참신함</small></div>
+      <div><span class="dot big d-web"><span class="e">🌐</span><b>7</b></span><strong>웹이라서 더 좋아요</strong><small>웹 매체와의 적합성</small></div>
+      <div><span class="dot big d-fire"><span class="e">🔥</span><b>7</b></span><strong>과정이 치열했어요</strong><small>과정의 치열함</small></div>
+    </div>
+    <p class="note">기준은 완성도가 아니라 <b>남은 학기 동안 함께 키우고 싶은 질문</b>입니다. 스티커의 숫자는 내 번호입니다.</p>
+  </div>
+  <aside class="notes"><ul><li>공지의 평가 기준 세 가지를 스티커로 바꾼 것</li><li>숫자가 있어서 기명 투표가 됨</li></ul></aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-phase="투표" data-title="투표 방법">
+  <div class="wrap">
+    <h2>투표 방법</h2>
+    <p class="lead">갤러리 워크를 하면서 스티커를 붙이고, 빈 카드에 TAG도 더 씁니다.</p>
+    <div class="body two">
+      <div class="vote" aria-hidden="true">
+        <div class="mine"><span class="lb">7번의 스티커</span><div><span class="dot d-new"><span class="e">💡</span><b>7</b></span><span class="dot d-web"><span class="e">🌐</span><b>7</b></span><span class="dot d-fire"><span class="e">🔥</span><b>7</b></span></div></div>
+        <span class="arr"></span>
+        <div class="tgts">
+          <div class="tgt"><b>2번</b><span class="vb"><span class="dot d-new"><span class="e">💡</span><b>7</b></span></span></div>
+          <div class="tgt"><b>12번</b><span class="vb"><span class="dot d-web"><span class="e">🌐</span><b>7</b></span></span></div>
+          <div class="tgt"><b>21번</b><span class="vb"><span class="dot d-fire"><span class="e">🔥</span><b>7</b></span></span></div>
+          <div class="tgt no"><b>7번</b><span class="vb">내 슬롯에는 안 됨</span></div>
+        </div>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>서로 다른 세 프로젝트에</b><span>한 곳에 하나씩 붙입니다.</span></div></li>
+        <li><i>2</i><div><b>내 프로젝트는 빼고</b><span>내 슬롯에는 붙이지 않습니다.</span></div></li>
+        <li><i>3</i><div><b>투표 칸에</b><span>슬롯 가운데의 점선 칸입니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>익명이 필요하면 FigJam 투표 기능도 있지만 기준별 집계는 안 됨</li></ul></aside>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-phase="투표" data-title="개표">
+  <div class="wrap">
+    <h2>개표</h2>
+    <p class="lead">발표자가 자기 슬롯의 스티커를 세어 03 개표판의 자기 줄에 적습니다.</p>
+    <div class="body two">
+      <div class="cnt" aria-hidden="true">
+        <span class="lb">7번 슬롯의 투표 칸</span>
+        <div class="vb">
+          <span class="dot d-new"><span class="e">💡</span><b>2</b></span><span class="dot d-new"><span class="e">💡</span><b>15</b></span>
+          <span class="dot d-web"><span class="e">🌐</span><b>9</b></span>
+          <span class="dot d-fire"><span class="e">🔥</span><b>3</b></span><span class="dot d-fire"><span class="e">🔥</span><b>18</b></span><span class="dot d-fire"><span class="e">🔥</span><b>22</b></span>
+        </div>
+      </div>
+      <table class="tally">
+        <thead><tr><th>번호</th><th class="c1"><span class="e">💡</span></th><th class="c2"><span class="e">🌐</span></th><th class="c3"><span class="e">🔥</span></th><th>합계</th></tr></thead>
+        <tbody><tr><td>07</td><td>2</td><td>1</td><td>3</td><td><b>6</b></td></tr></tbody>
+      </table>
+    </div>
+    <p class="note">합계는 질문 묶기를 마친 뒤 대표 질문을 정할 때 씁니다.</p>
+  </div>
+  <aside class="notes"><ul><li>각자 자기 슬롯만 세니 금방 끝남</li></ul></aside>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-phase="질문 묶기" data-title="질문 묶기">
+  <div class="wrap">
+    <h2>질문 묶기</h2>
+    <p class="lead">02 질문 모음에서 다 같이 카드를 옮겨 비슷한 질문끼리 묶습니다.</p>
+    <ol class="body step4">
+      <li><i>1</i><b>내 카드 옮기기</b><span>말없이, 내 카드만</span></li>
+      <li><i>2</i><b>함께 다듬기</b><span>이야기하면서, 다른 카드도</span></li>
+      <li><i>3</i><b>다섯 묶음</b><span>합치거나 나누고 이름 붙이기</span></li>
+      <li><i>4</i><b>대표 질문</b><span>표를 가장 많이 받은 카드</span></li>
+    </ol>
+    <div class="crit">
+      <p>묶는 기준은 기술이 아니라 <span class="em">궁금증</span>입니다.</p>
+      <div class="chips"><span>AI에게 넘긴 결정</span><span>여럿이 함께 쓰기</span><span>나의 기록 다시 보기</span></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>진행자는 지금 묶음이 몇 개인지 알려 주고, 막힐 때만 돕기</li><li>같은 궁금증 안에 기술이 섞인 팀이 더 낫다</li></ul></aside>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-phase="질문 묶기" data-title="내 카드 옮기기">
+  <div class="wrap">
+    <h2>내 카드 옮기기</h2>
+    <p class="lead">처음에는 말없이, 내 카드만 옮깁니다.</p>
+    <div class="body mv" aria-hidden="true">
+      <div class="mv-a"><span class="lb">처음 자리</span><div class="mvg" data-fill="mvg"></div></div>
+      <span class="arr"></span>
+      <div class="mv-b"><span class="lb">묶는 곳</span>
+        <div class="mvb">
+          <div class="cl" style="left:5%;top:9%"><i></i><i></i><i></i></div>
+          <div class="cl" style="left:58%;top:7%"><i></i><i></i></div>
+          <div class="cl" style="left:25%;top:55%"><i></i><i class="me">7</i><i></i><i></i></div>
+          <div class="cl" style="left:72%;top:62%"><i></i></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">비슷한 카드 옆에 둡니다. 비슷한 카드가 없으면 빈 곳에 둡니다.</p>
+  </div>
+  <aside class="notes"><ul><li>처음엔 말없이 해야 각자 판단이 먼저 드러남</li><li>카드가 조금 겹쳐도 괜찮음</li></ul></aside>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-phase="질문 묶기" data-title="함께 다듬기">
+  <div class="wrap">
+    <h2>함께 다듬기</h2>
+    <p class="lead">이제 이야기하면서 묶음을 정리합니다.</p>
+    <div class="body two">
+      <div class="mend" aria-hidden="true">
+        <div class="mp"><span class="lb">다른 사람이 12번 카드를 옮깁니다</span>
+          <div class="mr"><div class="cg"><i></i><i></i></div><span class="arr dash"></span><div class="cg"><i></i><i></i><i class="hi">12</i></div></div>
+        </div>
+        <div class="mp"><span class="lb">12번 주인이 다시 옮기면 그 자리로 정합니다</span>
+          <div class="mr"><div class="cg"><i></i><i></i><i class="hi">12</i></div><span class="arr left"></span><div class="cg"><i></i><i></i></div></div>
+        </div>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>다른 사람 카드도 옮길 수 있습니다</b><span>더 잘 맞는 묶음이 보이면 옮깁니다.</span></div></li>
+        <li><i>2</i><div><b>카드 주인의 선택을 따릅니다</b><span>주인이 다시 옮기면 그대로 둡니다.</span></div></li>
+        <li><i>3</i><div><b>내용은 고치지 않습니다</b><span>옮기기만 합니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>남의 카드를 옮기는 건 이 단계에서만</li></ul></aside>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-phase="질문 묶기" data-title="다섯 묶음">
+  <div class="wrap">
+    <h2>다섯 묶음</h2>
+    <p class="lead">묶음을 다섯 개로 맞춥니다. 한 묶음은 3~7장입니다.</p>
+    <div class="body five" aria-hidden="true">
+      <div class="fp"><span class="lb">작은 묶음은 합치기</span>
+        <div class="fr"><div class="cg s"><i></i><i></i></div><span class="plus">+</span><div class="cg s"><i></i><i></i><i></i><i></i></div><span class="arr"></span><div class="cg s"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="fp"><span class="lb">큰 묶음은 나누기</span>
+        <div class="fr"><div class="cg s"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="arr"></span><div class="cg s"><i></i><i></i><i></i><i></i><i></i></div><div class="cg s"><i></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="fp"><span class="lb">이름 붙이기</span>
+        <span class="nm">묶음 이름 : 여럿이 함께 쓰기</span>
+        <div class="cg s"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <p class="note">묶음마다 이름 카드를 하나 붙이고, 공통 궁금증을 짧게 적습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>묶음이 여섯 개 이상이면 가장 작은 묶음부터 합치기, 네 개 이하면 가장 큰 묶음을 나누기</li><li>인원은 다음 단계에서 5명으로 맞추니 장수가 꼭 5장일 필요는 없음</li></ul></aside>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-phase="질문 묶기" data-title="대표 질문">
+  <div class="wrap">
+    <h2>대표 질문</h2>
+    <p class="lead">묶음에서 개표 합계가 가장 높은 카드가 대표 질문입니다.</p>
+    <div class="body two">
+      <div class="rq" aria-hidden="true">
+        <span class="nm">묶음 이름 : 여럿이 함께 쓰기</span>
+        <div class="rq-g">
+          <div class="qm"><b>3번</b><em>3</em></div>
+          <div class="qm top"><span>대표 질문</span><b>11번</b><em>6</em></div>
+          <div class="qm"><b>16번</b><em>2</em></div>
+          <div class="qm"><b>20번</b><em>4</em></div>
+          <div class="qm"><b>24번</b><em>1</em></div>
+        </div>
+        <span class="lb">카드 오른쪽 아래 숫자는 개표 합계</span>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>합계는 03 개표판에서</b><span>묶음 안 카드의 번호로 찾습니다.</span></div></li>
+        <li><i>2</i><div><b>동점이면 💡 + 🌐가 많은 쪽</b><span>그래도 같으면 묶음 사람들이 정합니다.</span></div></li>
+        <li><i>3</i><div><b>대표 질문을 낸 사람에게 가산점</b><span>팀장을 맡을 필요는 없습니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>대표 질문은 출발점. 팀이 고쳐 쓰거나 합쳐도 됨(팀 시트 ②)</li></ul></aside>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-phase="팀 정하기" data-title="팀 테이블">
+  <div class="wrap">
+    <h2>팀 테이블</h2>
+    <p class="lead">묶음마다 빈 테이블(A~E)을 하나 골라 카드를 묶음째 옮깁니다.</p>
+    <div class="body two">
+      <div class="tt" aria-hidden="true">
+        <div class="tt-h"><b>팀 A</b><span>한 팀 5명</span></div>
+        <div class="tt-a"><span class="lb">대표 질문</span><p>내가 남긴 메모를 다른 사람은 어떻게 분류할까?</p></div>
+        <div class="tt-q"><span class="lb">비슷한 질문</span><div><i></i><i></i><i></i><i></i></div></div>
+        <div class="tt-s"><span class="lb">자리</span><div><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="tt-w"><span class="lb">2지망 대기</span></div>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>대표 질문은 맨 위 칸에</b><span>카드의 질문을 옮겨 적습니다.</span></div></li>
+        <li><i>2</i><div><b>카드는 비슷한 질문 칸에</b><span>대표 질문 카드도 여기에 둡니다.</span></div></li>
+      </ol>
+    </div>
+    <p class="note">멀리 옮길 때는 잘라내기(Ctrl+X)한 뒤 붙여넣기(Ctrl+V)가 편합니다.</p>
+  </div>
+  <aside class="notes"><ul><li>테이블 고르기가 겹치면 진행자가 정리</li></ul></aside>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-phase="팀 정하기" data-title="이름표">
+  <div class="wrap">
+    <h2>이름표</h2>
+    <p class="lead">내 슬롯 아래에 이름표가 두 장 있습니다. 이름을 쓰고 팀 테이블에 붙입니다.</p>
+    <div class="body two">
+      <div class="nt">
+        <div class="row"><span class="n1">1지망 7번<br>이름 :</span><span class="arr" aria-hidden="true"></span><span class="dest">함께하고 싶은 팀의<br><b>자리</b></span></div>
+        <div class="row"><span class="n2">2지망 7번<br>이름 :</span><span class="arr" aria-hidden="true"></span><span class="dest">다른 팀의<br><b>2지망 대기</b></span></div>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>1지망은 보통 내 카드가 간 팀</b><span>다른 팀에 가고 싶으면 그 팀에 붙여도 됩니다.</span></div></li>
+        <li><i>2</i><div><b>2지망은 자리가 넘칠 때 갈 팀</b><span>1지망과 다른 팀에 붙입니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>이름표에 이름을 먼저 쓰고 옮기게 하기</li></ul></aside>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-phase="팀 정하기" data-title="자리 정하는 순서">
+  <div class="wrap">
+    <h2>자리 정하는 순서</h2>
+    <div class="body flow">
+      <div class="f-q"><span>1지망이<br>5명 이하?</span></div>
+      <div class="f-yes"><span>예</span><span class="arr" aria-hidden="true"></span></div>
+      <div class="f-ok">그대로 확정</div>
+      <div class="f-no"><span class="arr down" aria-hidden="true"></span><span>아니요</span></div>
+      <div class="f-b"><b>먼저 앉습니다</b><span>① 대표 질문을 낸 사람<br>② 카드가 이 팀에 있는 사람</span></div>
+      <div class="f-d"><span class="arr down" aria-hidden="true"></span></div>
+      <div class="f-b"><b>넘치는 사람은 2지망 팀으로</b><span>자원한 사람부터</span></div>
+      <div class="f-d"><span class="arr down" aria-hidden="true"></span></div>
+      <div class="f-b mut"><b>그래도 안 맞으면 진행자가 정리</b><span>시간이 모자라면 9주차에 마저 정합니다.</span></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>2지망도 넘치면 전공과 역할(디자인, 개발, 기획)이 섞이게 배치</li><li>확정 뒤 1:1 맞교환을 허용할지는 현장에서 결정(양쪽 동의 시)</li></ul></aside>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-phase="팀 정하기" data-title="자주 묻는 질문">
+  <div class="wrap">
+    <h2>자주 묻는 질문</h2>
+    <dl class="body faq">
+      <div><dt>내 질문이 대표 질문이 아니면?</dt><dd>내 카드는 비슷한 질문 칸에 남습니다. 내 MVP는 팀 시트 ④ '각자 가져올 것'으로 이어집니다.</dd></div>
+      <div><dt>대표 질문을 낸 사람이 팀장인가요?</dt><dd>아닙니다. 가산점만 받고, 역할은 팀이 정합니다.</dd></div>
+      <div><dt>개인 질문과 팀 질문이 달라도 되나요?</dt><dd>됩니다. 질문 카드에는 팀으로 해 보고 싶은 질문을 씁니다.</dd></div>
+      <div><dt>내 카드가 어느 묶음에도 안 맞으면?</dt><dd>가장 가까운 묶음에 둡니다. 다섯 묶음을 맞출 때 다 같이 정합니다.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 25 -->
+<section class="slide" data-phase="팀 시트" data-title="팀 시트">
+  <div class="wrap">
+    <h2>팀 시트</h2>
+    <p class="lead">팀 테이블 아래에 있습니다. 9주차 피드백 때 이 시트를 함께 봅니다.</p>
+    <ol class="body sheet">
+      <li class="today"><i>①</i><b>팀 이름</b><span>임시로 붙여도 됩니다.</span></li>
+      <li class="today"><i>②</i><b>우리의 질문</b><span>한 문장. 대표 질문을 고쳐 써도 됩니다.</span></li>
+      <li><i>③</i><b>웹이어야 하는 이유</b><span>링크로 공유, 데이터, 여럿이 동시에, 접근성</span></li>
+      <li><i>④</i><b>각자 가져올 것</b><span>내 MVP에서 하나씩. 기능, 데이터, 인터랙션, 화면</span></li>
+      <li class="today"><i>⑤</i><b>첫 실험 후보 3개</b><span>문장 틀에 맞춰 씁니다.</span></li>
+      <li class="today t6"><i>⑥</i><b>사용자 테스트 2개</b><span>무엇을 어떻게 확인할지</span></li>
+      <li><i>⑦</i><b>다음 주까지 누가 무엇을</b><span>이름과 할 일</span></li>
+    </ol>
+    <p class="note">팀이 정해지면 ① ② ⑤ ⑥부터 씁니다. 나머지는 10/23 (금)까지 채웁니다.</p>
+  </div>
+  <aside class="notes"><ul><li>⑤ ⑥이 9주차 피드백의 대상</li></ul></aside>
+</section>
+
+<!-- 26 -->
+<section class="slide" data-phase="팀 시트" data-title="첫 실험">
+  <div class="wrap">
+    <h2>첫 실험</h2>
+    <p class="lead">⑤ 문장 틀에 맞춰 세 개를 쓰고, 그중 하나를 고릅니다.</p>
+    <div class="body">
+      <p class="frame">만약 사용자가 <span class="blank"></span> 하면, <span class="blank"></span> 된다</p>
+      <p class="frame-ex">예) 만약 사용자가 다른 사람의 분류를 먼저 보면, 자기 분류를 바꾸게 된다</p>
+      <div class="ex3" aria-hidden="true">
+        <div class="wc">실험 ①</div>
+        <div class="wc">실험 ②<span class="stp" style="right:1.6rem">+1</span><span class="stp" style="right:.4rem">+1</span><span class="stp" style="right:-.8rem">+1</span></div>
+        <div class="wc">실험 ③<span class="stp" style="right:-.8rem">+1</span></div>
+      </div>
+    </div>
+    <p class="note">한 사람이 한 표씩 스탬프로 고릅니다. 가장 많이 받은 실험을 9주차에 가져갑니다.</p>
+  </div>
+  <aside class="notes"><ul><li>스탬프는 FigJam의 스탬프 도구(+1)</li><li>실험 문장은 기술보다 사용자의 행동과 결과로 쓰게 하기</li></ul></aside>
+</section>
+
+<!-- 27 -->
+<section class="slide" data-phase="팀 시트" data-title="사용자 테스트">
+  <div class="wrap">
+    <h2>사용자 테스트</h2>
+    <p class="lead">⑥ 테스트 카드 두 장에, 질문을 어떻게 확인할지 적습니다.</p>
+    <div class="body two">
+      <div class="tc">
+        <b>테스트 ①</b>
+        <dl>
+          <div><dt>확인할 것</dt><dd>처음 온 사람이 설명 없이 메모를 분류할 수 있나</dd></div>
+          <div><dt>누구에게</dt><dd>다른 팀 2명</dd></div>
+          <div><dt>시켜 볼 일</dt><dd>메모 세 개를 올리고 분류해 보기</dd></div>
+          <div><dt>이러면 성공</dt><dd>묻지 않고 1분 안에 끝낸다</dd></div>
+        </dl>
+      </div>
+      <ol class="pts">
+        <li><i>1</i><div><b>질문을 확인할 방법으로</b><span>무엇을, 누구에게, 무엇을 시켜 보고, 어떻게 되면 성공인지 적습니다.</span></div></li>
+        <li><i>2</i><div><b>9주차에 가져갑니다</b><span>이 카드를 보고 피드백합니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>다른 수강생분들께 카드의 대상, 시켜 볼 일, 성공 기준이 질문과 맞는지 봐 주시도록 요청</li></ul></aside>
+</section>
+
+<!-- 28 -->
+<section class="slide" data-phase="다음 주" data-title="다음 주 일정">
+  <div class="wrap">
+    <h2>다음 주 일정</h2>
+    <ol class="body tl">
+      <li class="today"><i>오늘</i><b>10/20 (화)</b><span>팀 질문 정하기, 팀 편성 시작</span></li>
+      <li><i>선택</i><b>10/22 (목)</b><span>오픈콜 지원 마감</span></li>
+      <li><i>마감</i><b>10/23 (금)</b><span>정해진 팀은 팀 시트 ①~⑦ 완성</span></li>
+      <li><i>9주차</i><b>10/27 (화)</b><span>남은 팀 편성 마무리, 전시 작업 개별 프로젝트 작가님 피드백</span></li>
+    </ol>
+    <p class="box"><b>개인 피드백 반영 과제</b>받은 TAG 중 중요한 세 가지와 수정 계획. 기한과 제출 방법은 eTL 공지를 봅니다.</p>
+  </div>
+  <aside class="notes"><ul><li>정해진 팀은 팀 시트, 편성이 남은 묶음은 대표 질문과 비슷한 질문</li><li>피드백 반영 과제 기한은 eTL에 따로 공지</li></ul></aside>
+</section>
+
+<!-- 29 -->
+<section class="slide" data-phase="다음 주" data-title="9주차 진행">
+  <div class="wrap">
+    <h2>9주차 진행</h2>
+    <p class="lead">피드백은 개별과 팀, 두 가지입니다.</p>
+    <div class="body lanes">
+      <div class="lane"><i>[선택]</i><b>개별 피드백</b><p>오픈콜 지원자 중 원하는 사람. 오픈콜에 낸 작업의 전시 형태를 봅니다.</p></div>
+      <div class="lane"><i>팀마다</i><b>팀 피드백</b><p>우리의 질문, 사용 장면, 첫 실험, 테스트 카드를 봅니다.</p></div>
+      <div class="lane"><i>기다리는 동안</i><b>팀 토의</b><ol><li><i>1</i>질문 다듬기</li><li><i>2</i>사용 장면 그리기</li><li><i>3</i>3분 소개 준비</li></ol></div>
+    </div>
+    <p class="note">오늘 팀 편성을 다 못 하면 9주차 처음에 마저 정하고 피드백을 받습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>팀 피드백 순서는 당일 공지</li></ul></aside>
+</section>
+
+</main>
+
+<div id="notes" aria-live="polite"></div>
+<div id="toc"><div id="toclist"></div></div>
+<div id="tmr" class="hide" role="timer">
+  <div class="tm-p">
+    <button type="button" data-sec="180" class="on">3분</button>
+    <button type="button" data-sec="300">5분</button>
+    <button type="button" data-sec="600">10분</button>
+    <button type="button" data-sec="900">15분</button>
+  </div>
+  <div class="tm-m"><span id="tm-num">3:00</span><button type="button" id="tm-go" class="go">시작</button><button type="button" id="tm-reset">처음으로</button></div>
+</div>
+<footer id="hud">
+  <div class="l"><b>웹프로그래밍개론 8주차</b><span id="hud-t"></span></div>
+  <div class="r">
+    <button type="button" class="hb" id="b-toc">목차<kbd>T</kbd></button>
+    <button type="button" class="hb" id="b-notes">메모<kbd>N</kbd></button>
+    <button type="button" class="hb" id="b-tmr">타이머</button>
+    <button type="button" class="hb" id="b-fs">전체 화면<kbd>F</kbd></button>
+    <button type="button" class="hb nav" id="b-prev" aria-label="이전">‹</button>
+    <span id="pg"></span>
+    <button type="button" class="hb nav" id="b-next" aria-label="다음">›</button>
+  </div>
+</footer>
+<div id="bar"></div>
+
+<script>
+(function(){
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const pad = n => String(n).padStart(2, '0');
+
+  /* 반복되는 그림 조각 */
+  const fills = {
+    g25: () => '<i></i>'.repeat(25),
+    g5: () => ['--y', '--b', '--g', '--v', '--t'].map(c => '<div style="--c:var(' + c + ')">' + '<i></i>'.repeat(5) + '</div>').join(''),
+    m25: () => '<i></i>'.repeat(25),
+    mq: () => '<i></i>'.repeat(10),
+    m5: () => '<i></i>'.repeat(5),
+    ring: () => Array.from({length: 25}, (_, k) => {
+      const n = k + 1;
+      const c = n === 7 ? 'me' : [8, 9, 10].includes(n) ? 'to' : n === 24 ? 'me2' : [25, 1, 2].includes(n) ? 'to2' : '';
+      return '<i class="' + c + '" style="--k:' + k + '">' + n + '</i>';
+    }).join(''),
+    mvg: () => Array.from({length: 25}, (_, k) => k === 6 ? '<i class="gone">7</i>' : '<i></i>').join('')
+  };
+  $$('[data-fill]').forEach(el => { const f = fills[el.dataset.fill]; if (f) el.insertAdjacentHTML('afterbegin', f()); });
+
+  const slides = $$('.slide');
+  const hudT = $('#hud-t'), pg = $('#pg'), bar = $('#bar');
+  const notes = $('#notes'), toc = $('#toc'), tocl = $('#toclist'), steps = $('#steps');
+  const PH = ['준비', '발표', '투표', '질문 묶기', '팀 정하기', '팀 시트', '다음 주'];
+  let cur = 0;
+
+  /* 위쪽 단계 표시 */
+  PH.forEach((p, k) => {
+    if (k) steps.insertAdjacentHTML('beforeend', '<span class="gap"></span>');
+    const first = slides.findIndex(s => s.dataset.phase === p);
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<i>' + (k + 1) + '</i>' + p;
+    b.addEventListener('click', () => { if (first > -1) show(first); b.blur(); });
+    steps.appendChild(b);
+  });
+  const stepBtns = $$('button', steps);
+
+  /* 목차 */
+  let last = null;
+  slides.forEach((s, k) => {
+    const ph = s.dataset.phase || '안내';
+    if (ph !== last) { tocl.insertAdjacentHTML('beforeend', '<h5>' + ph + '</h5>'); last = ph; }
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<i>' + (k + 1) + '</i>' + (s.dataset.title || '');
+    b.addEventListener('click', () => { show(k); toc.classList.remove('open'); $('#b-toc').classList.remove('on'); });
+    tocl.appendChild(b);
+  });
+  const tocBtns = $$('button', tocl);
+
+  function show(i){
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => { s.classList.toggle('active', k === cur); if (k === cur) s.scrollTop = 0; });
+    const s = slides[cur], title = s.dataset.title || '';
+    hudT.textContent = '· ' + title;
+    pg.textContent = (cur + 1) + ' / ' + slides.length;
+    bar.style.width = ((cur + 1) / slides.length * 100) + '%';
+    const pi = PH.indexOf(s.dataset.phase || '');
+    stepBtns.forEach((b, k) => { b.classList.toggle('on', k === pi); b.classList.toggle('done', pi > -1 && k < pi); });
+    document.body.classList.toggle('is-cover', cur === 0);
+    const n = s.querySelector('.notes');
+    notes.innerHTML = '<h4>진행 메모 · ' + (cur + 1) + ' ' + title + '</h4>' + (n ? n.innerHTML : '<ul><li>메모 없음</li></ul>');
+    tocBtns.forEach((b, k) => b.classList.toggle('cur', k === cur));
+    try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {}
+  }
+  const toggle = (el, btn) => { el.classList.toggle('open'); if (btn) btn.classList.toggle('on', el.classList.contains('open')); };
+  function fs(){
+    if (!document.fullscreenElement) { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen && document.exitFullscreen(); }
+  }
+  $('#b-prev').addEventListener('click', e => { show(cur - 1); e.currentTarget.blur(); });
+  $('#b-next').addEventListener('click', e => { show(cur + 1); e.currentTarget.blur(); });
+  $('#b-toc').addEventListener('click', e => { toggle(toc, $('#b-toc')); e.currentTarget.blur(); });
+  $('#b-notes').addEventListener('click', e => { toggle(notes, $('#b-notes')); e.currentTarget.blur(); });
+  $('#b-fs').addEventListener('click', e => { fs(); e.currentTarget.blur(); });
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); show(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(slides.length - 1);
+    else if (k === 't' || k === 'T') toggle(toc, $('#b-toc'));
+    else if (k === 'n' || k === 'N') toggle(notes, $('#b-notes'));
+    else if (k === 'f' || k === 'F') fs();
+    else if (k === 'Escape') { [toc, notes].forEach(el => el.classList.remove('open')); $('#b-toc').classList.remove('on'); $('#b-notes').classList.remove('on'); }
+  });
+  let tx = null, ty = null;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+  document.addEventListener('touchend', e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) { dx < 0 ? show(cur + 1) : show(cur - 1); }
+    tx = ty = null;
+  }, {passive: true});
+  window.addEventListener('hashchange', () => { const n = parseInt(location.hash.slice(1), 10); if (n && n - 1 !== cur) show(n - 1); });
+
+  /* 타이머 */
+  const tmr = $('#tmr'), num = $('#tm-num'), go = $('#tm-go');
+  let total = 180, left = 180, running = false, prev = 0, raf = 0;
+  const fmt = s => { const a = Math.abs(Math.round(s)); return (s < 0 ? '+' : '') + Math.floor(a / 60) + ':' + pad(a % 60); };
+  function paint(){
+    num.textContent = fmt(left);
+    tmr.classList.toggle('warn', left <= 30 && left > 0);
+    tmr.classList.toggle('over', left <= 0);
+  }
+  function loop(t){
+    if (!running) return;
+    left -= (t - prev) / 1000; prev = t; paint();
+    raf = requestAnimationFrame(loop);
+  }
+  function setPreset(sec){
+    total = left = sec; running = false; cancelAnimationFrame(raf); go.textContent = '시작'; paint();
+    $$('.tm-p button').forEach(b => b.classList.toggle('on', Number(b.dataset.sec) === sec));
+  }
+  go.addEventListener('click', e => {
+    running = !running; go.textContent = running ? '멈춤' : '계속';
+    if (running) { prev = performance.now(); raf = requestAnimationFrame(loop); }
+    e.currentTarget.blur();
+  });
+  $('#tm-reset').addEventListener('click', e => { setPreset(total); e.currentTarget.blur(); });
+  $$('.tm-p button').forEach(b => b.addEventListener('click', e => { setPreset(Number(b.dataset.sec)); e.currentTarget.blur(); }));
+  $('#b-tmr').addEventListener('click', e => { tmr.classList.toggle('hide'); $('#b-tmr').classList.toggle('on', !tmr.classList.contains('hide')); e.currentTarget.blur(); });
+  $$('[data-timer]').forEach(b => b.addEventListener('click', e => {
+    setPreset(Number(b.dataset.timer)); tmr.classList.remove('hide'); $('#b-tmr').classList.add('on'); e.currentTarget.blur();
+  }));
+  paint();
+
+  const start = parseInt(location.hash.slice(1), 10);
+  show(start ? start - 1 : 0);
+})();
+</script>
+</body>
+</html>
