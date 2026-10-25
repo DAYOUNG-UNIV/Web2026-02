@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko" data-page="module">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선택 모듈 · React로 데이터 목록 그리기 | 웹프로그래밍개론</title>
+<meta name="description" content="선택 모듈: 9주차 render(state)에서 React 컴포넌트로, useEffect로 fetch하기, 언제 React가 과한가.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">선택 모듈 · React</span>
+  <nav class="topbar-nav" aria-label="관련 자료">
+    <a href="reading.html">11주차 확장판</a>
+    <a href="summary.html">요약판</a>
+    <a href="module.html" aria-current="page">선택 모듈</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<div class="layout">
+<main class="doc" id="main">
+
+  <header class="doc-head">
+    <span class="kicker">선택 모듈 · 프레임워크</span>
+    <h1>React로 데이터 목록 그리기</h1>
+    <p class="lead">9주차에 직접 만든 <code>render(state)</code>를 React가 대신 해 주면 무엇이 편해지고 무엇이 늘어나는지 봅니다. 11주차의 fetch를 컴포넌트 안으로 옮기는 데까지가 범위입니다.</p>
+    <ul class="doc-meta">
+      <li><b>예상 시간</b> 90분</li>
+      <li><b>먼저 볼 것</b> 9주차 render(state), <a href="reading.html#async">11주차 비동기와 fetch</a></li>
+      <li><b>AI 등급</b> AI ALLOWED</li>
+    </ul>
+  </header>
+
+  <section class="fit" aria-labelledby="fit-title">
+    <h2 id="fit-title">이 모듈이 맞는 프로젝트</h2>
+    <dl>
+      <div><dt>잘 맞는 경우</dt><dd><ul><li>같은 모양의 카드나 목록이 화면 여러 곳에 반복된다</li><li>필터, 탭, 입력처럼 상태가 바뀌는 곳이 많다</li></ul></dd></div>
+      <div><dt>과한 경우</dt><dd><ul><li>글과 이미지가 중심인 소개·전시 페이지</li><li>상호작용이 버튼 몇 개뿐이다</li></ul></dd></div>
+      <div><dt>먼저 할 것</dt><dd>팀원 모두가 Node.js와 npm을 설치했는지 확인합니다. 10주차 터미널 실습을 마쳤다면 충분합니다.</dd></div>
+    </dl>
+  </section>
+
+  <p>진행 상황을 표시하며 따라가세요. 표시는 이 브라우저에만 저장됩니다.</p>
+  <ul class="checklist" data-checklist="mod-react-progress">
+    <li><label><input type="checkbox"> 01 컴포넌트가 무엇을 대신하는지 설명할 수 있다</label></li>
+    <li><label><input type="checkbox"> 02 Vite로 새 프로젝트를 만들고 개발 서버를 켰다</label></li>
+    <li><label><input type="checkbox"> 03 JSX의 세 가지 규칙을 지켜 컴포넌트를 썼다</label></li>
+    <li><label><input type="checkbox"> 04 useEffect로 목록을 불러오고 테스트를 통과시켰다</label></li>
+    <li><label><input type="checkbox"> 05 우리 팀 프로젝트에 React가 필요한지 판단했다</label></li>
+  </ul>
+
+  <section class="sec" id="why">
+    <h2>컴포넌트는 무엇을 대신하나</h2>
+    <p>9주차에는 상태가 바뀔 때마다 <code>render(state)</code>를 직접 불렀습니다. React에서는 상태를 바꾸기만 하면 화면을 다시 그리는 일은 React가 합니다. 그 대가로 빌드 도구와 새 문법(JSX)이 늘어납니다.</p>
+    <div class="pair">
+<pre class="code" data-lang="js" data-file="9주차 · 직접 그리기"><code>let works = [];
+function render() {
+  list.innerHTML = works
+    .map((w) =&gt; `&lt;li&gt;${w.title}&lt;/li&gt;`)
+    .join('');
+}
+works.push(newWork);
+render(); // 잊으면 화면이 안 바뀜</code></pre>
+<pre class="code" data-lang="jsx" data-file="React · 상태만 바꾸기"><code>function WorkList() {
+  const [works, setWorks] = useState([]);
+  // setWorks를 부르면 React가 다시 그림
+  return (
+    &lt;ul&gt;
+      {works.map((w) =&gt; &lt;li key={w.id}&gt;{w.title}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+    </div>
+  </section>
+
+  <section class="sec" id="start">
+    <h2>Vite로 시작하기</h2>
+    <p>터미널에서 네 줄이면 개발 서버까지 켜집니다. 아래 연습 화면에서 명령을 직접 입력해 보세요. 막히면 <b>자동 입력</b>을 누릅니다.</p>
+    <div class="sim sim-term" data-variant="shell" aria-label="터미널 연습 화면">
+<script type="application/json" data-sim>
+{
+  "title": "터미널",
+  "cwd": "~/projects",
+  "files": [],
+  "steps": [
+    { "type": "command", "cmd": "node -v", "coach": "먼저 Node.js가 설치되어 있는지 확인합니다. `node -v`를 입력하고 Enter를 누르세요." },
+    { "type": "output", "lines": ["v22.11.0"], "coach": "버전 번호가 나오면 설치된 것입니다. `command not found`가 나오면 10주차 설치 안내로 돌아갑니다." },
+    { "type": "command", "cmd": "npm create vite@latest works-app -- --template react" },
+    { "type": "output", "lines": ["Scaffolding project in ~/projects/works-app...", "", "Done. Now run:", "", "  cd works-app", "  npm install", "  npm run dev"] },
+    { "type": "files", "add": ["works-app/", "works-app/index.html", "works-app/package.json", "works-app/src/", "works-app/src/App.jsx", "works-app/src/main.jsx"] },
+    { "type": "command", "cmd": "cd works-app", "hint": "방금 만든 폴더로 들어갑니다." },
+    { "type": "command", "cmd": "npm install", "hint": "package.json에 적힌 라이브러리를 내려받습니다." },
+    { "type": "output", "lines": ["added 212 packages in 9s"] },
+    { "type": "files", "add": ["works-app/node_modules/"] },
+    { "type": "command", "cmd": "npm run dev" },
+    { "type": "output", "lines": ["  VITE ready in 312 ms", "", "  ➜  Local:   http://localhost:5173/", "  ➜  press h + enter to show help"], "coach": "`Local` 주소를 브라우저에서 열면 됩니다. 서버를 끌 때는 터미널에서 Ctrl+C를 누릅니다." }
+  ],
+  "end": "개발 서버까지 켰습니다. node_modules 폴더는 .gitignore에 들어 있는지 확인하세요."
+}
+</script>
+    </div>
+    <p>운영체제마다 터미널을 여는 방법이 다릅니다. 고른 탭은 다음에 이 페이지를 열 때도 기억됩니다.</p>
+    <div class="tabs" data-tabs="os" data-label="운영체제">
+      <section class="tab" data-tab="macOS">
+        <p><kbd>⌘</kbd> <kbd>Space</kbd>로 Spotlight를 열고 "터미널"을 입력합니다. VS Code 안에서는 <kbd>⌃</kbd> <kbd>`</kbd>로 통합 터미널을 엽니다.</p>
+      </section>
+      <section class="tab" data-tab="Windows">
+        <p>시작 메뉴에서 "Windows PowerShell" 또는 "터미널"을 엽니다. VS Code 안에서는 <kbd>Ctrl</kbd> <kbd>`</kbd>로 통합 터미널을 엽니다.</p>
+        <p class="callout warn">PowerShell에서 <code>npm</code> 실행이 막히면 실행 정책 오류일 수 있습니다. 오류 문장을 그대로 복사해 eTL 메시지로 보내 주세요.</p>
+      </section>
+    </div>
+  </section>
+
+  <section class="sec" id="jsx">
+    <h2>JSX의 세 가지 규칙</h2>
+    <p>JSX는 JavaScript 안에 쓰는 HTML처럼 보이지만, 몇 가지가 다릅니다.</p>
+    <dl class="defs">
+      <div><dt>하나로 감싸기</dt><dd>컴포넌트는 요소 하나를 돌려줍니다. 여러 개라면 <code>&lt;&gt;…&lt;/&gt;</code>로 감쌉니다.</dd></div>
+      <div><dt><code>className</code></dt><dd><code>class</code>는 JavaScript 예약어라서 <code>className</code>을 씁니다.</dd></div>
+      <div><dt><code>{ }</code>는 값</dt><dd>중괄호 안에는 문장이 아니라 값이 들어갑니다. <code>if</code> 대신 <code>조건 ? A : B</code>를 씁니다.</dd></div>
+    </dl>
+    <aside class="callout mistake">
+      <p>목록을 <code>map</code>으로 그릴 때 <code>key</code>를 빼면 콘솔에 경고가 납니다. 배열의 순서(<code>index</code>)가 아니라 데이터의 <code>id</code>를 <code>key</code>로 씁니다.</p>
+    </aside>
+  </section>
+
+  <section class="sec" id="fetch">
+    <h2>useEffect로 목록 불러오기</h2>
+    <p>11주차의 세 가지 상태를 그대로 컴포넌트로 옮깁니다. 이 실습은 React와 Babel을 인터넷에서 불러오므로 인터넷에 연결되어 있어야 합니다.</p>
+    <div class="lab" data-title="useEffect + fetch" data-libs="react" data-active="js" data-kicker="실습">
+<script type="text/plain" data-lab="html">
+<div id="root"></div>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+[role="alert"] { color: #a1332a; }
+</script>
+<script type="text/plain" data-lab="js">
+const { useState, useEffect } = React;
+
+function App() {
+  const [works, setWorks] = useState(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch('/api/works')
+      .then((res) => {
+        if (!res.ok) throw new Error('서버 응답 ' + res.status);
+        return res.json();
+      })
+      .then(setWorks)
+      .catch((err) => setError(err.message));
+  }, []);
+
+  if (error) return <p role="alert">불러오지 못했습니다 · {error}</p>;
+  if (!works) return <p>불러오는 중…</p>;
+  if (works.length === 0) return <p>아직 작품이 없습니다.</p>;
+  return (
+    <ul>
+      {works.map((w) => <li key={w.id}>{w.title}</li>)}
+    </ul>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<script type="text/plain" data-lab="server">
+const works = [
+  { id: 1, title: '소리 지도' },
+  { id: 2, title: '빛의 시간표' },
+  { id: 3, title: '느린 우체통' }
+];
+app.get('/api/works', (req, res) => res.json(works));
+</script>
+<script type="text/plain" data-lab="test">
+test('불러오는 동안 안내 문구를 보여 준다', async () => {
+  await until(() => $('#root').textContent.includes('불러오는 중'));
+});
+
+test('작품 3개를 목록으로 그린다', async () => {
+  await until(() => $$('#root li').length === 3);
+  expect($$('#root li')[0].textContent).toBe('소리 지도');
+});
+</script>
+    </div>
+    <p>해 볼 것: 서버 탭의 배열을 비워 <code>[]</code>로 만들고 실행해 보세요. 빈 목록 문구가 보여야 합니다.</p>
+  </section>
+
+  <section class="sec" id="ask-ai">
+    <h2>AI에게 컴포넌트 설명 듣기</h2>
+    <p>React 코드는 AI가 빠르게 써 주지만, <code>useEffect</code>의 의존성 배열처럼 짧고 중요한 부분을 놓치기 쉽습니다. 아래 연습 화면에서 설명을 요청하고, 오른쪽 패널에 나온 코드를 직접 읽어 보세요.</p>
+    <div class="sim sim-chat" data-variant="claude" data-height="560" aria-label="AI 채팅 연습 화면">
+<script type="application/json" data-sim>
+{
+  "model": "기본 모델",
+  "projects": ["팀 프로젝트 · 전시 안내"],
+  "history": ["JSX와 HTML 차이", "Vite 설치 오류"],
+  "steps": [
+    { "role": "system-note", "text": "왼쪽의 **새 채팅**을 눌러 시작하세요.", "expect": "click:new-chat" },
+    { "role": "user", "expectInput": "이 컴포넌트에서 useEffect의 두 번째 인자 []를 빼면 어떻게 되는지, 9주차에 배운 render(state)와 비교해서 설명해 줘." },
+    { "role": "assistant", "text": "`[]`를 빼면 **화면을 그릴 때마다** 효과가 다시 실행됩니다.\n\n1. 처음 그리면 fetch가 실행되고, 응답이 오면 `setWorks`가 상태를 바꿉니다.\n2. 상태가 바뀌었으니 React가 다시 그리고, 다시 그렸으니 fetch가 또 실행됩니다.\n3. 그래서 요청이 끝없이 반복됩니다.\n\n9주차로 말하면 `render()` 안에서 `fetch` 후 다시 `render()`를 부르는 것과 같습니다. `[]`는 \"처음 한 번만\"이라는 뜻입니다.", "coach": "설명이 맞는지 직접 확인하는 방법: 실습의 `[]`를 지우고 실행한 뒤 네트워크 탭에 요청이 몇 개 쌓이는지 보세요." },
+    { "role": "user", "expectInput": "그럼 검색어 q가 바뀔 때마다 다시 불러오도록 고친 컴포넌트를 보여 줘. 바뀐 줄에만 주석을 달아 줘." },
+    { "role": "assistant", "text": "오른쪽에 정리했습니다. 바뀐 곳은 세 군데입니다: props로 `q`를 받고, 주소에 `q`를 붙이고, 의존성 배열에 `q`를 넣었습니다.", "panel": { "title": "WorkList.jsx", "kind": "아티팩트", "lang": "jsx", "content": "function WorkList({ q }) {            // q를 props로 받음\n  const [works, setWorks] = useState(null);\n\n  useEffect(() => {\n    fetch('/api/works?q=' + encodeURIComponent(q))   // 주소에 q\n      .then((res) => res.json())\n      .then(setWorks);\n  }, [q]);                             // q가 바뀔 때만 다시 실행\n\n  if (!works) return <p>불러오는 중…</p>;\n  return <ul>{works.map((w) => <li key={w.id}>{w.title}</li>)}</ul>;\n}" } },
+    { "role": "system-note", "text": "패널의 코드에서 빠진 것이 있습니다. 11주차에 배운 **res.ok 검사**가 없네요. AI의 코드를 받으면 이런 빈틈을 찾아 직접 채웁니다." }
+  ],
+  "end": "끝까지 따라 했습니다. AI가 빠뜨린 res.ok 검사를 직접 더한 것을 AI USE NOTE에 적어 두세요."
+}
+</script>
+    </div>
+  </section>
+
+  <section class="sec" id="when-not">
+    <h2>언제 React가 과한가</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>팀 프로젝트에서 판단하기</caption>
+        <thead><tr><th scope="col">질문</th><th scope="col">"예"라면</th></tr></thead>
+        <tbody>
+          <tr><td>같은 모양의 요소가 세 곳 이상 반복되나요?</td><td>컴포넌트로 나누면 편해집니다.</td></tr>
+          <tr><td>상태가 바뀌는 곳이 다섯 군데를 넘나요?</td><td>React가 다시 그리는 일을 덜어 줍니다.</td></tr>
+          <tr><td>팀원 절반 이상이 JSX를 처음 보나요?</td><td>남은 기간을 생각하면 순수 JS가 안전할 수 있습니다.</td></tr>
+          <tr><td>GitHub Pages에 그대로 올려야 하나요?</td><td>빌드(<code>npm run build</code>)와 배포 설정이 하나 더 필요합니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <aside class="deep">
+      <h3>React 없이 컴포넌트처럼 쓰기</h3>
+      <p>함수가 데이터를 받아 HTML 문자열이나 요소를 돌려주게 만들면, 프레임워크 없이도 컴포넌트처럼 나눌 수 있습니다. 작은 프로젝트라면 이것으로 충분합니다.</p>
+<pre class="code" data-lang="js"><code>function WorkCard(work) {
+  const li = document.createElement('li');
+  li.textContent = work.title;
+  return li;
+}
+list.replaceChildren(...works.map(WorkCard));</code></pre>
+    </aside>
+  </section>
+
+  <section class="sec" id="related">
+    <h2>이어지는 주차</h2>
+    <ol class="weeks">
+      <li class="week is-past">
+        <span class="week-no">09</span>
+        <div class="week-main"><p class="week-date">10/27(화)</p><p class="week-title"><a href="reading.html">질문에서 구조로</a></p><p class="week-desc">render(state) 패턴 · 이 모듈의 출발점</p></div>
+        <ul class="week-links"><li><a href="reading.html">확장판</a></li><li><span class="na">요약판 준비 중</span></li></ul>
+      </li>
+      <li class="week is-now">
+        <span class="week-no">11</span>
+        <div class="week-main"><p class="week-date">11/10(화)</p><p class="week-title"><a href="reading.html">데이터를 가져오는 웹</a></p><p class="week-desc">fetch, JSON, 세 가지 상태</p></div>
+        <ul class="week-links"><li><a href="reading.html">확장판</a></li><li><a href="summary.html">요약판</a></li><li><a href="deck.html">발표</a></li></ul>
+      </li>
+      <li class="week">
+        <span class="week-no">12</span>
+        <div class="week-main"><p class="week-date">11/17(화)</p><p class="week-title">AI 코드 검토와 하네스</p><p class="week-desc">컴포넌트 코드 리뷰와 테스트</p></div>
+        <ul class="week-links"><li><span class="na">공개 전</span></li></ul>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="reading.html#storage"><span>← 11주차</span>데이터 저장</a>
+    <a class="next" href="summary.html"><span>요약판 →</span>11주차 핵심 다시 보기</a>
+  </nav>
+</main>
+</div>
+</body>
+</html>

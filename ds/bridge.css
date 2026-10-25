@@ -1,0 +1,148 @@
+/* ==========================================================================
+   웹프로그래밍개론 · Design System — bridge.css
+   Override layer for the older pages (week2–5, *show pages, index) that use
+   assets/css/course-design.css. Link it AFTER that file:
+
+     <link rel="stylesheet" href="assets/css/course-design.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+     <link rel="stylesheet" href="ds/bridge.css">
+
+   What it does
+   · Re-points the old tokens (--paper, --ink, --solo, --code-bg, --sans …) at the
+     design-system palette and type, so every rule that already uses var(--…)
+     follows the new look without touching the old layouts.
+   · Re-colours the old syntax highlighter (VS Code Dark+) to the DS warm-dark
+     code palette. Old code surfaces stay dark on purpose: their editors overlay a
+     transparent <textarea> on a coloured <pre> and hard-code light-on-dark colours.
+   · A few safe global rules: focus ring, selection, link underline, heading font.
+   What it does NOT do
+   · Change layout, spacing, component structure, or the GitHub / VS Code look-alike
+     simulators (their hard-coded colours imitate real tools on purpose).
+   Specificity: plain :root (0,1,0) wins over the old :root by source order; dark
+   mode for "book" pages uses (0,3,0) to beat the old (0,2,0) dark blocks.
+   ========================================================================== */
+
+:root {
+  --paper: #F7F6F2; --surface: #FFFEFB; --sunken: #EFEDE7;
+  --ink: #1C1B19; --ink-2: #3B3934; --muted: #66625A;
+  --line: #D8D4CA; --line-soft: #E6E3DB;
+  --solo: #1B6E68; --solo-bg: #E1ECE9;
+  --show: #9D2A62; --show-bg: #F5E6EC;
+  --team: #2E4E9E; --team-bg: #E5E9F4;
+  --warn: #855400; --warn-bg: #F4EBD8;
+  --ok: #2B6A35; --bad: #A1332A;
+  /* code stays dark, warm instead of green-black */
+  --code-bg: #1F1F1C; --code-ink: #E6E3DB;
+  --code-tag: #7CC9BD; --code-attr: #E3B07E; --code-str: #B4D08C; --code-cmt: #A39F95;
+  --display: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "D2Coding", monospace;
+  --course-radius: 4px;
+  /* DS names, so DS snippets pasted into an old page also work */
+  --accent: #15625C; --focus: #15625C; --faint: #9A968C; --err: #A1332A;
+  --sel: rgba(21, 98, 92, .18);
+}
+
+/* Dark mode exists only on the "book" pages (week2, week2_show) — keep it, in DS colours */
+@media (prefers-color-scheme: dark) {
+  :root[data-course-ui~="book"]:not([data-theme="light"]) {
+    --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
+    --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95;
+    --line: #3A3934; --line-soft: #2B2A27;
+    --solo: #7CC9BD; --solo-bg: #1D2E2B;
+    --show: #E8A3C4; --show-bg: #33202A;
+    --team: #A3B5EC; --team-bg: #1E2538;
+    --warn: #E2B866; --warn-bg: #2E2615;
+    --ok: #93C99A; --bad: #F0A193;
+    --code-bg: #10100F;
+    --accent: #7CC9BD; --focus: #7CC9BD; --faint: #6F6C64; --err: #F0A193;
+    --sel: rgba(124, 201, 189, .25);
+  }
+}
+:root[data-course-ui~="book"][data-theme="dark"] {
+  --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
+  --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95;
+  --line: #3A3934; --line-soft: #2B2A27;
+  --solo: #7CC9BD; --solo-bg: #1D2E2B;
+  --show: #E8A3C4; --show-bg: #33202A;
+  --team: #A3B5EC; --team-bg: #1E2538;
+  --warn: #E2B866; --warn-bg: #2E2615;
+  --ok: #93C99A; --bad: #F0A193;
+  --code-bg: #10100F;
+  --accent: #7CC9BD; --focus: #7CC9BD; --faint: #6F6C64; --err: #F0A193;
+  --sel: rgba(124, 201, 189, .25);
+}
+
+/* ---- Safe global rules ---------------------------------------------------- */
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+::selection { background: var(--sel); }
+html body { -webkit-font-smoothing: antialiased; font-family: var(--sans); }
+
+/* ---- Preview note injected by ds/tools/restyle.py --------------------------
+   "디자인 통일 시안 · 원본: <link>". A thin fixed strip in the top-left corner: it
+   sits in the top padding of every old page's own bar (reading top bars, deck
+   HUDs, the OT nav) and never takes part in the layout, so decks, simulators
+   and 100dvh layouts are unaffected. Hidden in print. */
+html .ds-restyle-note {
+  position: fixed; top: 0; left: 0; z-index: 100000;
+  box-sizing: border-box; height: 18px; margin: 0; padding: 0 .6rem;
+  font: 500 11px/18px var(--sans); letter-spacing: .01em; white-space: nowrap;
+  color: var(--muted); background: var(--sunken);
+  border: 1px solid var(--line); border-top: 0; border-left: 0; border-bottom-right-radius: 4px;
+}
+html .ds-restyle-note a { color: var(--accent); text-decoration: underline; text-underline-offset: .18em; }
+html .ds-restyle-note a:focus-visible { outline-offset: 0; }
+@media print { html .ds-restyle-note { display: none; } }
+html :is(h1, h2, h3, h4) { font-family: var(--display); }
+html a { text-decoration-thickness: 1px; text-underline-offset: .22em; }
+html :not(pre) > code { font-family: var(--mono); }
+
+/* ---- Syntax highlighter: VS Code Dark+ → DS warm-dark tokens ---------------- */
+html .course-code, html .course-code-editor {
+  --syntax-background: #1F1F1C;
+  --syntax-foreground: #E6E3DB;
+  --syntax-keyword: #7CC9BD;
+  --syntax-control: #7CC9BD;
+  --syntax-string: #B4D08C;
+  --syntax-number: #CDB0EC;
+  --syntax-comment: #A39F95;
+  --syntax-function: #E3B07E;
+  --syntax-variable: #A9BCEC;
+  --syntax-type: #7CC9BD;
+}
+html :is(.course-code, .course-code-editor) .token:is(.keyword, .control) { font-weight: 600; }
+html :is(.course-code, .course-code-editor) .token.comment { font-style: italic; }
+html :is(.course-code, .course-code-editor) .token.selector { color: #E3B07E; }
+html :is(.course-code, .course-code-editor) .token.title { color: #7CC9BD; }
+html :is(.course-code, .course-code-editor) .token:is(.code-snippet, .code-language) { color: #B4D08C; }
+html :is(.course-code, .course-code-editor) .token:is(.bold, .important) { color: #E3B07E; }
+html :is(.course-code, .course-code-editor) .token:is(.url, .url-reference, .coord) { color: #A9BCEC; }
+html :is(.course-code, .course-code-editor) .token.inserted { color: #A6D394; }
+html :is(.course-code, .course-code-editor) .token.deleted { color: #F0A08F; }
+html .course-code .is-current { background: #2A2A26; box-shadow: inset 3px 0 #7CC9BD; }
+html .course-code-editor textarea::selection { background: rgba(124, 201, 189, .28); }
+
+/* ---- A few dark-assuming spots that were tinted green ----------------------- */
+html .demo-input-wrap > label { background: #2A2A26; }
+html .syntax-detail { background: var(--surface); }
+
+/* ---- Print: keep the old print rules, only align the paper ---------------- */
+@media print {
+  :root, :root[data-course-ui~="book"]:not([data-theme="light"]), :root[data-course-ui~="book"][data-theme="dark"] {
+    --paper: #fff; --surface: #fff; --ink: #111; --ink-2: #333; --muted: #555; --line: #bbb;
+  }
+}
+
+/* ---- index.html (Tailwind page with its own small palette) -----------------
+   Only classes that exist on index.html are touched, so other pages are unaffected. */
+body:has(.studio-card) { background-color: var(--paper); color: var(--ink); font-family: var(--sans); }
+.studio-card { background: var(--surface); border-color: var(--line); border-radius: 6px; }
+.studio-card:hover { box-shadow: none; transform: none; border-color: var(--ink-2); }
+.text-navy { color: var(--ink); }
+.bg-navy { background-color: var(--ink); }
+.border-navy { border-color: var(--ink); }
+.text-ai-orange { color: var(--accent); }
+.bg-ai-orange { background-color: var(--accent); }
+.border-ai-orange { border-color: var(--accent); }
+.text-ai-blue { color: var(--team); }
+.bg-ai-blue { background-color: var(--team); }

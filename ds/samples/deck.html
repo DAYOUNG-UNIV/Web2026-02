@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko" data-page="deck">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11주차 발표 · 데이터를 가져오는 웹 | 웹프로그래밍개론</title>
+<meta name="description" content="11주차 수업 슬라이드: 요청과 응답, fetch, 세 가지 상태, localStorage, AI와 함께, 팀 스튜디오.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">슬라이드로 건너뛰기</a>
+
+<main class="deck" id="main" data-title="11주차 · 데이터를 가져오는 웹">
+
+  <section class="slide cover" data-phase="도입" data-title="표지">
+    <span class="kicker">웹프로그래밍개론 · 11주차</span>
+    <h1>데이터를 가져오는 웹</h1>
+    <p class="sub">fetch · JSON · 비동기 · 저장</p>
+    <div class="cover-meta"><span>11월 10일(화) 10:00–12:50</span><span>확장판·요약판은 eTL 공지 링크</span></div>
+    <div class="notes">
+      <ul>
+        <li>시작 전: 지난주 팀 저장소 링크가 eTL에 모두 올라왔는지 확인합니다.</li>
+        <li>오늘 강의는 두 블록 합쳐 45분 이내로 끝냅니다.</li>
+        <li class="check">확인 필요: 강의실 Wi-Fi에서 연습 페이지가 열리는지 수업 전에 확인.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="오늘의 흐름">
+    <span class="kicker">오늘의 흐름 · 170분</span>
+    <h2>강의는 짧게, 팀 시간은 길게</h2>
+    <ol class="agenda body" aria-label="오늘의 흐름">
+      <li class="lecture"><span class="agenda-time">10:00</span><span class="agenda-what"><b>도입 · 오늘의 지도</b></span><span class="agenda-len">10분</span></li>
+      <li class="lecture"><span class="agenda-time">10:10</span><span class="agenda-what"><b>강의 1 · 웹은 요청과 응답</b></span><span class="agenda-len">25분</span></li>
+      <li class="solo"><span class="agenda-time">10:35</span><span class="agenda-what"><b>실습 · 목록 받아 그리기</b></span><span class="agenda-len">20분</span></li>
+      <li class="break"><span class="agenda-time">10:55</span><span class="agenda-what"><b>휴식</b></span><span class="agenda-len">10분</span></li>
+      <li class="lecture"><span class="agenda-time">11:05</span><span class="agenda-what"><b>강의 2 · 비동기와 저장</b></span><span class="agenda-len">20분</span></li>
+      <li class="solo"><span class="agenda-time">11:25</span><span class="agenda-what"><b>AI와 함께</b></span><span class="agenda-len">15분</span></li>
+      <li class="team"><span class="agenda-time">11:40</span><span class="agenda-what"><b>팀 스튜디오 · 수직 슬라이스</b></span><span class="agenda-len">55분</span></li>
+      <li class="lecture"><span class="agenda-time">12:35</span><span class="agenda-what"><b>마무리 · 과제</b></span><span class="agenda-len">15분</span></li>
+    </ol>
+    <div class="notes"><p>시간표는 상황에 따라 바뀔 수 있다고 먼저 말합니다. 팀 스튜디오 55분은 줄이지 않습니다.</p></div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="구조 지도">
+    <span class="kicker">구조 지도</span>
+    <h2>오늘은 브라우저와 서버 사이를 봅니다</h2>
+    <figure class="stack-map horizontal body" data-active="network server" data-note-network="오늘: 요청·응답" data-note-server="오늘: JSON API"></figure>
+    <p class="slide-foot">2~5주차는 <b>화면</b>, 9주차는 <b>상태</b>, 오늘은 <b>요청과 응답</b>입니다.</p>
+    <div class="notes"><p>5주차 구조 지도를 다시 보여 주며, 아직 다루지 않은 아래 두 층을 짚습니다.</p></div>
+  </section>
+
+  <section class="slide section" data-phase="강의 1" data-title="웹은 요청과 응답">
+    <span class="sec-no">01</span>
+    <h2>웹은 요청과 응답</h2>
+    <p class="lead">URL · 메서드 · 상태 코드 · JSON</p>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="URL은 요청 한 줄">
+    <span class="kicker">강의 1</span>
+    <h2>URL은 "어디의 무엇을 어떻게" 한 줄</h2>
+    <div class="two body">
+<pre class="code" data-lang="text"><code>https://api.example.kr/v1/works?q=빛&amp;page=2</code></pre>
+      <ol class="pts">
+        <li><b>호스트</b><span><code>api.example.kr</code> · 요청을 받을 서버</span></li>
+        <li><b>경로</b><span><code>/v1/works</code> · 서버 안의 자원</span></li>
+        <li><b>쿼리</b><span><code>q=빛&amp;page=2</code> · 요청의 조건</span></li>
+      </ol>
+    </div>
+    <div class="notes">
+      <p>학생에게 수업 페이지 URL을 직접 나누어 읽게 합니다.</p>
+      <ul><li>#조각은 서버로 가지 않는다는 점을 짚습니다.</li></ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="상태 코드">
+    <span class="kicker">강의 1</span>
+    <h2>상태 코드는 첫 자리부터 읽습니다</h2>
+    <div class="three body">
+      <div><p class="big">2xx</p><p><b>성공</b> · 200 OK, 201 Created. 받은 데이터를 그립니다.</p></div>
+      <div><p class="big">4xx</p><p><b>요청한 쪽 문제</b> · 400, 401, 404. 무엇을 고칠지 알려 줍니다.</p></div>
+      <div><p class="big">5xx</p><p><b>서버 문제</b> · 500, 503. 다시 시도할 길을 둡니다.</p></div>
+    </div>
+    <div class="notes"><p>개발자 도구 Network 탭을 열어 실제 요청 하나의 상태 코드를 같이 봅니다. 단축키: Windows F12, macOS ⌥⌘I.</p></div>
+  </section>
+
+  <section class="slide" data-phase="실습" data-title="실습 1 · 목록 받아 그리기">
+    <span class="kicker">실습 · 20분</span>
+    <h2>연습용 서버에서 목록 받아 그리기</h2>
+    <div class="lab" data-title="GET /api/works" data-height="190" data-active="js">
+<script type="text/plain" data-lab="html">
+<ul id="list"><li>불러오는 중…</li></ul>
+</script>
+<script type="text/plain" data-lab="js">
+async function load() {
+  const res = await fetch('/api/works');
+  const works = await res.json();
+  const list = document.querySelector('#list');
+  list.innerHTML = '';
+  for (const w of works) {
+    const li = document.createElement('li');
+    li.textContent = w.title;
+    list.append(li);
+  }
+  console.log('받은 개수:', works.length);
+}
+load();
+</script>
+<script type="text/plain" data-lab="server">
+const works = [
+  { id: 1, title: '소리 지도' },
+  { id: 2, title: '빛의 시간표' },
+  { id: 3, title: '느린 우체통' }
+];
+app.get('/api/works', (req, res) => res.json(works));
+</script>
+    </div>
+    <div class="notes">
+      <ul>
+        <li>먼저 실행만 해 보고, 네트워크 탭에서 GET /api/works 줄을 눌러 응답 본문을 같이 읽습니다.</li>
+        <li>다음으로 서버 탭에서 작품을 하나 더 넣고 다시 실행합니다.</li>
+        <li class="check">확인 필요: 확장판의 실습 2(테스트 포함)는 숙제로 돌릴지 수업 중에 할지.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide section" data-phase="강의 2" data-title="비동기와 fetch">
+    <span class="sec-no">02</span>
+    <h2>비동기와 fetch</h2>
+    <p class="lead">기다리는 동안 멈추지 않기 · 세 가지 상태 · 저장</p>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="fetch의 네 단계">
+    <span class="kicker">강의 2</span>
+    <h2>fetch는 네 단계로 읽습니다</h2>
+    <ol class="flow body">
+      <li class="is-on"><b>요청</b><span><code>await fetch(url)</code></span></li>
+      <li><b>상태 확인</b><span><code>if (!res.ok) throw …</code></span></li>
+      <li><b>본문 읽기</b><span><code>await res.json()</code></span></li>
+      <li><b>그리기</b><span><code>render(works)</code></span></li>
+    </ol>
+<pre class="code" data-lang="js"><code>async function loadWorks() {
+  const res = await fetch('/api/works');
+  if (!res.ok) throw new Error('서버 응답 ' + res.status);
+  render(await res.json());
+}</code></pre>
+    <div class="notes"><p>식당 진동벨 비유를 씁니다. 두 번 기다린다는 점(헤더, 본문)을 강조합니다.</p></div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="자주 하는 실수">
+    <span class="kicker">강의 2 · 자주 하는 실수</span>
+    <h2>fetch는 404에도 실패하지 않습니다</h2>
+    <div class="pair body">
+<pre class="code bad" data-lang="js" data-file="고치기 전"><code>const res = await fetch(url);
+const works = await res.json();
+render(works); // 404여도 여기까지 옴</code></pre>
+<pre class="code good" data-lang="js" data-file="고친 뒤"><code>const res = await fetch(url);
+if (!res.ok) {
+  throw new Error('서버 응답 ' + res.status);
+}
+render(await res.json());</code></pre>
+    </div>
+    <p class="slide-foot">404 응답의 본문은 <b>오류 설명 객체</b>입니다. 검사하지 않으면 엉뚱한 곳에서 TypeError가 납니다.</p>
+    <div class="notes"><p>실습 1의 주소를 /api/nothing으로 바꾸어 실제 오류 문장을 보여 줍니다.</p></div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="세 가지 상태와 저장">
+    <span class="kicker">강의 2</span>
+    <h2>세 가지 상태, 그리고 저장</h2>
+    <div class="two body">
+      <ol class="pts">
+        <li><b>로딩</b><span>"불러오는 중…"을 요청 전에 보여 줍니다.</span></li>
+        <li><b>빈 목록</b><span>"아직 작품이 없습니다"와 다음 할 일.</span></li>
+        <li><b>오류</b><span>상태 코드에 맞는 문장과 다시 시도 버튼.</span></li>
+      </ol>
+      <div>
+<pre class="code" data-lang="js"><code>// 저장
+const text = JSON.stringify(memos);
+localStorage.setItem('memos-v1', text);
+
+// 복원
+const saved = localStorage.getItem('memos-v1');
+const memos = JSON.parse(saved) ?? [];</code></pre>
+        <p class="callout warn">비밀번호, 학번, API 키는 저장하지 않습니다.</p>
+      </div>
+    </div>
+    <div class="notes"><p>9주차 메모 앱에 저장을 더하는 실습은 확장판 실습 3으로 안내합니다.</p></div>
+  </section>
+
+  <section class="slide" data-phase="AI와 함께" data-title="AI에게 fetch 맡기기">
+    <span class="kicker">AI와 함께 · 15분 · AI ALLOWED</span>
+    <h2>맡기되, 확인은 직접</h2>
+    <figure class="prompt body">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu</span><span class="prompt-purpose">fetch 코드 초안</span></figcaption>
+      <pre class="prompt-text"><var>/api/works</var>에서 목록을 받아 <var>#list</var>에 그리는 함수를 async/await로 써 줘.
+로딩·빈 목록·오류 세 상태와 res.ok 검사를 넣고, 라이브러리는 쓰지 마.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul><li>res.ok 검사와 오류 문장이 있나요?</li><li>키나 개인정보가 코드에 없나요?</li><li>Network 탭에서 직접 확인했나요?</li></ul>
+      </div>
+    </figure>
+    <div class="notes">
+      <p>확장판의 연습 화면(채팅, 에이전트)을 화면에 띄워 함께 한 번 따라 합니다.</p>
+      <ul><li class="check">확인 필요: ChatGPT Edu에서 파일 첨부가 학생 계정에서 되는지.</li></ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="팀 스튜디오" data-title="팀 스튜디오">
+    <span class="kicker">팀 스튜디오 · 55분</span>
+    <h2>한 장면을 끝까지 관통시킵니다</h2>
+    <ol class="pts body">
+      <li><b>장면 고르기 · 5분</b><span>9주차 화면 흐름도에서 한 장면</span></li>
+      <li><b>데이터 정하기 · 10분</b><span>JSON 모양을 팀 시트에 적기</span></li>
+      <li><b>끝까지 연결 · 30분</b><span>fetch → render → 세 가지 상태</span></li>
+      <li><b>팀 내 데모 · 10분</b><span>tasks.md 갱신, PR 1개씩</span></li>
+    </ol>
+    <p class="slide-foot"><button type="button" class="timer-btn" data-timer="300">5분 타이머</button> <button type="button" class="timer-btn" data-timer="900">15분 타이머</button></p>
+    <div class="notes"><p>강사는 팀을 돌며 "지금 어떤 상태가 보이나요?"만 묻습니다.</p></div>
+  </section>
+
+  <section class="slide dense" data-phase="마무리" data-title="과제">
+    <span class="kicker">마무리 · 과제</span>
+    <article class="assignment" aria-labelledby="d-hw11-title">
+      <header class="assignment-head">
+        <span class="kicker">11주차 과제 · 팀</span>
+        <h3 class="assignment-title" id="d-hw11-title">수직 프로토타입: 한 장면을 끝까지</h3>
+        <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol><li>한 장면을 fetch부터 화면까지 (세 상태 포함)</li><li>팀원 모두 PR 1개 이상</li><li>데모와 AI USE NOTE</li></ol></dd></div>
+        <div><dt>예상 소요</dt><dd>팀 전체 4~6시간</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd><code>README.md</code>, <code>demo.mp4</code>, <code>docs/ai-use-note.md</code></dd></div>
+        <div><dt>제출처</dt><dd>eTL › 과제 › 11주차 팀 과제</dd></div>
+        <div class="due"><dt>마감</dt><dd><time datetime="2026-11-17T09:59:00+09:00">11/17(화) 오전 9:59</time> · eTL</dd></div>
+        <div><dt>확인 기준</dt><dd>세 상태 문구 · 각자의 PR · 직접 확인한 기록</dd></div>
+      </dl>
+    </article>
+    <div class="notes"><p>마감이 자정이 아니라 오전 9:59라는 점을 한 번 더 말합니다.</p></div>
+  </section>
+
+  <section class="slide" data-phase="마무리" data-title="다음 주">
+    <span class="kicker">다음 주 · 12주차</span>
+    <p class="big">AI가 쓴 코드를 어떻게 검토할까요? 각 팀은 특강에서 물어볼 질문을 하나 준비해 오세요.</p>
+    <p class="slide-foot">자료: <b>확장판</b> · <b>요약판</b> · 질문은 eTL 메시지로</p>
+    <div class="notes"><ul><li class="check">확인 필요: 12주차 특강 시간과 장소 공지.</li></ul></div>
+  </section>
+
+</main>
+</body>
+</html>

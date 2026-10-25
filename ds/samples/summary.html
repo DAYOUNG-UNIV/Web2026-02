@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko" data-page="summary">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11주차 요약판 · 데이터를 가져오는 웹 | 웹프로그래밍개론</title>
+<meta name="description" content="11주차 핵심만: 요청과 응답, 상태 코드, JSON, fetch와 res.ok, 세 가지 상태, localStorage, API 키.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">11주차 · 요약판</span>
+  <nav class="topbar-nav" aria-label="11주차 자료">
+    <a href="reading.html">확장판</a>
+    <a href="summary.html" aria-current="page">요약판</a>
+    <a href="deck.html">발표</a>
+    <a href="module.html">선택 모듈</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<main class="doc" id="main">
+  <header class="doc-head">
+    <span class="kicker">11주차 · 11월 10일(화) · 요약판</span>
+    <h1>데이터를 가져오는 웹</h1>
+    <p class="lead">브라우저는 URL로 요청하고 서버는 상태 코드와 JSON으로 답합니다. <code>fetch</code>로 받아 로딩·빈 목록·오류 세 상태를 그리고, 이 브라우저에만 남길 것은 <code>localStorage</code>에 저장합니다.</p>
+    <ul class="doc-meta">
+      <li><b>읽는 시간</b> 약 10분</li>
+      <li><b>자세한 설명과 실습</b> <a href="reading.html">확장판</a></li>
+    </ul>
+  </header>
+
+  <section class="sec unnumbered" id="goals">
+    <h2>학습 목표</h2>
+    <ol class="goals">
+      <li>요청과 응답을 URL, 메서드, 상태 코드, 헤더로 나누어 읽는다.</li>
+      <li><code>fetch</code>와 <code>async</code>/<code>await</code>로 JSON을 받아 세 가지 상태와 함께 그린다.</li>
+      <li><code>localStorage</code>에 JSON으로 저장하고 복원한다.</li>
+      <li>API 키와 CORS 때문에 서버를 거쳐야 하는 경우를 설명한다.</li>
+    </ol>
+  </section>
+
+  <section class="sec unnumbered" id="map">
+    <h2>오늘의 지도</h2>
+    <figure class="stack-map" data-active="network server" data-flow data-note-network="요청·응답, 상태 코드" data-note-server="JSON을 돌려주는 API">
+      <figcaption>웹서비스 구조 지도. 오늘은 브라우저와 서버 사이를 봅니다.</figcaption>
+    </figure>
+    <ol class="flow">
+      <li><b>요청</b><span><code>fetch(url)</code></span></li>
+      <li><b>상태 확인</b><span><code>res.ok</code></span></li>
+      <li><b>본문 읽기</b><span><code>res.json()</code></span></li>
+      <li><b>그리기</b><span><code>render(data)</code></span></li>
+    </ol>
+  </section>
+
+  <section class="sec unnumbered" id="concepts">
+    <h2>핵심 개념</h2>
+
+    <div class="concept" id="c-request">
+      <h3>요청과 응답</h3>
+      <p class="concept-def"><dfn>HTTP 요청</dfn>은 메서드와 URL, 헤더, 본문으로 이루어지고, <dfn>응답</dfn>은 상태 코드와 헤더, 본문으로 이루어집니다.</p>
+<pre class="code" data-lang="text"><code>GET /api/works?q=빛     →     200 OK
+                              Content-Type: application/json
+                              [{ "id": 1, "title": "빛의 시간표" }]</code></pre>
+      <p class="callout mistake">URL의 <code>#조각</code>은 서버로 가지 않습니다. 서버에 조건을 보내려면 <code>?이름=값</code>을 씁니다.</p>
+      <a class="more" href="reading.html#url">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-status">
+      <h3>상태 코드</h3>
+      <p class="concept-def">첫 자리가 2면 성공, 4면 요청한 쪽의 문제, 5면 서버의 문제입니다. 화면 문구는 이 숫자를 보고 정합니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>자주 쓰는 상태 코드</caption>
+          <thead><tr><th scope="col" class="num">코드</th><th scope="col">뜻</th><th scope="col">화면</th></tr></thead>
+          <tbody>
+            <tr><td class="num"><code>200</code></td><td>OK</td><td>데이터를 그린다</td></tr>
+            <tr><td class="num"><code>404</code></td><td>Not Found</td><td>"찾는 항목이 없습니다"</td></tr>
+            <tr><td class="num"><code>500</code></td><td>Server Error</td><td>"잠시 후 다시 시도" + 버튼</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <a class="more" href="reading.html#status">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-json">
+      <h3>JSON</h3>
+      <p class="concept-def"><dfn>JSON</dfn>은 객체와 배열을 글자로 적는 형식입니다. 키는 큰따옴표, 마지막 쉼표 없음, 주석 없음.</p>
+<pre class="code" data-lang="js"><code>const text = JSON.stringify({ title: '소리 지도' }); // 객체 → 문자열
+const obj = JSON.parse(text);                        // 문자열 → 객체</code></pre>
+      <p class="callout mistake"><code>{ title: '소리 지도', }</code>는 JavaScript에서는 맞지만 JSON으로는 틀립니다. <code>res.json()</code>이 <code>SyntaxError</code>를 냅니다.</p>
+      <a class="more" href="reading.html#json">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-fetch">
+      <h3>fetch와 async/await</h3>
+      <p class="concept-def"><code>fetch</code>는 결과 대신 <dfn>Promise</dfn>를 돌려줍니다. <code>async</code> 함수 안에서 <code>await</code>로 기다리면 위에서 아래로 읽히는 코드가 됩니다.</p>
+<pre class="code" data-lang="js"><code>async function loadWorks() {
+  const res = await fetch('/api/works');
+  if (!res.ok) throw new Error('서버 응답 ' + res.status);
+  return res.json();
+}</code></pre>
+      <p class="callout mistake">fetch는 404·500에도 실패하지 않습니다. <code>res.ok</code>를 검사하지 않으면 오류 객체가 목록 자리에 들어갑니다.</p>
+      <a class="more" href="reading.html#res-ok">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-states">
+      <h3>세 가지 상태</h3>
+      <p class="concept-def">데이터를 가져오는 화면에는 <b>로딩</b>, <b>빈 목록</b>, <b>오류</b> 세 상태마다 사용자가 읽을 문장이 있어야 합니다.</p>
+<pre class="code" data-lang="js"><code>status.textContent = '불러오는 중…';
+try {
+  const works = await loadWorks();
+  status.textContent = works.length ? '' : '아직 작품이 없습니다.';
+  render(works);
+} catch (err) {
+  status.textContent = '불러오지 못했습니다 · ' + err.message;
+}</code></pre>
+      <a class="more" href="reading.html#three-states">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-storage">
+      <h3>localStorage</h3>
+      <p class="concept-def">이 브라우저에만 남는 저장소입니다. 문자열만 넣을 수 있으므로 JSON으로 바꾸어 저장합니다.</p>
+<pre class="code" data-lang="js"><code>localStorage.setItem('memos-v1', JSON.stringify(memos));
+const memos = JSON.parse(localStorage.getItem('memos-v1')) ?? [];</code></pre>
+      <p class="callout mistake">비밀번호, 학번, 연락처, API 키는 넣지 않습니다. 개발자 도구로 누구나 읽을 수 있습니다.</p>
+      <a class="more" href="reading.html#localstorage">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-keys">
+      <h3>API 키와 CORS</h3>
+      <p class="concept-def">브라우저 코드는 공개됩니다. 키가 필요한 외부 API는 <b>우리 서버를 거쳐</b> 부르고, 키는 서버의 <code>.env</code>에 둡니다. 다른 출처의 응답은 상대 서버가 허락해야 읽을 수 있습니다(<dfn>CORS</dfn>).</p>
+      <p class="callout mistake">키를 커밋했다면 파일에서 지우는 것으로 끝나지 않습니다. 발급처에서 바로 폐기하고 새로 받습니다.</p>
+      <a class="more" href="reading.html#keys">확장판에서 더 보기</a>
+    </div>
+  </section>
+
+  <section class="sec unnumbered" id="quiz">
+    <h2>확인 문제</h2>
+    <form class="quiz" aria-label="11주차 요약 확인 문제">
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q1</span>목록을 <em>읽어 오는</em> 요청에 알맞은 메서드는?</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="radio" name="sq1"> <code>GET</code></label><p class="quiz-why">읽기는 GET입니다. 서버의 데이터를 바꾸지 않습니다.</p></li>
+          <li><label><input type="radio" name="sq1"> <code>POST</code></label><p class="quiz-why">POST는 새 자원을 만들 때 씁니다.</p></li>
+          <li><label><input type="radio" name="sq1"> <code>DELETE</code></label><p class="quiz-why">DELETE는 자원을 지웁니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q2</span>서버가 404로 답하면 <code>await fetch(url)</code>는?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="sq2"> 거부되어 <code>catch</code>로 간다</label><p class="quiz-why">거부는 응답을 아예 받지 못했을 때입니다.</p></li>
+          <li data-answer><label><input type="radio" name="sq2"> 이행되고 <code>res.ok</code>가 <code>false</code>다</label><p class="quiz-why">404도 응답입니다. 직접 검사해야 합니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q3</span>JSON으로 올바른 것을 모두 고르세요.</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="checkbox" name="sq3"> <code>{"id": 1}</code></label><p class="quiz-why">키가 큰따옴표로 감싸져 있습니다.</p></li>
+          <li><label><input type="checkbox" name="sq3"> <code>{id: 1}</code></label><p class="quiz-why">키에 큰따옴표가 없습니다.</p></li>
+          <li data-answer><label><input type="checkbox" name="sq3"> <code>[1, 2, 3]</code></label><p class="quiz-why">배열도 JSON입니다.</p></li>
+          <li><label><input type="checkbox" name="sq3"> <code>{"id": 1,}</code></label><p class="quiz-why">마지막 쉼표는 JSON에서 허용되지 않습니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q4</span>객체를 localStorage에 넣기 전에 문자열로 바꾸는 함수는?</p>
+        <div class="quiz-short"><input type="text" data-accept="JSON.stringify|JSON.stringify()" aria-label="Q4 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why"><code>JSON.stringify</code>입니다. 꺼낼 때는 <code>JSON.parse</code>를 씁니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q5</span>날씨 API 키를 어디에 두어야 하나요?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="sq5"> <code>src/app.js</code> 맨 위 상수</label><p class="quiz-why">브라우저 코드는 누구나 볼 수 있습니다.</p></li>
+          <li><label><input type="radio" name="sq5"> <code>localStorage</code></label><p class="quiz-why">개발자 도구로 누구나 읽을 수 있습니다.</p></li>
+          <li data-answer><label><input type="radio" name="sq5"> 서버의 환경 변수(<code>.env</code>)</label><p class="quiz-why">서버가 키를 붙여 대신 부르고, 브라우저에는 결과만 줍니다.</p></li>
+        </ul>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="sec unnumbered" id="homework">
+    <h2>과제</h2>
+    <article class="assignment" aria-labelledby="s-hw11-title">
+      <header class="assignment-head">
+        <span class="kicker">11주차 과제 · 팀</span>
+        <h3 class="assignment-title" id="s-hw11-title">수직 프로토타입: 한 장면을 끝까지</h3>
+        <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol>
+          <li>사용 장면 하나를 fetch부터 화면까지 동작하게 (세 가지 상태 포함)</li>
+          <li>팀원 모두 PR 1개 이상 올리고 서로 리뷰</li>
+          <li>데모 영상 또는 스크린샷과 AI USE NOTE</li>
+        </ol></dd></div>
+        <div><dt>예상 소요</dt><dd>팀 전체 4~6시간</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd><code>README.md</code>(배포 링크·실행 방법), <code>demo.mp4</code> 또는 스크린샷 2장, <code>docs/ai-use-note.md</code></dd></div>
+        <div><dt>제출처</dt><dd>eTL › 과제 › 11주차 팀 과제 (팀장 1명)</dd></div>
+        <div class="due"><dt>마감</dt><dd><time datetime="2026-11-17T09:59:00+09:00">11/17(화) 오전 9:59</time> · eTL</dd></div>
+        <div><dt>확인 기준</dt><dd>세 가지 상태 문구가 보인다 · 팀원 각자의 PR이 있다 · AI USE NOTE에 직접 확인한 것이 있다</dd></div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="sec unnumbered" id="check">
+    <h2>스스로 점검</h2>
+    <ul class="checklist" data-checklist="w11-summary">
+      <li><label><input type="checkbox"> Network 탭에서 상태 코드와 응답 본문을 읽을 수 있다.</label></li>
+      <li><label><input type="checkbox"> <code>res.ok</code>를 검사하는 fetch 코드를 쓸 수 있다.</label></li>
+      <li><label><input type="checkbox"> 로딩·빈 목록·오류 문구를 모두 만들었다.</label></li>
+      <li><label><input type="checkbox"> localStorage에 넣지 말아야 할 것을 말할 수 있다.</label></li>
+    </ul>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="reading.html"><span>← 확장판</span>자세한 설명과 실습</a>
+    <a class="next" href="deck.html"><span>발표 →</span>수업 슬라이드</a>
+  </nav>
+</main>
+</body>
+</html>
