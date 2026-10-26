@@ -29,7 +29,7 @@
 <main class="doc" id="main">
 
   <header class="doc-head">
-    <span class="kicker">10주차 · 11월 3일(화) · 확장판</span>
+    <span class="kicker">10주차 · 확장판</span>
     <h1>팀 저장소와 작업 환경: 터미널, 요청과 응답, AI 에이전트, 기본 하네스</h1>
     <p class="lead">지난주에 팀 질문과 알파 버전의 범위를 정했습니다. 이번 주에는 그 범위를 담을 그릇을 만듭니다. 터미널에서 프로젝트를 열고, 로컬 서버를 띄워 요청과 응답을 읽고, 팀 저장소에 보호 규칙을 걸고, AI 코딩 에이전트를 연결한 뒤, 팀 시트를 하네스 문서 여섯 개로 옮겨 적습니다. 이 페이지는 수업 전후에 읽는 긴 교안입니다. 처음 읽을 때는 심화 상자를 접어 두어도 됩니다.</p>
     <ul class="doc-meta">
@@ -57,8 +57,7 @@
         <li><b>팀 스튜디오</b><span>저장소를 만들고 하네스 문서를 채웁니다.</span></li>
       </ol>
       <p>지난주 eTL 게시판 '이번 주 막힌 것' 스레드에서 두 가지를 골라 수업 시작에 답합니다. 글을 남기지 않았어도 수업 중에 손을 들어 물어보면 됩니다.</p>
-      <p>11월 초 라운지 서울 전시(별도 트랙, 성적과 무관)에 참여하는 분은 이번 주 스튜디오 시간 일부를 전시 버전 점검에 써도 됩니다. 그동안 나머지 팀원이 저장소 초기화를 맡습니다.</p>
-      <!-- 확인 필요: 라운지 서울 전시 날짜 — 인수인계 문서 11/6(금)~8(일), eTL 표기 11/5~9 [예정]. 학생 자료에는 '11월 초'로만 적음. -->
+      <p>학기 중 외부 전시 기회(별도 트랙, 성적과 무관)가 있으면 별도로 안내합니다. 전시에 참여하는 분은 이번 주 스튜디오 시간 일부를 전시 버전 점검에 써도 됩니다. 그동안 나머지 팀원이 저장소 초기화를 맡습니다.</p>
       <!-- 확인 필요: eTL 10주차 모듈 머리글 '개인 과제 최종본 제출'은 구버전 가능성(인수인계 기준 11주차 제출). 수업 전 eTL 머리글 정리. -->
     </section>
 
@@ -66,13 +65,13 @@
       <h3>학기 흐름 속 오늘</h3>
       <p>후반부 일곱 주는 "팀 웹서비스를 만들고, 테스트하고, 시연·발표·아카이빙하는" 한 흐름입니다. 10주차는 그 출발점으로, 저장소와 작업 환경을 갖추는 주입니다. 다음 주에는 이 저장소 안에서 알파 버전을 만듭니다.</p>
       <ol class="timeline" aria-label="후반부 일정">
-        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-date">10/27</span><span class="tl-title">팀 아이디어를 하나로 · 알파 정하기</span></li>
-        <li class="is-now"><span class="tl-week">10주차</span><span class="tl-date">11/3</span><span class="tl-title">팀 저장소와 작업 환경</span></li>
-        <li><span class="tl-week">11주차</span><span class="tl-date">11/10</span><span class="tl-title">알파 버전 · 데이터를 가져오는 웹</span></li>
-        <li><span class="tl-week">12주차</span><span class="tl-date">11/17</span><span class="tl-title">AI 코드 검토와 테스트 · 특별 세션</span></li>
-        <li><span class="tl-week">13주차</span><span class="tl-date">11/24</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
-        <li><span class="tl-week">14주차</span><span class="tl-date">12/1</span><span class="tl-title">프로토타입 시연회(베타)</span></li>
-        <li><span class="tl-week">15주차</span><span class="tl-date">12/8</span><span class="tl-title">쇼케이스 · 최종 발표</span></li>
+        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-title">팀 아이디어를 하나로 · 알파 정하기</span></li>
+        <li class="is-now"><span class="tl-week">10주차</span><span class="tl-title">팀 저장소와 작업 환경</span></li>
+        <li><span class="tl-week">11주차</span><span class="tl-title">알파 버전 · 데이터를 가져오는 웹</span></li>
+        <li><span class="tl-week">12주차</span><span class="tl-title">AI 코드 검토와 테스트</span></li>
+        <li><span class="tl-week">13주차</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
+        <li><span class="tl-week">14주차</span><span class="tl-title">프로토타입 시연회(베타)</span></li>
+        <li><span class="tl-week">15주차</span><span class="tl-title">쇼케이스 · 최종 발표</span></li>
       </ol>
     </section>
 
@@ -150,7 +149,7 @@
         <li>터미널을 새로 열어도 같은 결과가 나온다</li>
       </ul>
       <p>안 되면 오류 메시지를 그대로 짝에게 보여 주세요. 설치 방법과 자주 나는 오류는 <a href="#node-install">02.4 Node.js와 npm 확인·설치</a>에 운영체제별로 적어 두었습니다. 수업 중에 해결되지 않으면 eTL 메시지로 알려 주세요.</p>
-      <!-- 확인 필요: 설치 클리닉용 USB(Node 설치 파일 .msi/.pkg) 준비. Node 26이 2026-10-28에 LTS로 전환 예정이라 설치 페이지 기본값이 26으로 바뀔 수 있음 → 22.12 이상이면 통과로 안내 유지. -->
+      <!-- 확인 필요: 설치 클리닉용 USB(Node 설치 파일 .msi/.pkg) 준비. 새 Node 메이저가 LTS로 전환되면 설치 페이지 기본값이 바뀔 수 있음 → 22.12 이상이면 통과로 안내 유지. -->
     </section>
   </section>
 
@@ -178,7 +177,7 @@
 
     <section class="sec" id="shell-basics">
       <h3>셸 기본 명령 다섯 개</h3>
-      <p>아래 다섯 명령과 두 가지 키만 알면 이번 학기 터미널 작업은 됩니다. 명령 앞의 <code>$</code>는 "여기에 입력한다"는 표시이고 직접 치지 않습니다.</p>
+      <p>아래 다섯 명령과 두 가지 키만 알면 이 수업의 터미널 작업은 됩니다. 명령 앞의 <code>$</code>는 "여기에 입력한다"는 표시이고 직접 치지 않습니다.</p>
       <div class="table-wrap">
         <table class="table">
           <caption>셸 기본 명령</caption>
@@ -340,7 +339,7 @@ test('없는 스크립트는 Missing script 오류를 낸다', () => {
       <pre class="code" data-lang="text" data-file=".gitignore"><code>node_modules/
 dist/
 .env</code></pre>
-      <p><code>dist/</code>는 빌드 결과물(이번 학기 기본 경로에서는 생기지 않습니다), <code>.env</code>는 비밀 키를 담는 파일입니다. 세 번째 줄은 11주차 API 키 안전과 이어집니다. 지금부터 넣어 두면 나중에 실수로 올리는 일이 없습니다.</p>
+      <p><code>dist/</code>는 빌드 결과물(이 수업의 기본 경로에서는 생기지 않습니다), <code>.env</code>는 비밀 키를 담는 파일입니다. 세 번째 줄은 11주차 API 키 안전과 이어집니다. 지금부터 넣어 두면 나중에 실수로 올리는 일이 없습니다.</p>
       <p>이미 <code>node_modules</code>를 커밋했다면 <code>.gitignore</code>에 적는 것만으로는 빠지지 않습니다. <code>git rm -r --cached node_modules</code>로 추적을 끊고 다시 커밋합니다.</p>
       <ul class="filetree" aria-label="10주차 팀 저장소의 최소 구조">
         <li class="dir"><span>team-app</span>
@@ -383,7 +382,7 @@ dist/
         <h4>ESM과 CommonJS, 번들러가 하는 일, lock 파일</h4>
         <h5>내부 동작</h5>
         <p>JavaScript 모듈 체계는 둘입니다. <b>ESM</b>(<code>import</code>/<code>export</code>)은 언어 표준이고 브라우저와 Node 모두 지원합니다. 가져오기가 정적이라(파일 맨 위, 이름이 고정) 엔진이 실행 전에 의존 관계 그래프를 만들 수 있고, 그래서 쓰지 않는 내보내기를 번들러가 지울 수 있습니다(tree shaking). <b>CommonJS</b>(<code>require()</code>/<code>module.exports</code>)는 Node의 옛 방식입니다. 함수 호출이라 실행 중에 아무 데서나 부를 수 있지만, 브라우저에는 <code>require</code>가 없습니다. <code>package.json</code>의 <code>"type": "module"</code>은 "이 프로젝트의 <code>.js</code>는 ESM이다"라는 선언입니다.</p>
-        <p>번들러(Vite가 내부에서 쓰는 Rollup·esbuild 등)는 모듈 수십 개를 파일 몇 개로 합치고, 안 쓰는 코드를 지우고, 옛 브라우저용 문법으로 바꿉니다. 이번 학기 기본 경로(HTML·CSS·JS 파일을 그대로 서빙)에는 번들러가 없습니다. 선택 모듈 react에서 Vite를 쓸 때 처음 만납니다.</p>
+        <p>번들러(Vite가 내부에서 쓰는 Rollup·esbuild 등)는 모듈 수십 개를 파일 몇 개로 합치고, 안 쓰는 코드를 지우고, 옛 브라우저용 문법으로 바꿉니다. 이 수업의 기본 경로(HTML·CSS·JS 파일을 그대로 서빙)에는 번들러가 없습니다. 선택 모듈 react에서 Vite를 쓸 때 처음 만납니다.</p>
         <p><code>package-lock.json</code>은 <code>npm install</code>이 실제로 내려받은 모든 패키지의 정확한 버전을 적은 파일입니다. <code>package.json</code>의 <code>^4.6.1</code>은 "4.6.1 이상 5 미만"이라는 범위이고, lock 파일은 그중 어느 것을 받았는지 고정합니다. 팀원 모두가 같은 버전을 받으려면 lock 파일을 커밋해야 합니다.</p>
         <h5>명세·공식 문서</h5>
         <ul>
@@ -391,7 +390,7 @@ dist/
           <li>npm docs · scripts와 npx: <a href="https://docs.npmjs.com/cli/v11/using-npm/scripts">docs.npmjs.com/cli/v11/using-npm/scripts</a> · <a href="https://docs.npmjs.com/cli/v11/commands/npx">…/commands/npx</a></li>
         </ul>
         <h5>트레이드오프</h5>
-        <p>번들러 없이 ESM을 브라우저에 직접 주면 설정이 없고 디버깅이 쉽지만, 모듈마다 요청이 하나씩 나가고 npm 패키지를 바로 <code>import</code>할 수 없습니다. 번들러를 쓰면 요청이 줄고 패키지를 자유롭게 쓰지만, 빌드 단계와 설정 파일이 생기고 "소스와 실제 실행 코드가 다르다"는 간접성이 생깁니다. 이번 학기 팀 프로젝트의 크기라면 전자가 먼저입니다.</p>
+        <p>번들러 없이 ESM을 브라우저에 직접 주면 설정이 없고 디버깅이 쉽지만, 모듈마다 요청이 하나씩 나가고 npm 패키지를 바로 <code>import</code>할 수 없습니다. 번들러를 쓰면 요청이 줄고 패키지를 자유롭게 쓰지만, 빌드 단계와 설정 파일이 생기고 "소스와 실제 실행 코드가 다르다"는 간접성이 생깁니다. 이 수업의 팀 프로젝트 크기라면 전자가 먼저입니다.</p>
         <h5>5분 실험</h5>
         <p>브라우저에서 모듈을 <code>import()</code>로 가져옵니다. 모듈 파일 대신 <code>data:</code> 주소에 코드를 담았습니다. 주석 처리된 <code>require</code> 줄을 풀어 실행하면 브라우저에는 <code>require</code>가 없다는 오류가 납니다.</p>
         <div class="lab" data-title="번들러 없이 모듈 가져오기" data-kicker="심화 실험" data-active="js" data-hide="css" data-autorun="false">
@@ -450,7 +449,7 @@ test('빈 줄은 카드가 되지 않는다', async () => {
         <li><code>&lt;script type="module"&gt;</code>이 같은 이유로 막힙니다.</li>
         <li>배포(GitHub Pages)와 조건이 다릅니다. 배포된 사이트는 <code>https://</code>로 열립니다. 내 컴퓨터에서도 같은 조건으로 봐야 "배포하니 안 되네"를 미리 잡습니다.</li>
       </ul>
-      <p>로컬 서버는 내 컴퓨터 안에서 도는 작은 웹 서버입니다. 주소 <code>http://localhost:3000/index.html</code>의 <code>localhost</code>는 "이 컴퓨터", <code>3000</code>은 서버가 기다리는 문 번호(포트)입니다. 브라우저는 이 주소로 요청을 보내고, 서버는 폴더의 파일을 응답으로 돌려줍니다. 7주차 특강에서 들은 기준으로 말하면, 이 서버는 요청마다 코드를 실행하지 않고 파일을 그대로 돌려주는 <b>정적</b> 서버입니다.</p>
+      <p>로컬 서버는 내 컴퓨터 안에서 도는 작은 웹 서버입니다. 주소 <code>http://localhost:3000/index.html</code>의 <code>localhost</code>는 "이 컴퓨터", <code>3000</code>은 서버가 기다리는 문 번호(포트)입니다. 브라우저는 이 주소로 요청을 보내고, 서버는 폴더의 파일을 응답으로 돌려줍니다. 서버의 종류로 말하면, 이 서버는 요청마다 코드를 실행하지 않고 파일을 그대로 돌려주는 <b>정적</b> 서버입니다.</p>
     </section>
 
     <section class="sec" id="serve-options">
@@ -1075,14 +1074,14 @@ test('같은 줄을 같게 고치면 충돌이 아니다', () => {
     <section class="sec" id="three-paths">
       <h3>세 경로 중 하나면 됩니다</h3>
       <p>이 수업은 특정 유료 도구를 전제하지 않습니다. 유료 여부가 성적 차이로 이어지지 않습니다. 아래 셋 중 지금 되는 것 하나로 과제를 하면 됩니다. 수업의 라이브 데모는 한 가지 도구로 하고, 나머지는 <a href="../ai/index.html">AI 실습 매뉴얼</a>의 대응표로 따라갈 수 있습니다.</p>
-      <!-- 확인 필요: 라이브 데모 도구 결정·리허설(10/31까지). 수업 전 학생 1~2명에게 ChatGPT Edu 계정으로 codex 로그인 테스트 부탁. -->
+      <!-- 확인 필요: 라이브 데모 도구 결정·리허설(수업 전). 수업 전 학생 1~2명에게 ChatGPT Edu 계정으로 codex 로그인 테스트 부탁. -->
       <div class="table-wrap">
         <table class="table">
           <caption>AI 코딩 에이전트 세 경로</caption>
           <thead><tr><th scope="col">경로</th><th scope="col">무엇</th><th scope="col">계정</th><th scope="col">어울리는 경우</th></tr></thead>
           <tbody>
             <tr><td>(a) Codex</td><td>터미널 CLI 또는 VS Code 확장. 폴더의 AGENTS.md를 먼저 읽습니다.</td><td>ChatGPT 계정으로 로그인. 공식 문서상 Edu 플랜에 포함되지만 학교 워크스페이스 설정에 따라 다를 수 있습니다.</td><td>학교 제공 ChatGPT Edu를 그대로 쓰고 싶을 때. 이 수업의 기본 환경.</td></tr>
-            <tr><td>(b) Claude Code</td><td>터미널 CLI 또는 VS Code 확장. CLAUDE.md(AGENTS.md도 읽음)를 먼저 읽습니다.</td><td>Claude 유료 플랜(Pro 이상) 또는 Console. 무료 플랜에는 포함되지 않습니다.</td><td>이미 계정이 있거나, 7주차 특강에서 써 본 경우.</td></tr>
+            <tr><td>(b) Claude Code</td><td>터미널 CLI 또는 VS Code 확장. CLAUDE.md(AGENTS.md도 읽음)를 먼저 읽습니다.</td><td>Claude 유료 플랜(Pro 이상) 또는 Console. 무료 플랜에는 포함되지 않습니다.</td><td>이미 계정이 있거나 써 본 경우.</td></tr>
             <tr><td>(c) ChatGPT Edu 웹</td><td>파일을 붙여 넣고 변경 제안을 받아 내가 VS Code에서 적용합니다.</td><td>ChatGPT Edu(모든 학생).</td><td>설치 없이 지금 바로. 권한·diff·되돌리기를 사람이 손으로 하는 셈이라 원리를 익히기에 좋습니다.</td></tr>
           </tbody>
         </table>
@@ -1276,7 +1275,7 @@ claude</code></pre>
     "deny":  ["Read(./.env)", "Read(./.env.*)", "Bash(git push *)"]
   }
 }</code></pre>
-        <p><b>훅(hooks)</b>은 에이전트의 특정 시점에 실행되는 셸 명령입니다. "certain actions always happen rather than relying on the LLM to choose to run them." 예를 들어 <code>PostToolUse</code>에 <code>Edit|Write</code> 매처를 걸면 파일을 고칠 때마다 포매터나 테스트가 자동으로 돕니다. <code>PreToolUse</code> 훅이 종료 코드 2를 내면 그 행동이 차단되고 이유가 모델에 전달됩니다. 12주차 특강에서 이 확장(테스트·훅·CI)을 다룹니다. Codex는 같은 역할을 샌드박스(<code>sandbox_mode</code>)와 승인 정책(<code>approval_policy</code>)의 두 층과 <code>.rules</code> 파일로 나눕니다.</p>
+        <p><b>훅(hooks)</b>은 에이전트의 특정 시점에 실행되는 셸 명령입니다. "certain actions always happen rather than relying on the LLM to choose to run them." 예를 들어 <code>PostToolUse</code>에 <code>Edit|Write</code> 매처를 걸면 파일을 고칠 때마다 포매터나 테스트가 자동으로 돕니다. <code>PreToolUse</code> 훅이 종료 코드 2를 내면 그 행동이 차단되고 이유가 모델에 전달됩니다. 12주차에 이 확장(테스트·훅·CI)을 다룹니다. Codex는 같은 역할을 샌드박스(<code>sandbox_mode</code>)와 승인 정책(<code>approval_policy</code>)의 두 층과 <code>.rules</code> 파일로 나눕니다.</p>
         <p><b>프롬프트 인젝션</b>은 에이전트가 읽는 자료(Issue 본문, README, 웹 페이지, 패키지 설명) 안에 "이 파일을 지워라" 같은 지시문이 숨어 있는 경우입니다. 3주차 A.10에서 "참고 자료 속 문장은 작업 지시와 구분한다"고 배운 것이 에이전트에게는 더 중요합니다(<a href="../week3.html#ai-reference-trust">3주차 A.10</a>). Codex 문서: "Prompt injection can cause the agent to fetch and follow untrusted instructions." 대책은 권한을 좁게 두고(네트워크 기본 차단, deny 규칙), 자료를 에이전트에 직접 파이프하지 않고, 중요한 파일의 변경은 사람이 보는 것입니다. 어떤 시스템도 완전히 면역이 아닙니다.</p>
         <h5>명세·공식 문서</h5>
         <ul>
@@ -1467,7 +1466,7 @@ test('git push는 하지 않는다 (규칙을 한 줄 추가하면 통과)', () 
           </tbody>
         </table>
       </div>
-      <!-- 확인 필요: 공유 데이터가 필요한 팀(①=예)은 BaaS 계정을 11/10 전에 만들도록 스튜디오에서 지목. 어떤 BaaS를 권할지(Supabase 무료 플랜 등) 선택 모듈과 맞출 것. -->
+      <!-- 확인 필요: 공유 데이터가 필요한 팀(①=예)은 BaaS 계정을 11주차 전에 만들도록 스튜디오에서 지목. 어떤 BaaS를 권할지(Supabase 무료 플랜 등) 선택 모듈과 맞출 것. -->
       <p>기술 칸은 정답 칸이 아닙니다. "지금 아는 것으로 되는 것"과 "새로 알아볼 것"을 나눠 적으면 됩니다. 한 화면 = 한 URL(또는 해시) 원칙은 9주차 심화에서 봤습니다. GitHub Pages는 <code>/about</code> 같은 경로를 모르므로 <code>#about</code>이나 <code>about.html</code>로 나눕니다.</p>
     </section>
 
@@ -1594,7 +1593,7 @@ test("2 나누기(★): 빈 입력으로 '나누기'를 누르면 안내가 보�
 
     <section class="sec" id="deep-harness">
       <h3>심화 · 프로젝트 단계 구조와 확장</h3>
-      <p>아래 상자는 선택입니다. 기본 단계 세 문서가 어떻게 테스트·훅·CI로 자라는지, 12주차 특강의 예고입니다.</p>
+      <p>아래 상자는 선택입니다. 기본 단계 세 문서가 어떻게 테스트·훅·CI로 자라는지, 12주차의 예고입니다.</p>
       <aside class="deep" id="deep-harness-ext">
         <h4>프로젝트 단계 구조에서 테스트·훅·CI로</h4>
         <h5>내부 동작</h5>
@@ -1606,7 +1605,7 @@ test("2 나누기(★): 빈 입력으로 '나누기'를 누르면 안내가 보�
           <li>GitHub Docs · Rulesets의 "Require status checks to pass before merging": <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets">docs.github.com/…/available-rules-for-rulesets</a> · Claude Code 훅 가이드: <a href="https://code.claude.com/docs/en/hooks-guide">code.claude.com/docs/en/hooks-guide</a></li>
         </ul>
         <h5>트레이드오프</h5>
-        <p>자동화는 한 번 만들면 매번 공짜지만 만드는 비용이 있고, 테스트가 틀리면 틀린 것을 매번 강제합니다. 학기 프로젝트에서는 "★ 단계의 테스트 두세 개 + 공통 항목 한두 개"만 자동화하고 나머지는 체크리스트로 두는 것이 적당합니다. 12주차 특강에서 어디까지 자동화할지 다시 정합니다.</p>
+        <p>자동화는 한 번 만들면 매번 공짜지만 만드는 비용이 있고, 테스트가 틀리면 틀린 것을 매번 강제합니다. 학기 프로젝트에서는 "★ 단계의 테스트 두세 개 + 공통 항목 한두 개"만 자동화하고 나머지는 체크리스트로 두는 것이 적당합니다. 12주차에 어디까지 자동화할지 다시 정합니다.</p>
         <h5>5분 실험</h5>
         <p>checklist.md의 줄을 읽어 테스트 뼈대를 만드는 작은 변환기입니다. 체크되지 않은 줄은 <code>test.todo</code>로, 체크된 줄은 <code>test</code>로 바뀝니다. 체크 표시(<code>[ ]</code> → <code>[x]</code>)를 바꾸고 실행해 결과가 달라지는지 보세요. 그 다음, 변환이 불가능한 문장("잘 된다")을 한 줄 넣어 보세요. 테스트 이름으로 쓸 수 없는 문장이 어떤 문장인지 보입니다.</p>
         <div class="lab" data-title="checklist → 테스트 뼈대" data-kicker="심화 실험" data-active="js" data-hide="css" data-autorun="false">
@@ -1782,7 +1781,7 @@ test('체크된 줄은 test(), 안 된 줄은 test.todo()', () => {
         <li><b>tasks.md 11주차 분담</b><span>이름별로 한 줄씩. '이번 주에 보여 줄 것'까지. 알파의 ★ 단계가 누구 줄인지 분명하게.</span></li>
         <li><b>YOUR CODE 1분</b><span>팀원 한 명이 오늘 AI가 만든 문서·코드 한 조각을 1분 설명합니다.</span></li>
       </ol>
-      <p>전시(라운지 서울) 참여자는 3~4단계 시간에 전시 버전을 점검해도 됩니다. 그동안 다른 팀원이 저장소 초기화를 맡고, 전시 참여자는 돌아와서 자기 몫의 문서 한 개를 맡습니다.</p>
+      <p>외부 전시에 참여하는 팀원이 있으면 3~4단계 시간에 전시 버전을 점검해도 됩니다. 그동안 다른 팀원이 저장소 초기화를 맡고, 전시 참여자는 돌아와서 자기 몫의 문서 한 개를 맡습니다.</p>
     </section>
 
     <section class="sec" id="studio-output">
@@ -1820,7 +1819,7 @@ test('체크된 줄은 test(), 안 된 줄은 test.todo()', () => {
 
     <section class="sec" id="hw-team">
       <h3>팀 과제 · 저장소와 하네스</h3>
-      <article class="assignment" aria-labelledby="hw10-title" data-countdown="off">
+      <article class="assignment" aria-labelledby="hw10-title">
         <header class="assignment-head">
           <span class="kicker">10주차 과제 · 팀</span>
           <h4 class="assignment-title" id="hw10-title">저장소와 하네스: 팀의 그릇 만들기</h4>
@@ -1845,7 +1844,7 @@ test('체크된 줄은 test(), 안 된 줄은 test.todo()', () => {
           </ul></dd></div>
         </dl>
       </article>
-      <!-- 확인 필요: eTL에 '10주차 팀 과제' 항목 생성과 기한 설정(화요일 오전 9:59 관행). 대표 1명 제출 방식 안내. -->
+      <!-- 확인 필요: eTL에 '10주차 팀 과제' 항목 생성과 기한 설정(수업 시작 직전 시각 관행). 대표 1명 제출 방식 안내. -->
     </section>
 
     <section class="sec" id="hw-solo">
@@ -1937,7 +1936,7 @@ test('체크된 줄은 test(), 안 된 줄은 test.todo()', () => {
         <div><dt>Codex</dt><dd>문서 허브 <a href="https://learn.chatgpt.com/docs">learn.chatgpt.com/docs</a> · CLI <a href="https://learn.chatgpt.com/codex/cli">learn.chatgpt.com/codex/cli</a> · AGENTS.md <a href="https://learn.chatgpt.com/codex/agent-configuration/agents-md">…/agent-configuration/agents-md</a> · 권한 프리셋 <a href="https://learn.chatgpt.com/codex/permission-modes">…/permission-modes</a> · 플랜(Edu 포함 여부) <a href="https://help.openai.com/en/articles/11369540">help.openai.com/en/articles/11369540</a> · eTL의 'Codex 시작하기' <a href="https://openai.com/ko-KR/academy/codex">openai.com/ko-KR/academy/codex</a></dd></div>
         <div><dt>Claude Code</dt><dd>개요 <a href="https://code.claude.com/docs/en/overview">code.claude.com/docs/en/overview</a> · 설치 <a href="https://code.claude.com/docs/en/setup">…/setup</a> · 빠른 시작 <a href="https://code.claude.com/docs/en/quickstart">…/quickstart</a> · CLAUDE.md <a href="https://code.claude.com/docs/en/memory">…/memory</a> · 권한 <a href="https://code.claude.com/docs/en/permissions">…/permissions</a> · 권한 모드 <a href="https://code.claude.com/docs/en/permission-modes">…/permission-modes</a> · 명령 <a href="https://code.claude.com/docs/en/commands">…/commands</a> · 되돌리기 <a href="https://code.claude.com/docs/en/checkpointing">…/checkpointing</a> · 비용 <a href="https://code.claude.com/docs/en/costs">…/costs</a> · Claude Code Academy <a href="https://academy.claude.com/">academy.claude.com</a></dd></div>
       </dl>
-      <!-- 확인 필요: Codex 문서 URL이 developers.openai.com → learn.chatgpt.com으로 리디렉션됨(2026-10-25 관찰). 수업 전 링크 클릭 확인. -->
+      <!-- 확인 필요: Codex 문서 URL이 developers.openai.com → learn.chatgpt.com으로 리디렉션됨. 수업 전 링크 클릭 확인. -->
     </section>
 
     <section class="sec" id="refs-course">

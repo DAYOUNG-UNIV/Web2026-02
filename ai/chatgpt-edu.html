@@ -15,7 +15,7 @@
 <!-- 확인 필요(강사용 메모 · 학생 화면에는 보이지 않음):
   1. 서울대 ChatGPT Edu 워크스페이스의 실제 설정: 가입 방법, 켜진 기능(Projects 공유·Work·Codex Local·임시 채팅·메모리·공유 링크), Chat에서 보이는 모델 이름, 크레딧 한도. OpenAI 공식 문서(2026-10-25 기준)에는 학교별 정보가 없음. 학교 공지·eTL 안내로 대조.
   2. 한국어 UI 라벨: 공식 문서는 영어 라벨만 제공(help.openai.com/ko-kr 은 기계 번역). 아래 연습 화면의 한국어 이름은 디자인 시스템 기본값. 수업 전 서울대 계정 화면과 대조.
-  3. 9·11·14주차 페이지 파일 이름(../week09/reading.html 등)과 과제 카드 앵커는 해당 교안 완성 뒤 확인.
+  3. 9·11·14주차 페이지 링크(../week09/index.html 등)와 과제 카드 앵커는 교안이 바뀌면 다시 확인.
   4. Space(Library 대체)·Intelligent UI·GPT-6 Chat의 Edu 제공 여부, Library 용량: 문서에 Edu 명시 없음.
   5. Custom GPT 새 생성 종료(2026-10-26 계획)의 Edu 적용 시점: Enterprise 기준 계획만 문서화.
   6. 학교 관리자의 실제 열람 정책(Compliance API 사용 여부): 문서상 '가능'까지만 확인됨.
@@ -93,7 +93,7 @@
       </table>
     </div>
     <aside class="callout" data-label="수업 직전 확인">
-      <p>가입 방법, 켜진 기능(프로젝트 공유·Work·Codex·임시 채팅·메모리), 보이는 모델 이름, 한도는 학교 공지와 eTL 안내가 기준입니다. 이 페이지는 OpenAI 공식 문서(2026년 10월 25일 기준)만 근거로 썼고, 학교별 설정은 담지 않았습니다. 화면이 다르면 eTL 메시지로 알려 주세요.</p>
+      <p>가입 방법, 켜진 기능(프로젝트 공유·Work·Codex·임시 채팅·메모리), 보이는 모델 이름, 한도는 학교 공지와 eTL 안내가 기준입니다. 이 페이지는 OpenAI 공식 문서만 근거로 썼고(기능 이름과 한도는 수업 직전에 다시 확인합니다), 학교별 설정은 담지 않았습니다. 화면이 다르면 eTL 메시지로 알려 주세요.</p>
     </aside>
   </section>
 
@@ -105,7 +105,7 @@
     <p>한 번의 요청으로 끝나지 않습니다. 문제를 정하고, 맡기고, 읽고, 돌려 보고, 고치고, 합칩니다. 학기 후반부는 이 순서를 따라갑니다.</p>
     <div class="table-wrap">
       <table class="table">
-        <caption>AI-Native Workflow 6단계와 이번 학기 주차</caption>
+        <caption>AI-Native Workflow 6단계와 후반부 주차</caption>
         <thead><tr><th scope="col">단계 · 주로 쓰는 주차</th><th scope="col">뜻, 그리고 ChatGPT Edu에서 하는 일</th></tr></thead>
         <tbody>
           <tr><td><b>Define</b> 문제 정의<br><small>9주차</small></td><td>무엇을·어떤 형식으로·무엇은 하지 말지 적는다. ChatGPT Edu에서는 팀 시트를 프로젝트에 올리고 쪼개기 표 초안을 받는다 (<a href="#s1">시나리오 1</a>).</td></tr>
@@ -194,7 +194,7 @@
       <div><dt>Search</dt><dd>채팅·프로젝트·파일 검색. 단축키 <kbd>Ctrl</kbd> <kbd>K</kbd>(macOS <kbd>⌘</kbd> <kbd>K</kbd>). 필터는 All, Chats, Images, Documents, Projects.</dd></div>
       <div><dt>Library</dt><dd>올리거나 만든 파일 보관함. Edu에 제공됩니다. 용량은 학교 설정에 따릅니다.</dd></div>
       <div><dt>Projects</dt><dd><dfn title="관련 채팅·파일·지시를 한 묶음으로 두어 ChatGPT가 공유 맥락으로 쓰게 하는 기능.">프로젝트</dfn>. New project로 만들고, 안에 Chats와 Sources 탭이 있습니다. 팀 자료는 여기에 모읍니다.</dd></div>
-      <div><dt>Plugins</dt><dd>플러그인과 Skills. 예전의 GPTs는 2026년 12월 11일 퇴역 예정이라 수업에서 GPT 만들기는 다루지 않습니다.</dd></div>
+      <div><dt>Plugins</dt><dd>플러그인과 Skills. 예전의 GPTs는 퇴역 예정이라 수업에서 GPT 만들기는 다루지 않습니다.</dd></div>
       <div><dt>Recents · Pinned</dt><dd>최근 대화와 고정한 대화. 대화 항목의 더보기(•••)에서 Move to project, Lock chat 등을 고릅니다.</dd></div>
       <div><dt>Settings</dt><dd>아래 프로필에서 엽니다. Personalization(맞춤 설정·메모리), Data controls(공유 링크 관리)가 학생이 만질 곳입니다. <a href="#settings">07에서</a> 다룹니다.</dd></div>
     </dl>
@@ -203,7 +203,7 @@
     <dl class="defs">
       <div><dt>Chat · Work</dt><dd>모드 선택. Work는 문서·스프레드시트 같은 긴 결과물을 만드는 에이전트로 크레딧을 더 쓰고 학교 설정에 따릅니다. 이 매뉴얼은 Chat만 씁니다.</dd></div>
       <div><dt>+ 메뉴</dt><dd>파일·사진 첨부, Add from library, Deep research, Study, More(Images 등). 도구 전체는 View all tools.</dd></div>
-      <div><dt>모델 선택기</dt><dd>입력창 안에 있습니다(2026년 5월 이후). 보이는 모델 이름은 학교 설정에 따라 다릅니다. 함께 있는 <b>Thinking</b> 슬라이더는 Instant, Medium, High, Extra High, Pro 단계로 "얼마나 오래 생각할지"를 정합니다.</dd></div>
+      <div><dt>모델 선택기</dt><dd>입력창 안에 있습니다. 보이는 모델 이름은 학교 설정에 따라 다릅니다. 함께 있는 <b>Thinking</b> 슬라이더는 Instant, Medium, High, Extra High, Pro 단계로 "얼마나 오래 생각할지"를 정합니다.</dd></div>
       <div><dt>Temporary</dt><dd>임시 채팅. 기록에 남지 않고 메모리를 만들지 않지만, 프로젝트에 넣을 수 없고 안전 목적으로 최대 30일 보관됩니다.</dd></div>
       <div><dt>긴 붙여넣기</dt><dd>10,000자를 넘는 텍스트는 자동으로 첨부 파일로 바뀝니다. 되돌리려면 Show in text field. 긴 코드는 처음부터 파일로 첨부하는 편이 낫습니다.</dd></div>
       <div><dt>전송</dt><dd>위 화살표 버튼. <kbd>Enter</kbd>로도 보냅니다. 줄을 바꾸려면 <kbd>Shift</kbd> <kbd>Enter</kbd>.</dd></div>
@@ -225,7 +225,7 @@
     </div>
     <aside class="callout mistake">
       <p class="callout-title">"캔버스(Canvas)"를 찾는다</p>
-      <p>예전 자료에 나오는 Canvas는 2026년 5월 이후의 모델에서 사라졌고, 관리자가 레거시 모델을 켠 경우에만 남아 있습니다. 지금은 응답 안의 <dfn title="채팅 응답 안에 들어 있는, 직접 고칠 수 있는 글(writing block)·코드(code block) 영역.">편집 블록</dfn>(writing block, code block)이 그 자리를 대신합니다. 이 페이지의 연습 화면에서도 오른쪽 패널을 '편집 블록'이라고 부릅니다.</p>
+      <p>예전 자료에 나오는 Canvas는 최신 모델에서는 사라졌고, 관리자가 레거시 모델을 켜 둔 경우에만 남아 있습니다. 지금은 응답 안의 <dfn title="채팅 응답 안에 들어 있는, 직접 고칠 수 있는 글(writing block)·코드(code block) 영역.">편집 블록</dfn>(writing block, code block)이 그 자리를 대신합니다. 이 페이지의 연습 화면에서도 오른쪽 패널을 '편집 블록'이라고 부릅니다.</p>
     </aside>
 
     <aside class="deep" id="deep-answers">
@@ -438,7 +438,7 @@ test('모든 팀원의 줄에 ★가 하나 이상 있다', () => {
     </aside>
 
     <h3>수업 과제에서 이렇게</h3>
-    <p>9주차 팀 과제 <b>팀 프로젝트 시트</b>(⑤ 완성, ⑥~⑧ 가능한 데까지, ⑨ 10주차까지 누가 무엇을)에서 ⑤ 쪼개기 표와 ⑥ 사용 장면의 첫 초안을 이 방법으로 받습니다. AI 등급은 ALLOWED입니다. 제출은 10주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 자세한 과제 카드는 <a href="../week09/reading.html">9주차 교안</a>에 있습니다.</p>
+    <p>9주차 팀 과제 <b>팀 프로젝트 시트</b>(⑤ 완성, ⑥~⑧ 가능한 데까지, ⑨ 10주차까지 누가 무엇을)에서 ⑤ 쪼개기 표와 ⑥ 사용 장면의 첫 초안을 이 방법으로 받습니다. AI 등급은 ALLOWED입니다. 제출은 10주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 자세한 과제 카드는 <a href="../week09/index.html">9주차 교안</a>에 있습니다.</p>
 <pre class="code" data-lang="md" data-file="AI USE NOTE 예시 · 9주차 팀 시트"><code>AI USE NOTE
 - 어떤 도구: ChatGPT Edu (팀 프로젝트 안, 팀 시트 ②~④ 첨부)
 - 어떤 작업을 맡겼나: "팀 시트를 바탕으로 쪼개기 표 초안·사용 장면 3단계·빠진 관점 질문 3개. 없는 가정은 '가정'으로 따로."
@@ -653,7 +653,7 @@ test('③ 없는 주소(404)면 상태 코드를 알려 준다', async () => {
     </aside>
 
     <h3>수업 과제에서 이렇게</h3>
-    <p>11주차 팀 과제 <b>알파 버전</b>에서 "데이터 경로 1곳(fetch로 JSON 읽기 또는 localStorage 저장·복원) + Network 탭 캡처 + 그 코드를 쓴 사람의 README 3줄 설명"이 필요합니다. 코드 설명을 받아 자기 말로 3줄을 쓰고, 수정은 실행과 테스트로 확인합니다. AI 등급은 ALLOWED입니다. 제출은 12주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 과제 카드는 <a href="../week11/reading.html">11주차 교안</a>에 있습니다.</p>
+    <p>11주차 팀 과제 <b>알파 버전</b>에서 "데이터 경로 1곳(fetch로 JSON 읽기 또는 localStorage 저장·복원) + Network 탭 캡처 + 그 코드를 쓴 사람의 README 3줄 설명"이 필요합니다. 코드 설명을 받아 자기 말로 3줄을 쓰고, 수정은 실행과 테스트로 확인합니다. AI 등급은 ALLOWED입니다. 제출은 12주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 과제 카드는 <a href="../week11/index.html">11주차 교안</a>에 있습니다.</p>
 <pre class="code" data-lang="md" data-file="AI USE NOTE 예시 · 11주차 알파 버전 PR"><code>AI USE NOTE
 - 어떤 도구: ChatGPT Edu (script.js 첨부, 콘솔 오류 문장 함께)
 - 어떤 작업을 맡겼나: "흐름 설명 5줄, TypeError 원인 후보 3개, 바뀐 줄만 // changed로." 이어서 "보안 관점에서 다시 봐 줘."
@@ -778,7 +778,7 @@ test('태그가 글자 그대로 보인다', () => {
     </aside>
 
     <h3>수업 과제에서 이렇게</h3>
-    <p>14주차 팀 과제 <b>최종 준비</b>의 <code>docs/presentation.md</code>(질문·장면·과정·다음)와 README 초안에 이 방법을 씁니다. AI 등급은 ALLOWED입니다. 제출은 15주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 과제 카드는 <a href="../week14/reading.html">14주차 교안</a>에 있습니다.</p>
+    <p>14주차 팀 과제 <b>최종 준비</b>의 <code>docs/presentation.md</code>(질문·장면·과정·다음)와 README 초안에 이 방법을 씁니다. AI 등급은 ALLOWED입니다. 제출은 15주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다. 과제 카드는 <a href="../week14/index.html">14주차 교안</a>에 있습니다.</p>
 <pre class="code" data-lang="md" data-file="AI USE NOTE 예시 · 14주차 발표 준비"><code>AI USE NOTE
 - 어떤 도구: ChatGPT Edu (프로젝트 Sources의 README.md, docs/alpha-test.md)
 - 어떤 작업을 맡겼나: "질문 → 사용 장면 시연 → 과정 → 다음 계획 순서의 시연 스크립트. 근거 없는 수치는 [확인]으로."
@@ -975,20 +975,20 @@ test('링크를 만든 뒤 추가한 메시지는 링크에 들어가지 않는�
 
     <h3>이 매뉴얼을 쓰는 주차</h3>
     <ol class="weeks">
-      <li class="week is-now">
+      <li class="week">
         <span class="week-no">09</span>
-        <div class="week-main"><p class="week-date">10/27(화)</p><p class="week-title"><a href="../week09/reading.html">팀 아이디어를 하나로</a></p><p class="week-desc">시나리오 1 · 쪼개기 표와 사용 장면 (Define)</p></div>
-        <ul class="week-links"><li><a href="../week09/reading.html">확장판</a></li></ul>
+        <div class="week-main"><p class="week-title"><a href="../week09/index.html">팀 아이디어를 하나로</a></p><p class="week-desc">시나리오 1 · 쪼개기 표와 사용 장면 (Define)</p></div>
+        <ul class="week-links"><li><a href="../week09/index.html">확장판</a></li></ul>
       </li>
       <li class="week">
         <span class="week-no">11</span>
-        <div class="week-main"><p class="week-date">11/10(화)</p><p class="week-title"><a href="../week11/reading.html">알파 버전: 상태·저장·fetch</a></p><p class="week-desc">시나리오 2 · 코드 설명과 버그 찾기 (Delegate + Inspect)</p></div>
-        <ul class="week-links"><li><a href="../week11/reading.html">확장판</a></li></ul>
+        <div class="week-main"><p class="week-title"><a href="../week11/index.html">알파 버전: 상태·저장·fetch</a></p><p class="week-desc">시나리오 2 · 코드 설명과 버그 찾기 (Delegate + Inspect)</p></div>
+        <ul class="week-links"><li><a href="../week11/index.html">확장판</a></li></ul>
       </li>
       <li class="week">
         <span class="week-no">14</span>
-        <div class="week-main"><p class="week-date">12/1(화)</p><p class="week-title"><a href="../week14/reading.html">프로토타입 시연회</a></p><p class="week-desc">시나리오 3 · 발표 스크립트 (Integrate)</p></div>
-        <ul class="week-links"><li><a href="../week14/reading.html">확장판</a></li></ul>
+        <div class="week-main"><p class="week-title"><a href="../week14/index.html">프로토타입 시연회</a></p><p class="week-desc">시나리오 3 · 발표 스크립트 (Integrate)</p></div>
+        <ul class="week-links"><li><a href="../week14/index.html">확장판</a></li></ul>
       </li>
     </ol>
     <p>처음부터 모든 도구를 알 필요는 없습니다. 이 페이지의 연습 화면 하나와 실습 하나를 끝까지 해 보는 것으로 충분합니다. 막히는 곳은 eTL 메시지로 알려 주세요.</p>

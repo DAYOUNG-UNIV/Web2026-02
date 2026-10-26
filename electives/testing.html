@@ -721,10 +721,10 @@ jobs:
     <p class="lead">도구는 모두 npm으로 설치하는 오픈소스입니다. 돈이 드는 곳은 도구가 아니라 시간입니다. 테스트 하나를 쓰는 시간보다, 깨진 테스트를 읽고 고치는 시간이 더 듭니다.</p>
     <div class="table-wrap">
       <table class="table">
-        <caption>도구별 요구 사항과 한계 (2026-10 기준)</caption>
+        <caption>도구별 요구 사항과 한계 (작성 시점 기준 · 수업 직전 재확인)</caption>
         <thead><tr><th scope="col">도구</th><th scope="col">버전·요구</th><th scope="col">비용</th><th scope="col">한계</th></tr></thead>
         <tbody>
-          <tr><td>Vitest</td><td>5.0 · Node 22.12 이상 (Node 20은 2026-04-30에 지원 종료)</td><td>무료</td><td>브라우저 없이 돕니다. DOM이 필요한 코드는 더블을 세우거나 E2E로 넘깁니다.</td></tr>
+          <tr><td>Vitest</td><td>5.0 · Node 22.12 이상 (Node 20은 지원 종료)</td><td>무료</td><td>브라우저 없이 돕니다. DOM이 필요한 코드는 더블을 세우거나 E2E로 넘깁니다.</td></tr>
           <tr><td>Playwright</td><td>1.64 · Node 22·24·26</td><td>무료 · 브라우저를 따로 내려받습니다(시간이 걸립니다)</td><td>개발 서버가 떠 있어야 합니다. 타이머·네트워크·순서에 흔들리기 쉽습니다.</td></tr>
           <tr><td>axe-core / @axe-core/playwright</td><td>4.14</td><td>무료</td><td>기계가 판단할 수 있는 규칙만 봅니다. 키보드 순서, 문구의 뜻은 사람이 봅니다.</td></tr>
           <tr><td>Lighthouse</td><td>Chrome DevTools 내장 (CLI는 Node 22.19 이상)</td><td>무료</td><td>한 번에 30~60초. 점수는 환경에 따라 흔들립니다. 13주차 성능 점검에서 다시 봅니다.</td></tr>

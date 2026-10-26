@@ -72,7 +72,7 @@
   <!-- ===================================================== 01 -->
   <section class="sec" id="when">
     <h2>정적인가, 동적인가: 기준은 한 줄입니다</h2>
-    <p class="lead">7주차 특강에서 나온 기준을 그대로 씁니다. <b>서버가 요청마다 코드를 실행하는가.</b></p>
+    <p class="lead">10주차 '로컬 서버와 요청·응답 읽기'에서 본 기준을 그대로 씁니다. <b>서버가 요청마다 코드를 실행하는가.</b></p>
     <p>GitHub Pages는 요청이 오면 저장된 파일을 그대로 돌려줍니다. 코드를 실행하지 않습니다. 그래서 누가 와도 같은 HTML을 받고, 누가 보내도 저장되지 않습니다. 11주차까지 만든 메모 앱이 "내 브라우저에서만" 동작했던 이유가 이것입니다. 데이터는 <code>localStorage</code>, 즉 내 브라우저 안에 있었습니다.</p>
     <p>이제 팀 프로젝트의 사용 장면을 한 줄씩 보고, 어느 줄에서 "요청마다 코드 실행"이 필요한지 표시합니다.</p>
     <div class="table-wrap">
@@ -349,7 +349,7 @@ test('저장하면 201과 새 메모를 돌려준다', async () => {
         <tbody>
           <tr><td>Supabase <b>publishable key</b><br><code>sb_publishable_…</code></td><td>브라우저에 두어도 됩니다</td><td>누구나 읽을 수 있는 키입니다. 그래서 <b>RLS가 허용한 만큼만</b> 할 수 있습니다. 공식 문구: "Anyone can read it, so it only reaches what Row Level Security allows."</td></tr>
           <tr><td>Supabase <b>secret key</b><br><code>sb_secret_…</code></td><td>서버·서버리스 함수에만</td><td>RLS를 모두 우회합니다. 브라우저, 소스 코드, 심지어 localhost에도 두지 않습니다.</td></tr>
-          <tr><td>예전 이름 <code>anon</code> · <code>service_role</code></td><td>각각 위 두 키의 "Legacy version"</td><td>AI가 이 이름으로 코드를 주면 publishable·secret으로 바꿔 읽습니다. 2026년 말까지 폐기 예정이라고 안내되어 있습니다.</td></tr>
+          <tr><td>예전 이름 <code>anon</code> · <code>service_role</code></td><td>각각 위 두 키의 "Legacy version"</td><td>AI가 이 이름으로 코드를 주면 publishable·secret으로 바꿔 읽습니다. 폐기 예정으로 안내되어 있습니다(시점은 공식 문서에서 확인).</td></tr>
           <tr><td>Firebase 웹 설정값 (<code>apiKey</code> 등)</td><td>브라우저에 두어도 됩니다</td><td>공개되어도 되는 식별자입니다. 접근 제어는 키가 아니라 <b>보안 규칙</b>이 합니다.</td></tr>
         </tbody>
       </table>
@@ -520,7 +520,7 @@ test('81자 본문은 정책이 거절한다', async () => {
   <section class="sec" id="realtime">
     <h2>실시간 구독: 다른 사람이 쓴 메모가 내 화면에 나타나기까지</h2>
     <p class="lead">"팀원이 메모를 추가하면 내 화면도 바로 바뀐다"는 장면은 BaaS의 실시간 기능으로 얻습니다. 새로고침 없이, 서버가 먼저 알려 줍니다.</p>
-    <p>11주차까지의 흐름은 "내가 물어본다(<code>fetch</code>) → 서버가 답한다"였습니다. 실시간 구독은 방향이 반대입니다. 한 번 구독해 두면, 테이블에 행이 들어올 때 서버가 브라우저에 밀어 줍니다. 7주차 특강에 나온 WebSocket이 그 밑에 있습니다. 아래는 supabase-js의 구독 코드를 메모 앱에 맞춘 읽기용 예입니다.</p>
+    <p>11주차까지의 흐름은 "내가 물어본다(<code>fetch</code>) → 서버가 답한다"였습니다. 실시간 구독은 방향이 반대입니다. 한 번 구독해 두면, 테이블에 행이 들어올 때 서버가 브라우저에 밀어 줍니다. 그 밑에는 양방향 연결인 WebSocket이 있습니다. 아래는 supabase-js의 구독 코드를 메모 앱에 맞춘 읽기용 예입니다.</p>
 <pre class="code" data-lang="js" data-file="src/live.js · 읽기용 예"><code>const channel = supabase
   .channel('memos-changes')                       // 구독 이름(아무 문자열)
   .on('postgres_changes',                         // 테이블 변경을 받겠다
@@ -712,7 +712,7 @@ $ npx wrangler deploy              # *.workers.dev 주소로 배포</code></pre>
     <p class="lead">무료 한도는 수업 프로젝트에 넉넉합니다. 문제는 양이 아니라 "쉬면 멈춘다"는 운영 규칙입니다.</p>
     <div class="table-wrap">
       <table class="table">
-        <caption>무료 플랜 요약 (2026-10-25 공식 페이지 기준)</caption>
+        <caption>무료 플랜 요약 (작성 시점 공식 페이지 기준 · 수업 직전 재확인)</caption>
         <thead><tr><th scope="col">서비스</th><th scope="col">무료 한도</th><th scope="col">수업에서 주의할 점</th></tr></thead>
         <tbody>
           <tr><td>Cloudflare Workers Free</td><td>하루 100,000 요청, UTC 자정에 초기화. 요청당 CPU 10 ms.</td><td>한국 시간으로는 오전 9시에 초기화됩니다. 무거운 계산은 함수에 맞지 않습니다.</td></tr>
@@ -726,7 +726,7 @@ $ npx wrangler deploy              # *.workers.dev 주소로 배포</code></pre>
     <!-- 확인 필요: Netlify 무료(크레딧 기반) 플랜의 함수 호출 한도 수치, Firebase Spark 무료 한도 수치 — 연구 사실표에 수치 없음. 수업 직전 공식 요금 페이지 확인 후 표에 넣을지 결정. -->
     <aside class="callout">
       <p class="callout-title">수업 직전 확인</p>
-      <p>무료 한도와 요금은 자주 바뀝니다. 위 표는 2026년 10월 25일 공식 페이지 기준이고, Netlify와 Firebase의 수치는 비어 있습니다. 결정표를 쓰기 전에 각 서비스의 요금 페이지를 한 번 열어 보세요.</p>
+      <p>무료 한도와 요금은 자주 바뀝니다. 위 표는 작성 시점의 공식 페이지 기준이고, Netlify와 Firebase의 수치는 비어 있습니다. 결정표를 쓰기 전에 각 서비스의 요금 페이지를 한 번 열어 보세요.</p>
     </aside>
     <h3>운영에서 실제로 겪는 일</h3>
     <dl class="defs">
@@ -787,7 +787,7 @@ $ npx wrangler deploy              # *.workers.dev 주소로 배포</code></pre>
         <legend class="quiz-q"><span class="quiz-no">Q5</span>Cloudflare Workers Free 플랜의 하루 요청 한도는 언제 초기화되나요?</legend>
         <ul class="quiz-options">
           <li><label><input type="radio" name="msvq5"> 한국 시간 자정</label><p class="quiz-why">공식 문구는 "resetting at midnight UTC"입니다.</p></li>
-          <li data-answer><label><input type="radio" name="msvq5"> UTC 자정, 한국 시간으로 오전 9시</label><p class="quiz-why">맞습니다. 화요일 수업 시작 직전에 초기화되는 셈입니다.</p></li>
+          <li data-answer><label><input type="radio" name="msvq5"> UTC 자정, 한국 시간으로 오전 9시</label><p class="quiz-why">맞습니다. 한국 시간으로는 아침 9시에 하루 한도가 새로 시작되는 셈입니다.</p></li>
           <li><label><input type="radio" name="msvq5"> 매주 월요일</label><p class="quiz-why">하루 단위 한도입니다.</p></li>
         </ul>
       </fieldset>

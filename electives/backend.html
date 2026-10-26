@@ -79,7 +79,7 @@
       <figcaption>웹서비스 구조 지도. 이 모듈은 아래 두 층, 특히 'API · 서버 · 데이터' 층을 다룹니다.</figcaption>
     </figure>
 
-    <p>7주차 특별 세션에서 나온 기준 한 줄을 다시 씁니다. <b>서버가 요청마다 코드를 실행하는가.</b> GitHub Pages는 파일을 그대로 돌려줄 뿐 코드를 실행하지 않습니다(정적 호스팅). 이 모듈의 서버는 요청이 올 때마다 코드를 실행해 응답을 만듭니다(동적). 어느 쪽이 필요한지는 다음 표로 가립니다.</p>
+    <p>10주차 '로컬 서버와 요청·응답 읽기'에서 본 기준 한 줄을 다시 씁니다. <b>서버가 요청마다 코드를 실행하는가.</b> GitHub Pages는 파일을 그대로 돌려줄 뿐 코드를 실행하지 않습니다(정적 호스팅). 이 모듈의 서버는 요청이 올 때마다 코드를 실행해 응답을 만듭니다(동적). 어느 쪽이 필요한지는 다음 표로 가립니다.</p>
 
     <div class="table-wrap">
       <table class="table">
@@ -714,7 +714,7 @@ $ npm run dev</code></pre>
     "start": "node index.js"
   }
 }</code></pre>
-    <!-- 확인 필요: 수업 시점의 Active LTS(research: v26 LTS 전환 2026-10-28 예정) — 과제 안내는 "24 또는 26 LTS". npm install express가 5.x를 설치하는지는 research §0(5.3.0 latest) 기준. -->
+    <!-- 확인 필요: 수업 시점의 Active LTS(research: v26 LTS 전환 예정) — 과제 안내는 "24 또는 26 LTS". npm install express가 5.x를 설치하는지는 research §0(5.3.0 latest) 기준. -->
     <p>흔한 실수 하나. <code>server/</code> 안에서 <code>npm install</code>을 했는데 저장소 루트에 <code>node_modules</code>가 또 생겼다면, 루트에서 명령을 친 것입니다. 터미널의 현재 폴더(<code>pwd</code>)를 먼저 확인합니다.</p>
 
     <aside class="deep" id="deep-health">
@@ -809,7 +809,7 @@ test('GET /api/health 는 200과 ok: true, 숫자 uptime을 돌려준다', async
     <p class="lead">서버는 만들고 나서가 시작입니다. 누가 켜 두고, 잠들면 깨우고, 데이터를 잃지 않게 할지 정해야 합니다. 무료 플랜의 조건은 자주 바뀌므로 시연 전에 다시 확인합니다.</p>
     <div class="table-wrap">
       <table class="table">
-        <caption>배포 선택지와 무료 한도 (2026-10 기준, 수업 직전 재확인)</caption>
+        <caption>배포 선택지와 무료 한도 (작성 시점 기준 · 수업 직전 재확인)</caption>
         <thead><tr><th scope="col">선택지</th><th scope="col">무엇을 올리나</th><th scope="col">무료 한도·제약</th><th scope="col">메모</th></tr></thead>
         <tbody>
           <tr><td>Render (웹 서비스)</td><td>Express 서버 그대로</td><td>트래픽이 15분 없으면 멈추고 다음 요청 때 약 1분 걸려 다시 켜짐 · 월 750시간 · 무료 DB는 30일 뒤 만료</td><td>시연 전에 헬스 체크 주소를 열어 깨워 둡니다.</td></tr>
@@ -839,7 +839,7 @@ test('GET /api/health 는 200과 ok: true, 숫자 uptime을 돌려준다', async
       <dl class="defs">
         <div><dt>내부 동작</dt><dd>클라이언트를 구분하는 열쇠(IP 주소, 토큰, 사용자 id)마다 최근 요청 시각을 기억하고, 정해진 창(window) 안의 개수가 한도를 넘으면 429 Too Many Requests와 <code>Retry-After</code> 헤더(몇 초 뒤에 다시)를 돌려줍니다. 라우트 앞의 미들웨어 하나로 구현하며, 서버가 여러 대면 기억을 공유 저장소(Redis 등)에 둡니다.</dd></div>
         <div><dt>명세·문서</dt><dd><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status">MDN · HTTP 상태 코드</a>(429) · <a href="https://expressjs.com/en/5x/api.html">Express 5 API</a>(<code>app.use</code>, <code>res.set</code>)</dd></div>
-        <div><dt>트레이드오프</dt><dd>너무 엄격하면 정상 사용자를 막습니다. 특히 같은 교실 Wi-Fi에서는 25명이 같은 IP로 보일 수 있습니다. 시연 날에는 한도를 넉넉히 두거나 열쇠를 토큰·사용자 단위로 바꿉니다. 느슨하면 방어가 안 됩니다. 한도는 로그를 보며 조정합니다.</dd></div>
+        <div><dt>트레이드오프</dt><dd>너무 엄격하면 정상 사용자를 막습니다. 특히 같은 교실 Wi-Fi에서는 수강생 전체가 같은 IP로 보일 수 있습니다. 시연 날에는 한도를 넉넉히 두거나 열쇠를 토큰·사용자 단위로 바꿉니다. 느슨하면 방어가 안 됩니다. 한도는 로그를 보며 조정합니다.</dd></div>
         <div><dt>5분 실험</dt><dd>아래 미들웨어는 요청 시각을 세기만 하고 아직 막지 않습니다. TODO를 채워 여섯 번째 요청에 429와 <code>Retry-After: 10</code>을 돌려주세요. 화면의 버튼을 여섯 번 눌러도 확인할 수 있습니다.</dd></div>
       </dl>
       <div class="lab" data-title="요청 제한 미들웨어" data-kicker="심화 실험" data-active="server" data-hide="css">
@@ -898,9 +898,9 @@ test('여섯 번째 요청은 429와 Retry-After', async () => {
       <div><dt>HTTP (MDN)</dt><dd><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status">상태 코드</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods">메서드</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">fetch 사용법</a></dd></div>
       <div><dt>Node.js</dt><dd><a href="https://nodejs.org/en/download">다운로드와 버전 관리(nvm·fnm)</a> — 수업 권장 24 LTS</dd></div>
       <div><dt>학습 경로</dt><dd><a href="https://roadmap.sh/full-stack">roadmap.sh · Full Stack</a> · <a href="https://www.theodinproject.com/paths/full-stack-javascript">The Odin Project · Full Stack JavaScript</a>(NodeJS 단계)</dd></div>
-      <div><dt>이 수업 안에서</dt><dd>작년 녹화 영상 Node/Express/MongoDB(eTL 학습 자료, 선택 시청)는 이 모듈보다 깁니다. MongoDB 부분은 BaaS와 비교하며 보세요. 이어지는 모듈: <a href="serverless.html">3 · 서버리스와 BaaS</a>, <a href="genai-api.html">4 · 생성형 AI API</a>(키를 서버에 두는 프록시). 질문은 eTL 게시판 주간 스레드 '이번 주 막힌 것'에 남깁니다.</dd></div>
+      <div><dt>이 수업 안에서</dt><dd>녹화 영상(eTL) Node/Express/MongoDB(선택 시청)는 이 모듈보다 깁니다. MongoDB 부분은 BaaS와 비교하며 보세요. 이어지는 모듈: <a href="serverless.html">3 · 서버리스와 BaaS</a>, <a href="genai-api.html">4 · 생성형 AI API</a>(키를 서버에 두는 프록시). 질문은 eTL 게시판 주간 스레드 '이번 주 막힌 것'에 남깁니다.</dd></div>
     </dl>
-    <!-- 확인 필요: 작년 녹화 영상(Node/Express/MongoDB)이 eTL에 실제로 게시되어 있는지 — 인수인계 문서에는 '계획'으로 기재. 미게시면 이 문장을 지울 것. -->
+    <!-- 확인 필요: 녹화 영상(Node/Express/MongoDB)이 eTL에 실제로 게시되어 있는지 — 인수인계 문서에는 '계획'으로 기재. 미게시면 이 문장을 지울 것. -->
   </section>
 
   <!-- ================================================================ 08 -->

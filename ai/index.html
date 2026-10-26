@@ -77,13 +77,13 @@
     <h3>후반부 주차와 단계</h3>
     <p>9주차부터 15주차까지는 팀 웹서비스를 만들고 시연하는 흐름입니다. 주차마다 '이번 주 AI 단계'가 있습니다. 정확한 과제와 기한은 eTL 과제 페이지가 기준입니다.</p>
     <ol class="timeline" aria-label="후반부 주차와 이번 주 AI 단계">
-      <li class="is-now"><span class="tl-week">9주차</span><span class="tl-date">10/27</span><span class="tl-title">Define · 질문 → 사용 장면 · 알파 정하기</span></li>
-      <li><span class="tl-week">10주차</span><span class="tl-date">11/3</span><span class="tl-title">Delegate · 저장소 · 터미널 · AI 에이전트 · 기본 하네스</span></li>
-      <li><span class="tl-week">11주차</span><span class="tl-date">11/10</span><span class="tl-title">Delegate + Inspect · 알파 버전(상태 · fetch · 저장)</span></li>
-      <li><span class="tl-week">12주차</span><span class="tl-date">11/17</span><span class="tl-title">Inspect + Test · 특별 세션 · AI 코드 검토 · 테스트 입문</span></li>
-      <li><span class="tl-week">13주차</span><span class="tl-date">11/24</span><span class="tl-title">Test + Revise · 알파 테스트 · 접근성 · 성능</span></li>
-      <li><span class="tl-week">14주차</span><span class="tl-date">12/1</span><span class="tl-title">Integrate · 프로토타입 시연회(베타)</span></li>
-      <li><span class="tl-week">15주차</span><span class="tl-date">12/8</span><span class="tl-title">기록 · 쇼케이스 · 아카이빙 · 포스트모템</span></li>
+      <li><span class="tl-week">9주차</span><span class="tl-title">Define · 질문 → 사용 장면 · 알파 정하기</span></li>
+      <li><span class="tl-week">10주차</span><span class="tl-title">Delegate · 저장소 · 터미널 · AI 에이전트 · 기본 하네스</span></li>
+      <li><span class="tl-week">11주차</span><span class="tl-title">Delegate + Inspect · 알파 버전(상태 · fetch · 저장)</span></li>
+      <li><span class="tl-week">12주차</span><span class="tl-title">Inspect + Test · AI 코드 검토 · 테스트 입문</span></li>
+      <li><span class="tl-week">13주차</span><span class="tl-title">Test + Revise · 알파 테스트 · 접근성 · 성능</span></li>
+      <li><span class="tl-week">14주차</span><span class="tl-title">Integrate · 프로토타입 시연회(베타)</span></li>
+      <li><span class="tl-week">15주차</span><span class="tl-title">기록 · 쇼케이스 · 아카이빙 · 포스트모템</span></li>
     </ol>
 
     <h3>해 보기 · 세 단계 한 바퀴</h3>
@@ -151,7 +151,7 @@ li { padding: 4px 0; border-bottom: 1px solid #ddd; }
 // AI가 준 첫 번째 버전입니다. 그대로 실행하고 테스트 탭을 읽으세요.
 const notes = [
   { id: 1, text: 'HTTP 상태 코드는 첫 자리부터 읽는다', tags: ['수업'] },
-  { id: 2, text: '금요일까지 팀 시트 ⑤ 채우기', tags: ['할일'] },
+  { id: 2, text: '다음 수업 전까지 팀 시트 ⑤ 채우기', tags: ['할일'] },
   { id: 3, text: 'fetch는 404에도 reject되지 않는다', tags: ['수업', '시험'] },
   { id: 4, text: '노트북 충전기 챙기기' } // 태그를 붙이지 않은 메모
 ];
@@ -218,7 +218,7 @@ test("화면에 '수업' 메모 2개를 그리고 개수를 알려 준다", asyn
   <section class="sec" id="answer">
     <h2>"AI가 다 해 줘도 되나요?" — 설명 · 검증 · 판단</h2>
     <p class="sec-goal">이 절을 읽고 나면 불안의 정체가 '누가 썼나'가 아니라 '설명하고 검증하고 판단할 수 있나'라는 것을 알게 됩니다.</p>
-    <p>5주차 설문에서 여러 분이 같은 질문을 했습니다. "AI가 거의 다 해 주는 느낌이라 이래도 되나 싶다", "AI가 코드 많은 부분을 작성해 이게 맞는지 고민된다". 답은 늘 같은 세 단어입니다.</p>
+    <p>해마다 많은 학생이 같은 질문을 합니다. "AI가 거의 다 해 주는 느낌인데 이래도 되나요?", "AI가 코드 대부분을 썼는데 이게 맞는지 어떻게 아나요?" 답은 늘 같은 세 단어입니다.</p>
     <ol class="flow">
       <li><b>설명</b><span>이 코드가 무엇을, 왜 그렇게 하는지 내 말로 말할 수 있다.</span></li>
       <li><b>검증</b><span>직접 실행하고, 테스트하고, 화면과 Network 탭에서 확인했다.</span></li>
@@ -287,7 +287,7 @@ test("화면에 '수업' 메모 2개를 그리고 개수를 알려 준다", asyn
     </ol>
     <div class="table-wrap">
       <table class="table">
-        <caption>이 수업에서 다루는 네 도구 (2026년 10월 공식 문서 기준)</caption>
+        <caption>이 수업에서 다루는 네 도구 (공식 문서 기준 · 수업 직전 확인)</caption>
         <thead><tr><th scope="col">도구 · 어디서</th><th scope="col">누가 쓸 수 있나</th><th scope="col">지시 파일</th></tr></thead>
         <tbody>
           <tr><td>ChatGPT Edu (Chat) <span class="tag accent">기본</span><br>브라우저 · 데스크톱 앱<br><a href="chatgpt-edu.html">따라 하기</a></td><td>서울대 학생 전체(학교 계정). 대화는 기본적으로 모델 학습에 쓰이지 않습니다.</td><td>프로젝트의 Instructions · 맞춤 설정</td></tr>

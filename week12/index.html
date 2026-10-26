@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>12주차 확장판 · AI 코드 검토와 테스트 입문 | 웹프로그래밍개론</title>
-<meta name="description" content="특별 세션 주간. AI가 만든 변경을 diff로 읽고 검토 질문 6묶음(동작·범위·복잡성·접근성·보안·개인정보)으로 검토하는 법, checklist.md의 한 줄을 Vitest 테스트 한 개로 옮기는 법, 교차 검토와 알파 테스트 — 12주차 확장판 교안.">
+<meta name="description" content="AI가 만든 변경을 diff로 읽고 검토 질문 6묶음(동작·범위·복잡성·접근성·보안·개인정보)으로 검토하는 법, checklist.md의 한 줄을 Vitest 테스트 한 개로 옮기는 법, 교차 검토와 알파 테스트 — 12주차 확장판 교안.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../ds/ds.css">
 <script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
@@ -29,9 +29,9 @@
 <main class="doc" id="main">
 
   <header class="doc-head">
-    <span class="kicker">12주차 · 11월 17일(화) · 확장판</span>
+    <span class="kicker">12주차 · 확장판</span>
     <h1>AI 코드 검토와 테스트 입문: diff 읽기, 검토 질문 6묶음, 첫 자동 테스트</h1>
-    <p class="lead">11주차에 알파 버전을 만들었습니다. 이번 주는 특별 세션 주간입니다. 현업 백엔드 개발자의 특강을 앞뒤로 감싸, AI가 만든 변경을 diff로 읽고 여섯 묶음의 질문으로 검토하는 법을 익힙니다. 그리고 checklist.md의 한 줄을 자동 테스트 한 개로 옮깁니다. 수업의 끝에는 서로의 PR을 교차 검토하고 알파 테스트를 시작합니다.</p>
+    <p class="lead">11주차에 알파 버전을 만들었습니다. 이번 주에는 AI가 만든 변경을 diff로 읽고 여섯 묶음의 질문으로 검토하는 법을 익힙니다. 특강(특별 세션)이 있으면 특강을 앞뒤로 감싸 진행합니다. 그리고 checklist.md의 한 줄을 자동 테스트 한 개로 옮깁니다. 수업의 끝에는 서로의 PR을 교차 검토하고 알파 테스트를 시작합니다.</p>
     <ul class="doc-meta">
       <li><b>읽는 시간</b> 약 70분 (실습 포함 2시간)</li>
       <li><b>선수 내용</b> 3주차 A.11 diff 확인, 5주차 'AI 코드의 수정과 실행 확인', 10주차 하네스 문서, 11주차 알파 버전</li>
@@ -45,23 +45,22 @@
   <section class="part" id="map">
     <header class="part-head">
       <h2>오늘의 지도</h2>
-      <p class="lead">특강이 가운데에 있는 주입니다. 오늘 수업이 어디에서 어디로 가는지, 구조 지도의 어느 층을 다루는지, AI 6단계 중 어디에 있는지 먼저 봅니다.</p>
+      <p class="lead">특강이 있으면 수업 가운데에 두는 주입니다. 오늘 수업이 어디에서 어디로 가는지, 구조 지도의 어느 층을 다루는지, AI 6단계 중 어디에 있는지 먼저 봅니다.</p>
     </header>
 
     <section class="sec" id="today-flow">
       <h3>오늘의 흐름</h3>
-      <p>순서만 적습니다. 특강의 길이에 따라 앞뒤 블록의 길이가 조정될 수 있습니다. 지난주 eTL 게시판 '이번 주 막힌 것' 스레드의 질문 두 개는 첫 블록에서 답합니다.</p>
-      <!-- 확인 필요: 특강 길이(A안 60분 / B안 90분)와 자료 공개 범위. 분 배분은 발표 덱 진행 메모에만 둡니다. -->
+      <p>순서만 적습니다. 특강이 있는 주에는 그 길이에 따라 앞뒤 블록의 길이가 조정됩니다. 지난주 eTL 게시판 '이번 주 막힌 것' 스레드의 질문 두 개는 첫 블록에서 답합니다.</p>
+      <!-- 확인 필요: 특강이 있으면 길이와 자료 공개 범위. 분 배분은 발표 덱 진행 메모에만 둡니다. -->
       <ol class="flow vertical">
         <li><b>알파 공유</b><span>팀마다 사용 장면의 ★ 단계를 짧게 보여 줍니다. 특강이 길면 eTL 게시판 캡처와 세 줄로 대신합니다.</span></li>
-        <li><b>특강 준비와 특강</b><span>하네스를 다시 보고, 질문 세 칸을 채운 뒤 특강을 듣습니다.</span></li>
+        <li><b>특강 준비와 특강</b><span>하네스를 다시 보고, 질문 세 칸을 채운 뒤 특강을 듣습니다. 특강이 없으면 하네스 복습으로 대신합니다.</span></li>
         <li class="is-on"><b>AI 코드 검토</b><span>diff 읽기 → 검토 질문 6묶음 → AI 없이 검토한 것과 AI 리뷰를 비교합니다.</span></li>
         <li><b>테스트 입문</b><span>checklist.md의 한 줄을 자동 테스트 한 개로 옮깁니다.</span></li>
         <li><b>AI와 함께</b><span>AI를 리뷰어로 쓰고, 결과를 여섯 묶음에 대조합니다.</span></li>
         <li><b>팀 스튜디오</b><span>교차 검토 → Issue 등록 → 알파 테스트 시작 → YOUR CODE 1분.</span></li>
       </ol>
-      <p class="side-note">특강의 제목은 eTL에 "[특별세션] AI를 활용한 와이어링 하네스 엔지니어링"으로 올라와 있습니다. 연사는 현업 백엔드 개발자입니다.</p>
-      <p>특강은 수업의 한가운데에 있습니다. 앞 블록은 특강을 들을 준비이고, 뒤 블록은 특강에서 들은 것을 내 프로젝트의 검토와 테스트로 옮기는 시간입니다.</p>
+      <p>특강이 있는 주에는 특강이 수업의 한가운데에 옵니다. 앞 블록은 특강을 들을 준비이고, 뒤 블록은 특강에서 들은 것을 내 프로젝트의 검토와 테스트로 옮기는 시간입니다.</p>
     </section>
 
     <section class="sec" id="where">
@@ -77,13 +76,13 @@
         <figcaption>웹서비스 구조 지도. 강조된 두 층이 오늘 검토 질문이 닿는 곳입니다.</figcaption>
       </figure>
       <ol class="timeline" aria-label="후반부 일정">
-        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-date">10/27</span><span class="tl-title">질문에서 알파 정하기</span></li>
-        <li class="is-done"><span class="tl-week">10주차</span><span class="tl-date">11/3</span><span class="tl-title">저장소·하네스·에이전트</span></li>
-        <li class="is-done"><span class="tl-week">11주차</span><span class="tl-date">11/10</span><span class="tl-title">알파 버전</span></li>
-        <li class="is-now"><span class="tl-week">12주차</span><span class="tl-date">11/17</span><span class="tl-title">AI 코드 검토·테스트 입문</span></li>
-        <li><span class="tl-week">13주차</span><span class="tl-date">11/24</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
-        <li><span class="tl-week">14주차</span><span class="tl-date">12/1</span><span class="tl-title">베타 시연회</span></li>
-        <li><span class="tl-week">15주차</span><span class="tl-date">12/8</span><span class="tl-title">쇼케이스·아카이빙</span></li>
+        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-title">질문에서 알파 정하기</span></li>
+        <li class="is-done"><span class="tl-week">10주차</span><span class="tl-title">저장소·하네스·에이전트</span></li>
+        <li class="is-done"><span class="tl-week">11주차</span><span class="tl-title">알파 버전</span></li>
+        <li class="is-now"><span class="tl-week">12주차</span><span class="tl-title">AI 코드 검토·테스트 입문</span></li>
+        <li><span class="tl-week">13주차</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
+        <li><span class="tl-week">14주차</span><span class="tl-title">베타 시연회</span></li>
+        <li><span class="tl-week">15주차</span><span class="tl-title">쇼케이스·아카이빙</span></li>
       </ol>
     </section>
 
@@ -112,7 +111,7 @@
         <li><b>확인할 것 한 줄</b><span>팀 시트 ⑧의 '확인할 것'이 맞았는지</span></li>
       </ol>
       <p>특강이 길어지면 알파 공유는 eTL 게시판으로 옮깁니다. 캡처 한 장과 세 줄(무엇이 되고, 무엇이 가짜이고, 다음에 할 것)이면 충분합니다.</p>
-      <p>특강은 현업 백엔드 개발자가 AI와 함께 일할 때 쓰는 '하네스'를 다룹니다. 10주차에 만든 문서 여섯 개가 현업에서는 어디까지 확장되는지 듣게 됩니다. 듣기 전에 PART 02에서 질문 세 칸을 채워 두면 특강이 훨씬 가깝게 들립니다.</p>
+      <p>특강이 있는 주에는 현업 개발자가 AI와 함께 일할 때 쓰는 '하네스'가 주제입니다. 10주차에 만든 문서 여섯 개가 현업에서는 어디까지 확장되는지 듣게 됩니다. 듣기 전에 PART 02에서 질문 세 칸을 채워 두면 특강이 훨씬 가깝게 들립니다.</p>
     </section>
 
     <section class="sec" id="before-after">
@@ -157,7 +156,7 @@
   <section class="part" id="harness">
     <header class="part-head">
       <h2>특강 준비 · 하네스 다시 보기</h2>
-      <p class="lead">특강 제목에 '하네스'가 있습니다. 10주차에 만든 문서 여섯 개가 무엇을 위한 것이었는지 다시 보고, 특강에서 물을 질문을 세 칸으로 준비합니다.</p>
+      <p class="lead">10주차에 만든 문서 여섯 개가 무엇을 위한 것이었는지 다시 보고, 특강(현업 개발자)에게 물을 질문을 세 칸으로 준비합니다.</p>
     </header>
 
     <section class="sec" id="why-harness">
@@ -287,7 +286,7 @@ test('확인 항목에 실제로 돌릴 명령이 있다 (npx vitest run 또는 
 
     <section class="sec" id="harness-deep">
       <h3>심화 · 현업 하네스의 확장</h3>
-      <p>특강의 내용과 이어지는 상자입니다. 수업 수준의 하네스가 현업에서는 어디까지 넓어지는지 대응표로 봅니다. 입문자는 건너뛰어도 뒤 내용을 따라가는 데 지장이 없습니다.</p>
+      <p>특강이 있으면 그 내용과 이어지는 상자입니다. 수업 수준의 하네스가 현업에서는 어디까지 넓어지는지 대응표로 봅니다. 입문자는 건너뛰어도 뒤 내용을 따라가는 데 지장이 없습니다.</p>
       <aside class="deep" id="deep-harness-ext">
         <h4>현업 하네스의 확장: 권한·자동 테스트·훅·CI</h4>
         <h5>① 내부 동작</h5>
@@ -323,7 +322,7 @@ test('확인 항목에 실제로 돌릴 명령이 있다 (npx vitest run 또는 
           <li>GitHub 룰셋: <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets">docs.github.com · About rulesets</a> · GitHub Actions로 Pages 배포하는 공식 스타터는 10주차 참고 자료에 있습니다.</li>
         </ul>
         <h5>③ 트레이드오프</h5>
-        <p>강제 장치가 많을수록 안전하지만 느려지고, 우회하고 싶어집니다. "다시 묻지 않기"를 누르는 순간 안전장치는 사라집니다. 수업에서는 테스트 1개와 룰셋의 'PR 필수'만 둡니다. 특강에서 들은 것 가운데 지금 우리 팀에 맞는 하나만 가져옵니다.</p>
+        <p>강제 장치가 많을수록 안전하지만 느려지고, 우회하고 싶어집니다. "다시 묻지 않기"를 누르는 순간 안전장치는 사라집니다. 수업에서는 테스트 1개와 룰셋의 'PR 필수'만 둡니다. 특강이나 이 상자에서 본 것 가운데 지금 우리 팀에 맞는 하나만 가져옵니다.</p>
         <h5>④ 5분 실험</h5>
         <p>실습 1의 점검기를 '훅처럼' 바꿔 봅니다. <code>checkHarness(agentsMd)</code>의 결과가 빈 배열이 아니면 <code>throw new Error('빠진 항목: ' + missing.join(', '))</code>로 실행을 멈추게 하세요. 콘솔에 오류가 뜨고 그 아래 코드는 실행되지 않습니다. "경고만 하는 검사"와 "막는 검사"의 차이가 이것입니다. 훅의 종료 코드 2가 하는 일도 같습니다.</p>
       </aside>
@@ -1660,7 +1659,7 @@ test('태그가 없으면 글자 점수만', () => {
 목록이 비어 있고 상태 문구가 "0개"
 
 ## 묶음
-동작 · 교차 검토에서 팀 B 리뷰어가 발견</code></pre>
+동작 · 교차 검토에서 옆 팀 리뷰어가 발견</code></pre>
       <p>재현 순서가 없는 Issue는 올리지 않습니다. AI 리뷰가 찾은 것도 재현해 본 뒤에 올립니다.</p>
     </section>
 
@@ -1717,7 +1716,7 @@ test('태그가 없으면 글자 점수만', () => {
 
     <section class="sec" id="hw-team">
       <h3>팀 과제</h3>
-      <article class="assignment" aria-labelledby="hw12-team-title" data-countdown="off">
+      <article class="assignment" aria-labelledby="hw12-team-title">
         <header class="assignment-head">
           <span class="kicker">12주차 과제 · 팀</span>
           <h4 class="assignment-title" id="hw12-team-title">교차 검토 반영과 알파 테스트</h4>
@@ -1745,7 +1744,7 @@ test('태그가 없으면 글자 점수만', () => {
 
     <section class="sec" id="hw-solo">
       <h3>개인 과제</h3>
-      <article class="assignment" aria-labelledby="hw12-solo-title" data-countdown="off">
+      <article class="assignment" aria-labelledby="hw12-solo-title">
         <header class="assignment-head">
           <span class="kicker">12주차 과제 · 개인</span>
           <h4 class="assignment-title" id="hw12-solo-title">내 PR 셀프 리뷰와 특강 메모</h4>
@@ -1755,7 +1754,7 @@ test('태그가 없으면 글자 점수만', () => {
           <div><dt>할 일</dt><dd><ol>
             <li>내 PR 1개를 여섯 묶음으로 셀프 리뷰 (묶음별 1줄, "없음"도 적기)</li>
             <li>발견한 문제 1개와 그것을 고친 커밋 링크</li>
-            <li>특강에서 내 프로젝트에 가져갈 것 하나 (3줄)</li>
+            <li>특강(없으면 심화 상자 '현업 하네스의 확장')에서 내 프로젝트에 가져갈 것 하나 (3줄)</li>
           </ol></dd></div>
           <div><dt>예상 소요</dt><dd>40분</dd></div>
           <div><dt>제출물·파일 이름</dt><dd>eTL 게시판 글 1개 (제목에 "12주차 셀프 리뷰"와 팀 이름)</dd></div>

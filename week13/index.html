@@ -29,7 +29,7 @@
 <main class="doc" id="main">
 
   <header class="doc-head">
-    <span class="kicker">13주차 · 11월 24일(화) · 확장판</span>
+    <span class="kicker">13주차 · 확장판</span>
     <h1>알파 테스트 결과로 고치기: 사용자 테스트 · 접근성 · 성능</h1>
     <p class="lead">지난주에 다른 팀 사람들이 우리 알파 버전을 써 보았습니다. 이번 주에는 그 기록을 읽어 고칠 것을 고르고, 접근성과 성능을 도구와 손으로 점검한 뒤, 다음 주 베타 시연에서 보여 줄 범위를 정합니다. 만드는 주가 아니라 "고치는 주"입니다.</p>
     <ul class="doc-meta">
@@ -84,13 +84,13 @@
         <figcaption>웹서비스 구조 지도. 강조된 세 층을 사용자의 눈으로 점검하는 주입니다.</figcaption>
       </figure>
       <ol class="timeline" aria-label="후반부 일정">
-        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-date">10/27</span><span class="tl-title">팀 아이디어를 하나로</span></li>
-        <li class="is-done"><span class="tl-week">10주차</span><span class="tl-date">11/3</span><span class="tl-title">팀 저장소와 작업 환경</span></li>
-        <li class="is-done"><span class="tl-week">11주차</span><span class="tl-date">11/10</span><span class="tl-title">알파 버전</span></li>
-        <li class="is-done"><span class="tl-week">12주차</span><span class="tl-date">11/17</span><span class="tl-title">AI 코드 검토와 테스트 입문</span></li>
-        <li class="is-now"><span class="tl-week">13주차</span><span class="tl-date">11/24</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
-        <li><span class="tl-week">14주차</span><span class="tl-date">12/1</span><span class="tl-title">프로토타입 시연회(베타)</span></li>
-        <li><span class="tl-week">15주차</span><span class="tl-date">12/8</span><span class="tl-title">쇼케이스·아카이빙</span></li>
+        <li class="is-done"><span class="tl-week">9주차</span><span class="tl-title">팀 아이디어를 하나로</span></li>
+        <li class="is-done"><span class="tl-week">10주차</span><span class="tl-title">팀 저장소와 작업 환경</span></li>
+        <li class="is-done"><span class="tl-week">11주차</span><span class="tl-title">알파 버전</span></li>
+        <li class="is-done"><span class="tl-week">12주차</span><span class="tl-title">AI 코드 검토와 테스트 입문</span></li>
+        <li class="is-now"><span class="tl-week">13주차</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
+        <li><span class="tl-week">14주차</span><span class="tl-title">프로토타입 시연회(베타)</span></li>
+        <li><span class="tl-week">15주차</span><span class="tl-title">쇼케이스·아카이빙</span></li>
       </ol>
     </section>
 
@@ -305,7 +305,7 @@ test('한 사람만 겪어도 못 끝낸 일(stop)이 한 사람이 돌아간 �
       <p>오늘 팀 스튜디오에서 알파 테스트를 한 번 더 합니다. 지난주와 다른 점은 둘입니다. 고친 것이 정말 나아졌는지 '이러면 맞다' 문장으로 판정하고, 지난주에 못 본 사람의 눈을 빌립니다.</p>
       <div class="table-wrap">
         <table class="table">
-          <caption>다섯 팀 순환 (예시: 팀 A~E)</caption>
+          <caption>팀 순환 (예시: 팀이 다섯이면 A~E)</caption>
           <thead><tr><th scope="col">라운드</th><th scope="col">테스터 2명이 가는 곳</th><th scope="col">남는 사람</th></tr></thead>
           <tbody>
             <tr><th scope="row">1라운드</th><td>A → B, B → C, C → D, D → E, E → A</td><td rowspan="2">진행자 1명(할 일만 말하고 돕지 않음) · 관찰자(막힌 곳·놀란 점·시간 기록)</td></tr>
@@ -641,7 +641,7 @@ test('div 버튼에 역할이 있다 (button 요소 또는 role="button")', () =
       <aside class="deep" id="deep-wcag">
         <h4>WCAG 2.2: 네 원칙과 AA 수준</h4>
         <h5>내부 동작</h5>
-        <p>WCAG(Web Content Accessibility Guidelines)는 W3C 권고안입니다. 2.2판은 2023년 10월에 처음 권고되었고 현재 판은 2024년 12월 12일자입니다. 구조는 네 원칙 → 지침 → 성공 기준입니다. 성공 기준마다 A·AA·AAA 수준이 있고, 보통 서비스가 목표로 삼는 선은 AA입니다. 네 원칙은 원문으로 Perceivable·Operable·Understandable·Robust이며, 머리글자를 따 POUR라고 부릅니다.</p>
+        <p>WCAG(Web Content Accessibility Guidelines)는 W3C 권고안입니다. 2.2판은 2023년 10월에 처음 권고되었고, 그 뒤 수정판이 나왔습니다(현재 판의 날짜는 W3C 페이지에서 확인). 구조는 네 원칙 → 지침 → 성공 기준입니다. 성공 기준마다 A·AA·AAA 수준이 있고, 보통 서비스가 목표로 삼는 선은 AA입니다. 네 원칙은 원문으로 Perceivable·Operable·Understandable·Robust이며, 머리글자를 따 POUR라고 부릅니다.</p>
         <div class="table-wrap">
           <table class="table">
             <caption>WCAG 2.2 네 원칙과 팀 프로젝트의 AA 체크</caption>
@@ -784,7 +784,7 @@ load();
 </script>
 <script type="text/plain" data-lab="server">
 const memos = [
-  { id: 1, text: '화요일 10시 수업', tag: '수업' },
+  { id: 1, text: '다음 수업 준비', tag: '수업' },
   { id: 2, text: '알파 테스트 기록 정리', tag: '팀' },
   { id: 3, text: '도서관 책 반납', tag: '개인' },
 ];
@@ -1256,7 +1256,7 @@ $ cat .gitignore                               # .env 가 있는지</code></pre>
 
     <section class="sec" id="hw-team">
       <h3>팀 과제 · 베타 준비</h3>
-      <article class="assignment" aria-labelledby="hw13-title" data-countdown="off">
+      <article class="assignment" aria-labelledby="hw13-title">
         <header class="assignment-head">
           <span class="kicker">13주차 과제 · 팀</span>
           <h4 class="assignment-title" id="hw13-title">베타 준비: 테스트 정리, 수정 PR, 배포 링크와 시연 범위</h4>
@@ -1341,7 +1341,7 @@ $ cat .gitignore                               # .env 가 있는지</code></pre>
 
     <section class="sec" id="preview">
       <h3>14주차 · 프로토타입 시연회(베타)</h3>
-      <p>12월 1일(화)은 팀 프로젝트 프로토타입 시연회입니다. 시연은 '질문 → 사용 장면 → 과정(선택·실패·AI와 한 일) → 다음 계획' 순서이고, 8주차와 같은 TAG 피드백과 투표(질문의 참신함·웹 매체와의 적합성·과정의 치열함)가 있습니다. 시연 전에 배포를 최종 점검하는 체크리스트(BaaS 일시정지 깨우기, 외부 API 한도 포함)를 다룹니다.</p>
+      <p>14주차는 팀 프로젝트 프로토타입 시연회입니다. 시연은 '질문 → 사용 장면 → 과정(선택·실패·AI와 한 일) → 다음 계획' 순서이고, 8주차와 같은 TAG 피드백과 투표(질문의 참신함·웹 매체와의 적합성·과정의 치열함)가 있습니다. 시연 전에 배포를 최종 점검하는 체크리스트(BaaS 일시정지 깨우기, 외부 API 한도 포함)를 다룹니다.</p>
       <p>준비할 것은 오늘 쓴 <code>docs/beta-scope.md</code>와 배포 링크, 그리고 대비책이 정말 동작하는지 한 번 돌려 본 경험입니다. 시연 시나리오와 시드 데이터(개인정보 없이)는 다음 주 수업에서 함께 만듭니다.</p>
     </section>
 
