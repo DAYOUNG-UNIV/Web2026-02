@@ -22,22 +22,22 @@
   --faint: #9A968C;           /* decoration only, never body text */
   --line: #D8D4CA;
   --line-soft: #E6E3DB;
-  --accent: #15625C;          /* course teal, deepened for contrast */
-  --accent-strong: #0E4A45;
-  --accent-soft: #E1ECE9;
+  --accent: #001871;          /* SNU Blue (Pantone 2748 C), the one accent */
+  --accent-strong: #00114F;
+  --accent-soft: #E3E7F4;
   --on-accent: #FFFFFF;
   --ok: #2B6A35;   --ok-soft: #E4EEE2;
   --warn: #855400; --warn-soft: #F4EBD8;
   --err: #A1332A;  --err-soft: #F5E3DF;
-  --solo: #1B6E68; --team: #2E4E9E; --show: #9D2A62;
-  --ai: #2E4E9E;
+  --solo: #001871; --team: #7A5A2F; --show: #9D2A62;
+  --ai: #001871;
   --code-bg: #F0EEE8; --code-ink: #24221E; --code-line: #DFDBD2; --code-muted: #6E6A61;
-  --tk-c: #7A6237; --tk-s: #3D6A1E; --tk-n: #74409E; --tk-g: #15625C;
+  --tk-c: #7A6237; --tk-s: #3D6A1E; --tk-n: #74409E; --tk-g: #001871;
   --tk-a: #8A4612; --tk-p: #2D4C8A; --tk-k: inherit;
-  --term-bg: #1D1D1B; --term-ink: #E7E4DC; --term-muted: #A09C92; --term-accent: #86D0C5;
+  --term-bg: #1D1D1B; --term-ink: #E7E4DC; --term-muted: #A09C92; --term-accent: #A9B9F2;
   --term-add: #A6D394; --term-del: #F0A08F; --term-line: #3A3935; --term-warn: #E2B866;
-  --sel: rgba(21, 98, 92, .18);
-  --focus: #15625C;
+  --sel: rgba(0, 24, 113, .18);
+  --focus: #001871;
   --pop-shadow: 0 10px 30px -14px rgba(28, 27, 25, .38);
   --radius: 4px;
   --radius-lg: 6px;
@@ -53,13 +53,13 @@
     --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
     --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95; --faint: #6F6C64;
     --line: #3A3934; --line-soft: #2B2A27;
-    --accent: #7CC9BD; --accent-strong: #A5DCD3; --accent-soft: #1D2E2B; --on-accent: #0F1A18;
+    --accent: #A9B9F2; --accent-strong: #C6D1F7; --accent-soft: #1B2347; --on-accent: #0A1030;
     --ok: #93C99A; --ok-soft: #1E2B1F; --warn: #E2B866; --warn-soft: #2E2615; --err: #F0A193; --err-soft: #33201C;
-    --solo: #7CC9BD; --team: #A3B5EC; --show: #E8A3C4; --ai: #A3B5EC;
+    --solo: #A9B9F2; --team: #D9B986; --show: #E8A3C4; --ai: #A9B9F2;
     --code-bg: #1F1F1C; --code-ink: #E6E3DB; --code-line: #33322D; --code-muted: #A39F95;
-    --tk-c: #C2AD84; --tk-s: #B4D08C; --tk-n: #CDB0EC; --tk-g: #7CC9BD; --tk-a: #E3B07E; --tk-p: #A9BCEC;
+    --tk-c: #C2AD84; --tk-s: #B4D08C; --tk-n: #CDB0EC; --tk-g: #A9B9F2; --tk-a: #E3B07E; --tk-p: #A9BCEC;
     --term-bg: #10100F; --term-line: #302F2B;
-    --sel: rgba(124, 201, 189, .25); --focus: #7CC9BD;
+    --sel: rgba(169, 185, 242, .25); --focus: #A9B9F2;
     --pop-shadow: 0 10px 30px -12px rgba(0, 0, 0, .7);
   }
 }
@@ -68,13 +68,13 @@
   --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
   --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95; --faint: #6F6C64;
   --line: #3A3934; --line-soft: #2B2A27;
-  --accent: #7CC9BD; --accent-strong: #A5DCD3; --accent-soft: #1D2E2B; --on-accent: #0F1A18;
+  --accent: #A9B9F2; --accent-strong: #C6D1F7; --accent-soft: #1B2347; --on-accent: #0A1030;
   --ok: #93C99A; --ok-soft: #1E2B1F; --warn: #E2B866; --warn-soft: #2E2615; --err: #F0A193; --err-soft: #33201C;
-  --solo: #7CC9BD; --team: #A3B5EC; --show: #E8A3C4; --ai: #A3B5EC;
+  --solo: #A9B9F2; --team: #D9B986; --show: #E8A3C4; --ai: #A9B9F2;
   --code-bg: #1F1F1C; --code-ink: #E6E3DB; --code-line: #33322D; --code-muted: #A39F95;
-  --tk-c: #C2AD84; --tk-s: #B4D08C; --tk-n: #CDB0EC; --tk-g: #7CC9BD; --tk-a: #E3B07E; --tk-p: #A9BCEC;
+  --tk-c: #C2AD84; --tk-s: #B4D08C; --tk-n: #CDB0EC; --tk-g: #A9B9F2; --tk-a: #E3B07E; --tk-p: #A9BCEC;
   --term-bg: #10100F; --term-line: #302F2B;
-  --sel: rgba(124, 201, 189, .25); --focus: #7CC9BD;
+  --sel: rgba(169, 185, 242, .25); --focus: #A9B9F2;
   --pop-shadow: 0 10px 30px -12px rgba(0, 0, 0, .7);
 }
 
@@ -1140,7 +1140,7 @@ body.is-cover .deck-steps { visibility: hidden; }
   :root, :root[data-theme="dark"] {
     color-scheme: light;
     --paper: #fff; --surface: #fff; --sunken: #F1F0EC; --ink: #111; --ink-2: #333; --muted: #555; --line: #BBB; --line-soft: #DDD;
-    --accent: #0E4A45; --code-bg: #F6F5F1; --code-ink: #111; --code-line: #CCC;
+    --accent: #00114F; --code-bg: #F6F5F1; --code-ink: #111; --code-line: #CCC;
   }
   html { font-size: 10.5pt; }
   body { background: #fff; font-size: 1rem; line-height: 1.55; }

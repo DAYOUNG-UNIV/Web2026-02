@@ -26,21 +26,21 @@
   --paper: #F7F6F2; --surface: #FFFEFB; --sunken: #EFEDE7;
   --ink: #1C1B19; --ink-2: #3B3934; --muted: #66625A;
   --line: #D8D4CA; --line-soft: #E6E3DB;
-  --solo: #1B6E68; --solo-bg: #E1ECE9;
+  --solo: #001871; --solo-bg: #E3E7F4;
   --show: #9D2A62; --show-bg: #F5E6EC;
-  --team: #2E4E9E; --team-bg: #E5E9F4;
+  --team: #7A5A2F; --team-bg: #F1EBE0;
   --warn: #855400; --warn-bg: #F4EBD8;
   --ok: #2B6A35; --bad: #A1332A;
   /* code stays dark, warm instead of green-black */
   --code-bg: #1F1F1C; --code-ink: #E6E3DB;
-  --code-tag: #7CC9BD; --code-attr: #E3B07E; --code-str: #B4D08C; --code-cmt: #A39F95;
+  --code-tag: #A9B9F2; --code-attr: #E3B07E; --code-str: #B4D08C; --code-cmt: #A39F95;
   --display: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
   --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "D2Coding", monospace;
   --course-radius: 4px;
   /* DS names, so DS snippets pasted into an old page also work */
-  --accent: #15625C; --focus: #15625C; --faint: #9A968C; --err: #A1332A;
-  --sel: rgba(21, 98, 92, .18);
+  --accent: #001871; --focus: #001871; --faint: #9A968C; --err: #A1332A;
+  --sel: rgba(0, 24, 113, .18);
 }
 
 /* Dark mode exists only on the "book" pages (week2, week2_show) — keep it, in DS colours */
@@ -49,28 +49,28 @@
     --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
     --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95;
     --line: #3A3934; --line-soft: #2B2A27;
-    --solo: #7CC9BD; --solo-bg: #1D2E2B;
+    --solo: #A9B9F2; --solo-bg: #1B2347;
     --show: #E8A3C4; --show-bg: #33202A;
-    --team: #A3B5EC; --team-bg: #1E2538;
+    --team: #D9B986; --team-bg: #2B2418;
     --warn: #E2B866; --warn-bg: #2E2615;
     --ok: #93C99A; --bad: #F0A193;
     --code-bg: #10100F;
-    --accent: #7CC9BD; --focus: #7CC9BD; --faint: #6F6C64; --err: #F0A193;
-    --sel: rgba(124, 201, 189, .25);
+    --accent: #A9B9F2; --focus: #A9B9F2; --faint: #6F6C64; --err: #F0A193;
+    --sel: rgba(169, 185, 242, .25);
   }
 }
 :root[data-course-ui~="book"][data-theme="dark"] {
   --paper: #151514; --surface: #1C1C1A; --sunken: #242421;
   --ink: #ECE9E2; --ink-2: #CFCBC2; --muted: #A39F95;
   --line: #3A3934; --line-soft: #2B2A27;
-  --solo: #7CC9BD; --solo-bg: #1D2E2B;
+  --solo: #A9B9F2; --solo-bg: #1B2347;
   --show: #E8A3C4; --show-bg: #33202A;
-  --team: #A3B5EC; --team-bg: #1E2538;
+  --team: #D9B986; --team-bg: #2B2418;
   --warn: #E2B866; --warn-bg: #2E2615;
   --ok: #93C99A; --bad: #F0A193;
   --code-bg: #10100F;
-  --accent: #7CC9BD; --focus: #7CC9BD; --faint: #6F6C64; --err: #F0A193;
-  --sel: rgba(124, 201, 189, .25);
+  --accent: #A9B9F2; --focus: #A9B9F2; --faint: #6F6C64; --err: #F0A193;
+  --sel: rgba(169, 185, 242, .25);
 }
 
 /* ---- Safe global rules ---------------------------------------------------- */
@@ -101,26 +101,26 @@ html :not(pre) > code { font-family: var(--mono); }
 html .course-code, html .course-code-editor {
   --syntax-background: #1F1F1C;
   --syntax-foreground: #E6E3DB;
-  --syntax-keyword: #7CC9BD;
-  --syntax-control: #7CC9BD;
+  --syntax-keyword: #A9B9F2;
+  --syntax-control: #A9B9F2;
   --syntax-string: #B4D08C;
   --syntax-number: #CDB0EC;
   --syntax-comment: #A39F95;
   --syntax-function: #E3B07E;
   --syntax-variable: #A9BCEC;
-  --syntax-type: #7CC9BD;
+  --syntax-type: #A9B9F2;
 }
 html :is(.course-code, .course-code-editor) .token:is(.keyword, .control) { font-weight: 600; }
 html :is(.course-code, .course-code-editor) .token.comment { font-style: italic; }
 html :is(.course-code, .course-code-editor) .token.selector { color: #E3B07E; }
-html :is(.course-code, .course-code-editor) .token.title { color: #7CC9BD; }
+html :is(.course-code, .course-code-editor) .token.title { color: #A9B9F2; }
 html :is(.course-code, .course-code-editor) .token:is(.code-snippet, .code-language) { color: #B4D08C; }
 html :is(.course-code, .course-code-editor) .token:is(.bold, .important) { color: #E3B07E; }
 html :is(.course-code, .course-code-editor) .token:is(.url, .url-reference, .coord) { color: #A9BCEC; }
 html :is(.course-code, .course-code-editor) .token.inserted { color: #A6D394; }
 html :is(.course-code, .course-code-editor) .token.deleted { color: #F0A08F; }
-html .course-code .is-current { background: #2A2A26; box-shadow: inset 3px 0 #7CC9BD; }
-html .course-code-editor textarea::selection { background: rgba(124, 201, 189, .28); }
+html .course-code .is-current { background: #2A2A26; box-shadow: inset 3px 0 #A9B9F2; }
+html .course-code-editor textarea::selection { background: rgba(169, 185, 242, .28); }
 
 /* ---- A few dark-assuming spots that were tinted green ----------------------- */
 html .demo-input-wrap > label { background: #2A2A26; }

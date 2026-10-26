@@ -98,7 +98,7 @@ The only requests a page makes are the Pretendard CSS and, inside lab iframes, t
 
 ## 2. 디자인 원칙 · Design rules
 
-The look is university press × MDN: warm paper, near-black ink, one teal accent, hairlines, numbered hierarchy. The instructor asked for something "더 깔끔하고 AI스럽지 않은 형태", meaning clean and not AI-generic.
+The look is university press × MDN: warm paper, near-black ink, one SNU Blue accent, hairlines, numbered hierarchy. The instructor asked for something "더 깔끔하고 AI스럽지 않은 형태", meaning clean and not AI-generic.
 
 **Do**
 - Use structure to organise the page: numbered parts and sections (`03.2`), hairline rules and left rules on callouts.
@@ -1199,9 +1199,9 @@ Use tokens only through the existing classes. If you must reference one, use `va
 | `--muted` | `#66625A` | `#A39F95` | captions and meta (≥ 4.5:1) |
 | `--faint` | `#9A968C` | `#6F6C64` | decoration only |
 | `--line` / `--line-soft` | `#D8D4CA` / `#E6E3DB` | `#3A3934` / `#2B2A27` | hairlines |
-| `--accent` | `#15625C` | `#7CC9BD` | the one accent (links, current, today) |
+| `--accent` | `#001871` | `#A9B9F2` | the one accent (links, current, today) |
 | `--ok` / `--warn` / `--err` | `#2B6A35` / `#855400` / `#A1332A` | `#93C99A` / `#E2B866` / `#F0A193` | status |
-| `--solo` / `--team` / `--show` | `#1B6E68` / `#2E4E9E` / `#9D2A62` | lighter pairs | activity type (agenda, tags) |
+| `--solo` / `--team` / `--show` | `#001871` / `#7A5A2F` / `#9D2A62` | lighter pairs | activity type (agenda, tags) |
 | `--font` | Pretendard Variable → system Korean sans | | body and headings |
 | `--mono` | `ui-monospace, SFMono-Regular, Menlo, Consolas, "D2Coding", monospace` | | code |
 | `--radius` / `--radius-lg` | `4px` / `6px` | | the maximum radius |
