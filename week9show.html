@@ -1,0 +1,1451 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9주차 팀 토의와 피드백</title>
+<meta name="description" content="웹프로그래밍개론 9주차 수업 자료 (예시 보강판). 팀 프로젝트 시트로 모두의 아이디어를 하나로 합치고, 구체화하고, 알파 버전을 정합니다. 피그잼에서 어떻게 하는지 움직이는 예시로 보여 줍니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#1a1a1a; --ink2:#3d3d3d; --sub:#6f6f6f; --faint:#a8a8a8; --line:#ececec; --line2:#d8d8d8; --panel:#f5f5f3;
+  --em:#d92b1a;
+  /* 피그잼 보드와 같은 색 */
+  --y:#ffe299; --b:#a8daff; --g:#b3efbd; --v:#d3bdff; --t:#b3f4ef; --p:#ffc7d6;
+  --y2:#d49b00; --b2:#2b8fe0; --g2:#23a046;
+  --vy:#ffecbd; --vyb:#f2b92c;
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+}
+*{box-sizing:border-box}
+html{font-size:clamp(14px,calc(.95vw + .45vh),20px)}
+html,body{height:100%;margin:0}
+body{font-family:var(--font);color:var(--ink);background:#fff;overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+p,h1,h2,h3,h4,h5,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+p,li,dd{text-wrap:pretty}
+b,strong{font-weight:700}
+button{font-family:inherit;color:inherit}
+
+/* ---------- 위쪽 단계 표시 ---------- */
+#steps{position:fixed;top:0;left:0;right:0;height:2.9rem;z-index:20;display:flex;align-items:center;gap:.15rem;padding:0 2rem;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+#steps::-webkit-scrollbar{display:none}
+#steps button{flex:none;border:0;background:none;padding:.4rem .6rem;border-radius:.4rem;font-size:.8rem;color:var(--faint);display:flex;align-items:center;gap:.4rem;cursor:pointer}
+#steps button i{font-style:normal;font-size:.66rem;font-weight:700;width:1.15rem;height:1.15rem;border-radius:50%;border:1px solid currentColor;display:inline-flex;align-items:center;justify-content:center}
+#steps button.done{color:var(--sub)}
+#steps button.on{color:var(--ink);font-weight:700}
+#steps button.on i{background:var(--ink);border-color:var(--ink);color:#fff}
+#steps button:hover{background:var(--panel)}
+#steps .gap{flex:none;width:.8rem;height:1px;background:var(--line2)}
+body.is-cover #steps{visibility:hidden}
+
+/* ---------- 슬라이드 틀 ---------- */
+.slide{position:fixed;left:0;right:0;top:2.9rem;bottom:3rem;display:flex;justify-content:center;align-items:center;align-items:safe center;padding:1.8rem 2.6rem 1.4rem;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
+.slide.active{opacity:1;visibility:visible}
+.slide.cover{top:0}
+.wrap{width:100%;max-width:min(92vw,68rem);min-width:0}
+.notes{display:none}
+h2{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+.tag{display:inline-block;vertical-align:middle;font-size:.85rem;font-weight:600;letter-spacing:0;border:1.5px solid var(--ink);border-radius:999px;padding:.12rem .7rem;margin-left:.6rem;position:relative;top:-.3rem}
+.lead{font-size:1.12rem;color:var(--sub);line-height:1.6;margin-top:.7rem;max-width:50rem}
+.lead b{color:var(--ink)}
+.body{margin-top:2.3rem}
+.note{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.95rem;color:var(--sub);line-height:1.65;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}
+.note b{color:var(--ink)}
+.two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3.2rem;align-items:center}
+.lb{font-size:.78rem;font-weight:600;color:var(--sub)}
+
+/* 번호 목록 */
+.pts{display:grid;gap:1.25rem}
+.pts>li{display:grid;grid-template-columns:2.2rem minmax(0,1fr);align-items:baseline}
+.pts>li>i{font-style:normal;font-size:1.15rem;font-weight:700;color:var(--faint)}
+.pts b{display:block;font-size:1.2rem;line-height:1.45}
+.pts span{display:block;font-size:1rem;color:var(--sub);line-height:1.6;margin-top:.2rem}
+
+.tbtn{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:.3rem .85rem;font-size:.85rem;cursor:pointer}
+.tbtn:hover{border-color:var(--ink);color:var(--ink)}
+
+/* 화살표 */
+.arr{display:inline-block;flex:none;width:2.4rem;height:2px;background:var(--ink);position:relative;vertical-align:middle}
+.arr::after{content:"";position:absolute;right:-2px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left:9px solid var(--ink);border-right:0}
+
+/* ---------- 표지 ---------- */
+.cov{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4rem;align-items:center}
+.cov .k{font-size:1.05rem;color:var(--sub)}
+.cov h1{font-size:4.6rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;margin-top:1.1rem}
+.cov .d{font-size:1.05rem;color:var(--ink2);margin-top:2.6rem}
+.t5{display:grid;gap:.55rem}
+.t5 div{display:flex;align-items:center;gap:.32rem;padding:.38rem .7rem .38rem .5rem;border-radius:999px;background:var(--panel)}
+.t5 b{font-size:.8rem;width:1.4rem;text-align:center}
+.t5 i{width:1rem;height:1rem;border-radius:50%;background:var(--c)}
+.cfig figcaption{margin-top:1.1rem;text-align:center;font-size:.9rem;color:var(--sub)}
+
+/* ---------- 오늘 진행 ---------- */
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.lane{border:1px solid var(--line2);border-radius:.8rem;padding:1.2rem 1.3rem;min-width:0}
+.lane.dk{border:2px solid var(--ink)}
+.lane>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.lane>b{display:block;font-size:1.3rem;margin-top:.35rem}
+.lane>p{font-size:1rem;color:var(--ink2);line-height:1.6;margin-top:.6rem}
+
+/* ---------- 진행 순서 ---------- */
+.flow5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.flow5 li{position:relative;padding:1.5rem .9rem 0 0;border-top:2px solid var(--ink)}
+.flow5 li>i{position:absolute;top:-.85rem;left:0;width:1.6rem;height:1.6rem;border-radius:50%;background:#fff;border:2px solid var(--ink);font-style:normal;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.flow5 b{display:block;font-size:1.2rem;margin-top:.4rem}
+.flow5 span{display:block;font-size:.9rem;color:var(--sub);line-height:1.55;margin-top:.45rem}
+.par{margin:2rem 0 0 20%;border:1.5px dashed var(--line2);border-radius:.6rem;padding:.85rem 1.1rem;font-size:.95rem;color:var(--ink2);line-height:1.6}
+.par b{color:var(--ink)}
+
+/* ---------- 팀 과제의 목표 ---------- */
+.goal{display:flex;align-items:center;gap:1.6rem}
+.gcard{flex:1 1 0;min-width:0;border:1px solid var(--line2);border-radius:.8rem;padding:1.3rem 1.4rem;display:grid;gap:.8rem;justify-items:start}
+.gcard.team{border:2px solid var(--ink)}
+.qchip{background:var(--v);border-radius:.3rem;padding:.4rem .75rem;font-size:.92rem;font-weight:600}
+.ppl{display:flex;gap:.3rem}
+.ppl i{width:1.3rem;height:1.3rem;border-radius:50%;background:#cfcfcf}
+.team .ppl i:nth-child(1){background:var(--y)}
+.team .ppl i:nth-child(2){background:var(--b)}
+.team .ppl i:nth-child(3){background:var(--g)}
+.team .ppl i:nth-child(4){background:var(--v)}
+.team .ppl i:nth-child(5){background:var(--t)}
+.gcard p{font-size:1.02rem;color:var(--ink2);line-height:1.5}
+.gcard p b{color:var(--ink)}
+
+/* ---------- 팀 프로젝트 시트 ---------- */
+.smap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:1.2rem;align-items:stretch}
+.sg{border:1px solid var(--line2);border-radius:.8rem;padding:1.1rem 1.3rem 1.2rem;min-width:0}
+.sg.dk{border:2px solid var(--ink)}
+.sg>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.sg ol{margin-top:.8rem;display:grid;gap:.55rem}
+.sg li{display:grid;grid-template-columns:1.8rem minmax(0,1fr) auto;align-items:baseline;gap:.3rem;font-size:1.05rem;line-height:1.4}
+.sg li>i{font-style:normal;font-weight:700;color:var(--faint);font-size:1.1rem}
+.sg li>em{font-style:normal;font-size:.76rem;color:var(--sub);background:var(--panel);border-radius:999px;padding:.12rem .6rem;white-space:nowrap}
+.sg:not(.dk) li{color:var(--ink2)}
+.sg li.opt{color:var(--sub);border-top:1px dashed var(--line2);padding-top:.55rem}
+.sg li.opt>em{background:#fff;border:1px solid var(--line2)}
+
+/* ---------- 질문 다시 보기 ---------- */
+.fr{border:1.5px dashed var(--ink);border-radius:.6rem;padding:.85rem 1.1rem;font-size:1.25rem;font-weight:700;letter-spacing:-.01em;line-height:1.45}
+.fr .lb{display:block;margin-bottom:.25rem}
+.segs{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) minmax(0,1.6fr) minmax(0,1fr);gap:.5rem;margin-top:1.3rem}
+.seg{border-top:.45rem solid var(--c);background:#fafaf8;border-radius:.3rem;padding:.7rem .8rem .8rem;min-width:0}
+.seg i{display:block;font-style:normal;font-size:.78rem;font-weight:700;color:var(--sub)}
+.seg b{display:block;font-size:1.02rem;line-height:1.45;margin-top:.3rem}
+.ex{margin-top:.9rem;font-size:.92rem;color:var(--sub);line-height:1.6}
+.ex b{color:var(--ink2);font-weight:600;margin-right:.3rem}
+
+.q6 h2{font-size:2.2rem}
+.q6 .lead{margin-top:.5rem}
+.q6 .body{margin-top:1.2rem}
+.q6 .note{margin-top:.9rem;padding-top:.7rem}
+.q6 .seg{padding:.6rem .8rem .7rem}
+.qflow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,.62fr) auto minmax(0,1.45fr);gap:.7rem;align-items:stretch}
+.qflow li{border:1px solid var(--line2);border-radius:.8rem;padding:.8rem 1.1rem .9rem;min-width:0;display:grid;gap:.3rem;align-content:start}
+.qflow li.ours{border:2px solid var(--ink)}
+.qflow li.keep{background:var(--vy)}
+.qflow li>i{font-style:normal;font-size:.78rem;font-weight:700;color:var(--sub)}
+.qflow li>b{font-size:1.08rem;line-height:1.5;letter-spacing:-.01em}
+.qflow li.keep>b{font-size:1.25rem}
+.qflow .arr{align-self:center;width:1.6rem}
+.qflow .ours .lb,.qflow .keep .lb{color:var(--ink2)}
+.qchk{margin-top:1rem}
+.qchk>.lb{display:flex;align-items:center;gap:.6rem}
+.qchk>.lb b{color:var(--ink);font-size:.95rem}
+.qchk .segs{margin-top:.5rem}
+.seg em{display:inline-block;font-style:normal;font-size:.72rem;font-weight:600;color:var(--sub);margin-top:.45rem;border:1px solid var(--line2);border-radius:999px;padding:.08rem .5rem;background:#fff}
+.seg.was em{color:#fff;background:var(--ink);border-color:var(--ink)}
+.qask{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem}
+.qask li{border-top:2px solid var(--ink);padding:.7rem .2rem 0 0;min-width:0}
+.qask li>b{display:block;font-size:1.15rem;letter-spacing:-.015em}
+.qask li>span{display:block;font-size:.9rem;color:var(--sub);line-height:1.5;margin-top:.3rem}
+@media (max-width:1100px){.qflow{grid-template-columns:1fr}.qflow .arr{display:none}.qask{grid-template-columns:1fr}}
+
+/* 움직이는 예시 슬라이드는 여백을 줄여 한 화면에 */
+.slide:has(.demo) .body{margin-top:1.3rem}
+.slide:has(.demo) .note{margin-top:.9rem;padding-top:.6rem}
+.slide:has(.demo) .dctl{margin-top:.6rem}
+.ad2 .sk{min-height:0}
+.arow+.arow{margin-top:.4rem}
+.ad2 .fsec{padding-top:1.7rem}
+.slide:has(.ad2) h2,.slide:has(.af2) h2{font-size:2rem}
+.ad2 .sk{padding:.35rem .5rem .3rem}
+.ad2 .shr{margin-top:.15rem}
+.ad2 .ctab{gap:.3rem}
+.slide:has(.demo) h2{font-size:2.2rem}
+
+
+/* ---------- 왜 엮어야 하나 ---------- */
+.why{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:2rem;align-items:start}
+.why .wl h3{font-size:1.45rem;margin:0 0 .9rem;letter-spacing:-.01em}
+.why .wl ul{list-style:none;margin:0;padding:0;display:grid;gap:.85rem}
+.why .wl li{display:grid;gap:.15rem;padding-left:1rem;border-left:3px solid var(--ink)}
+.why .wl b{font-size:1.1rem;line-height:1.4}
+.why .wl span{font-size:.95rem;color:var(--sub);line-height:1.55}
+.why .wl li:last-child{border-left-color:var(--line2)}
+.why .wl li:last-child b{font-size:.98rem;color:var(--sub)}
+.syn .sk small{display:block;font-size:.68rem;font-weight:600;color:var(--sub);margin-top:.3rem}
+.syn{border:1.5px dashed var(--ink);border-radius:.8rem;padding:1.1rem 1.2rem;display:grid;gap:.6rem}
+.syn .lb{display:block}
+.syn .srow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.syn .sk{flex:1 1 9rem;min-height:0;font-size:.82rem;padding:.5rem .6rem}
+.syn .arr{width:1.4rem}
+.syn .sres{font-size:1.02rem;font-weight:700;line-height:1.5;margin-top:.2rem}
+.syn .sres em{font-style:normal;background:var(--vy);padding:0 .15em}
+
+/* ---------- 왜 이 질문인가 ---------- */
+.rsn{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:1.4rem;align-items:start}
+.rsn .fb ol li{font-size:1.02rem}
+.rsn .board{display:grid;gap:.6rem;grid-template-columns:repeat(3,minmax(0,1fr))}
+.rsn .board .exq{grid-column:1/-1;margin-bottom:0}
+.rsn .board .sk{min-height:5.6rem;font-size:.8rem}
+.rsn .board .sk .k{margin-bottom:.15rem}
+
+/* ---------- 내 조각 제안 ---------- */
+.exq{display:flex;align-items:baseline;gap:.5rem;font-size:.78rem;color:var(--ink2);margin-bottom:.55rem;line-height:1.4}
+.exq b{flex:none;font-size:.66rem;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;padding:.08rem .5rem}
+.kinds{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-bottom:.5rem;font-size:.76rem;color:var(--ink2)}
+.kinds span.etc{border-style:dashed;color:var(--sub)}
+.prow .sk{min-height:2.9rem}
+.slide:has(.demo) .lead{margin-top:.5rem}
+.kinds b{font-size:.72rem;color:var(--sub);margin-right:.2rem}
+.kinds span{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:.1rem .6rem}
+.prow{position:relative;display:grid;grid-template-columns:3.4rem 5.4rem minmax(0,1.5fr) minmax(0,1fr);gap:.45rem;align-items:stretch}
+.prow+.prow{margin-top:.45rem}
+.prow.hd b{font-size:.68rem;font-weight:700;color:var(--sub);padding:0 .1rem}
+.sk .kind{display:inline-block;font-size:.6rem;font-weight:700;background:rgba(255,255,255,.7);border-radius:999px;padding:.05rem .45rem;margin-bottom:.2rem}
+.sk.tag{display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:.8rem}
+
+/* ---------- 엮는 방법 세 가지 ---------- */
+.pats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:stretch}
+.pat{border:1px solid var(--line2);border-radius:.8rem;padding:1.1rem 1.2rem 1.2rem;min-width:0;display:flex;flex-direction:column;gap:.6rem}
+.pat>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.pat>b{font-size:1.25rem;letter-spacing:-.015em;line-height:1.3}
+.pat .dg{height:6.2rem;border-radius:.5rem;background:#f3f3f1 radial-gradient(#d2d2cd 1px,transparent 1.3px) 0 0/12px 12px;border:1px solid var(--line2);position:relative;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem}
+.pat .dg .bx{border-radius:3px;background:var(--c);box-shadow:0 1px 2px rgba(0,0,0,.15);width:2.1rem;height:2.1rem}
+.pat .dg .frame{position:absolute;inset:.55rem .7rem;border:1.5px dashed var(--ink);border-radius:.4rem}
+.pat .dg .frame i{position:absolute;top:-.6rem;left:.6rem;font-style:normal;font-size:.6rem;font-weight:700;background:#fff;padding:0 .3rem;color:var(--ink2)}
+.pat .dg .big{width:3.4rem;height:3.4rem}
+.pat .dg .sm{width:1.5rem;height:1.5rem}
+.pat .dg .arr{width:1.1rem}
+.pat p{font-size:.95rem;color:var(--ink2);line-height:1.55}
+.pat p.w{margin-top:auto;font-size:.86rem;color:var(--sub)}
+.pat p.w b{color:var(--ink2);font-weight:600}
+
+/* ---------- 점검 질문 세 가지 ---------- */
+.chk3 .pat>i{font-size:1.1rem;font-weight:700;color:var(--faint)}
+.chk3 .pat>b{font-size:1.45rem}
+.how{display:grid;gap:.35rem;font-size:1rem;color:var(--ink2);line-height:1.5;padding-left:1.1rem;list-style:disc}
+.how li::marker{color:var(--faint)}
+.exb{margin-top:auto;background:#f3f3f1 radial-gradient(#d2d2cd 1px,transparent 1.3px) 0 0/12px 12px;border:1px solid var(--line2);border-radius:.6rem;padding:.8rem .9rem .85rem}
+.exl{display:inline-block;font-size:.66rem;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;padding:.08rem .5rem;margin-bottom:.45rem}
+.exb p{font-size:.92rem;line-height:1.55;color:var(--ink2)}
+.exb p b{color:var(--ink)}
+.exb em{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--g2);color:#fff;font-size:.72rem;font-weight:800;vertical-align:middle;margin-left:.2rem}
+
+/* ---------- 조각 쓰기 · 묶기 ---------- */
+.af2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:.8rem;align-items:stretch}
+.wrow{position:relative;display:grid;grid-template-columns:3.4rem repeat(3,minmax(0,1fr));gap:.45rem;align-items:stretch}
+.wrow+.wrow{margin-top:.5rem}
+.wrow .sk{min-height:2.8rem}
+.grps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;align-items:start}
+.grp{position:relative;border:1.5px dashed #bdbdb8;border-radius:.5rem;padding:1.2rem .4rem .4rem;display:grid;gap:.3rem;min-height:5rem}
+.grp .gl{position:absolute;top:-.6rem;left:.45rem;font-style:normal;font-size:.66rem;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;padding:.08rem .5rem;white-space:nowrap}
+.demo .out1{transition:opacity .35s ease}
+.demo.s1 .out1{opacity:0}
+.demo .dim2{transition:opacity .35s ease}
+.demo.s2 .dim2{opacity:.35}
+.af2 .fsec,.ad2 .fsec{padding-top:1.7rem}
+.af2 .grps,.ad2 .g3{margin-top:.7rem}
+.grp .sk.sm{font-size:.72rem;line-height:1.3;padding:.35rem .45rem}
+.mk2{position:absolute;top:-.55rem;right:-.3rem;font-size:.66rem;font-weight:800;letter-spacing:.05em;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:.02rem .4rem;color:var(--ink)}
+.mk2.tri{color:#b8860b;border-color:#b8860b}
+.mk2.x{color:#c0392b;border-color:#c0392b}
+.g3 .sk.sm{padding-right:1.6rem}
+.demo.s2 .g3 .sk.core{outline:2px solid var(--ink);outline-offset:1px}
+
+/* ---------- 왜 네 칸으로 넓히나 ---------- */
+.four .fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;margin-top:.8rem}
+.fc{border-top:.45rem solid var(--c);background:#fafaf8;border-radius:.3rem;padding:.75rem .9rem .9rem;min-width:0;display:grid;gap:.4rem;align-content:start}
+.fc>i{font-style:normal;font-size:.78rem;font-weight:700;color:var(--sub)}
+.fc>b{font-size:1.05rem;line-height:1.4;letter-spacing:-.01em}
+.fc .ex{font-size:.88rem;color:var(--ink2);background:#fff;border:1px dashed var(--line2);border-radius:.4rem;padding:.35rem .55rem;line-height:1.45}
+.fc .ex::before{content:"예) ";color:var(--sub);font-weight:600}
+.fc .tl{font-size:.68rem;font-weight:700;color:var(--sub);margin-top:.3rem;letter-spacing:.03em}
+.fc .to{list-style:none;margin:0;padding:0;display:grid;gap:.2rem;font-size:.86rem;color:var(--ink2);line-height:1.45}
+.fc .to li::before{content:"→ ";color:var(--ink);font-weight:700}
+.fc>i em{font-style:normal;font-weight:600;color:var(--faint);margin-left:.25rem}
+.hyp{margin-top:.8rem;border:1.5px dashed var(--ink);border-radius:.8rem;padding:.7rem 1rem .75rem;display:grid;gap:.35rem}
+.hyp .lb{display:block}
+.hyp p{font-size:1rem;line-height:1.65;color:var(--ink2)}
+.hyp p b{background:var(--c);border-radius:.3rem;padding:.05rem .4rem;color:var(--ink);white-space:nowrap}
+.hyp .eff{display:inline-block;margin-left:.4rem;font-size:.82rem;font-weight:600;color:var(--ink2);border:1px solid var(--line2);border-radius:999px;padding:.05rem .55rem;background:#fff}
+.hyp .chkline{font-size:.86rem;color:var(--sub);line-height:1.5}
+.four .fcols{margin-top:.8rem}
+.fc{padding:.8rem .9rem .9rem;gap:.4rem}
+.slide:has(.four) h2{font-size:2rem}
+/* 왜 이 질문인가 · 고를 수 있는 이유 */
+.rsn .fb .fx{margin-top:.7rem}
+.rsn .cks.pick{margin-top:.3rem;gap:.15rem;font-size:.84rem;line-height:1.35}
+.rsn .fb{padding:1rem 1.2rem}
+.rsn .fb ol{margin-top:.6rem;gap:.4rem}
+.rsn .fb ol li{font-size:.98rem}
+.rsn .fb .fx{margin-top:.5rem}
+/* 점검 질문 · 고를 수 있는 답 */
+.chk3 .hw{font-size:.8rem;font-weight:700;color:var(--sub);margin-top:.1rem}
+.chk3 .cks.opt{margin-top:.05rem;gap:.15rem;font-size:.84rem;line-height:1.35}
+.chk3 .pat{padding:.85rem 1rem .95rem;gap:.45rem}
+.chk3 .pat>b{font-size:1.25rem}
+.chk3 .exb p{font-size:.86rem;line-height:1.45}
+.chk3 .exb{padding:.6rem .8rem .65rem}
+.slide:has(.chk3) h2{font-size:2rem}
+.chk3 .cks.inl{display:flex;flex-wrap:wrap;gap:.2rem .7rem}
+.chk3 .exb{margin-top:.6rem}
+
+/* ---------- 가설 한 줄 ---------- */
+.hy2 .hyp{margin-top:0}
+.hy2 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:.5rem}
+.slide:has(.hy2) .lead{margin-top:.4rem}
+.hy2 .two .fb{padding:.7rem 1rem .8rem}
+.hy2 .two .fb>b{font-size:1.15rem;margin-top:.2rem}
+.hy2 .cks.opt{margin-top:.35rem;font-size:.88rem}
+.hy2 .cks.inl{display:flex;flex-wrap:wrap;gap:.25rem .8rem}
+.hy2 .two .d{font-size:.84rem;color:var(--sub);margin-top:.4rem;line-height:1.4}
+.hyp.alt2{margin-top:.6rem;padding:.55rem 1rem .6rem;border-style:solid;border-color:var(--line2);border-width:1px}
+.hyp.alt2 p{font-size:.95rem}
+.slide:has(.hy2) h2{font-size:2rem}
+
+/* ---------- 알파 정하기 ---------- */
+.need{display:flex;flex-wrap:wrap;gap:.35rem}
+.need .sk,.tcol .sk{min-height:0;flex:0 0 auto;padding:.24rem .5rem;font-size:.74rem;position:relative}
+.tri3{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr);gap:.6rem;margin-top:.45rem}
+.tri3 .fsec{padding-top:1.55rem;min-height:4.8rem;padding-bottom:.45rem}
+.tcol{display:flex;flex-wrap:wrap;gap:.4rem;align-content:flex-start}
+.tcol .sk.fake3{outline:1.5px dashed #2a8f86;outline-offset:2px}
+.fk{position:absolute;top:-.65rem;right:-.3rem;font-style:normal;font-size:.56rem;font-weight:700;color:#fff;background:#2a8f86;border-radius:999px;padding:.03rem .4rem;white-space:nowrap}
+.alpline{margin-top:.45rem;font-size:.8rem;font-weight:700;display:inline-block;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:.15rem .7rem}
+
+/* ---------- 기술 · 배울 것 · 분담 ---------- */
+.tt{width:100%;border-collapse:collapse;font-size:.95rem;margin-top:.2rem}
+.tt th{font-size:.78rem;color:var(--sub);text-align:left;padding:.4rem .6rem;border-bottom:2px solid var(--ink);font-weight:700}
+.tt td{padding:.6rem .6rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+.tt td:first-child{font-weight:600}
+.tt em{font-style:normal;font-size:.7rem;font-weight:700;border-radius:999px;padding:.06rem .5rem;margin-right:.35rem;white-space:nowrap;vertical-align:middle}
+.tt em.know{background:var(--g)}
+.tt em.learn{background:var(--vy)}
+.tt .dot{display:inline-block;width:.75rem;height:.75rem;border-radius:2px;background:var(--c);margin-right:.35rem;vertical-align:middle}
+.slide:has(.tt) .exq{margin-bottom:.8rem}
+
+/* ---------- 과제전 미리 그려 보기 ---------- */
+.ex4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.9rem;align-items:stretch}
+.ex4 .fb{display:flex;flex-direction:column;padding:1rem 1.1rem 1.1rem}
+.ex4 .fb>b{font-size:1.2rem}
+.cks{margin-top:.7rem;display:grid;gap:.4rem;font-size:.95rem;color:var(--ink2);line-height:1.4}
+.cks li::before{content:"☐  ";color:var(--sub)}
+.cks li.on{color:var(--ink);font-weight:600}
+.cks li.on::before{content:"☑  ";color:var(--ink)}
+@media (max-width:1100px){.tri3,.ex4{grid-template-columns:1fr}}
+
+/* ---------- 채택하고 엮기 ---------- */
+.ad2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:.8rem;align-items:stretch}
+.arow{position:relative;display:grid;grid-template-columns:3.4rem minmax(0,1.6fr) 4.6rem 4.6rem;gap:.45rem;align-items:stretch}
+.arow+.arow{margin-top:.55rem}
+.arow.hd b{font-size:.66rem;font-weight:700;color:var(--sub);padding:0 .1rem;line-height:1.25}
+.mk{display:flex;align-items:center;justify-content:center;border:1px dashed #cfcfca;border-radius:.4rem;background:rgba(255,255,255,.6);font-size:1.25rem;font-weight:800;color:var(--ink)}
+.mk.tri{color:#b8860b}
+.mk.x{color:#c0392b}
+.patpick{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem}
+.patpick span{font-size:.7rem;border:1px solid var(--line2);border-radius:999px;padding:.1rem .55rem;color:var(--sub);background:#fff}
+.patpick span.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+.ctab{display:grid;gap:.35rem;margin-top:.6rem}
+.ctab .sk{display:grid;grid-template-columns:3.2rem minmax(0,1fr) auto;gap:.4rem;align-items:center;min-height:0;font-size:.74rem;padding:.35rem .5rem}
+.ctab .sk .k{font-size:.6rem}
+.ctab .sk em{font-style:normal;font-size:.6rem;font-weight:700;background:rgba(255,255,255,.75);border-radius:999px;padding:.05rem .45rem;white-space:nowrap}
+.shr{font-size:.66rem;color:var(--ink2);background:var(--vy);border-radius:.3rem;padding:.12rem .4rem;display:inline-block;margin-top:.25rem;font-weight:600}
+.demo.s2 .arow .sk.core{outline:2px solid var(--ink);outline-offset:1px}
+@media (max-width:1100px){.why,.rsn,.pats,.ad2{grid-template-columns:1fr}.rsn .board{grid-template-columns:1fr}}
+
+/* ---------- 질문 예시 네 가지 ---------- */
+.qx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.qx li{border:1px solid var(--line2);border-radius:.8rem;padding:1.05rem 1.2rem 1.1rem;min-width:0;display:grid;gap:.6rem;align-content:start}
+.qx li.run{border:2px solid var(--ink)}
+.qx li>i{font-style:normal;font-size:.78rem;font-weight:600;color:var(--sub);display:flex;align-items:center;gap:.5rem}
+.qx li>i em{font-style:normal;font-size:.68rem;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;padding:.08rem .5rem}
+.qx p{font-size:1.08rem;line-height:1.65;font-weight:600;letter-spacing:-.01em}
+.qx mark{background:none;color:inherit;box-shadow:inset 0 -.55em 0 var(--c);padding:0 .08em;border-radius:.1rem}
+.qx small{display:block;font-size:.84rem;color:var(--sub);line-height:1.5;font-weight:400}
+.qkey{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.8rem;color:var(--sub);margin-top:.9rem}
+.qkey span{display:inline-flex;align-items:center;gap:.35rem}
+.qkey i{width:1rem;height:.55rem;border-radius:.1rem;background:var(--c)}
+.alt{margin-top:1.1rem;font-size:.92rem;color:var(--sub);line-height:1.65}
+.alt b{color:var(--ink2);font-weight:600;margin-right:.3rem}
+.alt em{font-style:normal;background:var(--vy);border-radius:.2rem;padding:0 .3rem;color:var(--ink)}
+
+/* ---------- 사용 장면 ---------- */
+.scn{display:grid;grid-template-columns:8.6rem minmax(0,1fr);gap:.8rem}
+.scn-l{display:grid;grid-template-rows:1.9rem minmax(0,1fr) minmax(0,1fr);gap:.5rem}
+.scn-l b{font-size:.82rem;color:var(--sub);font-weight:600;display:flex;align-items:center;line-height:1.4}
+.scn ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem}
+.scn li{display:grid;grid-template-rows:1.9rem minmax(0,1fr) minmax(0,1fr);gap:.5rem;min-width:0}
+.scn li>i{position:relative;font-style:normal;font-weight:700;font-size:.8rem;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center}
+.scn li>b{background:#fff;border:1px solid var(--line2);border-radius:.35rem;padding:.65rem .75rem;font-size:1rem;line-height:1.45;box-shadow:0 8px 16px -12px rgba(0,0,0,.3)}
+.scn li>span{background:var(--panel);border-radius:.35rem;padding:.65rem .75rem;font-size:.95rem;line-height:1.45;color:var(--ink2)}
+.scn li.key>b{background:var(--vy);border-color:var(--vyb)}
+.scn li.key>i::after{content:"★";position:absolute;left:calc(100% + .4rem);top:50%;transform:translateY(-50%);font-size:.85rem;color:var(--vyb)}
+
+/* ---------- 카드 (화면과 기술 · 피드백 · 과제전) ---------- */
+.fb{border:1px solid var(--line2);border-radius:.8rem;padding:1.2rem 1.3rem;min-width:0}
+.fb.dk{border:2px solid var(--ink)}
+.fb>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.fb>b{display:block;font-size:1.3rem;margin-top:.35rem}
+.fb>p.d{font-size:1rem;color:var(--ink2);line-height:1.55;margin-top:.55rem}
+.fb ol{margin-top:.8rem;display:grid;gap:.55rem}
+.fb ol li{display:flex;gap:.6rem;font-size:1.05rem;line-height:1.5}
+.fb ol li i{font-style:normal;color:var(--faint);font-weight:700}
+.tech3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:stretch}
+.tech3 .fb{display:flex;flex-direction:column}
+.fx{margin-top:auto;padding-top:1rem;font-size:.86rem;color:var(--sub);line-height:1.55}
+
+/* ---------- 다음 주까지 ---------- */
+.tl{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-top:1.6rem}
+.tl::before{content:"";position:absolute;left:0;right:0;top:.55rem;height:2px;background:var(--line2)}
+.tl li{position:relative;min-width:0}
+.tl li::before{content:"";position:absolute;top:-1.42rem;left:0;width:.95rem;height:.95rem;border-radius:50%;background:#fff;border:2px solid var(--ink)}
+.tl li.today::before{background:var(--ink)}
+.tl li>i{font-style:normal;font-size:.8rem;color:var(--sub);font-weight:600}
+.tl b{display:block;font-size:1.3rem;margin-top:.35rem}
+.tl span{display:block;font-size:.93rem;color:var(--ink2);margin-top:.35rem;line-height:1.5}
+.box{margin-top:2.4rem;background:var(--panel);border-radius:.8rem;padding:1.05rem 1.3rem;font-size:1rem;line-height:1.6}
+.box+.box{margin-top:.7rem}
+.box b{margin-right:.6rem}
+
+/* ==========================================================
+   피그잼처럼 보이는 움직이는 예시
+   단계마다 .demo에 s1, s2 … 클래스가 붙고, at1 · at2 … 요소가 차례로 나타남
+   ========================================================== */
+.board{position:relative;background:#f3f3f1 radial-gradient(#d2d2cd 1px,transparent 1.3px) 0 0/14px 14px;border:1px solid var(--line2);border-radius:.8rem;padding:.9rem}
+.fsec{position:relative;background:#fff;border:1px solid #d6d6d2;border-radius:.5rem;padding:1.85rem .75rem .75rem;min-width:0}
+.fsec.dash{border-style:dashed;background:rgba(255,255,255,.75)}
+.fttl{position:absolute;top:.5rem;left:.65rem;font-size:.68rem;font-weight:600;color:#4a4a4a;background:#efefec;border-radius:.25rem;padding:.06rem .45rem;white-space:nowrap}
+
+/* 포스트잇 */
+.sk{position:relative;background:var(--c);border-radius:2px;padding:.42rem .5rem .32rem;font-size:.78rem;line-height:1.35;font-weight:500;min-height:3.3rem;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 12px -9px rgba(0,0,0,.4);display:flex;flex-direction:column;justify-content:space-between;color:#1e1e1e;min-width:0;transition:opacity .35s ease,outline-color .2s}
+.sk .au{display:block;font-style:normal;font-size:.56rem;color:rgba(0,0,0,.45);margin-top:.2rem}
+.sk.sm{min-height:0;padding:.38rem .5rem;font-size:.76rem}
+.sk.mini{min-height:0;font-size:.74rem;padding:.35rem .45rem}
+.sk .k{display:block;font-style:normal;font-size:.56rem;font-weight:700;color:rgba(0,0,0,.5)}
+
+/* 쪼개기 표 */
+.frow{position:relative;display:grid;grid-template-columns:3.4rem repeat(4,minmax(0,1fr));gap:.45rem;align-items:stretch}
+.frow+.frow{margin-top:.55rem}
+.frow.hd b{font-size:.68rem;font-weight:700;color:var(--sub);padding:0 .1rem}
+.gn{font-size:.72rem;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:.25rem;flex-wrap:wrap}
+.gn i{font-style:normal}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;font-size:.76rem;color:var(--ink2);margin-bottom:.65rem}
+.legend b{font-size:.72rem;color:var(--sub)}
+.legend span{display:inline-flex;align-items:center;gap:.3rem}
+.legend i{width:.95rem;height:.95rem;border-radius:2px;background:var(--c);box-shadow:0 1px 2px rgba(0,0,0,.2)}
+
+/* 스탬프 · 별 · 확인 표시 · 커서 */
+.stamp{position:absolute;top:-.6rem;right:-.35rem;width:1.3rem;height:1.3rem;border-radius:50%;background:#fff;border:2px solid var(--v);font-size:.52rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.18);color:#333;z-index:2;font-style:normal}
+.stamp.n2{right:.9rem}
+.pk{position:absolute;top:-.6rem;left:-.45rem;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--ink);color:#ffd84d;font-size:.72rem;font-style:normal;display:flex;align-items:center;justify-content:center;z-index:3}
+.ok{display:inline-flex;align-items:center;justify-content:center;width:1rem;height:1rem;border-radius:50%;background:var(--g2);color:#fff;font-size:.6rem;font-weight:800;font-style:normal}
+.miss{position:absolute;inset:-.3rem -.35rem;border:2px dashed var(--em);border-radius:.4rem;pointer-events:none;z-index:1}
+.mtag{position:absolute;right:.2rem;top:-.85rem;z-index:4;font-size:.66rem;font-weight:700;color:#fff;background:var(--em);border-radius:999px;padding:.08rem .55rem;white-space:nowrap;font-style:normal}
+.fcur{position:absolute;right:-.7rem;bottom:-1.15rem;display:flex;align-items:flex-start;z-index:5;pointer-events:none}
+.fcur svg{width:.95rem;height:.95rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+.fcur span{font-size:.58rem;font-weight:700;color:#fff;background:var(--cc);border-radius:.25rem;padding:.04rem .35rem;margin:.6rem 0 0 -.15rem;white-space:nowrap}
+
+/* 하나로 합치기 */
+.mg2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:.8rem;align-items:stretch}
+.msrc .sk{min-height:3.1rem}
+.mcard{display:flex;flex-direction:column}
+.mslots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+.mslots>:last-child{grid-column:1/-1}
+.msent{margin-top:.75rem;font-size:.86rem;font-weight:700;line-height:1.5}
+.mwho{margin-top:.45rem;font-size:.7rem;color:var(--sub);display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem}
+.mwho i{display:inline-block;width:.7rem;height:.7rem;border-radius:2px;background:var(--c);vertical-align:middle;margin-right:.15rem}
+.mph{position:absolute;left:.75rem;right:.75rem;top:45%;text-align:center;font-size:.74rem;color:var(--faint);line-height:1.5}
+
+/* 알파 버전 */
+.row4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+.stc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;min-width:0}
+.stc .sk{width:100%;min-height:2.9rem;border:1px solid #e3e3df}
+.stc+.stc::before{content:"";position:absolute;left:-1.05rem;top:1.25rem;width:.9rem;height:2px;background:#bdbdb8}
+.stc+.stc::after{content:"";position:absolute;left:-.32rem;top:calc(1.25rem - 4px);border:5px solid transparent;border-left:6px solid #bdbdb8;border-right:0}
+.tg{font-size:.64rem;font-weight:700;border-radius:999px;padding:.08rem .55rem;background:#efefec;color:var(--sub);font-style:normal}
+.tg.dk{background:var(--ink);color:#fff}
+.pathrow{position:relative;height:1.3rem;margin:.45rem 0 .5rem}
+.path{position:absolute;left:3%;right:3%;top:50%;height:3px;margin-top:-1.5px;background:var(--ink);border-radius:2px;transform-origin:left center;transform:scaleX(0);transition:transform 1.3s cubic-bezier(.45,0,.2,1)}
+.path::after{content:"";position:absolute;right:-3px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left:9px solid var(--ink);border-right:0}
+.demo.s1 .path{transform:scaleX(1)}
+.plab{position:absolute;left:50%;top:-.25rem;transform-origin:center;margin-left:-4.2rem;width:8.4rem;text-align:center;font-size:.64rem;font-weight:700;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:.05rem .4rem;z-index:2}
+.extras .sk{min-height:0}
+.abot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:.7rem;margin-top:.7rem}
+.later{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+.sk.fake{outline:1.5px dashed #2a8f86;outline-offset:2px}
+.demo.s2 .stc.key .sk{outline:2px solid var(--ink);outline-offset:1px}
+
+/* 알파 테스트 */
+.tcheck{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3rem 1rem;align-items:center}
+.tcheck .q{font-size:.9rem;font-weight:700;line-height:1.45}
+.tcheck .q2{font-size:.76rem;color:var(--ink2);grid-column:1}
+.tcheck .q2 b{margin-right:.4rem}
+.res{grid-column:2;grid-row:1 / span 5;font-size:.8rem;font-weight:800;color:#fff;background:var(--g2);border-radius:.4rem;padding:.4rem .7rem;white-space:nowrap;font-style:normal;text-align:center;line-height:1.35}
+.panels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin-top:.6rem}
+.panel{background:#fff;border:1px solid #d6d6d2;border-radius:.5rem;padding:.55rem .6rem .65rem;display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.panel h4{font-size:.74rem;font-weight:700;display:flex;align-items:center;gap:.35rem;line-height:1.3}
+.panel h4 i{font-style:normal;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--ink);color:#fff;font-size:.6rem;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.scr{position:relative;height:3.3rem;background:#fafaf8;border:1px solid #e1e1dd;border-radius:.3rem;padding:.3rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:.5rem 1fr;gap:.25rem}
+.scr .in{grid-column:1/-1;border-radius:.2rem;background:#e4e4e0}
+.scr .sl{border-radius:.2rem;background:var(--c)}
+.scr .cd{position:absolute;left:40%;top:46%;width:22%;height:26%;background:#fff;border:1px solid #c9c9c4;border-radius:.15rem;box-shadow:0 3px 6px -2px rgba(0,0,0,.3)}
+.scr .cs{position:absolute;left:58%;top:64%;width:.8rem;height:.8rem}
+.who2{display:flex;align-items:center;gap:.3rem;font-size:.6rem;color:var(--sub);font-style:normal}
+.av{width:.85rem;height:.85rem;border-radius:50%;background:var(--c);flex:none}
+.bub{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:.55rem;padding:.3rem .45rem;font-size:.72rem;line-height:1.35}
+.tag3{display:grid;gap:.3rem}
+.fixline{margin-top:.6rem;font-size:.8rem;font-weight:700;display:inline-block;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:.15rem .7rem}
+
+/* 넓은 화면(프로젝터)에서는 예시를 크게 */
+@media (min-width:761px){
+  .fsec{padding:2.05rem .9rem .9rem}
+  .fttl{font-size:.76rem}
+  .sk{font-size:.9rem;min-height:3.7rem;padding:.5rem .6rem .4rem}
+  .sk .au{font-size:.64rem}
+  .sk.sm{font-size:.88rem;padding:.45rem .6rem}
+  .sk.mini{font-size:.84rem;padding:.42rem .55rem}
+  .sk .k{font-size:.64rem}
+  .frow{grid-template-columns:4.2rem repeat(4,minmax(0,1fr));gap:.55rem}
+  .frow+.frow{margin-top:.7rem}
+  .frow.hd b{font-size:.78rem}
+  .gn{font-size:.84rem}
+  .legend{font-size:.86rem}
+  .legend b{font-size:.8rem}
+  .legend i{width:1.1rem;height:1.1rem}
+  .stamp{width:1.5rem;height:1.5rem;font-size:.6rem;top:-.7rem}
+  .stamp.n2{right:1.05rem}
+  .pk{width:1.55rem;height:1.55rem;font-size:.82rem;top:-.8rem;left:-.7rem}
+  .ok{width:1.15rem;height:1.15rem;font-size:.66rem}
+  .mtag{font-size:.74rem;top:-.95rem}
+  .fcur svg{width:1.15rem;height:1.15rem}
+  .fcur span{font-size:.68rem;padding:.05rem .4rem}
+  .msrc .sk{min-height:3.5rem}
+  .msent{font-size:1rem}
+  .mwho{font-size:.8rem}
+  .mph{font-size:.84rem}
+  .stc .sk{min-height:3.3rem}
+  .tg{font-size:.72rem}
+  .plab{font-size:.74rem;width:10rem;margin-left:-5rem}
+  .tcheck .q{font-size:1.02rem}
+  .tcheck .q2{font-size:.86rem}
+  .res{font-size:.9rem}
+  .panel h4{font-size:.86rem}
+  .panel h4 i{width:1.25rem;height:1.25rem;font-size:.66rem}
+  .scr{height:3.9rem}
+  .who2{font-size:.7rem}
+  .av{width:1rem;height:1rem}
+  .bub{font-size:.84rem}
+  .fixline{font-size:.9rem}
+  .dsteps button{font-size:.8rem}
+  .dsteps button b{width:1.25rem;height:1.25rem;font-size:.66rem}
+  .replay{font-size:.8rem}
+}
+
+/* 단계 상태 */
+.demo .at1,.demo .at2,.demo .at3,.demo .at4,.demo .at5{opacity:0;transition:opacity .35s ease,transform .45s cubic-bezier(.3,1.45,.5,1);transition-delay:calc(var(--d,0) * 130ms)}
+.demo .pop{transform:scale(.3)}
+.demo .rise{transform:translateY(.7rem)}
+.demo.s1 .at1,.demo.s2 .at2,.demo.s3 .at3,.demo.s4 .at4,.demo.s5 .at5{opacity:1}
+.demo.s1 .at1.pop,.demo.s2 .at2.pop,.demo.s3 .at3.pop,.demo.s4 .at4.pop,.demo.s5 .at5.pop,
+.demo.s1 .at1.rise,.demo.s2 .at2.rise,.demo.s3 .at3.rise,.demo.s4 .at4.rise,.demo.s5 .at5.rise{transform:none}
+.demo .out2,.demo .out3,.demo .out4,.demo .out5{transition:opacity .35s ease}
+.demo.s2 .out2,.demo.s3 .out3,.demo.s4 .out4,.demo.s5 .out5{opacity:0}
+/* 커서는 자기 줄을 채우는 동안만 보임 */
+.demo .fcur{opacity:0;transition:opacity .3s ease}
+.demo.s2:not(.s3) .fcur.r1,.demo.s3:not(.s4) .fcur.r2,.demo.s4 .fcur.r3{opacity:1}
+/* 고른 포스트잇 강조, 나머지는 흐리게 */
+.demo.s2 .sk.p2,.demo.s4 .sk.p4{outline:2px solid var(--ink);outline-offset:1px}
+.demo.s2 .msrc .sk:not(.p2):not(.p4){opacity:.5}
+.demo.s2:not(.s4) .msrc .sk.p4{opacity:.5}
+.demo.noanim,.demo.noanim *{transition:none !important}
+
+/* 예시 조작 */
+.dctl{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem .8rem;margin-top:.75rem}
+.dsteps{display:flex;flex-wrap:wrap;gap:.3rem}
+.dsteps button{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:.16rem .6rem .16rem .2rem;font-size:.72rem;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}
+.dsteps button b{width:1.1rem;height:1.1rem;border-radius:50%;background:var(--panel);font-size:.6rem;display:inline-flex;align-items:center;justify-content:center}
+.dsteps button.done{color:var(--ink2)}
+.dsteps button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.dsteps button.on b{background:#fff;color:var(--ink)}
+.replay{flex:none;border:1px solid var(--line2);background:#fff;border-radius:999px;font-size:.72rem;color:var(--ink2);cursor:pointer;padding:.16rem .7rem}
+.replay:hover,.dsteps button:hover{border-color:var(--ink)}
+
+/* ---------- 아래 메뉴 · 메모 · 목차 · 타이머 ---------- */
+#hud{position:fixed;left:0;right:0;bottom:0;height:3rem;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1.2rem 0 2rem;background:#fff;border-top:1px solid var(--line);font-size:.78rem;color:var(--sub)}
+#hud .l{display:flex;gap:.5rem;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hud .l b{color:var(--ink);font-weight:600}
+#hud .r{display:flex;align-items:center;gap:.15rem;flex:none}
+.hb{border:0;background:none;padding:.4rem .6rem;border-radius:.4rem;font-size:.78rem;color:var(--sub);cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}
+.hb:hover{background:var(--panel);color:var(--ink)}
+.hb.on{color:var(--ink);font-weight:700}
+.hb kbd{font-family:inherit;font-size:.64rem;border:1px solid var(--line2);border-radius:.25rem;padding:0 .3rem;color:var(--faint)}
+.hb.nav{font-size:1.15rem;padding:.15rem .6rem;color:var(--ink)}
+#pg{min-width:3.8rem;text-align:center;font-variant-numeric:tabular-nums;color:var(--ink)}
+#bar{position:fixed;left:0;bottom:3rem;height:2px;background:var(--ink);z-index:31;transition:width .25s}
+#notes{position:fixed;left:1rem;bottom:3.6rem;z-index:40;width:min(30rem,calc(100vw - 2rem));max-height:55vh;overflow:auto;background:#1c1c1c;color:#eee;border-radius:.8rem;padding:1rem 1.2rem;font-size:.88rem;line-height:1.6;display:none;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+#notes.open{display:block}
+#notes h4{font-size:.78rem;color:#aaa;font-weight:600;margin-bottom:.5rem}
+#notes ul{list-style:disc;padding-left:1.1rem}
+#toc{position:fixed;right:1rem;top:3.6rem;bottom:3.6rem;z-index:40;width:min(19rem,calc(100vw - 2rem));overflow:auto;background:#fff;border:1px solid var(--line2);border-radius:.8rem;padding:.6rem .7rem .9rem;display:none;box-shadow:0 20px 40px -20px rgba(0,0,0,.35)}
+#toc.open{display:block}
+#toc h5{font-size:.72rem;color:var(--faint);margin:.8rem .5rem .3rem;font-weight:600}
+#toc button{display:flex;gap:.6rem;width:100%;text-align:left;border:0;background:none;padding:.42rem .5rem;border-radius:.4rem;font-size:.86rem;cursor:pointer}
+#toc button i{font-style:normal;color:var(--faint);min-width:1.4rem;font-variant-numeric:tabular-nums}
+#toc button:hover{background:var(--panel)}
+#toc button.cur{background:var(--ink);color:#fff}
+#toc button.cur i{color:#bbb}
+#tmr{position:fixed;right:1.2rem;top:3.6rem;z-index:35;background:#fff;border:1px solid var(--line2);border-radius:.9rem;padding:.8rem .9rem;box-shadow:0 20px 40px -24px rgba(0,0,0,.35);display:grid;gap:.6rem;width:15.5rem}
+#tmr.hide{display:none}
+.tm-p{display:flex;gap:.3rem}
+.tm-p button{flex:1;border:1px solid var(--line2);background:#fff;border-radius:.45rem;padding:.3rem 0;font-size:.78rem;cursor:pointer}
+.tm-p button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tm-m{display:flex;align-items:center;gap:.4rem}
+#tm-num{flex:1;font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tm-m button{border:1px solid var(--line2);background:#fff;border-radius:.45rem;padding:.35rem .6rem;font-size:.78rem;cursor:pointer}
+.tm-m .go{background:var(--ink);color:#fff;border-color:var(--ink)}
+#tmr.warn #tm-num{color:#c26a00}
+#tmr.over #tm-num{color:var(--em)}
+
+/* ---------- 좁은 화면 ---------- */
+@media (max-width:760px){
+  #steps{padding:0 .7rem}
+  #steps button:not(.on){font-size:0;padding:.4rem .25rem}
+  #steps .gap{width:.35rem}
+  .slide{padding:1.3rem 1.1rem}
+  h2{font-size:2rem}
+  .lead{font-size:1rem}
+  .two,.lanes,.smap,.tech3,.segs,.mg2,.abot,.qx{grid-template-columns:minmax(0,1fr)}
+  .two{gap:2rem}
+  .cov{grid-template-columns:minmax(0,1fr);gap:2.4rem}
+  .cov h1{font-size:3.1rem}
+  .flow5{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:2.2rem}
+  .par{margin-left:0}
+  .goal{flex-direction:column;align-items:stretch}
+  .goal>.arr{align-self:center;transform:rotate(90deg)}
+  .fr{font-size:1.05rem}
+  .scn{grid-template-columns:minmax(0,1fr)}
+  .scn-l{display:none}
+  .scn ol{grid-template-columns:minmax(0,1fr)}
+  .scn li{grid-template-rows:auto;grid-template-columns:1.8rem minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .scn li.key>i::after{display:none}
+  .tech3{gap:.6rem}
+  .tech3 .fb{padding:.85rem 1rem}
+  .tech3 .fb ol{margin-top:.45rem;gap:.3rem}
+  .fx{padding-top:.5rem}
+  .note{margin-top:1.3rem}
+  .board{padding:.6rem}
+  .fsec{padding:1.7rem .45rem .5rem}
+  .frow{grid-template-columns:2.3rem repeat(4,minmax(0,1fr));gap:.25rem}
+  .sk{font-size:.62rem;padding:.3rem .32rem .25rem;min-height:2.6rem}
+  .sk .au{display:none}
+  .frow.hd b{font-size:.56rem}
+  .gn{font-size:.6rem}
+  .row4{gap:.7rem}
+  .stc+.stc::before,.stc+.stc::after{display:none}
+  .later{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .panels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tl{grid-template-columns:minmax(0,1fr);padding:0 0 0 1.8rem;gap:1.4rem}
+  .tl::before{left:.45rem;right:auto;top:.4rem;bottom:.4rem;width:2px;height:auto}
+  .tl li::before{left:-1.8rem;top:.15rem}
+  #hud{padding:0 .5rem 0 1rem}
+  #hud .l span,.hb kbd,#b-fs{display:none}
+}
+
+/* 움직임 줄이기 설정이면 바로 마지막 모습 */
+@media (prefers-reduced-motion:reduce){
+  .demo,.demo *{transition:none !important}
+}
+
+/* ---------- 인쇄 ---------- */
+@media print{
+  @page{size:16in 9in;margin:0}
+  html,body{height:auto;overflow:visible}
+  #steps,#hud,#bar,#notes,#toc,#tmr,.dctl{display:none !important}
+  .slide{position:relative;inset:auto;top:auto;bottom:auto;height:100vh;opacity:1;visibility:visible;break-after:page;overflow:hidden}
+}
+</style>
+</head>
+<body>
+
+<nav id="steps" aria-label="진행 단계"></nav>
+
+<main>
+
+<!-- 1 -->
+<section class="slide cover" data-title="표지">
+  <div class="wrap cov">
+    <div>
+      <p class="k">웹프로그래밍개론 · 9주차</p>
+      <h1>팀 토의와<br>피드백</h1>
+    </div>
+    <figure class="cfig" aria-hidden="true">
+      <div class="t5" data-fill="t5"></div>
+      <figcaption>다섯 팀, 모두의 아이디어를 하나로</figcaption>
+    </figure>
+  </div>
+  <aside class="notes"><ul><li>팀별로 앉게 하고 팀 프로젝트 시트를 열게 하기 (링크는 eTL)</li></ul></aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="오늘 진행">
+  <div class="wrap">
+    <h2>오늘 진행</h2>
+    <p class="lead">세 가지가 함께 진행됩니다.</p>
+    <div class="body lanes">
+      <div class="lane dk"><i>모든 팀</i><b>팀 토의</b><p>팀 프로젝트 시트를 채우며 각자의 조각을 하나로 엮고, 알파 버전까지 정합니다.</p></div>
+      <div class="lane"><i>한 사람씩 · 작가님</i><b>개인 과제 피드백</b><p>팀마다 한 사람씩 돌아가며 부릅니다. 라운지 서울 오픈콜에 지원한 사람은 조금 더 길게 받을 수 있습니다.</p></div>
+      <div class="lane"><i>팀을 돌며 · 강사</i><b>팀 과제 피드백</b><p>강사가 팀마다 돌며 피드백합니다. 설치에 대해 조언을 구하고 싶은 것이 있다면 작가님께도 물을 수 있습니다.</p></div>
+    </div>
+    <p class="note">개인 피드백으로 잠깐 빠져도 팀 토의는 계속합니다.</p>
+  </div>
+  <aside class="notes"><ul><li>개인 피드백 순서는 팀을 번갈아(A1 → B1 → E1 → F1 → G1 → A2 …). 한 팀에서 두 사람이 한꺼번에 빠지지 않게</li><li>오픈콜 지원자는 순서를 뒤에 모으면 길게 하기 쉬움</li><li>설치에 대한 팀 질문은 개인 피드백이 끝난 뒤 남는 시간에</li></ul></aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="진행 순서">
+  <div class="wrap">
+    <h2>진행 순서</h2>
+    <ol class="body flow5">
+      <li><i>1</i><b>왜 이 질문인가</b><span>이 질문을 고른 이유를 이야기하고, ② 질문을 다듬습니다.</span></li>
+      <li><i>2</i><b>조각 쓰기 · 묶기</b><span>각자 조용히 여러 장 쓰고, 비슷한 것끼리 묶습니다.</span></li>
+      <li><i>3</i><b>묶음마다 정하기 · 엮기</b><span>묶음마다 이야기해 붙일 것을 정하고, ⑤를 씁니다.</span></li>
+      <li><i>4</i><b>구체화하기</b><span>⑥ 사용 장면, ⑦ 화면과 기술, 배울 것 찾기</span></li>
+      <li><i>5</i><b>알파 정하기</b><span>⑧ 알파 버전, ⑨ 누가 무엇을</span></li>
+    </ol>
+    <p class="par">이 동안 <b>개인 과제 피드백</b>과 <b>팀 과제 피드백</b>이 함께 진행됩니다. 들은 팀 피드백은 ⑩에 적습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>대략: 이유 · 질문 15분 · 조각 쓰기 5분 + 묶기 15분 · 묶음마다 정하기 · 엮기 25분 · 구체화 25분 · 알파 10분. 현장에서 조정. 2명 팀은 2 · 3단계를 줄이고 4단계를 늘림</li><li>⑤까지는 꼭 오늘. ⑥ ~ ⑨는 할 수 있는 데까지</li></ul></aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="팀 과제의 목표">
+  <div class="wrap">
+    <h2>팀 과제의 목표</h2>
+    <p class="lead">질문은 그대로 두고, 모두의 조각을 엮어 새 형태로 만듭니다.</p>
+    <div class="body goal" aria-hidden="true">
+      <div class="gcard"><span class="lb">개인 과제</span><span class="qchip">질문</span><div class="ppl"><i></i></div><p>한 사람이 만든 형태</p></div>
+      <span class="arr"></span>
+      <div class="gcard team"><span class="lb">팀 과제</span><span class="qchip">같은 질문</span><div class="ppl"><i></i><i></i><i></i><i></i><i></i></div><p>모두의 아이디어를 엮은 <b>새로운 형태</b></p></div>
+    </div>
+    <p class="note">대표 질문이 누군가의 개인 과제에서 나왔다면, 무엇이 달라졌는지 팀 시트 ③에 적습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>OT에서 말한 '한 명의 아이디어를 채택하는 과정이 아니다'를 다시 짚기</li><li>개인 과제를 그대로 가져온 팀이 있으면 ③을 다시 보게 하기</li></ul></aside>
+</section>
+
+<section class="slide" data-title="왜 엮어야 하나">
+  <div class="wrap">
+    <h2>왜 엮어야 하나</h2>
+    <p class="lead">지난주에 질문은 같이 다듬어 왔을 것 · 오늘은 그 질문에 <b>각자의 조각</b>을 더해 혼자서는 안 나오던 방향으로 갑니다</p>
+    <div class="body why">
+      <div class="wl">
+        <h3>혼자서는 안 나오던 방향</h3>
+        <ul>
+          <li><b>모두의 의견이 조금씩 들어간 질문</b><span>내 조각이 들어 있으면 내 프로젝트가 됨 · 11주차까지 각자 끝까지 만들 이유</span></li>
+          <li><b>서로 다른 시각이 합쳐진 질문</b><span>질문을 낸 사람 혼자서는 떠올리기 어려운 방향 · 팀으로 하는 이유</span></li>
+          <li><b>조각을 낼 때 가져올 것</b><span>내 전공에서 아는 것 · 내가 겪어 본 것 · 개인 과제에서 이미 만든 것</span></li>
+          <li><b>예) 전공 · 경험이 조각이 되는 방식</b><span>심리학 → 사람이 멈추는 순간 · 음악 → 소리 10초 · 통계 → 무엇을 세어 보여 줄지 · 기숙사에서 밤을 새 본 경험 → 새벽 3시의 화면</span></li>
+        </ul>
+      </div>
+      <div class="syn" aria-label="조각 둘을 더해 질문이 바뀌는 예시">
+        <span class="lb">예) 두 사람의 조각을 더하면</span>
+        <div class="srow"><div class="sk" style="--c:var(--y)">낯선 창밖 사진을 한 장씩 넘긴다<small>질문을 낸 사람 · 개인 과제에서</small></div><span class="arr"></span><div class="sk" style="--c:var(--b)">창가에서 10초 녹음한다<small>다른 팀원 · 음악 전공</small></div></div>
+        <p class="sres">"지금 이 시각 다른 사람의 창밖은 어떻게 생겼을까?" → <em>"지금 깨어 있는 창들은 어떤 소리를 내고 있을까?"</em></p>
+        <span class="lb">질문을 낸 사람 혼자서는 나오기 어려운 질문 · 두 사람 다 자기 조각이 들어 있음</span>
+      </div>
+    </div>
+    <p class="note">바뀐 내용은 ③ 개인 과제와 달라진 점에 한 줄로 · 대표 질문의 가산점은 질문이 바뀌어도 그대로</p>
+  </div>
+  <aside class="notes"><ul><li>OT에서 말한 '한 명의 아이디어를 채택하는 과정이 아니다'를 이유와 함께 다시 말하기</li><li>조각을 쓸 때 전공 · 경험을 살려 말하게 유도: "본인 전공이면 이 질문을 어떻게 보나요?" "비슷한 걸 겪어 본 적 있나요?"</li><li>대표 질문을 낸 사람에게: 질문이 바뀌어도 가산점은 그대로라고 미리 말해 두기</li><li>개인 과제를 그대로 가져온 팀은 ③을 다시 보게 하기</li></ul></aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="팀 프로젝트 시트">
+  <div class="wrap">
+    <h2>팀 프로젝트 시트</h2>
+    <p class="lead">오늘은 팀 프로젝트 시트를 채우며 진행합니다. 순서대로 채우면 프로젝트가 구체화됩니다.</p>
+    <div class="body smap">
+      <div class="sg"><i>지난주 보드에 쓴 것</i><ol>
+        <li><i>①</i>팀 이름 (임시)</li>
+        <li><i>②</i>우리의 질문<em>왜 이 질문인가</em></li>
+        <li><i>③</i>개인 과제와 달라진 점</li>
+        <li><i>④</i>팀원 아이디어</li>
+      </ol></div>
+      <div class="sg dk"><i>오늘 채울 것</i><ol>
+        <li><i>⑤</i>팀 아이디어<em>조각 쓰기 · 묶기 · 엮기</em></li>
+        <li><i>⑥</i>사용 장면<em>구체화하기</em></li>
+        <li><i>⑦</i>화면과 기술<em>구체화하기</em></li>
+        <li><i>⑧</i>알파 버전<em>알파 정하기</em></li>
+        <li><i>⑨</i>10주차까지 누가 무엇을<em>알파 정하기</em></li>
+        <li><i>⑩</i>피드백 기록<em>피드백</em></li>
+        <li class="opt"><i>+</i>과제전 미리 그려 보기<em>선택</em></li>
+      </ol></div>
+    </div>
+    <p class="note">시트 링크는 eTL에 있습니다. 한 사람이 화면을 띄우고 함께 보며 채우고, 못 정한 칸은 비워 두고 넘어갑니다.</p>
+  </div>
+  <aside class="notes"><ul><li>① ~ ④는 지난주 보드에서 가져온 것. 비어 있는 팀은 1단계에서 같이 채우게 하기</li><li>⑤까지는 꼭 오늘, ⑥ ~ ⑨는 할 수 있는 데까지</li></ul></aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-phase="팀 토의" data-title="왜 이 질문인가">
+  <div class="wrap">
+    <h2>왜 이 질문인가</h2>
+    <p class="lead">한 사람씩 1분 · 말하고 포스트잇 한 장에 적기</p>
+    <div class="body rsn">
+      <div class="fb dk"><i>한 사람 한 장 · 내 색</i><b>이 질문을 고른 이유</b><ol><li><i>1</i>이 질문에서 마음에 든 부분</li><li><i>2</i>내 개인 과제에서 가져올 수 있는 것 하나</li><li><i>3</i>(있으면) 바꾸고 싶지 않은 부분</li></ol>
+        <p class="fx">1이 바로 안 나오면 하나 골라 시작</p>
+        <ul class="cks pick"><li>이 말이 마음에 들어서 (예: '지금 깨어 있는')</li><li>내가 겪은 일과 닿아서 (예: 잠 안 오는 밤)</li><li>전공에서 아는 것과 이어져서 (예: 심리학 · 음악)</li><li>만들고 싶은 화면이 떠올라서 (예: 창이 넘어가는 화면)</li><li>개인 과제를 이어 갈 수 있어서 (예: 날씨 지도)</li><li>그 밖에 (직접 적기)</li></ul>
+        <p class="fx">듣는 사람은 질문만 · 다 들은 뒤 ② 다듬기</p></div>
+      <div class="board rsnb" aria-label="질문을 고른 이유 포스트잇 예시"><p class="exq"><b>예시 질문</b>지금 이 시각, 다른 사람의 창밖은 어떻게 생겼을까? (대표 질문)</p>
+        <div class="sk" style="--c:var(--y)"><i class="k">팀원 1</i>개인 과제로 날씨 지도를 만들었는데, 숫자 대신 다른 사람이 보는 하늘을 그대로 보여 주고 싶었음<i class="au">가져올 것 · 지도 화면 코드</i></div>
+        <div class="sk" style="--c:var(--b)"><i class="k">팀원 2</i>개인 과제에서 밤 소리를 녹음했음. 창밖 사진에 소리를 붙여 보고 싶음<i class="au">가져올 것 · 녹음 버튼</i></div>
+        <div class="sk" style="--c:var(--g)"><i class="k">팀원 3</i>'지금 같이 깨어 있는 사람'이라는 부분이 마음에 들었음. 이 부분은 바꾸고 싶지 않음<i class="au">가져올 것 · 시간대 계산</i></div>
+      </div>
+    </div>
+    <p class="note">②가 비어 있는 팀: 이 포스트잇을 보며 ② 처음 쓰기 · 대표 질문을 낸 사람도 한 장</p>
+  </div>
+  <aside class="notes"><ul><li>이유가 서로 달라도 괜찮다고 말해 두기. 그 차이에서 조각이 나옴</li><li>이유 포스트잇은 시트 ② 위쪽에 붙여 두게 하기(③에도 쓰임)</li><li>대표 질문이 방법 문장인 팀(E)은 "무슨 문제를 다루고 싶나"를 먼저. 소재부터 모으기</li></ul></aside>
+</section>
+
+<section class="slide" data-phase="팀 토의" data-title="왜 네 칸으로 넓히나">
+  <div class="wrap">
+    <h2>왜 네 칸으로 넓히나<span class="tag">② 네 칸</span></h2>
+    <p class="lead">한 줄 질문은 만들기 시작할 때 손이 안 감 · <b>누가 · 언제 · 무엇을 하면 · 어떻게 될까</b>가 다 있어야 첫 화면 · 손으로 할 일 · 확인할 것이 나옴</p>
+    <div class="body four">
+      <p class="exq"><b>예시 질문</b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</p>
+      <div class="fcols">
+        <div class="fc" style="--c:var(--y)"><i>누가 <em>대상 사용자</em></i><b>어떤 사람이 · 어떤 상태로</b><p class="ex">밤에 잠이 안 오는 사람이</p><span class="tl">이어지는 곳</span><ul class="to"><li>⑥ 사용 장면의 첫 줄</li><li>⑧ 알파 테스트 · 누구에게</li><li>과제전 · 처음 본 사람이 해 볼 일</li></ul></div>
+        <div class="fc" style="--c:var(--b)"><i>언제 <em>사용 상황</em></i><b>어떤 순간 · 어디서 여나</b><p class="ex">지금 이 시각에</p><span class="tl">이어지는 곳</span><ul class="to"><li>⑥ 장면의 상황 (어디서 · 몇 시에)</li><li>⑦ 첫 화면에 보일 것 (시각 · 날짜)</li><li>⑧ 테스트를 시킬 시간</li></ul></div>
+        <div class="fc" style="--c:var(--g)"><i>무엇을 하면 <em>행동</em></i><b>손으로 하는 일 한 가지</b><p class="ex">깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면</p><span class="tl">이어지는 곳</span><ul class="to"><li>⑤ 조각 · 그대로 첫 조각이 됨</li><li>⑦ 화면과 기술 · 넘기기, 올리기</li><li>⑧ 알파의 ★ 단계</li></ul></div>
+        <div class="fc" style="--c:var(--v)"><i>어떻게 될까 <em>기대 효과</em></i><b>눈에 보이는 행동 + 기대하는 효과</b><p class="ex">자기 창밖도 찍어 올린다 · 기대: 모르는 사람과 같이 깨어 있다는 느낌</p><span class="tl">이어지는 곳</span><ul class="to"><li>⑧ 확인할 것 · 이러면 맞다</li><li>팀 피드백 · 무엇이 남나</li><li>과제전 · Wow 포인트</li></ul></div>
+      </div>
+    </div>
+    <p class="note">'즐거움' · '위로' · '경계' 같은 큰 단어는 눈에 보이는 행동으로 · 칸이 비어 있으면 그 칸만 채움 · 네 칸을 이으면 다음 장의 가설 한 줄</p>
+  </div>
+  <aside class="notes"><ul><li>HCI 식으로 읽으면 대상 사용자 · 사용 상황 · 행동 · 기대 효과. 용어는 괄호 안에만 두고 학생에게는 네 칸 이름으로 말하기</li><li>'어떻게 될까'는 두 겹: 눈에 보이는 행동(올린다 · 센다)과 기대 효과(친밀감 · 안심). 알파 테스트에서 세는 것은 행동 쪽, 효과는 끝나고 한마디로 물어서 확인</li><li>네 칸은 8주차 보드의 네 요소 그대로. 새 틀을 주는 것이 아니라 뒤 시트와 이어지는 이유를 설명</li><li>'어떻게 될까'를 '재미있어진다'처럼 쓰면 알파에서 확인할 수 없음. 화면에 남는 것(사진 한 장, 글 한 줄)으로</li><li>B처럼 ④에 완결된 앱이 여럿인 팀: 각 앱의 '무엇을 하면'을 조각으로 떼어 내게 하기</li></ul></aside>
+</section>
+
+<section class="slide" data-phase="팀 토의" data-title="네 칸을 이으면 가설 한 줄">
+  <div class="wrap">
+    <h2>네 칸을 이으면 가설 한 줄<span class="tag">② → ⑧</span></h2>
+    <p class="lead">네 칸이 다 있으면 질문이 <b>확인할 수 있는 문장</b>이 됨 · 어떻게 될까는 <b>눈에 보이는 행동</b>과 <b>기대 효과</b> 두 겹으로</p>
+    <div class="body hy2">
+      <div class="hyp"><span class="lb">네 칸을 이으면 · 확인할 수 있는 가설 한 줄</span>
+        <p><b style="--c:var(--y)">밤에 잠이 안 오는 사람이</b> <b style="--c:var(--b)">지금 이 시각</b> <b style="--c:var(--g)">낯선 창밖을 한 장씩 넘기면</b> → <b style="--c:var(--v)">자기 창밖도 찍어 올릴 것이다</b> <span class="eff">기대 효과 · 모르는 사람과 같이 깨어 있다는 느낌</span></p>
+        <p class="chkline">⑧에서 확인 · 3명 중 2명이 묻지 않고 올림 → 가설 맞음 · 올리지 않음 → 멈춘 곳이 고칠 곳 · '느낌'은 끝나고 한마디로 물어 봄</p>
+      </div>
+      <div class="two">
+        <div class="fb"><i>알파 테스트에서 셈</i><b>눈에 보이는 행동</b><ul class="cks opt inl"><li class="on">올린다</li><li>넘긴다</li><li>멈춘다</li><li>이어서 쓴다</li><li>다시 온다</li><li>몇 명이 · 몇 초 안에</li></ul><p class="d">숫자로 셀 수 있는 것 · '이러면 맞다'의 재료</p></div>
+        <div class="fb"><i>끝나고 한마디로 물어 봄</i><b>기대 효과</b><ul class="cks opt inl"><li class="on">같이 깨어 있다는 느낌</li><li>안심</li><li>낯선 사람이 덜 낯섦</li><li>다시 오고 싶음</li><li>그 밖에</li></ul><p class="d">큰 단어 그대로 두어도 됨 · 대신 행동 하나와 짝을 지어 둠</p></div>
+      </div>
+      <div class="hyp alt2"><span class="lb">하나 더 · 다른 질문이면</span>
+        <p><b style="--c:var(--y)">수업이 막 끝난 학생이</b> <b style="--c:var(--b)">강의실 앞 큰 화면에서</b> <b style="--c:var(--g)">한 줄 메모를 남기면</b> → <b style="--c:var(--v)">다음 사람이 그 줄에 이어서 쓸 것이다</b> <span class="eff">기대 효과 · 모르는 사람과 한 글을 만들었다는 느낌</span></p>
+      </div>
+    </div>
+    <p class="note">누가 칸이 '사람들' · '누구나'면 좁히기 · 효과만 있고 행동이 없으면 알파에서 확인할 수 없음 · 가설 한 줄은 시트 ②에 적어 둠</p>
+  </div>
+  <aside class="notes"><ul><li>HCI 식 용어(대상 사용자 · 사용 상황 · 행동 · 기대 효과)는 괄호 안에만. 학생에게는 네 칸 이름으로</li><li>'느낌'은 테스트에서 세지 않고 끝나고 한마디로 묻기. 세는 것은 행동 쪽</li><li>대표 질문이 방법 문장인 팀(E)은 가설이 안 나옴 → 누가 · 어떻게 될까부터 채우게</li></ul></aside>
+</section>
+
+<section class="slide q6" data-phase="팀 토의" data-title="질문 다시 보기">
+  <div class="wrap">
+    <h2>질문 다시 보기</h2>
+    <p class="lead"><b>대표 질문에서 꼭 남길 것 하나</b> → 네 칸 중 <b>빈 칸만</b> 채우기. 틀 문장에 맞출 필요 없음.</p>
+    <div class="body">
+      <ol class="qflow">
+        <li><i>1 · 대표 질문</i><span class="lb">카드에 적힌 그대로</span><b>지금 이 시각, 다른 사람의 창밖은 어떻게 생겼을까?</b></li>
+        <span class="arr"></span>
+        <li class="keep"><i>2 · 꼭 남길 것</i><span class="lb">한 가지만</span><b>낯선 사람의 창밖</b></li>
+        <span class="arr"></span>
+        <li class="ours"><i>3 · 우리의 질문</i><span class="lb">우리 말로 한 문장 · 틀에 안 맞아도 됨</span><b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</b></li>
+      </ol>
+      <div class="qchk">
+        <p class="lb"><b>네 칸 점검</b> 처음부터 있던 칸은 그대로 · 비어 있던 칸만</p>
+        <div class="segs">
+          <div class="seg was" style="--c:var(--y)"><i>누가</i><b>밤에 잠이 안 오는 사람이</b><em>비어 있던 칸 → 채움</em></div>
+          <div class="seg" style="--c:var(--b)"><i>언제</i><b>지금 이 시각에</b><em>처음부터 있음</em></div>
+          <div class="seg" style="--c:var(--g)"><i>무엇을 하면</i><b>깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면</b><em>있음 · '본다'를 손으로 하는 일로</em></div>
+          <div class="seg was" style="--c:var(--v)"><i>어떻게 될까</i><b>자기 창밖도 찍어 올리고 싶어질까?</b><em>비어 있던 칸 → 채움</em></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">②가 비어 있으면 대표 질문을 1에 그대로 적고 시작 · '취향', '즐거움', '문제' 같은 큰 단어는 눈에 보이는 것으로</p>
+  </div>
+  <aside class="notes"><ul><li>문장을 틀에 맞추라고 하지 않기. 우리 말로 한 문장이면 됨. 틀 문장(___한 사람이 ___할 때, 웹에서 ___하면 ___할까?)은 시트에 있으니 막히는 팀에게만</li><li>순서: 남길 것 하나 → 네 칸 중 빈 칸 찾기 → 빈 칸만 채우기. 네 칸이 다 있으면 문장은 손대지 않기</li><li>'취향', '즐거움', '문제' 같은 큰 단어는 눈에 보이는 것으로 바꾸게 하기</li><li>점검 질문 세 개는 답을 적지 않아도 됨. 이야기해 봤으면 시트에 체크</li><li>누가 + 어떻게 될까가 나중에 알파 테스트의 '확인할 것'이 된다고 미리 말해 두기</li><li>13번 팀: 카드에 적힌 형태는 두고 질문에서 다시 출발</li></ul></aside>
+</section>
+
+<section class="slide" data-phase="팀 토의" data-title="점검 질문 세 가지">
+  <div class="wrap">
+    <h2>점검 질문 세 가지<span class="tag">②를 쓴 뒤</span></h2>
+    <p class="lead">답을 길게 쓰지 않아도 됨 · 해당하는 것에 ☑ · 이야기해 봤으면 시트에 ✓</p>
+    <div class="body pats chk3">
+      <div class="pat"><i>1</i><b>왜 이 주제인가?</b>
+        <p class="hw">이 주제가 어디서 왔나 · 하나 이상</p><ul class="cks opt"><li class="on">내가 겪은 일 (예: 잠이 안 오는 밤)</li><li>주변 사람에게서 본 것 (예: 새벽마다 깨어 있는 룸메이트)</li><li>전공 · 수업에서 만난 것 (예: 외로움에 대한 연구)</li><li class="on">평소에 궁금하던 것 (예: 다른 도시의 지금 하늘)</li><li>개인 과제를 하다 생긴 질문 (예: 날씨 지도에 사람이 없었음)</li><li>그 밖에</li></ul>
+        <div class="exb"><span class="exl">예시에서</span><p>남긴 것 <b>낯선 사람의 창밖</b> ← 내가 겪은 일 + 평소에 궁금하던 것 <em>✓</em></p></div></div>
+      <div class="pat"><i>2</i><b>왜 웹이어야 하나?</b>
+        <p class="hw">웹이라서 되는 것 · 하나는 있어야 함</p><ul class="cks opt"><li class="on">모르는 사람과 (예: 처음 보는 사람의 사진이 섞임)</li><li class="on">지금 동시에 (예: 같은 시각에 켜진 창)</li><li>날마다 쌓여서 (예: 한 달 치 창밖)</li><li class="on">멀리 있는 사람에게 (예: 다른 도시 · 다른 나라)</li><li>링크 하나로 (예: 설치 없이 폰에서 바로)</li><li>그 밖에</li></ul>
+        <div class="exb"><span class="exl">예시에서</span><p>셋 해당 · 앱이나 종이로는 같은 시각의 낯선 창을 못 모음 <em>✓</em></p></div></div>
+      <div class="pat"><i>3</i><b>누가 만나고 무엇이 남나?</b>
+        <p class="hw">누가</p><ul class="cks opt inl"><li class="on">모르는 사람끼리</li><li>친구 · 가족</li><li>지나가는 관객</li><li>미래의 나</li><li>그 밖에</li></ul><p class="hw">무엇이 남나</p><ul class="cks opt inl"><li class="on">사진 한 장</li><li>글 한 줄</li><li>소리</li><li>그림 · 선</li><li>숫자 · 기록</li><li>그 밖에</li></ul>
+        <div class="exb"><span class="exl">예시에서</span><p>누가 <b>밤에 잠이 안 오는 사람 · 모르는 사람끼리</b> · 남는 것 <b>자기 창밖 사진 한 장</b> → ⑧ 확인할 것: 넘기다가 자기 창밖도 올릴까? <em>✓</em></p></div></div>
+    </div>
+    <p class="note">하나라도 ✓가 안 되면 ②로 돌아가 남길 것이나 빈 칸을 다시 봄</p>
+  </div>
+  <aside class="notes"><ul><li>세 질문은 8주차 보드와 시트에 있는 그대로. 답을 적게 하지 말고 이야기만</li><li>2번에서 네 가지 중 하나도 없으면 "앱이나 종이로 해도 같은가?"를 물어 보기</li><li>3번의 '남는 것'이 '즐거움', '위로' 같은 큰 단어면 화면에 남는 것(사진, 글, 기록)으로 바꾸게 하기</li></ul></aside>
+</section>
+
+<!-- 6b -->
+<section class="slide" data-phase="팀 토의" data-title="질문 예시 네 가지">
+  <div class="wrap">
+    <h2>질문 예시 네 가지<span class="tag">설명용</span></h2>
+    <p class="lead">네 칸이 다 들어 있는 질문 네 개 · 놀이 · 발견 · 기록 · 관계. 칸을 채우는 방법을 보기 위한 예시이고, 우리 질문은 우리 대표 질문에서 출발.</p>
+    <ol class="body qx">
+      <li><i>놀이 <em>함께 그리기</em></i><p><mark style="--c:var(--y)">버스를 기다리는 사람이</mark> <mark style="--c:var(--b)">심심해서 휴대폰을 꺼냈을 때,</mark> 웹에서 <mark style="--c:var(--g)">손가락으로 선 하나를 긋고 모르는 사람의 선과 이어 붙이면</mark> <mark style="--c:var(--v)">처음 보는 사람과 그림 한 장을 같이 완성할까?</mark></p><small>처음 질문: 모르는 사람과 그림을 같이 그릴 수 있을까?</small></li>
+      <li class="run"><i>발견 <em>오늘의 예시 · 뒤 슬라이드로 이어짐</em></i><p><mark style="--c:var(--y)">밤에 잠이 안 오는 사람이</mark> <mark style="--c:var(--b)">지금 이 시각에,</mark> 웹에서 <mark style="--c:var(--g)">같이 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면</mark> <mark style="--c:var(--v)">자기 창밖도 찍어 올리고 싶어질까?</mark></p><small>처음 질문: 지금 이 시각, 다른 사람의 창밖은 어떻게 생겼을까?</small></li>
+      <li><i>기록 <em>같은 자리, 다른 날</em></i><p><mark style="--c:var(--y)">매일 같은 길로 다니는 사람이</mark> <mark style="--c:var(--b)">늘 지나치는 모퉁이에 섰을 때,</mark> 웹에서 <mark style="--c:var(--g)">그 자리 사진을 한 장 찍어 어제 사진 위에 겹쳐 보면</mark> <mark style="--c:var(--v)">아무것도 안 바뀐 줄 알았던 길의 변화를 알아챌까?</mark></p><small>처음 질문: 매일 보는 길은 정말 그대로일까?</small></li>
+      <li><i>관계 <em>단어 하나</em></i><p><mark style="--c:var(--y)">오래 연락 못 한 친구가 문득 떠오른 사람이</mark> <mark style="--c:var(--b)">연락하기엔 머쓱한 밤에,</mark> 웹에서 <mark style="--c:var(--g)">둘만 아는 단어 하나를 적어 두면</mark> <mark style="--c:var(--v)">친구도 언젠가 같은 단어를 적어 둘까?</mark></p><small>처음 질문: 말을 걸지 않고도 생각났다고 전할 수 있을까?</small></li>
+    </ol>
+    <p class="qkey"><span><i style="--c:var(--y)"></i>누가</span><span><i style="--c:var(--b)"></i>언제</span><span><i style="--c:var(--g)"></i>무엇을 하면</span><span><i style="--c:var(--v)"></i>어떻게 될까</span></p>
+  </div>
+  <aside class="notes"><ul><li>네 예시 모두 '사용자에게 일어나는 변화'로 끝남. "___을 만들면 좋을까?"는 기능 제안이지 질문이 아님</li><li>큰 단어('즐거움', '소통', '취향')가 하나도 없는 것을 같이 확인하기. 모두 화면에서 보이는 것으로 적혀 있음</li><li>어느 예시도 특정 팀의 질문이 아님. 예시에 끌려가지 않게, 우리 대표 질문에서 꼭 남길 부분부터 정하게 하기</li><li>'웹이어야 하나?'에 각 예시가 어떻게 답하는지 한 번 묻기: 모르는 사람과 같이, 지금 동시에, 날마다 쌓여서, 멀리 있는 사람에게</li></ul></aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-phase="팀 토의" data-title="조각 쓰기 · 묶기">
+  <div class="wrap">
+    <h2>조각 쓰기 · 묶기</h2>
+    <p class="lead">각자 조용히 5분 · 내 색 포스트잇에 <b>만들 수 있는 조각</b> 여러 장(3장 안팎) → <b>비슷한 것끼리 묶기</b> → 묶음에 이름</p>
+    <div class="body demo board" data-demo="affinity" data-stages="3" data-dur="1600,2400,1500" aria-label="조각을 쓰고 비슷한 것끼리 묶는 예시">
+      <p class="exq"><b>예시 질문</b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</p>
+      <div class="af2">
+        <div class="fsec"><span class="fttl">1 · 각자 쓰기 (내 줄)</span>
+          <div class="wrow"><span class="gn">팀원 1</span>
+            <div class="sk pop at1 dim2" id="w11" style="--c:var(--y);--d:0">창밖 사진을 한 장씩 넘기는 카드 화면<i class="au">팀원 1</i></div>
+            <div class="sk pop at1 dim2" id="w12" style="--c:var(--y);--d:3">내 창밖 찍어 올리기 버튼<i class="au">팀원 1</i></div>
+            <div class="sk pop at1 dim2" id="w13" style="--c:var(--y);--d:6">창 밑에 도시와 시각<i class="au">팀원 1</i></div>
+          </div>
+          <div class="wrow"><span class="gn">팀원 2</span>
+            <div class="sk pop at1 dim2" id="w21" style="--c:var(--b);--d:1">창가 소리 10초 녹음해 붙이기<i class="au">팀원 2</i></div>
+            <div class="sk pop at1 dim2" id="w22" style="--c:var(--b);--d:4">소리 태그 한 단어 ('빗소리')<i class="au">팀원 2</i></div>
+          </div>
+          <div class="wrow"><span class="gn">팀원 3</span>
+            <div class="sk pop at1 dim2" id="w31" style="--c:var(--g);--d:2">시간대별로 지금 켜진 창의 수 세기<i class="au">팀원 3</i></div>
+            <div class="sk pop at1 dim2" id="w32" style="--c:var(--g);--d:5">같은 시각에 켜진 창만 골라 보기<i class="au">팀원 3</i></div>
+          </div>
+          <p class="mph out1">각자 조용히 씁니다<br>형태는 자유 · 화면, 데이터, 소리, 글, 그 밖에</p>
+        </div>
+        <div class="fsec"><span class="fttl">2 · 비슷한 것끼리 묶기 → 3 · 이름</span>
+          <div class="grps">
+            <div class="grp"><i class="gl pop at3" style="--d:0">창 넘겨 보기</i>
+              <div class="sk sm at2" data-from="#w11" style="--c:var(--y);--d:0">창밖 사진을 한 장씩 넘기는 카드 화면</div>
+              <div class="sk sm at2" data-from="#w32" style="--c:var(--g);--d:1">같은 시각에 켜진 창만 골라 보기</div>
+              <div class="sk sm at2" data-from="#w13" style="--c:var(--y);--d:2">창 밑에 도시와 시각</div>
+            </div>
+            <div class="grp"><i class="gl pop at3" style="--d:1">내 창 올리기</i>
+              <div class="sk sm at2" data-from="#w12" style="--c:var(--y);--d:3">내 창밖 찍어 올리기 버튼</div>
+              <div class="sk sm at2" data-from="#w21" style="--c:var(--b);--d:4">창가 소리 10초 녹음해 붙이기</div>
+              <div class="sk sm at2" data-from="#w22" style="--c:var(--b);--d:5">소리 태그 한 단어 ('빗소리')</div>
+            </div>
+            <div class="grp"><i class="gl pop at3" style="--d:2">지금 몇이 깨어 있나</i>
+              <div class="sk sm at2" data-from="#w31" style="--c:var(--g);--d:6">시간대별로 지금 켜진 창의 수 세기</div>
+            </div>
+          </div>
+          <p class="mph out2">쓴 것을 다 붙인 뒤<br>비슷한 것끼리 모읍니다</p>
+        </div>
+      </div>
+      <div class="dctl"><ol class="dsteps"><li><button type="button"><b>1</b>각자 쓰기</button></li><li><button type="button"><b>2</b>비슷한 것끼리 묶기</button></li><li><button type="button"><b>3</b>묶음에 이름</button></li></ol><button type="button" class="replay">↻ 다시 보기</button></div>
+    </div>
+    <p class="note"><span>쓰는 동안은 말 없이 · ④의 아이디어는 조각으로 나눠 쓰기 · 묶을 때 한 장씩 읽고 놓기 · 혼자 남은 조각도 묶음 하나</span><button type="button" class="tbtn" data-timer="300">5분 타이머</button></p>
+  </div>
+  <aside class="notes"><ul><li>조용히 쓰는 5분이 핵심. 말하면서 쓰면 먼저 말한 사람 쪽으로 쏠림</li><li>형태를 정해 주지 않기. 화면 · 데이터 · 소리 · 글 · 종이 · 영상 무엇이든. 단, "만들 수 있는 것"으로</li><li>묶기는 어피니티 다이어그램 방식: 한 장씩 읽고 비슷한 것 옆에 놓기, 묶음 이름은 마지막에. 이름은 묶음의 공통 내용(무엇을 하는 조각들인가)</li><li>묶음 하나가 보통 ⑥ 사용 장면의 한 단계나 ⑦의 화면 하나가 됨. 미리 말해 두면 다음 단계가 빠름</li><li>개인 피드백으로 나가는 사람은 쓰기만 먼저 끝내고 다녀와도 됨</li></ul></aside>
+</section>
+
+<!-- 8 -->
+
+<section class="slide" data-phase="팀 토의" data-title="묶음마다 정하기 · 엮기">
+  <div class="wrap">
+    <h2>묶음마다 정하기 · 엮기</h2>
+    <p class="lead">묶음 하나씩 이야기 · 조각마다 두 가지(질문에 답하나 · 11주차까지 되나) → ○ △ × · △는 크기를 줄여서 붙이기 → 한 문장 + 기여 표</p>
+    <div class="body demo board" data-demo="weave" data-stages="4" data-dur="1500,1500,1800,2200" aria-label="묶음마다 붙일 것을 정해 엮는 예시">
+      <p class="exq"><b>예시 질문</b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</p>
+      <div class="ad2">
+        <div class="fsec"><span class="fttl">묶음마다 ○ △ ×</span>
+          <div class="grps g3">
+            <div class="grp"><i class="gl">창 넘겨 보기</i>
+              <div class="sk sm core" id="v1" style="--c:var(--y)">창밖 사진을 한 장씩 넘기는 카드 화면<b class="mk2 pop at1" style="--d:0">○○</b></div>
+              <div class="sk sm" id="v2" style="--c:var(--g)">같은 시각에 켜진 창만 골라 보기<b class="mk2 tri pop at1" style="--d:1">○△</b><span class="shr pop at2" style="--d:0">줄이기 → 알파에서는 전부 보여 주기</span></div>
+              <div class="sk sm" id="v3" style="--c:var(--y)">창 밑에 도시와 시각<b class="mk2 pop at1" style="--d:2">○○</b></div>
+            </div>
+            <div class="grp"><i class="gl">내 창 올리기</i>
+              <div class="sk sm core" id="v4" style="--c:var(--y)">내 창밖 찍어 올리기 버튼<b class="mk2 pop at1" style="--d:3">○○</b></div>
+              <div class="sk sm" id="v5" style="--c:var(--b)">창가 소리 10초 녹음해 붙이기<b class="mk2 x pop at1" style="--d:4">○×</b><span class="shr pop at2" style="--d:1">다음 버전 후보 · 팀원 2</span></div>
+              <div class="sk sm" id="v6" style="--c:var(--b)">소리 태그 한 단어<b class="mk2 pop at1" style="--d:5">○○</b></div>
+            </div>
+            <div class="grp"><i class="gl">지금 몇이 깨어 있나</i>
+              <div class="sk sm" id="v7" style="--c:var(--g)">시간대별로 지금 켜진 창의 수 세기<b class="mk2 tri pop at1" style="--d:6">○△</b><span class="shr pop at2" style="--d:2">줄이기 → 알파에서는 가짜 숫자</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="fsec"><span class="fttl">⑤ 팀 아이디어</span>
+          <p class="msent at3">잠이 안 오는 사람이 지금 깨어 있는 낯선 창밖을 한 장씩 넘기다가, 자기 창밖도 소리 한 단어와 함께 올린다. 화면 위에는 지금 켜진 창의 수.</p>
+          <p class="mwho at3" style="--d:3"><span>묶음 셋 → ⑥ 사용 장면의 세 단계</span></p>
+          <div class="ctab">
+            <div class="sk at4" data-from="#v1" style="--c:var(--y);--d:0"><i class="k">팀원 1</i>카드 화면 · 올리기 버튼 · 도시와 시각<em>화면</em></div>
+            <div class="sk at4" data-from="#v6" style="--c:var(--b);--d:1"><i class="k">팀원 2</i>소리 태그 (녹음은 다음 버전)<em>사운드</em></div>
+            <div class="sk at4" data-from="#v7" style="--c:var(--g);--d:2"><i class="k">팀원 3</i>켜진 창의 수 (가짜 → 진짜) · 시각 필터는 나중에<em>데이터</em></div>
+          </div>
+          <p class="mwho at4" style="--d:4"><span>기여 표 = 역할표 · 모두 들어갔습니다</span></p>
+          <p class="mph out3">묶음마다 정하고 나면<br>여기에 ⑤가 채워집니다</p>
+        </div>
+      </div>
+      <div class="dctl"><ol class="dsteps"><li><button type="button"><b>1</b>묶음마다 ○ △ ×</button></li><li><button type="button"><b>2</b>△는 줄이기 · ×는 후보로</button></li><li><button type="button"><b>3</b>한 문장으로</button></li><li><button type="button"><b>4</b>기여 표</button></li></ol><button type="button" class="replay">↻ 다시 보기</button></div>
+    </div>
+    <p class="note">'안 돼요' 대신 '그럼 이렇게 줄이면?' · ×는 '다음 버전 후보'에 누구 것인지와 함께 · 묶음 하나 = 사용 장면의 한 단계 또는 화면 하나</p>
+  </div>
+  <aside class="notes"><ul><li>묶음 단위로 이야기하면 "누구 것이 뽑히나"가 "이 묶음에서 무엇을 붙이나"로 바뀜</li><li>두 기준만: 질문에 답하나(②의 네 칸 중 하나라도 건드리나) / 11주차까지 되나(아는 기술로, 또는 2주 안에 배워서). 좋아하나는 기준에 넣지 않기</li><li>△ 줄이는 순서: 기능 → 화면의 한 부분 → 문구 하나 → 가짜 데이터</li><li>×가 나와도 그 사람의 조각이 0이 되지 않게: 같은 사람의 다른 조각을 확인. 예시에서 팀원 2는 녹음이 ×지만 소리 태그가 들어감</li><li>기여 표는 시트의 표에 이름 · 조각 · 역할로 그대로 옮김</li></ul></aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-phase="팀 토의" data-title="사용 장면">
+  <div class="wrap">
+    <h2>사용 장면</h2>
+    <p class="lead">⑥ 사용자가 들어와서 나갈 때까지를 3 ~ 5단계로 적습니다.</p>
+    <div class="body scn">
+      <div class="scn-l" aria-hidden="true"><span></span><b>사용자가 하는 일</b><b>화면에서 일어나는 일</b></div>
+      <ol>
+        <li><i>1</i><b>잠이 안 와서 링크를 연다</b><span>지금 켜져 있는 창의 수와 창 하나가 보인다</span></li>
+        <li class="key"><i>2</i><b>낯선 창밖을 한 장 넘긴다</b><span>다른 도시의 창밖과 그곳 시각이 보인다</span></li>
+        <li><i>3</i><b>내 창밖을 찍어 올린다</b><span>내 창이 켜진 창에 더해진다</span></li>
+        <li><i>4</i><b>창을 닫는다</b><span>켜진 창의 수가 하나 줄어든다</span></li>
+      </ol>
+    </div>
+    <p class="alt"><b>다른 예시</b>함께 그리기: 연다 → <em>선 하나를 긋는다 ★</em> → 모르는 사람의 선과 이어진다 → 완성된 그림을 받는다 &nbsp;·&nbsp; 같은 자리, 다른 날: 연다 → 사진을 찍는다 → <em>어제 사진 위에 겹쳐 본다 ★</em> → 달라진 곳에 표시가 남는다</p>
+    <p class="note">사용자가 하는 일은 동사로 씁니다. ② 질문의 '무엇을 하면'이 일어나는 단계에는 ★를 붙입니다 (예시의 노란 칸).</p>
+  </div>
+  <aside class="notes"><ul><li>예시는 앞에서 합친 팀 아이디어를 이어 쓴 것. 한 장면에 사용자는 한 사람만. 다른 사람들은 '화면에서 일어나는 일' 쪽에 나타남</li><li>첫 줄은 '들어온다', 끝 줄은 '나간다'. 끝 줄이 없는 팀이 많음</li><li>화면 쪽 칸이 비어 있으면 ⑦로 넘어가기 어렵다고 알려 주기</li></ul></aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-phase="팀 토의" data-title="화면과 기술">
+  <div class="wrap">
+    <h2>화면과 기술</h2>
+    <p class="lead">⑥ 사용 장면에 나온 화면과, 그 화면을 만들 방법을 적습니다. 기술은 각자 자기 조각에 대해 적습니다.</p>
+    <div class="body tech3">
+      <div class="fb"><i>2 ~ 3개</i><b>화면</b><ol><li><i>1</i>화면 이름</li><li><i>2</i>이 화면에서 하는 일</li><li><i>3</i>손그림 사진이나 링크</li></ol><p class="fx">예) 창 넘기기 · 내 창 올리기 &nbsp;/&nbsp; 함께 그리기라면: 그리기 · 완성된 그림</p></div>
+      <div class="fb"><i>무엇이 오가나</i><b>데이터</b><ol><li><i>1</i>받는 것 (사용자가 입력)</li><li><i>2</i>남기는 것 (저장)</li><li><i>3</i>가져오는 것 (외부 데이터, API, AI)</li></ol><p class="fx">예) 받는 것 내 창밖 사진 · 남기는 것 사진과 시각 · 가져오는 것 다른 사람들의 창밖, 도시별 현재 시각</p></div>
+      <div class="fb dk"><i>어떻게 만드나 · 내 조각</i><b>기술</b><ol><li><i>1</i>지금 아는 것으로 되는 것</li><li><i>2</i>새로 알아봐야 할 것</li><li><i>3</i>AI에게 묻기: "가장 작은 버전은? 무엇부터 배워야?" → 학습 계획 한 줄</li></ol><p class="fx">예) 넘기기는 배운 것으로 됨 · 사진을 한곳에 모으는 방법은 알아볼 것 · AI에게 물어 '먼저 로컬에 사진 10장, 다음 주에 공용 저장소'</p></div>
+    </div>
+    <p class="note">기술 칸은 아는 만큼만 · AI에게 "이 조각의 가장 작은 버전과 배울 순서" 묻기 → 한 줄 → 팀 피드백 때 같이 보고 ⑨로</p>
+  </div>
+  <aside class="notes"><ul><li>팀 과제 피드백의 관점: 사용자 경험과 기술 구조</li><li>AI에게 물을 때 조각 한 문장 + 아는 기술(HTML · CSS · JS에서 배운 것)을 같이 주게 하기. 답에서 "먼저 할 것 하나"만 가져오기</li><li>AI를 쓰는 팀은 무엇을 넣고 무엇을 받는지까지 적게 하기</li></ul></aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-phase="팀 토의" data-title="알파 정하기">
+  <div class="wrap">
+    <h2>알파 정하기</h2>
+    <p class="lead">알파 = ⑥을 처음부터 끝까지 한 번 지나가는 가장 작은 버전 · 필요한 것 다 쓰기 → <b>꼭 해야 · 하면 좋은 · 나중</b> → 꼭 해야 중 <b>가짜로 둘 것</b> 표시</p>
+    <div class="body demo board" data-demo="alpha" data-stages="4" data-dur="1800,2400,1500,1500" aria-label="알파에 필요한 것을 나열하고 세 칸으로 나누는 예시">
+      <p class="exq"><b>예시 질문</b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</p>
+      <div class="fsec"><span class="fttl">1 · 만들려면 필요한 것 다 쓰기 (각자 내 색)</span>
+        <div class="need">
+          <div class="sk sm pop at1 dim2" id="n1" style="--c:var(--y);--d:0">창밖 카드 화면</div>
+          <div class="sk sm pop at1 dim2" id="n2" style="--c:var(--y);--d:1">한 장씩 넘기기</div>
+          <div class="sk sm pop at1 dim2" id="n3" style="--c:var(--y);--d:2">내 창밖 사진 올리기</div>
+          <div class="sk sm pop at1 dim2" id="n4" style="--c:var(--g);--d:3">올린 사진이 목록에 들어감</div>
+          <div class="sk sm pop at1 dim2" id="n5" style="--c:var(--t);--d:4">다른 사람들의 창밖 사진</div>
+          <div class="sk sm pop at1 dim2" id="n6" style="--c:var(--y);--d:5">창 밑 도시와 시각</div>
+          <div class="sk sm pop at1 dim2" id="n7" style="--c:var(--b);--d:6">소리 태그 한 단어</div>
+          <div class="sk sm pop at1 dim2" id="n8" style="--c:var(--g);--d:7">지금 켜진 창의 수</div>
+          <div class="sk sm pop at1 dim2" id="n9" style="--c:var(--g);--d:8">같은 시각 창만 보기</div>
+          <div class="sk sm pop at1 dim2" id="n10" style="--c:var(--b);--d:9">창밖 소리 녹음</div>
+          <div class="sk sm pop at1 dim2" id="n11" style="--c:var(--v);--d:10">회원 가입</div>
+          <div class="sk sm pop at1 dim2" id="n12" style="--c:var(--v);--d:11">도시별로 모아 보기</div>
+        </div>
+      </div>
+      <div class="tri3">
+        <div class="fsec"><span class="fttl">2 · 꼭 해야 · 없으면 ★ 단계를 끝까지 못 감</span>
+          <div class="tcol">
+            <div class="sk sm at2" data-from="#n1" style="--c:var(--y);--d:0">창밖 카드 화면</div>
+            <div class="sk sm at2" data-from="#n2" style="--c:var(--y);--d:1">한 장씩 넘기기</div>
+            <div class="sk sm at2" data-from="#n3" style="--c:var(--y);--d:2">내 창밖 사진 올리기</div>
+            <div class="sk sm at2" data-from="#n4" style="--c:var(--g);--d:3">올린 사진이 목록에 들어감</div>
+            <div class="sk sm at2 fake3" data-from="#n5" style="--c:var(--t);--d:4">다른 사람들의 창밖 사진<i class="fk pop at3">가짜 · 미리 넣어 둔 10장</i></div>
+            <div class="sk sm at2" data-from="#n6" style="--c:var(--y);--d:5">창 밑 도시와 시각</div>
+          </div>
+        </div>
+        <div class="fsec"><span class="fttl">하면 좋은 · 확인할 것이 더 잘 보임</span>
+          <div class="tcol">
+            <div class="sk sm at2" data-from="#n7" style="--c:var(--b);--d:6">소리 태그 한 단어</div>
+            <div class="sk sm at2 fake3" data-from="#n8" style="--c:var(--g);--d:7">지금 켜진 창의 수<i class="fk pop at3" style="--d:1">가짜 숫자</i></div>
+            <div class="sk sm at2" data-from="#n9" style="--c:var(--g);--d:8">같은 시각 창만 보기</div>
+          </div>
+        </div>
+        <div class="fsec dash"><span class="fttl">나중 · 알파 테스트 뒤에</span>
+          <div class="tcol">
+            <div class="sk sm at2" data-from="#n10" style="--c:var(--b);--d:9">창밖 소리 녹음</div>
+            <div class="sk sm at2" data-from="#n11" style="--c:var(--v);--d:10">회원 가입</div>
+            <div class="sk sm at2" data-from="#n12" style="--c:var(--v);--d:11">도시별로 모아 보기</div>
+          </div>
+        </div>
+      </div>
+      <p class="alpline pop at4">알파 = 꼭 해야 칸만으로 · 1 링크 열기 → 2 ★ 낯선 창 넘기기 → 3 내 창 올리기 → 4 닫기 · 끝까지 한 번</p>
+      <div class="dctl"><ol class="dsteps"><li><button type="button"><b>1</b>필요한 것 다 쓰기</button></li><li><button type="button"><b>2</b>세 칸으로</button></li><li><button type="button"><b>3</b>가짜로 둘 것</button></li><li><button type="button"><b>4</b>끝까지 한 번</button></li></ol><button type="button" class="replay">↻ 다시 보기</button></div>
+    </div>
+    <p class="note">기준 · 꼭 해야 = 없으면 ★ 단계를 끝까지 못 감 · 하면 좋은 = 있으면 확인할 것이 더 잘 보임 · 나중 = 알파 테스트 뒤 · 코드보다 먼저 종이나 피그잼 화면으로 해 봐도 됨</p>
+  </div>
+  <aside class="notes"><ul><li>OT 로드맵의 11주차 수직 프로토타입이 이것. 예쁘지 않아도 끝까지 이어져 있는 것이 먼저</li><li>1단계는 조각 쓰기처럼 각자 내 색으로. 화면 · 기능 · 데이터 · 콘텐츠(미리 넣을 사진, 문구) · 그 밖에. 콘텐츠를 빠뜨리는 팀이 많음</li><li>'가짜'는 미리 넣어 둔 데이터, 또는 팀원이 컴퓨터 역할을 대신하는 것(오즈의 마법사). 가짜여도 ★ 단계는 진짜로 동작해야 함</li><li>꼭 해야 칸이 8개를 넘으면 ★ 단계를 다시 좁히게 하기</li><li>다른 예시(말로): 함께 그리기의 알파는 '선 긋기와 이어 붙이기'만 진짜, 상대방의 선은 미리 그려 둔 그림(가짜), 저장 · 공유는 나중</li></ul></aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-phase="팀 토의" data-title="알파 테스트 미리 보기">
+  <div class="wrap">
+    <h2>알파 테스트 미리 보기</h2>
+    <p class="lead">알파를 만든 뒤 이렇게 테스트 · 오늘은 ⑧에 <b>확인할 것 · 누구에게 · 시켜 볼 일 · 이러면 맞다</b> 네 줄만</p>
+    <div class="body demo board" data-demo="test" data-stages="5" data-dur="600,1800,1800,1800,1800" aria-label="알파 테스트를 하는 예시">
+      <div class="fsec tcheck"><span class="fttl">⑧ 확인할 것</span>
+        <p class="q">낯선 창밖을 넘기다 보면, 자기 창밖도 찍어 올릴까?</p>
+        <p class="q2"><b>누구에게</b>밤에 깨어 있는 친구 3명 · 설명 없이 링크만</p><p class="q2"><b>시켜 볼 일</b>"창을 세 장만 넘겨 보세요" · 그다음은 말하지 않음</p><p class="q2"><b>이러면 맞다</b>3명 중 2명 이상이 묻지 않고 자기 창밖을 올림</p><p class="q2"><b>아니면</b>멈춘 곳이 고칠 곳</p>
+        <i class="res pop at5">3명 중 2명 올림<br>맞다</i>
+      </div>
+      <div class="panels">
+        <div class="panel rise at1"><h4><i>1</i>할 일만 알려 주기</h4>
+          <div class="scr" aria-hidden="true"><i class="in"></i><i class="sl" style="--c:#ffd2d2"></i><i class="sl" style="--c:#cfe6ff"></i><i class="sl" style="--c:#d4f3d4"></i></div>
+          <p class="who2"><i class="av" style="--c:var(--y2)"></i>팀원</p>
+          <p class="bub">창을 세 장만 넘겨 보세요.</p>
+        </div>
+        <div class="panel rise at2"><h4><i>2</i>소리 내어 생각하며</h4>
+          <div class="scr" aria-hidden="true"><i class="in"></i><i class="sl" style="--c:#ffd2d2"></i><i class="sl" style="--c:#cfe6ff"></i><i class="sl" style="--c:#d4f3d4"></i><i class="cd"></i><svg class="cs" viewBox="0 0 16 16"><path d="M2 1l11.5 6.6-5.2 1.3-2.4 5z" fill="#1a1a1a" stroke="#fff" stroke-width="1.2"/></svg></div>
+          <p class="who2"><i class="av" style="--c:#9b9b96"></i>테스트하는 사람</p>
+          <p class="bub">음… 여긴 어디지? 지금 몇 시지?</p>
+        </div>
+        <div class="panel rise at3"><h4><i>3</i>돕지 않고 막힌 곳 적기</h4>
+          <div class="scr" aria-hidden="true"><i class="in"></i><i class="sl" style="--c:#ffd2d2"></i><i class="sl" style="--c:#cfe6ff"></i><i class="sl" style="--c:#d4f3d4"></i><i class="cd"></i></div>
+          <p class="who2"><i class="av" style="--c:var(--y2)"></i>팀원이 적는 메모</p>
+          <div class="sk sm pop at3" style="--c:var(--p);--d:3">어디 창인지 몰라 5초 멈춤</div>
+        </div>
+        <div class="panel rise at4"><h4><i>4</i>끝나고 TAG로 듣기</h4>
+          <div class="tag3">
+            <div class="sk mini pop at4" style="--c:var(--y);--d:2"><i class="k">T 좋았던 점</i>넘길 때마다 켜진 창 수가 바뀌어요</div>
+            <div class="sk mini pop at4" style="--c:var(--b);--d:3"><i class="k">A 궁금한 점</i>내 창은 어떻게 올려요?</div>
+            <div class="sk mini pop at4" style="--c:var(--g);--d:4"><i class="k">G 제안할 점</i>창 밑에 도시 이름을 보여 주세요</div>
+          </div>
+        </div>
+      </div>
+      <p class="fixline pop at5" style="--d:3">고칠 곳 → 창 밑에 도시와 시각 보이기</p>
+      <div class="dctl"><ol class="dsteps"><li><button type="button"><b>1</b>할 일만</button></li><li><button type="button"><b>2</b>소리 내어</button></li><li><button type="button"><b>3</b>막힌 곳 적기</button></li><li><button type="button"><b>4</b>TAG</button></li><li><button type="button"><b>5</b>결과 확인</button></li></ol><button type="button" class="replay">↻ 다시 보기</button></div>
+    </div>
+  </div>
+  <aside class="notes"><ul><li>테스트는 알파를 만든 뒤(12주차 무렵). 오늘은 ② 질문을 '확인할 것' 한 줄로 바꾸고, 누구에게 · 시켜 볼 일 · 이러면 맞다를 한 줄씩</li><li>'이러면 맞다'는 숫자로: 몇 명 중 몇 명이, 몇 초 안에, 묻지 않고. 그래야 알파 뒤에 맞다 · 아니다가 갈림</li><li>2 ~ 3명이면 충분: 적은 사람으로도 큰 문제는 대부분 드러남. 여러 사람이 같은 곳에서 막히면 그곳부터 고침</li><li>TAG는 8주차에 쓰던 그대로</li></ul></aside>
+</section>
+
+<section class="slide" data-phase="팀 토의" data-title="기술 · 배울 것 · 분담">
+  <div class="wrap">
+    <h2>기술 · 배울 것 · 분담<span class="tag">⑦ 기술 · ⑨</span></h2>
+    <p class="lead">꼭 해야 칸의 항목마다 · 필요한 기술 → <b>아는 것 / 배울 것</b> → 맡는 사람 → 10주차까지 할 일</p>
+    <div class="body">
+      <p class="exq"><b>예시 질문</b>밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을 한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?</p>
+      <table class="tt">
+        <thead><tr><th>꼭 해야</th><th>필요한 기술</th><th>아는 것 / 배울 것</th><th>맡는 사람</th><th>10주차까지</th></tr></thead>
+        <tbody>
+          <tr><td>창밖 카드 화면 · 한 장씩 넘기기</td><td>HTML · CSS · JS 이벤트</td><td><em class="know">아는 것</em>수업에서 한 것으로 됨</td><td><i class="dot" style="--c:var(--y)"></i>팀원 1</td><td>카드 화면 HTML 한 장</td></tr>
+          <tr><td>내 창밖 사진 올리기</td><td>파일 입력 · 미리 보기</td><td><em class="learn">배울 것</em>input type="file" · FileReader</td><td><i class="dot" style="--c:var(--y)"></i>팀원 1</td><td>사진 고르면 화면에 뜨게</td></tr>
+          <tr><td>올린 사진이 목록에 들어감 · 다른 사람 사진 보기</td><td>여러 사람이 같이 쓰는 저장소</td><td><em class="learn">배울 것</em>AI에게: "로그인 없이 사진 10장 모으는 가장 작은 방법은?" → 방법 하나 고르기</td><td><i class="dot" style="--c:var(--g)"></i>팀원 3</td><td>고른 방법으로 사진 1장 올려 보기</td></tr>
+          <tr><td>창 밑 도시와 시각</td><td>Date · 시간대</td><td><em class="know">아는 것</em>시각 표시 · <em class="learn">배울 것</em>시간대 변환</td><td><i class="dot" style="--c:var(--g)"></i>팀원 3</td><td>시각 표시 코드</td></tr>
+          <tr><td>소리 태그 한 단어</td><td>텍스트 입력 · 저장</td><td><em class="know">아는 것</em></td><td><i class="dot" style="--c:var(--b)"></i>팀원 2</td><td>태그 입력 칸 · 팀 저장소와 공용 CLAUDE.md 만들기</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">배울 것은 AI에게 "이 항목의 가장 작은 버전은? 무엇부터 배워야?"를 물어 한 줄로 · 한 사람이 하나 이상 · 저장소 만들기 · 화면 손그림 · 알아볼 기술 찾기도 ⑨에</p>
+  </div>
+  <aside class="notes"><ul><li>⑦ 기술 칸과 ⑨를 한 표로. 꼭 해야 항목 → 기술 → 아는 것 / 배울 것 → 사람 순서로 채우면 분담이 저절로 나옴</li><li>배울 것이 한 사람에게 몰리면 다시 나누기. 2주 안에 배울 수 있는 크기인지 묻기</li><li>AI에게 물을 때 아는 기술(HTML · CSS · JS에서 배운 것)과 항목 한 문장을 같이 주게 하기. 답에서 "먼저 할 것 하나"만 가져오기</li><li>10주차 수업이 저장소 · 기본 하네스이므로 저장소 만들기는 누군가 꼭 맡기</li></ul></aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-phase="피드백" data-title="개인 과제 피드백">
+  <div class="wrap">
+    <h2>개인 과제 피드백</h2>
+    <p class="lead">한 사람씩 차례로 작가님께 짧게 피드백을 받습니다.</p>
+    <ol class="body pts">
+      <li><i>1</i><div><b>팀마다 한 사람씩 돌아가며</b><span>한 팀에서 두 사람이 한꺼번에 빠지지 않게 부릅니다.</span></div></li>
+      <li><i>2</i><div><b>나가기 전에</b><span>조각 표의 내 줄을 채워 두고, 노트북이나 링크를 열어 둡니다.</span></div></li>
+      <li><i>3</i><div><b>보여 줄 것</b><span>지금까지 만든 것, 그리고 11주차까지 더 해 볼 것 하나</span></div></li>
+    </ol>
+    <p class="note">라운지 서울 오픈콜에 지원한 사람은 조금 더 길게 피드백을 받을 수 있습니다. 개인 과제는 11주차까지 계속 발전시켜 제출합니다.</p>
+  </div>
+  <aside class="notes"><ul><li>짧게 돌아가야 모두 받을 수 있음. 시간을 보며 조절</li><li>오픈콜 지원자는 순서를 뒤에 모으면 길게 하기 쉬움</li></ul></aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-phase="피드백" data-title="팀 과제 피드백">
+  <div class="wrap">
+    <h2>팀 과제 피드백</h2>
+    <p class="lead">강사가 팀을 돌며 피드백합니다.</p>
+    <div class="body two">
+      <div class="fb"><i>팀이 먼저 짧게</i><b>지금까지 정한 것</b><ol><li><i>1</i>② 우리의 질문</li><li><i>2</i>⑤ 팀 아이디어와 누구의 조각이 들어갔는지</li><li><i>3</i>⑧ 알파에 꼭 넣을 것</li></ol></div>
+      <div class="fb dk"><i>강사</i><b>세 가지 피드백</b><ol><li><i>1</i>살릴 것 하나</li><li><i>2</i>덜어낼 것 하나</li><li><i>3</i>다음에 해 볼 것 하나</li></ol></div>
+    </div>
+    <p class="note">들은 피드백은 ⑩에 적습니다. 설치에 대해 조언을 구하고 싶은 것이 있다면 작가님께도 물을 수 있습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>관점은 사용자 경험과 기술 구조: 왜 이 주제인가, 왜 웹이어야 하나, 누가 쓰고 무엇을 얻나, 그 경험에 맞는 기술 구조는 무엇인가</li><li>한 사람 아이디어로 기운 팀은 기여 표의 색을 다시 보게 하기</li><li>개인 과제를 그대로 가져온 팀이 있으면 ③을 다시 보게 하기</li></ul></aside>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-phase="피드백" data-title="과제전 미리 그려 보기">
+  <div class="wrap">
+    <h2>과제전 미리 그려 보기<span class="tag">선택</span></h2>
+    <p class="lead">남는 시간에 한 번 상상해 보는 칸 · ☐에 체크하고 짧게 · 나중에 바뀌어도 됨 · 시트에 같은 칸이 있음</p>
+    <div class="body ex4">
+      <div class="fb"><i>1분</i><b>처음 본 사람이 해 볼 일</b><p class="d">우리 웹에서 1분 동안 무엇을 해 보나</p><p class="fx">예) 창을 몇 장 넘기고, 전시장 창밖을 찍어 올린다</p></div>
+      <div class="fb dk"><i>어디서 "오!" 하나</i><b>Wow 포인트</b><ul class="cks"><li>첫 화면을 봤을 때</li><li class="on">내가 한 행동이 바로 화면에 보일 때</li><li class="on">다른 사람의 흔적을 발견할 때</li><li>끝나고 가져가는 것</li><li>그 밖에</li></ul><p class="fx">예) 내가 올린 창이 다음 사람 화면에 바로 뜸</p></div>
+      <div class="fb"><i>어떻게 놓이나</i><b>설치 형태</b><ul class="cks"><li>노트북 한 대</li><li class="on">큰 화면 + 관객 폰(QR)</li><li>프로젝터</li><li>종이 · 사물과 함께</li><li>그 밖에</li></ul><p class="fx">예) 벽에 창들이 넘어가고, 관객은 폰으로 자기 창을 올림</p></div>
+      <div class="fb"><i>작가님께</i><b>조언을 구하고 싶은 것</b><p class="d">설치를 생각하면 궁금한 것</p><p class="fx">예) 설명 없이 첫 행동을 하게 하려면 첫 화면에 무엇이 있어야 할까요?</p></div>
+    </div>
+    <p class="note">설치에 대해 조언을 구하고 싶은 것이 있다면 작가님께도 물을 수 있습니다.</p>
+  </div>
+  <aside class="notes"><ul><li>전시 형태를 지금 정하는 칸이 아님. 체크는 상상. '처음 본 사람의 1분'은 ⑥ 사용 장면을 과제전 상황에 대입해 보는 것</li><li>Wow 포인트가 알파의 ★ 단계와 겹치면 방향이 맞는 것. 겹치지 않으면 ★를 다시 보기</li><li>설치 형태는 과제전이 웹사이트 + 아카이빙 영상 형태라는 것을 함께 말해 두기. 본격적인 전시 계획은 베타 이후에</li></ul></aside>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-phase="다음 주" data-title="다음 주까지">
+  <div class="wrap">
+    <h2>다음 주까지</h2>
+    <ol class="body tl">
+      <li class="today"><i>오늘</i><b>9주차</b><span>조각을 엮어 팀 아이디어로, 구체화, 알파 정하기</span></li>
+      <li><i>팀</i><b>10주차</b><span>저장소 · 기본 하네스 구성, ⑨에 적은 일과 각자의 학습 계획 한 줄</span></li>
+      <li><i>팀 · 각자</i><b>11주차</b><span>알파(수직 프로토타입) 완성, 개인 과제 제출</span></li>
+      <li><i>팀</i><b>12주차부터</b><span>알파 테스트, 고치기, 베타 시연</span></li>
+    </ol>
+    <p class="box"><b>팀 프로젝트 시트</b>오늘 채운 시트는 다음 주에도 이어서 고쳐 씁니다.</p>
+    <p class="box"><b>개인 과제</b>오늘 받은 피드백을 반영해 계속 발전시킵니다. 제출 기한과 방법은 eTL 공지를 봅니다.</p>
+  </div>
+  <aside class="notes"><ul><li>팀 일정은 OT 로드맵(10주 저장소 · 기본 하네스, 11주 수직 프로토타입, 12~14주 테스트 · 기술 개선 · 베타 시연)과 같게 씀</li></ul></aside>
+</section>
+
+</main>
+
+<div id="notes" aria-live="polite"></div>
+<div id="toc"><div id="toclist"></div></div>
+<div id="tmr" class="hide" role="timer">
+  <div class="tm-p">
+    <button type="button" data-sec="120" class="on">2분</button>
+    <button type="button" data-sec="300">5분</button>
+    <button type="button" data-sec="600">10분</button>
+    <button type="button" data-sec="900">15분</button>
+  </div>
+  <div class="tm-m"><span id="tm-num">2:00</span><button type="button" id="tm-go" class="go">시작</button><button type="button" id="tm-reset">처음으로</button></div>
+</div>
+<footer id="hud">
+  <div class="l"><b>웹프로그래밍개론 9주차</b><span id="hud-t"></span></div>
+  <div class="r">
+    <button type="button" class="hb" id="b-toc">목차<kbd>T</kbd></button>
+    <button type="button" class="hb" id="b-notes">메모<kbd>N</kbd></button>
+    <button type="button" class="hb" id="b-tmr">타이머</button>
+    <button type="button" class="hb" id="b-fs">전체 화면<kbd>F</kbd></button>
+    <button type="button" class="hb nav" id="b-prev" aria-label="이전">‹</button>
+    <span id="pg"></span>
+    <button type="button" class="hb nav" id="b-next" aria-label="다음">›</button>
+  </div>
+</footer>
+<div id="bar"></div>
+
+<script>
+(function(){
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const pad = n => String(n).padStart(2, '0');
+
+  /* 반복되는 그림 조각 (팀 이름은 보드의 팀 테이블과 같게) */
+  const fills = {
+    t5: () => [['A', '--y'], ['B', '--b'], ['E', '--g'], ['F', '--v'], ['G', '--t']].map(([L, c]) => '<div style="--c:var(' + c + ')"><b>' + L + '</b>' + '<i></i>'.repeat(5) + '</div>').join('')
+  };
+  $$('[data-fill]').forEach(el => { const f = fills[el.dataset.fill]; if (f) el.insertAdjacentHTML('afterbegin', f()); });
+
+  /* ---------- 움직이는 예시 ----------
+     .demo에 단계 클래스(s1, s2 …)를 차례로 붙인다.
+     data-from이 있는 요소는 그 단계에 원래 포스트잇 자리에서 날아온다. */
+  const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  const demos = $$('.demo');
+  function clearFly(el){
+    $$('[data-from]', el).forEach(t => { clearTimeout(t._ft); t.style.transition = ''; t.style.transform = ''; t.style.transformOrigin = ''; t.style.zIndex = ''; });
+  }
+  function fly(el, t, i){
+    const src = $(t.dataset.from, el);
+    if (!src) return;
+    const a = src.getBoundingClientRect(), b = t.getBoundingClientRect();
+    if (!a.width || !b.width || !b.height) return;
+    t.style.transition = 'none';
+    t.style.transformOrigin = '0 0';
+    t.style.zIndex = '6';
+    t.style.transform = 'translate(' + (a.left - b.left) + 'px,' + (a.top - b.top) + 'px) scale(' + (a.width / b.width) + ',' + (a.height / b.height) + ')';
+    void t.offsetWidth;
+    t._ft = setTimeout(() => {
+      t.style.transition = 'transform .8s cubic-bezier(.2,.75,.25,1), opacity .25s ease';
+      t.style.transform = '';
+    }, 80 + i * 170);
+  }
+  function demoSet(el, k, animate){
+    const n = +el.dataset.stages;
+    if (!animate) { el.classList.add('noanim'); clearFly(el); }
+    for (let i = 1; i <= n; i++) el.classList.toggle('s' + i, i <= k);
+    el._k = k;
+    $$('.dsteps button', el).forEach((b, i) => { b.classList.toggle('on', i + 1 === k); b.classList.toggle('done', i + 1 < k); });
+    if (animate) $$('.at' + k + '[data-from]', el).forEach((t, i) => fly(el, t, i));
+    else { void el.offsetWidth; el.classList.remove('noanim'); }
+  }
+  function demoStop(el){ clearTimeout(el._t); }
+  function demoPlay(el){
+    demoStop(el);
+    const n = +el.dataset.stages;
+    if (RM.matches) { demoSet(el, n, false); return; }
+    demoSet(el, 0, false);
+    const dur = (el.dataset.dur || '').split(',').map(Number);
+    const tick = () => {
+      const k = el._k;
+      if (k >= n) return;
+      el._t = setTimeout(() => { demoSet(el, k + 1, true); tick(); }, dur[k] || 1600);
+    };
+    tick();
+  }
+  demos.forEach(el => {
+    $$('.dsteps button', el).forEach((b, i) => b.addEventListener('click', e => {
+      demoStop(el);
+      if (RM.matches) { demoSet(el, i + 1, false); }
+      else {
+        demoSet(el, i, false);
+        requestAnimationFrame(() => requestAnimationFrame(() => demoSet(el, i + 1, true)));
+      }
+      e.currentTarget.blur();
+    }));
+    const r = $('.replay', el);
+    if (r) r.addEventListener('click', e => { demoPlay(el); e.currentTarget.blur(); });
+  });
+  window.addEventListener('beforeprint', () => demos.forEach(el => { demoStop(el); demoSet(el, +el.dataset.stages, false); }));
+
+  const slides = $$('.slide');
+  const hudT = $('#hud-t'), pg = $('#pg'), bar = $('#bar');
+  const notes = $('#notes'), toc = $('#toc'), tocl = $('#toclist'), steps = $('#steps');
+  const PH = ['팀 토의', '피드백', '다음 주'];
+  let cur = 0;
+
+  /* 위쪽 단계 표시 */
+  PH.forEach((p, k) => {
+    if (k) steps.insertAdjacentHTML('beforeend', '<span class="gap"></span>');
+    const first = slides.findIndex(s => s.dataset.phase === p);
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<i>' + (k + 1) + '</i>' + p;
+    b.addEventListener('click', () => { if (first > -1) show(first); b.blur(); });
+    steps.appendChild(b);
+  });
+  const stepBtns = $$('button', steps);
+
+  /* 목차 */
+  let last = null;
+  slides.forEach((s, k) => {
+    const ph = s.dataset.phase || '안내';
+    if (ph !== last) { tocl.insertAdjacentHTML('beforeend', '<h5>' + ph + '</h5>'); last = ph; }
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<i>' + (k + 1) + '</i>' + (s.dataset.title || '');
+    b.addEventListener('click', () => { show(k); toc.classList.remove('open'); $('#b-toc').classList.remove('on'); });
+    tocl.appendChild(b);
+  });
+  const tocBtns = $$('button', tocl);
+
+  function show(i){
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => { s.classList.toggle('active', k === cur); if (k === cur) s.scrollTop = 0; });
+    const s = slides[cur], title = s.dataset.title || '';
+    hudT.textContent = '· ' + title;
+    pg.textContent = (cur + 1) + ' / ' + slides.length;
+    bar.style.width = ((cur + 1) / slides.length * 100) + '%';
+    const pi = PH.indexOf(s.dataset.phase || '');
+    stepBtns.forEach((b, k) => { b.classList.toggle('on', k === pi); b.classList.toggle('done', pi > -1 && k < pi); });
+    document.body.classList.toggle('is-cover', cur === 0);
+    const n = s.querySelector('.notes');
+    notes.innerHTML = '<h4>진행 메모 · ' + (cur + 1) + ' ' + title + '</h4>' + (n ? n.innerHTML : '<ul><li>메모 없음</li></ul>');
+    tocBtns.forEach((b, k) => b.classList.toggle('cur', k === cur));
+    demos.forEach(demoStop);
+    $$('.demo', s).forEach(demoPlay);
+    try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {}
+  }
+  const toggle = (el, btn) => { el.classList.toggle('open'); if (btn) btn.classList.toggle('on', el.classList.contains('open')); };
+  function fs(){
+    if (!document.fullscreenElement) { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen && document.exitFullscreen(); }
+  }
+  $('#b-prev').addEventListener('click', e => { show(cur - 1); e.currentTarget.blur(); });
+  $('#b-next').addEventListener('click', e => { show(cur + 1); e.currentTarget.blur(); });
+  $('#b-toc').addEventListener('click', e => { toggle(toc, $('#b-toc')); e.currentTarget.blur(); });
+  $('#b-notes').addEventListener('click', e => { toggle(notes, $('#b-notes')); e.currentTarget.blur(); });
+  $('#b-fs').addEventListener('click', e => { fs(); e.currentTarget.blur(); });
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); show(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(slides.length - 1);
+    else if (k === 't' || k === 'T') toggle(toc, $('#b-toc'));
+    else if (k === 'n' || k === 'N') toggle(notes, $('#b-notes'));
+    else if (k === 'f' || k === 'F') fs();
+    else if (k === 'Escape') { [toc, notes].forEach(el => el.classList.remove('open')); $('#b-toc').classList.remove('on'); $('#b-notes').classList.remove('on'); }
+  });
+  let tx = null, ty = null;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+  document.addEventListener('touchend', e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) { dx < 0 ? show(cur + 1) : show(cur - 1); }
+    tx = ty = null;
+  }, {passive: true});
+  window.addEventListener('hashchange', () => { const n = parseInt(location.hash.slice(1), 10); if (n && n - 1 !== cur) show(n - 1); });
+
+  /* 타이머 */
+  const tmr = $('#tmr'), num = $('#tm-num'), go = $('#tm-go');
+  let total = 120, left = 120, running = false, prev = 0, raf = 0;
+  const fmt = s => { const a = Math.abs(Math.round(s)); return (s < 0 ? '+' : '') + Math.floor(a / 60) + ':' + pad(a % 60); };
+  function paint(){
+    num.textContent = fmt(left);
+    tmr.classList.toggle('warn', left <= 30 && left > 0);
+    tmr.classList.toggle('over', left <= 0);
+  }
+  function loop(t){
+    if (!running) return;
+    left -= (t - prev) / 1000; prev = t; paint();
+    raf = requestAnimationFrame(loop);
+  }
+  function setPreset(sec){
+    total = left = sec; running = false; cancelAnimationFrame(raf); go.textContent = '시작'; paint();
+    $$('.tm-p button').forEach(b => b.classList.toggle('on', Number(b.dataset.sec) === sec));
+  }
+  go.addEventListener('click', e => {
+    running = !running; go.textContent = running ? '멈춤' : '계속';
+    if (running) { prev = performance.now(); raf = requestAnimationFrame(loop); }
+    e.currentTarget.blur();
+  });
+  $('#tm-reset').addEventListener('click', e => { setPreset(total); e.currentTarget.blur(); });
+  $$('.tm-p button').forEach(b => b.addEventListener('click', e => { setPreset(Number(b.dataset.sec)); e.currentTarget.blur(); }));
+  $('#b-tmr').addEventListener('click', e => { tmr.classList.toggle('hide'); $('#b-tmr').classList.toggle('on', !tmr.classList.contains('hide')); e.currentTarget.blur(); });
+  $$('[data-timer]').forEach(b => b.addEventListener('click', e => {
+    setPreset(Number(b.dataset.timer)); tmr.classList.remove('hide'); $('#b-tmr').classList.add('on'); e.currentTarget.blur();
+  }));
+  paint();
+
+  const start = parseInt(location.hash.slice(1), 10);
+  show(start ? start - 1 : 0);
+})();
+</script>
+</body>
+</html>
