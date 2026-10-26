@@ -407,6 +407,8 @@ h2{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.15}
 
 /* ---------- 다음 주까지 ---------- */
 .tl{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-top:1.6rem}
+.tl.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tl.five li span{font-size:.92rem}
 .tl::before{content:"";position:absolute;left:0;right:0;top:.55rem;height:2px;background:var(--line2)}
 .tl li{position:relative;min-width:0}
 .tl li::before{content:"";position:absolute;top:-1.42rem;left:0;width:.95rem;height:.95rem;border-radius:50%;background:#fff;border:2px solid var(--ink)}
@@ -1146,7 +1148,7 @@ h2{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.15}
       <div class="dctl"><ol class="dsteps"><li><button type="button"><b>1</b>할 일만</button></li><li><button type="button"><b>2</b>소리 내어</button></li><li><button type="button"><b>3</b>막힌 곳 적기</button></li><li><button type="button"><b>4</b>TAG</button></li><li><button type="button"><b>5</b>결과 확인</button></li></ol><button type="button" class="replay">↻ 다시 보기</button></div>
     </div>
   </div>
-  <aside class="notes"><ul><li>테스트는 알파를 만든 뒤(12주차 무렵). 오늘은 ② 질문을 '확인할 것' 한 줄로 바꾸고, 누구에게 · 시켜 볼 일 · 이러면 맞다를 한 줄씩</li><li>'이러면 맞다'는 숫자로: 몇 명 중 몇 명이, 몇 초 안에, 묻지 않고. 그래야 알파 뒤에 맞다 · 아니다가 갈림</li><li>2 ~ 3명이면 충분: 적은 사람으로도 큰 문제는 대부분 드러남. 여러 사람이 같은 곳에서 막히면 그곳부터 고침</li><li>TAG는 8주차에 쓰던 그대로</li></ul></aside>
+  <aside class="notes"><ul><li>테스트는 알파를 만든 뒤(11주차 알파 → 13주차 베타 시연 사이, 12주차는 특강이라 수업 밖에서). 오늘은 ② 질문을 '확인할 것' 한 줄로 바꾸고, 누구에게 · 시켜 볼 일 · 이러면 맞다를 한 줄씩</li><li>'이러면 맞다'는 숫자로: 몇 명 중 몇 명이, 몇 초 안에, 묻지 않고. 그래야 알파 뒤에 맞다 · 아니다가 갈림</li><li>2 ~ 3명이면 충분: 적은 사람으로도 큰 문제는 대부분 드러남. 여러 사람이 같은 곳에서 막히면 그곳부터 고침</li><li>TAG는 8주차에 쓰던 그대로</li></ul></aside>
 </section>
 
 <section class="slide" data-phase="팀 토의" data-title="기술 · 배울 것 · 분담">
@@ -1220,16 +1222,17 @@ h2{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.15}
 <section class="slide" data-phase="다음 주" data-title="다음 주까지">
   <div class="wrap">
     <h2>다음 주까지</h2>
-    <ol class="body tl">
+    <ol class="body tl five">
       <li class="today"><i>오늘</i><b>9주차</b><span>조각을 엮어 팀 아이디어로, 구체화, 알파 정하기</span></li>
       <li><i>팀</i><b>10주차</b><span>저장소 · 기본 하네스 구성, ⑨에 적은 일과 각자의 학습 계획 한 줄</span></li>
       <li><i>팀 · 각자</i><b>11주차</b><span>알파(수직 프로토타입) 완성, 개인 과제 제출</span></li>
-      <li><i>팀</i><b>12주차부터</b><span>알파 테스트, 고치기, 베타 시연</span></li>
+      <li><i>특강 · 팀</i><b>12주차</b><span>백엔드 · 하네스 특강 · 알파 테스트는 수업 밖에서 · 고치기</span></li>
+      <li><i>팀</i><b>13주차</b><span>베타 시연</span></li>
     </ol>
     <p class="box"><b>팀 프로젝트 시트</b>오늘 채운 시트는 다음 주에도 이어서 고쳐 씁니다.</p>
     <p class="box"><b>개인 과제</b>오늘 받은 피드백을 반영해 계속 발전시킵니다. 제출 기한과 방법은 eTL 공지를 봅니다.</p>
   </div>
-  <aside class="notes"><ul><li>팀 일정은 OT 로드맵(10주 저장소 · 기본 하네스, 11주 수직 프로토타입, 12~14주 테스트 · 기술 개선 · 베타 시연)과 같게 씀</li></ul></aside>
+  <aside class="notes"><ul><li>팀 일정: 10주 저장소 · 기본 하네스, 11주 수직 프로토타입(알파), 12주 백엔드 · 하네스 특강(알파 테스트는 수업 밖에서), 13주 베타 시연. 특강 강연자 소개는 eTL 공지로</li></ul></aside>
 </section>
 
 </main>
