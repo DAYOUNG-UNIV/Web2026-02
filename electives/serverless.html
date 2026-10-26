@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="ko" data-page="module">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선택 모듈 · 서버리스와 BaaS | 웹프로그래밍개론</title>
+<meta name="description" content="선택 모듈: 서버 한 대 없이 서버의 일을 하는 두 가지 길 — 서버리스 함수(Cloudflare Workers·Vercel·Netlify)와 BaaS(Supabase·Firebase). 키 구분, 실시간 구독, 무료 한도, 팀 프로젝트 적용 결정표.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">선택 모듈 · 서버리스와 BaaS</span>
+  <nav class="topbar-nav" aria-label="관련 자료">
+    <a href="../map.html">교안 지도</a>
+    <a href="backend.html">백엔드</a>
+    <a href="serverless.html" aria-current="page">서버리스</a>
+    <a href="genai-api.html">생성형 AI API</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<div class="layout">
+<main class="doc" id="main">
+
+  <header class="doc-head">
+    <span class="kicker">선택 모듈 · 서버 없이 서버의 일 하기</span>
+    <h1>서버리스와 BaaS</h1>
+    <p class="lead">GitHub Pages는 파일만 돌려줍니다. "여러 사람이 같이 쓰는 데이터"와 "숨겨야 하는 키"가 생기는 순간, 요청마다 코드를 실행해 줄 곳이 필요합니다. 서버 한 대를 직접 돌보지 않고 그 일을 맡기는 두 가지 길을 봅니다.</p>
+    <ul class="doc-meta">
+      <li><b>예상 시간</b> 읽기 20~30분 + 실습 30분</li>
+      <li><b>먼저 볼 것</b> 11주차 fetch·JSON·세 가지 상태, 10주차 터미널·npm (<a href="../map.html">교안 지도</a>)</li>
+      <li><b>AI 등급</b> AI ALLOWED</li>
+    </ul>
+  </header>
+
+  <section class="fit" aria-labelledby="fit-title">
+    <h2 id="fit-title">이 모듈이 맞는 프로젝트</h2>
+    <dl>
+      <div><dt>잘 맞는 경우</dt><dd><ul>
+        <li>사용자 여러 명이 같은 데이터를 보고 고쳐야 합니다. 예: 내 메모 분류 결과를 친구가 나눈 결과와 나란히 놓아 보기.</li>
+        <li>외부 API를 부르는데 키를 브라우저에 둘 수 없습니다. (생성형 AI API, 지도·날씨 API)</li>
+        <li>로그인이나 "내 것만 보기"가 팀 시트 ⑧의 ★ 단계에 들어 있습니다.</li>
+        <li>서버 한 대를 학기 내내 켜 두고 돌볼 사람이 팀에 없습니다.</li>
+      </ul></dd></div>
+      <div><dt>과한 경우</dt><dd><ul>
+        <li>데이터가 내 브라우저 안에만 있어도 되는 프로젝트. 11주차의 <code>localStorage</code>로 충분합니다.</li>
+        <li>알파 버전에서 "여럿이 같이"가 <b>가짜로 둘 것</b>에 들어 있습니다. 알파는 가짜 데이터로 먼저 끝내고, 이 모듈은 알파 테스트 뒤에 붙여도 늦지 않습니다.</li>
+        <li>팀원 모두가 터미널과 npm을 아직 한 번도 써 보지 않았습니다. 10주차 실습을 먼저 합니다.</li>
+      </ul></dd></div>
+      <div><dt>먼저 할 것</dt><dd>팀 시트 ⑦의 데이터 표(받는 것·남기는 것·가져오는 것)와 ⑧ 알파 범위를 옆에 펼쳐 둡니다. "남기는 것" 칸에 적힌 데이터가 이 모듈의 대상입니다. 비어 있다면 이 모듈은 아직 필요 없습니다.</dd></div>
+    </dl>
+  </section>
+
+  <p>진행 상황을 표시하며 따라가세요. 표시는 이 브라우저에만 저장됩니다.</p>
+  <ul class="checklist" data-checklist="mod-serverless-progress">
+    <li><label><input type="checkbox"> 01 "서버가 요청마다 코드를 실행하는가"로 우리 프로젝트의 화면을 나눌 수 있다</label></li>
+    <li><label><input type="checkbox"> 02 서버리스 함수 하나를 설계하고 실습 1의 테스트를 모두 통과시켰다</label></li>
+    <li><label><input type="checkbox"> 03 publishable key와 secret key가 있어야 할 자리를 구분해 말할 수 있다</label></li>
+    <li><label><input type="checkbox"> 04 Supabase 호출 코드와 실시간 구독 코드를 읽고, 어디에서 무엇이 일어나는지 설명할 수 있다</label></li>
+    <li><label><input type="checkbox"> 05 우리 프로젝트에 붙이는 순서를 명령까지 적었다</label></li>
+    <li><label><input type="checkbox"> 06 AI에게 맡길 일과 내가 판단할 일을 나누었다</label></li>
+    <li><label><input type="checkbox"> 07 무료 한도와 운영 주의(일시정지, 시연 전 깨우기)를 확인했다</label></li>
+    <li><label><input type="checkbox"> 08 적용 결정표를 채워 <code>docs/</code>에 붙였다</label></li>
+  </ul>
+
+  <!-- ===================================================== 01 -->
+  <section class="sec" id="when">
+    <h2>정적인가, 동적인가: 기준은 한 줄입니다</h2>
+    <p class="lead">7주차 특강에서 나온 기준을 그대로 씁니다. <b>서버가 요청마다 코드를 실행하는가.</b></p>
+    <p>GitHub Pages는 요청이 오면 저장된 파일을 그대로 돌려줍니다. 코드를 실행하지 않습니다. 그래서 누가 와도 같은 HTML을 받고, 누가 보내도 저장되지 않습니다. 11주차까지 만든 메모 앱이 "내 브라우저에서만" 동작했던 이유가 이것입니다. 데이터는 <code>localStorage</code>, 즉 내 브라우저 안에 있었습니다.</p>
+    <p>이제 팀 프로젝트의 사용 장면을 한 줄씩 보고, 어느 줄에서 "요청마다 코드 실행"이 필요한지 표시합니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>메모 앱의 사용 장면을 기준으로 나누기</caption>
+        <thead><tr><th scope="col">사용자가 하는 일</th><th scope="col">정적 호스팅으로 되나</th><th scope="col">필요한 것</th></tr></thead>
+        <tbody>
+          <tr><td>메모를 쓰고 분류한다. 내 브라우저에서만 본다.</td><td>됩니다</td><td><code>localStorage</code> (11주차)</td></tr>
+          <tr><td>같은 메모 목록을 팀원 셋이 각자의 노트북에서 본다.</td><td>안 됩니다</td><td>데이터를 두는 곳 + 읽고 쓰는 코드</td></tr>
+          <tr><td>메모를 외부 번역 API로 번역한다. 키가 필요하다.</td><td>안 됩니다</td><td>키를 대신 들고 있을 코드(프록시)</td></tr>
+          <tr><td>로그인해서 "내 메모만" 본다.</td><td>안 됩니다</td><td>인증 + 행마다 권한 규칙</td></tr>
+          <tr><td>공개 JSON 파일 하나를 읽어 차트로 그린다.</td><td>됩니다</td><td><code>fetch('data.json')</code>면 충분</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="stack-map" data-active="network server" data-flow data-note-network="오늘: 요청이 함수로 간다" data-note-server="오늘: 함수 · BaaS가 서버 대신">
+      <figcaption>웹서비스 구조 지도. 이 모듈은 아래 두 층을 "남의 서버"에 맡기는 방법입니다.</figcaption>
+    </figure>
+    <p>"안 됩니다" 줄이 하나라도 있으면 세 가지 길 중 하나를 고릅니다.</p>
+    <dl class="defs">
+      <div><dt>서버 한 대</dt><dd>Node.js + Express를 직접 켜 둡니다. 모든 것을 할 수 있지만, 켜 두고 돌보는 일도 우리 몫입니다. <a href="backend.html">백엔드 모듈</a>에서 다룹니다.</dd></div>
+      <div><dt>서버리스 함수</dt><dd>"요청 하나를 받아 응답 하나를 돌려주는 함수"만 올립니다. 켜고 끄는 일은 플랫폼이 합니다. 키를 숨기는 프록시, 작은 API에 맞습니다.</dd></div>
+      <div><dt>BaaS</dt><dd>Backend as a Service. 데이터베이스·인증·파일 저장을 콘솔에서 만들고, 브라우저에서 바로 부릅니다. "여러 사람이 같이 쓰는 데이터"를 가장 빨리 얻는 길입니다.</dd></div>
+    </dl>
+    <aside class="callout mistake">
+      <p class="callout-title">"GitHub Pages에 올렸는데 저장이 안 돼요"</p>
+      <p>Pages는 <code>POST</code>를 받을 코드가 없습니다. 콘솔에 <code>405</code>나 <code>404</code>가 보이고, 새로고침하면 데이터가 사라집니다. 저장이 필요한 줄은 이 모듈의 함수나 BaaS로 보냅니다. 화면(HTML·CSS·JS)은 그대로 Pages에 둬도 됩니다.</p>
+    </aside>
+  </section>
+
+  <!-- ===================================================== 02 -->
+  <section class="sec" id="functions">
+    <h2>함수 하나가 서버를 대신합니다</h2>
+    <p class="lead">서버리스 함수의 모양은 플랫폼이 달라도 같습니다. 요청(<code>Request</code>)을 받아 응답(<code>Response</code>)을 돌려줍니다.</p>
+    <p>세 플랫폼의 공식 "첫 함수"를 나란히 봅니다. 파일 위치와 명령만 다르고, 함수 본문은 거의 같습니다. 고른 탭은 다음에 이 페이지를 열 때도 기억됩니다.</p>
+    <div class="tabs" data-tabs="serverless-host" data-label="배포 플랫폼">
+      <section class="tab" data-tab="Cloudflare Workers" data-default>
+<pre class="code" data-lang="bash" data-file="터미널"><code>$ npm create cloudflare@latest -- my-first-worker
+$ npx wrangler dev      # 로컬에서 실행
+$ npx wrangler deploy   # *.workers.dev 주소로 배포</code></pre>
+<pre class="code" data-lang="js" data-file="src/index.js"><code>export default {
+  async fetch(request, env, ctx) {
+    return new Response("Hello World!");
+  },
+};</code></pre>
+        <p>키 같은 비밀 값은 <code>env</code>로 들어옵니다. 저장소가 아니라 <code>wrangler secret put</code>으로 넣습니다.</p>
+      </section>
+      <section class="tab" data-tab="Vercel">
+<pre class="code" data-lang="js" data-file="api/hello.js"><code>export default {
+  async fetch(request) {
+    const response = await fetch('https://api.vercel.app/products');
+    const products = await response.json();
+    return Response.json(products);
+  },
+};</code></pre>
+<pre class="code" data-lang="bash" data-file="터미널"><code>$ npm i -g vercel
+$ vercel link
+$ vercel dev        # 로컬에서 실행
+$ vercel --prod     # 배포</code></pre>
+        <p>프레임워크 없는 프로젝트에서는 루트의 <code>api/</code> 폴더 안 파일 하나가 함수 하나입니다. 비밀 값은 <code>vercel env</code>로 넣고 <code>process.env.KEY</code>로 읽습니다.</p>
+      </section>
+      <section class="tab" data-tab="Netlify">
+<pre class="code" data-lang="js" data-file="netlify/functions/hello.mjs"><code>export default async (req, context) =&gt; {
+  return new Response("Hello, world!")
+}
+
+export const config = {
+  path: "/hello",
+}</code></pre>
+<pre class="code" data-lang="bash" data-file="터미널"><code>$ npm install -g netlify-cli
+$ netlify login
+$ netlify init        # 또는 netlify link
+$ netlify dev         # http://localhost:8888
+$ netlify deploy --prod</code></pre>
+        <p>기본 주소는 <code>https://&lt;내 도메인&gt;/.netlify/functions/&lt;함수 이름&gt;</code>이고, <code>config.path</code>를 주면 그 경로로만 열립니다. 비밀 값은 Netlify 화면에서 넣습니다.</p>
+      </section>
+    </div>
+
+    <h3>메모 API를 함수 모양으로 쓰면</h3>
+    <p>11주차 메모 앱이 부르던 <code>/api/memos</code>를 Workers 모양으로 적어 봅니다. 경로와 메서드를 보고, 검사하고, 응답합니다. 이 세 단계는 어느 플랫폼이든 같습니다.</p>
+<pre class="code" data-lang="js" data-file="src/index.js · 읽기용 예"><code>export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (request.method === 'GET' &amp;&amp; url.pathname === '/api/memos') {
+      const memos = await readMemos(env);          // 데이터는 함수 밖(DB)에서 읽는다
+      return Response.json(memos);
+    }
+
+    if (request.method === 'POST' &amp;&amp; url.pathname === '/api/memos') {
+      const body = await request.json();
+      if (!body.text || !body.text.trim()) {
+        return Response.json({ error: '본문이 비어 있습니다' }, { status: 400 });
+      }
+      const memo = await saveMemo(env, { text: body.text.trim(), tag: body.tag });
+      return Response.json(memo, { status: 201 });
+    }
+
+    return new Response('Not Found', { status: 404 });
+  },
+};</code></pre>
+    <p>한 가지가 눈에 띄어야 합니다. 메모를 함수 안의 배열에 넣지 않고 <code>readMemos</code>·<code>saveMemo</code>로 밖에 둡니다. 함수는 요청이 없으면 꺼지고, 다음 요청은 다른 복사본이 받을 수 있습니다. 함수 안의 변수는 "다음 요청까지 남아 있다"고 믿을 수 없습니다. 그래서 함수는 BaaS나 데이터베이스와 짝을 이룹니다.</p>
+    <aside class="callout mistake">
+      <p class="callout-title">"함수 안의 배열에 push 했는데 가끔 사라져요"</p>
+      <p>로컬(<code>wrangler dev</code>)에서는 되는 것처럼 보입니다. 배포하면 요청마다 다른 복사본이 받을 수 있어 목록이 비었다 찼다 합니다. 저장은 데이터베이스(03의 BaaS)에 합니다.</p>
+    </aside>
+
+    <h3>실습 1 · 메모 API 함수 설계</h3>
+    <p>이 페이지의 연습 서버는 <a href="backend.html">백엔드 모듈</a>과 같은 Express 모양입니다. 서버리스 함수와 표현은 달라도 "경로·메서드 → 검사 → 응답"의 순서는 같습니다. 대응표를 먼저 보고 실습을 엽니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>Express 모양과 Workers 모양의 대응</caption>
+        <thead><tr><th scope="col">하는 일</th><th scope="col">Express(연습 서버)</th><th scope="col">Workers 함수</th></tr></thead>
+        <tbody>
+          <tr><td>경로·메서드 고르기</td><td><code>app.post('/api/memos', (req, res) =&gt; …)</code></td><td><code>if (request.method === 'POST' &amp;&amp; url.pathname === '/api/memos')</code></td></tr>
+          <tr><td>본문 읽기</td><td><code>req.body</code></td><td><code>await request.json()</code></td></tr>
+          <tr><td>거절하기</td><td><code>res.status(400).json({ error })</code></td><td><code>Response.json({ error }, { status: 400 })</code></td></tr>
+          <tr><td>비밀 값 읽기</td><td><code>process.env.KEY</code></td><td><code>env.KEY</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>서버 탭의 <code>TODO</code> 두 개를 채우면 테스트 4개가 모두 통과합니다. 테스트 탭에서 어떤 요청을 보내는지도 읽어 보세요.</p>
+    <div class="lab" data-title="메모 API 함수: 검사하고 응답하기" data-kicker="실습 1" data-active="server" data-latency="300" data-height="20rem">
+<script type="text/plain" data-lab="html">
+<form id="f">
+  <label>메모 <input id="text" autocomplete="off"></label>
+  <label>분류
+    <select id="tag"><option>공부</option><option>일정</option><option>기타</option></select>
+  </label>
+  <button>저장</button>
+</form>
+<p id="status" role="status"></p>
+<ul id="list"></ul>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+label { margin-right: .6rem; }
+[role="status"] { color: #555; }
+</script>
+<script type="text/plain" data-lab="js">
+const list = document.querySelector('#list');
+const status = document.querySelector('#status');
+
+async function load() {
+  const res = await fetch('/api/memos');
+  if (!res.ok) { status.textContent = '목록을 못 불러왔습니다 · ' + res.status; return; }
+  const memos = await res.json();
+  list.replaceChildren(...memos.map((m) => {
+    const li = document.createElement('li');
+    li.textContent = `[${m.tag}] ${m.text}`;
+    return li;
+  }));
+  status.textContent = memos.length + '개';
+  console.log('받은 개수:', memos.length);
+}
+
+document.querySelector('#f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const body = { text: document.querySelector('#text').value, tag: document.querySelector('#tag').value };
+  const res = await fetch('/api/memos', {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body)
+  });
+  if (!res.ok) { const err = await res.json(); status.textContent = '저장 실패 · ' + err.error; return; }
+  document.querySelector('#text').value = '';
+  load();
+});
+
+load();
+</script>
+<script type="text/plain" data-lab="server">
+// 이 탭이 '함수' 역할입니다. 플랫폼에서는 요청마다 실행됩니다.
+app.use(express.json());
+
+let memos = [
+  { id: 1, text: 'HTTP 상태 코드 복습', tag: '공부' },
+  { id: 2, text: '팀 시트 ⑧ 다시 읽기', tag: '일정' }
+];
+const TAGS = ['공부', '일정', '기타'];
+
+app.get('/api/memos', (req, res) => {
+  const tag = req.query.tag;
+  res.json(tag ? memos.filter((m) => m.tag === tag) : memos);
+});
+
+app.post('/api/memos', (req, res) => {
+  const { text, tag } = req.body || {};
+  // TODO 1: text가 없거나 공백뿐이면 400과 { error: '본문이 비어 있습니다' }
+  // TODO 2: tag가 TAGS에 없으면 400과 { error: '모르는 분류입니다' }
+  const memo = { id: Date.now(), text: String(text ?? '').trim(), tag };
+  memos.push(memo);
+  console.log('저장:', memo);
+  res.status(201).json(memo);
+});
+</script>
+<script type="text/plain" data-lab="test">
+const post = (body) => fetch('/api/memos', {
+  method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body)
+});
+
+test('처음 목록 2개를 그리고 개수를 알려 준다', async () => {
+  await until(() => $$('#list li').length === 2);
+  expect($('#status').textContent).toContain('2개');
+});
+
+test('빈 메모는 400으로 거절한다', async () => {
+  const res = await post({ text: '   ', tag: '공부' });
+  expect(res.status).toBe(400);
+  const body = await res.json();
+  expect(body.error).toBeDefined();
+});
+
+test('모르는 분류는 400으로 거절한다', async () => {
+  const res = await post({ text: '커피 사기', tag: '잡담' });
+  expect(res.status).toBe(400);
+});
+
+test('저장하면 201과 새 메모를 돌려준다', async () => {
+  const res = await post({ text: 'RLS 정책 읽기', tag: '공부' });
+  expect(res.status).toBe(201);
+  const memo = await res.json();
+  expect(memo.text).toBe('RLS 정책 읽기');
+});
+</script>
+    </div>
+    <p>해 볼 것: 네트워크 탭에서 <b>오프라인</b>을 켜고 저장을 눌러 보세요. JS 탭의 <code>catch</code>가 없어 화면이 조용히 멈춥니다. 11주차의 세 가지 상태(불러오는 중·실패·빈 목록)를 여기에도 넣어 보세요.</p>
+
+    <aside class="deep" id="deep-cold-start">
+      <h3>콜드 스타트: 첫 요청이 느린 이유</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>함수는 요청이 없으면 실행 환경째로 내려갑니다. 한참 만에 첫 요청이 오면 플랫폼이 실행 환경을 새로 띄우고 코드를 읽어 들인 뒤에야 핸들러가 돕니다. 그 준비 시간이 콜드 스타트입니다. 바로 이어진 두 번째 요청은 준비된 복사본이 받아 빠릅니다. 준비 시간은 플랫폼과 코드 크기(불러오는 라이브러리 양)에 따라 다릅니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://developers.cloudflare.com/workers/get-started/guide/">Cloudflare Workers · Get started</a> · <a href="https://vercel.com/docs/functions/quickstart">Vercel Functions · Quickstart</a></dd></div>
+        <div><dt>트레이드오프</dt><dd>항상 켜진 서버는 첫 요청도 빠르지만 쉬는 시간에도 비용이 듭니다. 함수는 쉬는 동안 0원이지만 첫 요청이 느립니다. 시연처럼 "첫인상"이 중요한 자리에서는 시작 전에 한 번 불러 깨워 둡니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>실습 1의 네트워크 탭에서 지연을 <b>3초</b>로 바꾸고 실행합니다. JS 탭 <code>load()</code> 앞뒤에 <code>const t = performance.now()</code>와 <code>console.log(Math.round(performance.now() - t), 'ms')</code>를 넣어 첫 요청 시간을 찍어 보세요. 그다음 지연을 0으로 되돌려 "깨어 있는 함수"와 비교합니다. 연습 서버는 매번 같은 지연을 주지만, 실제 플랫폼은 첫 요청만 느립니다.</dd></div>
+      </dl>
+    </aside>
+
+    <aside class="deep" id="deep-edge">
+      <h3>엣지: 사용자 가까이에서 실행하기</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>Cloudflare Workers처럼 전 세계 여러 지역의 서버에 같은 함수를 복사해 두고, 요청을 보낸 사용자와 가까운 곳에서 실행하는 방식을 엣지(edge)라고 부릅니다. 요청이 바다를 건너지 않으니 왕복 시간이 줄어듭니다. 함수는 요청 헤더(언어, 지역, 기기)를 보고 응답을 바꾸는 일에 자주 쓰입니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://developers.cloudflare.com/workers/get-started/guide/">Cloudflare Workers · Get started</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">MDN · CORS</a> (다른 출처의 함수를 부를 때 필요한 헤더)</dd></div>
+        <div><dt>트레이드오프</dt><dd>함수는 가까워졌지만 데이터베이스는 보통 한 지역에 있습니다. 함수에서 DB까지의 왕복은 그대로라서, DB를 여러 번 부르는 함수는 엣지의 이점을 잃습니다. 또 엣지 실행 환경은 Node.js 전부가 아니라 Web 표준 API 위주라, 어떤 npm 패키지는 돌지 않습니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>실습 1의 서버 탭에 <code>app.get('/api/hello', (req, res) =&gt; res.send(req.get('x-user-lang') === 'ko' ? '안녕하세요' : 'Hello'))</code>를 더합니다. JS 탭에서 <code>fetch('/api/hello', { headers: { 'x-user-lang': 'ko' } })</code>로 불러 응답을 콘솔에 찍어 보세요. 헤더 하나로 응답이 갈리는 것이 엣지 함수의 흔한 용도입니다.</dd></div>
+      </dl>
+    </aside>
+
+    <aside class="deep" id="deep-timeout">
+      <h3>함수 타임아웃: 오래 걸리는 일은 함수에 맞지 않습니다</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>플랫폼은 함수 한 번의 실행 시간이나 CPU 시간에 한도를 둡니다. 예를 들어 Workers Free 플랜은 요청당 CPU 시간 10 ms입니다(무엇이 CPU 시간에 포함되는지는 공식 Limits 문서가 기준입니다). 한도를 넘으면 플랫폼이 실행을 끊고 오류 응답을 돌려줍니다. 브라우저 쪽에서는 응답이 늦거나 <code>5xx</code>로 보입니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://developers.cloudflare.com/workers/get-started/guide/">Cloudflare Workers · Get started</a>(한도는 같은 문서 묶음의 Limits 항목) · <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">MDN · AbortController</a></dd></div>
+        <div><dt>트레이드오프</dt><dd>영상 변환, 큰 파일 처리, 몇 분짜리 크롤링은 함수에 맞지 않습니다. 작업을 큐에 넣고 따로 처리하거나 서버 한 대(백엔드 모듈)를 씁니다. 대신 함수는 "1초 안에 끝나는 작은 일"을 아주 많이, 싸게 처리합니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>실습 1의 서버 탭에 응답을 하지 않는 경로 <code>app.get('/api/slow', (req, res) =&gt; { /* 아무것도 안 함 */ })</code>를 더하고 JS 탭에서 불러 보세요. 연습 서버는 5초 뒤 <code>504</code>를 돌려주고 콘솔에 힌트를 남깁니다. 그다음 <code>fetch('/api/slow', { signal: AbortSignal.timeout(2000) })</code>처럼 브라우저 쪽에서 먼저 끊어 보세요. 11주차의 AbortController가 여기서 쓰입니다.</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <!-- ===================================================== 03 -->
+  <section class="sec" id="baas">
+    <h2>BaaS: 여러 사람이 같이 쓰는 데이터를 가장 빨리 얻는 길</h2>
+    <p class="lead">함수를 쓰더라도 데이터는 어딘가에 두어야 합니다. BaaS는 데이터베이스·인증·파일 저장·호스팅을 콘솔에서 만들어 주고, 브라우저에서 바로 부르게 해 줍니다.</p>
+    <p>이 수업에서는 두 가지 이름만 기억하면 됩니다.</p>
+    <dl class="defs">
+      <div><dt>Supabase</dt><dd>PostgreSQL 데이터베이스 위에 자동 REST API, 인증, 파일 저장, 실시간 구독을 얹은 서비스입니다. 표(테이블)를 콘솔에서 만들면 바로 <code>supabase.from('memos').select()</code>로 읽을 수 있습니다.</dd></div>
+      <div><dt>Firebase</dt><dd>Google의 BaaS입니다. 인증·Firestore(문서형 DB)·Hosting을 한 콘솔에서 제공합니다. <code>npm install firebase</code> 뒤 <code>initializeApp(firebaseConfig)</code>로 시작합니다.</dd></div>
+    </dl>
+
+    <h3>키 구분: 브라우저에 둘 수 있는 키와 없는 키</h3>
+    <p>BaaS를 브라우저에서 직접 부른다는 말은, 키가 브라우저 코드 안에 들어간다는 뜻입니다. 그래서 키의 종류를 정확히 알아야 합니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>키의 종류와 자리</caption>
+        <thead><tr><th scope="col">키</th><th scope="col">어디에 두나</th><th scope="col">무엇을 하나</th></tr></thead>
+        <tbody>
+          <tr><td>Supabase <b>publishable key</b><br><code>sb_publishable_…</code></td><td>브라우저에 두어도 됩니다</td><td>누구나 읽을 수 있는 키입니다. 그래서 <b>RLS가 허용한 만큼만</b> 할 수 있습니다. 공식 문구: "Anyone can read it, so it only reaches what Row Level Security allows."</td></tr>
+          <tr><td>Supabase <b>secret key</b><br><code>sb_secret_…</code></td><td>서버·서버리스 함수에만</td><td>RLS를 모두 우회합니다. 브라우저, 소스 코드, 심지어 localhost에도 두지 않습니다.</td></tr>
+          <tr><td>예전 이름 <code>anon</code> · <code>service_role</code></td><td>각각 위 두 키의 "Legacy version"</td><td>AI가 이 이름으로 코드를 주면 publishable·secret으로 바꿔 읽습니다. 2026년 말까지 폐기 예정이라고 안내되어 있습니다.</td></tr>
+          <tr><td>Firebase 웹 설정값 (<code>apiKey</code> 등)</td><td>브라우저에 두어도 됩니다</td><td>공개되어도 되는 식별자입니다. 접근 제어는 키가 아니라 <b>보안 규칙</b>이 합니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <aside class="callout warn" data-label="보안">
+      <p>secret key가 브라우저 코드에 한 번이라도 들어가면, 그 페이지를 연 모든 사람이 우리 팀 데이터베이스 전체를 읽고 지울 수 있습니다. GitHub에 올린 뒤 지워도 커밋 기록에 남습니다. 그런 일이 생기면 콘솔에서 키를 새로 발급(회전)하고, 옛 키를 끕니다.</p>
+    </aside>
+
+    <h3>RLS: 테이블마다 "누가 어떤 행을" 규칙 켜기</h3>
+    <p>Row Level Security는 데이터베이스가 행 단위로 읽기·쓰기를 허용하는 규칙입니다. publishable key가 안전한 이유는 이 규칙이 있기 때문입니다. 규칙이 없는 테이블은 누구나 모든 행을 읽고 지울 수 있습니다. 그러니 <b>테이블을 만들면 RLS를 켜고, 정책을 하나 이상 씁니다.</b> 메모 앱이라면 이런 두 줄짜리 뜻입니다.</p>
+    <dl class="defs">
+      <div><dt>읽기</dt><dd>모두 허용. 팀원 셋이 같은 목록을 보는 장면에 맞습니다.</dd></div>
+      <div><dt>쓰기</dt><dd>로그인한 사용자만, 그리고 자기 메모만. 처음에는 "본문이 비어 있지 않을 것"처럼 단순한 조건부터 시작해도 됩니다.</dd></div>
+    </dl>
+    <p>정책은 SQL로 씁니다. 정확한 문법은 공식 문서의 RLS 항목에서 복사하고, AI가 준 정책은 콘솔의 정책 편집 화면에서 "누가·어떤 행을·무엇을" 세 칸이 맞는지 읽어 봅니다.</p>
+    <!-- 확인 필요: Supabase RLS 정책 SQL 예문(create policy … for select using (true) 등)을 학생 자료에 넣을지 — 공식 문서(Auth › Row Level Security) 원문을 수업 직전 확인한 뒤 결정. 현재는 문법을 싣지 않음. -->
+
+    <h3>Supabase 호출 코드 읽기</h3>
+    <p>공식 문서의 최소 예를 메모 앱에 맞춰 옮긴 것입니다. 세 줄이 전부입니다. 클라이언트를 하나 만들고, 테이블을 고르고, 읽거나 씁니다. 결과는 늘 <code>{ data, error }</code> 두 칸으로 옵니다.</p>
+<pre class="code" data-lang="js" data-file="src/db.js · 읽기용 예"><code>import { createClient } from '@supabase/supabase-js'
+// 번들러 없이 브라우저에서 바로 쓸 때:
+// import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+// 프로젝트 URL과 publishable key는 콘솔의 API 설정에 있습니다. secret key는 여기 넣지 않습니다.
+const supabase = createClient('https://&lt;프로젝트&gt;.supabase.co', '&lt;publishable key&gt;')
+
+// 읽기: 테이블 전체, 또는 특정 열과 조건
+const { data, error } = await supabase.from('memos').select()
+const { data: study } = await supabase.from('memos').select('text').eq('tag', '공부')
+
+// 쓰기: 한 행 넣기, 넣은 행 돌려받기
+const { data: inserted, error: insertError } = await supabase
+  .from('memos')
+  .insert({ text: 'RLS 정책 읽기', tag: '공부' })
+  .select()</code></pre>
+    <p>읽을 때 눈에 둘 것 두 가지입니다. 첫째, <code>error</code>를 매번 확인합니다. RLS가 거절해도 예외가 아니라 <code>error</code>로 옵니다. 둘째, <code>&lt;프로젝트&gt;</code>와 <code>&lt;publishable key&gt;</code> 자리에 들어갈 값은 콘솔에서 복사하고, README에는 값이 아니라 "어디서 받는지"만 적습니다.</p>
+
+    <h3>실습 2 · Supabase 모양으로 읽고 쓰기</h3>
+    <p>실제 라이브러리는 인터넷과 진짜 프로젝트가 필요하므로, 여기서는 <b>같은 모양의 연습용 stand-in</b>을 씁니다. JS 탭 위쪽의 <code>createClient</code>는 흉내이고, 가운데 줄 아래부터가 여러분이 실제로 쓰게 될 코드입니다. 서버 탭은 Supabase의 자동 REST API와 정책을 아주 작게 흉내 냅니다. 서버 탭의 <code>TODO</code>를 채우면 마지막 테스트가 통과합니다.</p>
+    <div class="lab" data-title="createClient → from().select() / insert()" data-kicker="실습 2" data-active="js" data-latency="300" data-height="22rem">
+<script type="text/plain" data-lab="html">
+<p id="status" role="status"></p>
+<ul id="list"></ul>
+<button id="add">메모 추가</button>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+[role="status"] { color: #555; }
+</script>
+<script type="text/plain" data-lab="js">
+// 연습용 stand-in입니다. 실제 @supabase/supabase-js가 아니라, 같은 모양으로 /api/rest/… 를 부릅니다.
+function createClient(url, key) {
+  const call = async (table, method, query = '', body) => {
+    const res = await fetch('/api/rest/' + table + query, {
+      method, headers: { apikey: key, 'content-type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const json = await res.json();
+    return res.ok ? { data: json, error: null } : { data: null, error: json };
+  };
+  return {
+    from(table) {
+      return {
+        select(cols = '*') { return call(table, 'GET', '?select=' + cols); },
+        insert(row) { return call(table, 'POST', '', row); }
+      };
+    }
+  };
+}
+
+// ---- 여기부터가 실제 프로젝트에서 쓰게 될 모양입니다 ----
+const supabase = createClient('https://<프로젝트>.supabase.co', '<publishable key>');
+const status = document.querySelector('#status');
+const list = document.querySelector('#list');
+
+async function load() {
+  const { data, error } = await supabase.from('memos').select();
+  if (error) { status.textContent = '읽기 실패 · ' + error.message; return; }
+  list.replaceChildren(...data.map((m) => {
+    const li = document.createElement('li');
+    li.textContent = `[${m.tag}] ${m.text}`;
+    return li;
+  }));
+  status.textContent = data.length + '개';
+}
+
+document.querySelector('#add').addEventListener('click', async () => {
+  const { error } = await supabase.from('memos').insert({ text: '새 메모 ' + new Date().toLocaleTimeString(), tag: '기타' });
+  if (error) { status.textContent = '쓰기 실패 · ' + error.message; return; }
+  load();
+});
+
+load();
+</script>
+<script type="text/plain" data-lab="server">
+// Supabase의 자동 REST API와 RLS 정책을 아주 작게 흉내 냅니다. 실제 정책은 SQL로 씁니다.
+const rows = { memos: [{ id: 1, text: '팀 시트 ⑧ 다시 읽기', tag: '공부' }] };
+
+const policies = {
+  memos: {
+    select: (row) => true,                                                  // 읽기: 모두
+    insert: (row) => typeof row.text === 'string' && row.text.trim() !== '' // 쓰기: 본문이 있을 때만
+    // TODO: 본문이 80자 이하일 때만 허용하도록 insert 조건을 더해 보세요
+  }
+};
+
+function withKey(req, res) {
+  if (req.get('apikey')) return true;
+  res.status(401).json({ message: 'apikey 헤더가 없습니다' });
+  return false;
+}
+
+app.get('/api/rest/:table', (req, res) => {
+  if (!withKey(req, res)) return;
+  const t = rows[req.params.table];
+  if (!t) return res.status(404).json({ message: '없는 테이블: ' + req.params.table });
+  res.json(t.filter(policies[req.params.table].select));
+});
+
+app.post('/api/rest/:table', (req, res) => {
+  if (!withKey(req, res)) return;
+  const t = rows[req.params.table];
+  if (!t) return res.status(404).json({ message: '없는 테이블: ' + req.params.table });
+  const row = { id: t.length + 1, ...req.body };
+  if (!policies[req.params.table].insert(row)) {
+    return res.status(403).json({ message: '정책이 쓰기를 허용하지 않습니다' });
+  }
+  t.push(row);
+  res.status(201).json([row]);
+});
+</script>
+<script type="text/plain" data-lab="test">
+test('메모 목록을 읽어 그린다', async () => {
+  await until(() => $$('#list li').length === 1);
+  expect($('#status').textContent).toContain('1개');
+});
+
+test('apikey 헤더 없이 부르면 401', async () => {
+  const res = await fetch('/api/rest/memos');
+  expect(res.status).toBe(401);
+});
+
+test('빈 본문은 정책이 거절한다', async () => {
+  const { error } = await supabase.from('memos').insert({ text: '  ', tag: '기타' });
+  expect(error).not.toBeNull();
+});
+
+test('81자 본문은 정책이 거절한다', async () => {
+  const { error } = await supabase.from('memos').insert({ text: '가'.repeat(81), tag: '기타' });
+  expect(error).not.toBeNull();
+});
+</script>
+    </div>
+    <p>해 볼 것: 서버 탭에서 <code>withKey</code> 호출을 지워 보세요. 키 없이도 읽힙니다. 실제 Supabase에서는 RLS를 끈 테이블이 이런 상태입니다.</p>
+
+    <aside class="deep" id="deep-secrets">
+      <h3>비밀 관리: 키는 코드가 아니라 환경에 둡니다</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>브라우저로 보낸 JS는 전부 공개입니다. 난독화해도 Network 탭과 소스 보기에 그대로 보입니다. 서버리스 플랫폼은 배포할 때 넣어 둔 값을 실행 시점에 함수에 주입합니다. Workers는 <code>env.KEY</code>, Vercel·Netlify는 <code>process.env.KEY</code>로 읽습니다. 값은 저장소에 없고 플랫폼의 저장소에만 있습니다. 로컬에서는 <code>.env</code> 파일을 쓰되 <code>.gitignore</code>에 넣습니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://supabase.com/docs/guides/api/api-keys">Supabase · API keys</a> · 세 플랫폼의 비밀 값 넣기: <code>wrangler secret put</code> · <code>vercel env</code> · Netlify 화면(<a href="https://docs.netlify.com/build/functions/get-started/">Netlify Functions · Get started</a>)</dd></div>
+        <div><dt>트레이드오프</dt><dd>키를 숨기려면 브라우저 → 함수 → 외부 API로 한 겹이 늘어납니다. 지연과 함수 호출 수가 늘고, 함수 쪽에서 사용자별 호출 제한(rate limit)을 따로 생각해야 합니다. 대신 키가 새면 함수 한 곳만 고치면 됩니다. publishable key처럼 "공개 전제 + 규칙으로 제한"하는 키는 이 겹이 필요 없습니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>실습 1의 서버 탭에 <code>app.get('/api/secret-check', (req, res) =&gt; res.json({ has: Boolean(process.env.MY_SECRET) }))</code>를 더합니다. 연습 서버에는 환경 변수가 없으니 <code>false</code>가 옵니다. 이제 JS 탭에서 <code>console.log(process.env.MY_SECRET)</code>을 써 보세요. <code>ReferenceError</code>가 납니다. 브라우저 코드에는 <code>process.env</code>가 없습니다. 그래서 "키는 서버 탭 쪽에만 있을 수 있다"는 것이 코드로 보입니다.</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <!-- ===================================================== 04 -->
+  <section class="sec" id="realtime">
+    <h2>실시간 구독: 다른 사람이 쓴 메모가 내 화면에 나타나기까지</h2>
+    <p class="lead">"팀원이 메모를 추가하면 내 화면도 바로 바뀐다"는 장면은 BaaS의 실시간 기능으로 얻습니다. 새로고침 없이, 서버가 먼저 알려 줍니다.</p>
+    <p>11주차까지의 흐름은 "내가 물어본다(<code>fetch</code>) → 서버가 답한다"였습니다. 실시간 구독은 방향이 반대입니다. 한 번 구독해 두면, 테이블에 행이 들어올 때 서버가 브라우저에 밀어 줍니다. 7주차 특강에 나온 WebSocket이 그 밑에 있습니다. 아래는 supabase-js의 구독 코드를 메모 앱에 맞춘 읽기용 예입니다.</p>
+<pre class="code" data-lang="js" data-file="src/live.js · 읽기용 예"><code>const channel = supabase
+  .channel('memos-changes')                       // 구독 이름(아무 문자열)
+  .on('postgres_changes',                         // 테이블 변경을 받겠다
+      { event: 'INSERT', schema: 'public', table: 'memos' },
+      (payload) =&gt; {
+        addToList(payload.new);                   // payload.new = 새로 들어온 행
+      })
+  .subscribe();
+
+// 화면을 떠날 때
+// supabase.removeChannel(channel);</code></pre>
+    <!-- 확인 필요: supabase-js v2 실시간 구독 API 명칭(channel / on('postgres_changes', …) / subscribe / removeChannel)과 테이블별 Realtime 활성화 설정 — 공식 문서 Realtime 항목에서 수업 직전 재확인. 연구 사실표(research-web-tooling.md)에는 이 API가 수록되지 않음. -->
+    <aside class="callout">
+      <p class="callout-title">수업 직전 확인</p>
+      <p>실시간 구독 함수의 정확한 이름과, 테이블마다 실시간을 켜는 설정 위치는 Supabase 공식 문서의 Realtime 항목에서 다시 확인합니다. 위 코드는 읽는 연습용이며, 실제로 붙일 때는 공식 문서의 예를 복사합니다.</p>
+    </aside>
+    <p>구독 코드를 읽을 때 세 가지만 찾으면 됩니다. 무엇을 구독하나(<code>table</code>·<code>event</code>), 왔을 때 무엇을 하나(콜백), 언제 끊나(<code>removeChannel</code>). 끊지 않으면 화면을 바꿀 때마다 구독이 쌓입니다.</p>
+
+    <h3>실습 3 · 구독의 모양 흉내 내기</h3>
+    <p>진짜 실시간은 WebSocket으로 서버가 먼저 알려 줍니다. 연습 서버에는 WebSocket이 없으니, 0.7초마다 물어보는 방식(폴링)으로 "알림이 오면 콜백이 돈다"는 모양만 흉내 냅니다. 버튼은 "다른 팀원이 자기 브라우저에서 메모를 썼다"를 대신합니다.</p>
+    <div class="lab" data-title="구독 → 알림 → 화면 갱신" data-kicker="실습 3" data-active="js" data-latency="0" data-height="18rem">
+<script type="text/plain" data-lab="html">
+<p id="status" role="status">구독 전</p>
+<ul id="list"></ul>
+<button id="other">다른 팀원이 메모를 추가했다고 치기</button>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+[role="status"] { color: #555; }
+</script>
+<script type="text/plain" data-lab="js">
+const status = document.querySelector('#status');
+const list = document.querySelector('#list');
+
+// 연습용 stand-in: 폴링으로 흉내 낸 구독입니다. 실제 supabase-js는 WebSocket을 씁니다.
+function channel(name) {
+  const handlers = [];
+  let seen = 0;
+  async function poll() {
+    const rows = await (await fetch('/api/memos')).json();
+    rows.slice(seen).forEach((row) => handlers.forEach((h) => h({ eventType: 'INSERT', new: row })));
+    seen = rows.length;
+  }
+  return {
+    on(event, filter, handler) { handlers.push(handler); return this; },
+    async subscribe() {
+      seen = (await (await fetch('/api/memos')).json()).length;  // 구독 시점 이후의 변경만 받는다
+      setInterval(poll, 700);
+      status.textContent = '구독 중 · 기존 ' + seen + '개는 알림 대상이 아닙니다';
+      return this;
+    }
+  };
+}
+
+// ---- 읽을 코드: 구독 → 콜백 → 화면 ----
+channel('memos-changes')
+  .on('INSERT', { table: 'memos' }, (payload) => {
+    const li = document.createElement('li');
+    li.textContent = '새 메모: ' + payload.new.text;
+    list.append(li);
+    console.log('INSERT 알림:', payload.new);
+  })
+  .subscribe();
+
+document.querySelector('#other').addEventListener('click', () => {
+  fetch('/api/memos', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ text: '다른 브라우저에서 쓴 메모', tag: '기타' })
+  });
+});
+</script>
+<script type="text/plain" data-lab="server">
+app.use(express.json());
+let memos = [{ id: 1, text: '팀 시트 ⑧ 다시 읽기', tag: '공부' }];
+
+app.get('/api/memos', (req, res) => res.json(memos));
+
+app.post('/api/memos', (req, res) => {
+  const memo = { id: memos.length + 1, text: String(req.body.text ?? '').trim(), tag: req.body.tag };
+  memos.push(memo);
+  res.status(201).json(memo);
+});
+</script>
+<script type="text/plain" data-lab="test">
+test('다른 사람이 추가한 메모가 알림으로 들어온다', async () => {
+  await until(() => $('#status').textContent.includes('구독 중'));
+  expect($$('#list li').length).toBe(0);
+  click('#other');
+  await until(() => $$('#list li').length === 1, 5000);
+  expect($('#list li').textContent).toContain('다른 브라우저에서 쓴 메모');
+});
+</script>
+    </div>
+    <p>해 볼 것: 버튼을 세 번 누르고 네트워크 탭을 보세요. 폴링은 아무 일이 없어도 0.7초마다 요청을 보냅니다. 실제 WebSocket 구독은 바뀔 때만 데이터가 오갑니다. 이 차이가 "실시간을 BaaS에 맡기는 이유"입니다.</p>
+  </section>
+
+  <!-- ===================================================== 05 -->
+  <section class="sec" id="attach">
+    <h2>실제 프로젝트에 붙이는 순서</h2>
+    <p class="lead">결정표(08)가 "채택"으로 끝났을 때만 시작합니다. 화면은 GitHub Pages에 그대로 두고, 저장과 키만 바깥으로 보냅니다.</p>
+    <ol class="flow vertical">
+      <li><b>범위를 한 줄로 적기</b><span>"★ 단계에서 메모를 저장하고, 팀원 셋이 같은 목록을 본다." 이 한 줄에 없는 기능은 이번에 붙이지 않습니다.</span></li>
+      <li><b>데이터를 먼저 만들기</b><span>Supabase 콘솔에서 프로젝트 → 테이블(<code>memos</code>: <code>id</code>, <code>text</code>, <code>tag</code>, <code>created_at</code>) → RLS 켜기 → 정책 쓰기. 표가 팀 시트 ⑦의 "남기는 것"과 같은지 봅니다.</span></li>
+      <li><b>브라우저에서 읽기부터</b><span><code>createClient</code> + <code>select()</code>로 목록을 그립니다. 쓰기는 그다음입니다. 한 번에 둘 다 하지 않습니다.</span></li>
+      <li class="is-on"><b>키가 필요하면 함수 한 개</b><span>외부 API 키는 함수(<code>/api/translate</code> 같은 경로 하나)에만 둡니다. 브라우저는 함수를 부르고, 함수가 키를 붙여 외부 API를 부릅니다.</span></li>
+      <li><b>README에 실행 방법과 변수 이름 적기</b><span>값은 적지 않고 이름만(<code>SUPABASE_URL</code>, <code>API_KEY</code>) 적습니다. 어디서 받는지, 누가 가지고 있는지도 한 줄 남깁니다.</span></li>
+    </ol>
+
+    <h3>명령과 파일</h3>
+    <p>Supabase는 설치 한 줄, 또는 설치 없이 CDN 모듈로 시작합니다.</p>
+<pre class="code" data-lang="bash" data-file="터미널 · Supabase"><code>$ npm install @supabase/supabase-js</code></pre>
+<pre class="code" data-lang="js" data-file="번들러 없이 쓸 때"><code>import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'</code></pre>
+    <p>함수가 필요하면 한 플랫폼만 고릅니다. 수업에서는 Cloudflare Workers를 기본 예로 둡니다.</p>
+<pre class="code" data-lang="bash" data-file="터미널 · Cloudflare Workers"><code>$ npm create cloudflare@latest -- my-first-worker
+$ cd my-first-worker
+$ npx wrangler dev                 # http://localhost 주소가 뜹니다
+$ npx wrangler secret put API_KEY  # 값을 물어보면 붙여 넣습니다. 저장소에는 남지 않습니다
+$ npx wrangler deploy              # *.workers.dev 주소로 배포</code></pre>
+    <!-- 확인 필요: `wrangler secret put` 앞의 `npx` 표기와 프롬프트 동작 — 연구 사실표에는 `wrangler secret put`만 수록. 수업 직전 Cloudflare 문서(Secrets)에서 재확인. -->
+    <ul class="filetree" aria-label="함수를 붙인 뒤의 프로젝트 구조 (Vercel 방식 예)">
+      <li class="dir"><span>team-memo</span>
+        <ul>
+          <li><span>index.html</span><span class="ft-note">GitHub Pages 또는 플랫폼 호스팅</span></li>
+          <li class="dir"><span>src</span>
+            <ul>
+              <li><span>app.js</span></li>
+              <li class="is-hot"><span>db.js</span><span class="ft-note">createClient · publishable key</span></li>
+            </ul>
+          </li>
+          <li class="dir"><span>api</span>
+            <ul><li class="is-hot"><span>translate.js</span><span class="ft-note">함수 하나 · 키는 process.env</span></li></ul>
+          </li>
+          <li class="is-new"><span>.env</span><span class="ft-note">로컬 전용 · 저장소에 올리지 않습니다</span></li>
+          <li><span>.gitignore</span><span class="ft-note">.env 와 node_modules</span></li>
+          <li><span>README.md</span><span class="ft-note">변수 이름과 받는 곳</span></li>
+        </ul>
+      </li>
+    </ul>
+    <aside class="callout tip">
+      <p>붙이는 날은 10주차에 만든 <code>tasks.md</code>에 "읽기 붙이기 / 쓰기 붙이기 / 키 옮기기"를 세 줄로 나눠 적고, 한 줄마다 PR 하나로 끝냅니다. 한 PR에 셋을 다 넣으면 어디서 깨졌는지 찾기 어렵습니다.</p>
+    </aside>
+  </section>
+
+  <!-- ===================================================== 06 -->
+  <section class="sec" id="ai">
+    <h2>AI에게 맡길 일, 직접 판단할 일</h2>
+    <p class="lead">이번 모듈의 AI 단계는 <b>Delegate → Inspect</b>입니다. 코드 초안은 맡기고, 키의 자리와 규칙은 우리가 봅니다.</p>
+    <figure class="prompt">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu(기본) · 에이전트(Codex 또는 Claude Code)</span><span class="prompt-purpose">Supabase 읽기 코드와 정책 초안 받기</span></figcaption>
+      <pre class="prompt-text">우리 팀 메모 앱에 Supabase를 붙이려고 해. 테이블은 <var>memos(id, text, tag, created_at)</var> 하나야.
+
+1. 브라우저에서 publishable key로 목록을 읽어 &lt;ul id="list"&gt;에 그리는 JavaScript를 써 줘. 라이브러리는 @supabase/supabase-js 2만 쓰고, error를 꼭 확인해 줘.
+2. 읽기는 모두, 쓰기는 <var>본문이 비어 있지 않을 때만</var> 허용하는 RLS 정책을 SQL로 써 줘.
+3. secret key는 어디에도 쓰지 말고, anon·service_role 같은 옛 이름이 나오면 새 이름으로 바꿔서 설명해 줘.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul>
+          <li>코드 어디에도 <code>sb_secret_</code>이나 <code>service_role</code>이 없나요?</li>
+          <li>정책이 "누가·어떤 행을·무엇을" 세 칸으로 읽히나요? 테이블마다 하나 이상 있나요?</li>
+          <li><code>error</code>를 확인하고 화면에 알려 주나요? 11주차의 세 가지 상태가 있나요?</li>
+          <li>데이터 모양이 팀 시트 ⑦의 "남기는 것"과 같나요? AI가 열을 더 만들었다면 왜인지 설명할 수 있나요?</li>
+        </ul>
+      </div>
+    </figure>
+    <h3>검토 질문 세 개</h3>
+    <ol>
+      <li>이 코드에서 브라우저에 가는 값과 서버에만 남는 값을 손가락으로 짚을 수 있나요?</li>
+      <li>RLS를 끄면 무슨 일이 생기는지 한 문장으로 말할 수 있나요?</li>
+      <li>무료 한도 중 우리 시연에서 먼저 닿을 것이 무엇인지 알고 있나요?</li>
+    </ol>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>맡길 일과 판단할 일</caption>
+        <thead><tr><th scope="col">AI에게 맡길 일</th><th scope="col">내가 판단할 일</th></tr></thead>
+        <tbody>
+          <tr><td>createClient·select·insert 초안, 함수 핸들러 초안</td><td>어떤 키를 어디에 두는지(publishable은 브라우저, secret은 함수)</td></tr>
+          <tr><td>RLS 정책 SQL 초안과 설명</td><td>"누가 어떤 행을" 규칙이 우리 사용 장면과 맞는지</td></tr>
+          <tr><td>플랫폼별 명령 설명, 오류 메시지 해석</td><td>플랫폼을 하나만 고르는 것, 지금 붙일지 알파 테스트 뒤에 붙일지</td></tr>
+          <tr><td>README의 실행 방법 문장 다듬기</td><td>README에 값이 아니라 이름만 적혔는지, 시연 전날 깨우기가 체크리스트에 있는지</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>AI 등급은 <b>AI ALLOWED</b>입니다. "AI가 다 해 줘도 되나?"의 답은 이 모듈에서도 같습니다. 키의 자리를 <b>설명</b>하고, 정책을 <b>검증</b>하고, 붙일지 말지를 <b>판단</b>할 수 있으면 됩니다. AI USE NOTE에는 어느 초안을 받았고 무엇을 바꿨는지 두 줄이면 충분합니다.</p>
+  </section>
+
+  <!-- ===================================================== 07 -->
+  <section class="sec" id="limits">
+    <h2>한계와 비용, 더 배우기</h2>
+    <p class="lead">무료 한도는 수업 프로젝트에 넉넉합니다. 문제는 양이 아니라 "쉬면 멈춘다"는 운영 규칙입니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>무료 플랜 요약 (2026-10-25 공식 페이지 기준)</caption>
+        <thead><tr><th scope="col">서비스</th><th scope="col">무료 한도</th><th scope="col">수업에서 주의할 점</th></tr></thead>
+        <tbody>
+          <tr><td>Cloudflare Workers Free</td><td>하루 100,000 요청, UTC 자정에 초기화. 요청당 CPU 10 ms.</td><td>한국 시간으로는 오전 9시에 초기화됩니다. 무거운 계산은 함수에 맞지 않습니다.</td></tr>
+          <tr><td>Vercel Hobby</td><td>함수 호출 월 1,000,000, Fast Data Transfer 100 GB, 배포 하루 100회.</td><td>"non-commercial, personal use only" 조건입니다. 수업 프로젝트는 해당하지만 과제전 뒤 상업적 전환은 안 됩니다.</td></tr>
+          <tr><td>Netlify</td><td>크레딧 기반 플랜으로 바뀌어 함수 호출 수치는 공식 요금 페이지에서 확인합니다.</td><td>기본 함수 주소가 길어 <code>config.path</code>를 쓰는 편이 읽기 쉽습니다.</td></tr>
+          <tr><td>Supabase Free</td><td>활성 프로젝트 2개, DB 500 MB, 파일 1 GB, 송출 5 GB, MAU 50,000. Pro는 월 $25부터.</td><td><b>1주일 비활성이면 프로젝트가 일시정지됩니다.</b> 시연 전날 콘솔에서 깨우고, 목록이 읽히는지 확인합니다.</td></tr>
+          <tr><td>Firebase</td><td>무료 한도 수치는 공식 요금 페이지에서 확인합니다.</td><td>웹 설정값은 공개돼도 되지만 보안 규칙이 비어 있으면 누구나 읽고 씁니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- 확인 필요: Netlify 무료(크레딧 기반) 플랜의 함수 호출 한도 수치, Firebase Spark 무료 한도 수치 — 연구 사실표에 수치 없음. 수업 직전 공식 요금 페이지 확인 후 표에 넣을지 결정. -->
+    <aside class="callout">
+      <p class="callout-title">수업 직전 확인</p>
+      <p>무료 한도와 요금은 자주 바뀝니다. 위 표는 2026년 10월 25일 공식 페이지 기준이고, Netlify와 Firebase의 수치는 비어 있습니다. 결정표를 쓰기 전에 각 서비스의 요금 페이지를 한 번 열어 보세요.</p>
+    </aside>
+    <h3>운영에서 실제로 겪는 일</h3>
+    <dl class="defs">
+      <div><dt>잠든 프로젝트</dt><dd>Supabase 무료 프로젝트는 1주일 쓰지 않으면 멈춥니다. 알파 테스트(13주차)와 베타 시연회(14주차) 전날, 팀 한 명이 콘솔에서 깨우고 화면에서 목록을 한 번 읽습니다. 이 한 줄을 <code>checklist.md</code>에 넣습니다.</dd></div>
+      <div><dt>공급자 종속</dt><dd>BaaS의 인증·실시간·정책은 그 서비스 안에서만 그대로 돌아갑니다. 다른 곳으로 옮기려면 데이터를 내보내고 코드를 다시 씁니다. 수업 프로젝트에서는 감수할 만하지만, 결정표의 "대안" 칸에 "옮길 때 무엇을 다시 쓰나"를 한 줄 적어 둡니다. 함수 쪽은 세 플랫폼 모두 Web 표준 <code>Request</code>·<code>Response</code> 모양을 쓰므로 비교적 옮기기 쉽습니다.</dd></div>
+      <div><dt>첫 요청의 지연</dt><dd>함수는 쉬다가 첫 요청을 받으면 느립니다(심화 · 콜드 스타트). 시연 시작 전에 한 번 불러 둡니다.</dd></div>
+      <div><dt>한도 초과</dt><dd>수업 규모에서 한도에 닿는 경우는 폴링을 너무 자주 하거나, 무한 루프로 요청을 쏟을 때입니다. 네트워크 탭에서 요청 수를 한 번 세어 보면 보입니다.</dd></div>
+    </dl>
+    <h3>더 배우기 · 공식 문서</h3>
+    <ul>
+      <li><a href="https://developers.cloudflare.com/workers/get-started/guide/">Cloudflare Workers · Get started guide</a></li>
+      <li><a href="https://vercel.com/docs/functions/quickstart">Vercel Functions · Quickstart</a></li>
+      <li><a href="https://docs.netlify.com/build/functions/get-started/">Netlify Functions · Get started</a></li>
+      <li><a href="https://supabase.com/docs/reference/javascript/initializing">Supabase JavaScript · Initializing</a> · <a href="https://supabase.com/docs/guides/api/api-keys">API keys</a> · <a href="https://supabase.com/pricing">Pricing</a></li>
+      <li><a href="https://firebase.google.com/docs/web/setup">Firebase · Add Firebase to your JavaScript project</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">MDN · Cross-Origin Resource Sharing (CORS)</a> — 다른 출처의 함수를 부를 때 콘솔 오류가 나면 여기부터</li>
+      <li>이어지는 모듈: <a href="backend.html">백엔드(서버 한 대 직접 켜기)</a> · <a href="genai-api.html">생성형 AI API(키를 숨기는 프록시 함수의 실제 쓰임)</a></li>
+    </ul>
+  </section>
+
+  <!-- ===================================================== 08 -->
+  <section class="sec" id="decision">
+    <h2>확인 문제와 팀 프로젝트 적용 결정표</h2>
+    <p class="lead">먼저 다섯 문제로 확인하고, 팀과 함께 결정표를 채웁니다. 결정표는 11주차 팀 과제의 선택 제출물이고, 15주차 발표의 "기술 선택 설명"의 바탕이 됩니다.</p>
+    <h3>확인 문제</h3>
+    <form class="quiz" aria-label="서버리스 모듈 확인 문제">
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q1</span>GitHub Pages에 올린 메모 앱을 팀원 셋이 각자 노트북에서 열어 같은 목록을 봐야 합니다. 맞는 설명은?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="msvq1"> <code>localStorage</code>에 저장하면 셋이 같은 목록을 본다</label><p class="quiz-why"><code>localStorage</code>는 브라우저마다 따로입니다. 내 노트북의 메모는 친구 노트북에 없습니다.</p></li>
+          <li data-answer><label><input type="radio" name="msvq1"> 셋이 같이 읽고 쓸 저장소(BaaS 또는 함수 + DB)가 필요하다</label><p class="quiz-why">맞습니다. "서버가 요청마다 코드를 실행하는가"에서 "예"가 되는 줄입니다.</p></li>
+          <li><label><input type="radio" name="msvq1"> HTML 파일 안에 배열로 적어 두고 커밋하면 된다</label><p class="quiz-why">읽기는 되지만 사용자가 쓴 메모는 남지 않습니다. 커밋은 사용자가 하는 행동이 아닙니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q2</span>브라우저로 보내는 JS 파일에 넣어도 되는 값을 모두 고르세요.</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="checkbox" name="msvq2"> Supabase publishable key (<code>sb_publishable_…</code>)</label><p class="quiz-why">됩니다. 단, 테이블마다 RLS가 켜져 있어야 "허용한 만큼만" 됩니다.</p></li>
+          <li><label><input type="checkbox" name="msvq2"> Supabase secret key (<code>sb_secret_…</code>)</label><p class="quiz-why">안 됩니다. RLS를 우회하는 키라서 서버·함수에만 둡니다.</p></li>
+          <li data-answer><label><input type="checkbox" name="msvq2"> Firebase 웹 설정값의 <code>apiKey</code></label><p class="quiz-why">됩니다. 공개 식별자이고, 접근 제어는 보안 규칙이 합니다.</p></li>
+          <li><label><input type="checkbox" name="msvq2"> 외부 번역 API의 비밀 키</label><p class="quiz-why">안 됩니다. 함수가 대신 들고 있게 하고, 브라우저는 함수를 부릅니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q3</span>서버리스 함수 안의 전역 배열에 메모를 <code>push</code>했습니다. 다음 요청에서 그 메모는?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="msvq3"> 항상 남아 있다</label><p class="quiz-why">로컬에서는 그렇게 보이지만 배포하면 다른 복사본이 요청을 받을 수 있습니다.</p></li>
+          <li data-answer><label><input type="radio" name="msvq3"> 남아 있을 수도, 없을 수도 있다. 저장은 데이터베이스에 한다</label><p class="quiz-why">맞습니다. 함수는 요청 사이의 기억을 보장하지 않습니다.</p></li>
+          <li><label><input type="radio" name="msvq3"> 함수가 오류를 낸다</label><p class="quiz-why">오류는 나지 않습니다. 조용히 사라지는 쪽이 더 찾기 어렵습니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q4</span>Supabase 무료 프로젝트를 1주일 동안 쓰지 않으면 어떻게 되나요? 두 글자 이상으로 쓰세요.</p>
+        <div class="quiz-short"><input type="text" data-accept="일시정지|일시 정지|일시정지된다|일시 정지된다|정지|정지된다|멈춘다|멈춤|paused|pause|일시정지됩니다|멈춥니다" aria-label="Q4 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why">일시정지(paused)됩니다. 공식 문구: "Free projects are paused after 1 week of inactivity." 시연 전날 깨웁니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q5</span>Cloudflare Workers Free 플랜의 하루 요청 한도는 언제 초기화되나요?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="msvq5"> 한국 시간 자정</label><p class="quiz-why">공식 문구는 "resetting at midnight UTC"입니다.</p></li>
+          <li data-answer><label><input type="radio" name="msvq5"> UTC 자정, 한국 시간으로 오전 9시</label><p class="quiz-why">맞습니다. 화요일 수업 시작 직전에 초기화되는 셈입니다.</p></li>
+          <li><label><input type="radio" name="msvq5"> 매주 월요일</label><p class="quiz-why">하루 단위 한도입니다.</p></li>
+        </ul>
+      </fieldset>
+    </form>
+
+    <h3>팀 프로젝트 적용 결정표</h3>
+    <p>팀원 모두가 한 칸씩 읽고, "채택 여부와 이유"는 함께 씁니다. 적는 내용은 이 브라우저에만 머물고 어디로도 보내지 않습니다. 다 적으면 Markdown으로 복사해 저장소의 <code>docs/</code> 폴더(예: <code>docs/decisions.md</code>)에 붙입니다. 결정이 "채택하지 않음"이어도 결정표는 제출물이 됩니다. 이유가 있는 "아니오"는 좋은 기술 선택입니다.</p>
+    <div class="table-wrap">
+      <table class="table" id="decision-table">
+        <caption>선택 모듈 적용 결정표 · 서버리스·BaaS</caption>
+        <thead><tr><th scope="col">항목</th><th scope="col">우리 팀의 답</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">필요 조건</th><td><textarea data-field="필요 조건" aria-label="필요 조건" rows="2" style="width:100%;min-width:16rem" placeholder="예: ★ 단계에서 팀원 셋이 같은 메모 목록을 봐야 한다 / 번역 API 키를 숨겨야 한다"></textarea></td></tr>
+          <tr><th scope="row">대안</th><td><textarea data-field="대안" aria-label="대안" rows="2" style="width:100%;min-width:16rem" placeholder="예: 알파까지는 localStorage + JSON 내보내기로, 공유는 사람이 대신(가짜로 둘 것)"></textarea></td></tr>
+          <tr><th scope="row">예상 시간</th><td><textarea data-field="예상 시간" aria-label="예상 시간" rows="2" style="width:100%;min-width:16rem" placeholder="예: 콘솔 설정 1시간 + 읽기 붙이기 1시간 + 쓰기·정책 2시간, 담당 팀원 1·2"></textarea></td></tr>
+          <tr><th scope="row">채택 여부와 이유</th><td><textarea data-field="채택 여부와 이유" aria-label="채택 여부와 이유" rows="3" style="width:100%;min-width:16rem" placeholder="예: 채택. ★ 단계가 '같이 보기'라서 가짜로 두면 테스트가 성립하지 않음 / 보류. 알파 테스트 뒤 13주차에 다시 결정"></textarea></td></tr>
+          <tr><th scope="row">확인할 것</th><td><textarea data-field="확인할 것" aria-label="확인할 것" rows="2" style="width:100%;min-width:16rem" placeholder="예: 시연 전날 프로젝트 깨우기, RLS 정책 테이블마다 있는지, README에 키 값이 없는지"></textarea></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><button type="button" class="btn primary" id="decision-copy">Markdown으로 복사</button> <span id="decision-status" role="status"></span></p>
+    <div id="decision-out"></div>
+    <p>처음부터 모든 도구를 알 필요는 없습니다. 이 모듈에서 가져갈 것은 기준 한 줄과 키의 자리, 그리고 "쉬면 멈춘다"는 사실입니다. 나머지는 필요한 날 다시 열어 보면 됩니다.</p>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="backend.html"><span>← 선택 모듈</span>백엔드 · 서버 한 대 직접 켜기</a>
+    <a class="next" href="genai-api.html"><span>선택 모듈 →</span>생성형 AI API · 키를 숨기는 프록시</a>
+  </nav>
+</main>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('decision-copy');
+  if (!btn) return;
+  var out = document.getElementById('decision-out');
+  var st = document.getElementById('decision-status');
+  function md() {
+    var lines = ['## 선택 모듈 적용 결정표 · 서버리스·BaaS', '', '| 항목 | 우리 팀의 답 |', '|---|---|'];
+    document.querySelectorAll('#decision-table textarea').forEach(function (t) {
+      var v = (t.value.trim() || '(아직 안 적음)').replace(/\|/g, '\\|').replace(/\s*\n+\s*/g, ' ');
+      lines.push('| ' + t.getAttribute('data-field') + ' | ' + v + ' |');
+    });
+    return lines.join('\n');
+  }
+  btn.addEventListener('click', function () {
+    var text = md();
+    var pre = document.createElement('pre');
+    pre.className = 'code';
+    pre.setAttribute('data-lang', 'md');
+    pre.setAttribute('data-file', 'docs/decisions.md 에 붙여 넣기');
+    var code = document.createElement('code');
+    code.textContent = text;
+    pre.appendChild(code);
+    out.replaceChildren(pre);
+    if (window.DS && DS.init) { try { DS.init(out); } catch (e) {} }
+    function done() { st.textContent = '복사했습니다. 아래 미리 보기의 복사 버튼으로 다시 복사할 수 있습니다.'; }
+    function fail() { st.textContent = '자동 복사가 막혀 있습니다. 아래 미리 보기의 복사 버튼을 쓰거나 직접 선택해 복사하세요.'; }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fail); else fail();
+  });
+})();
+</script>
+</body>
+</html>

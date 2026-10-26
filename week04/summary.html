@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ko" data-page="summary">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4주차 요약판 · CSS 레이아웃과 JavaScript 기초 | 웹프로그래밍개론</title>
+<meta name="description" content="4주차 핵심만: 문서 흐름과 박스 크기, float·position, Flexbox, CSS Grid, 반응형·이미지·Gradient, JavaScript의 역할과 실행 환경, 값·변수·함수, DOM 선택과 이벤트, 폼 입력 읽기, AI 수정 요청의 범위와 검토, 사진 전시회 과제와 레이아웃 변천사 활동.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">4주차 · 요약판</span>
+  <nav class="topbar-nav" aria-label="4주차 자료">
+    <a href="../week4.html">확장판</a>
+    <a href="summary.html" aria-current="page">요약판</a>
+    <a href="../week4show.html">발표</a>
+    <a href="../map.html">교안 지도</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<main class="doc" id="main">
+  <header class="doc-head">
+    <span class="kicker">4주차 · 9월 22일(화) · 요약판</span>
+    <h1>CSS 레이아웃과 JavaScript 기초</h1>
+    <p class="lead">지난주 폼과 자기소개 페이지를 공유한 뒤, 블록·인라인과 박스 크기에서 출발해 float·position·Flexbox·Grid·반응형으로 배치를 익혔습니다. 후반에는 JavaScript로 값을 계산하고 입력에 반응해 화면을 바꾸는 첫 단계를 다뤘습니다. 과제는 사진 3~5점으로 만드는 온라인 사진 전시회입니다.</p>
+    <ul class="doc-meta">
+      <li><b>읽는 시간</b> 약 10분</li>
+      <li><b>자세한 설명과 실습</b> <a href="../week4.html">확장판</a></li>
+      <li><b>과제</b> 과제 3 · 수업 활동 · 모두 제출 완료</li>
+    </ul>
+  </header>
+
+  <section class="sec unnumbered" id="goals">
+    <h2>학습 목표</h2>
+    <ol class="goals">
+      <li>블록·인라인과 <code>box-sizing</code>으로 요소가 차지하는 자리와 너비를 계산하고, float·position이 문서 흐름을 어떻게 바꾸는지 설명할 수 있다.</li>
+      <li>Flexbox로 한 방향의 정렬과 공간 배분을, Grid로 행과 열의 배치를 만들고, 두 방식을 언제 쓸지 고를 수 있다.</li>
+      <li>뷰포트 설정·상대 단위·미디어 쿼리로 화면 폭에 따라 배치를 바꾸고, 이미지가 부모 영역을 넘지 않게 할 수 있다.</li>
+      <li>HTML·CSS·JavaScript의 역할을 구분하고, 변수·자료형·함수로 입력값을 계산하며 문자열 <code>"2"</code>와 숫자 <code>2</code>를 구별할 수 있다.</li>
+      <li><code>querySelector</code>로 요소를 찾고 <code>addEventListener</code>로 클릭·입력·제출에 반응해 <code>textContent</code>·<code>classList</code>로 화면을 바꿀 수 있다.</li>
+    </ol>
+  </section>
+
+  <section class="sec unnumbered" id="map">
+    <h2>오늘의 지도</h2>
+    <p>4주차는 개인 구간(2~7주)의 세 번째 주입니다. 3주차 FORM·CSS에 이어 요소를 배치하는 방법을 다루고, 마지막에 JavaScript 기초를 열어 5주차로 이어집니다. 전송·서버는 아직 다루지 않습니다.</p>
+    <figure class="stack-map" data-active="user client" data-flow data-note-user="오늘: 화면 폭을 바꾸고, 누르고, 입력하는 사용자" data-note-client="오늘: CSS 배치 · JavaScript 동작">
+      <figcaption>웹서비스 구조 지도. 오늘은 같은 HTML을 CSS로 배치하고, JavaScript로 입력에 반응하게 하는 층을 봅니다.</figcaption>
+    </figure>
+    <ol class="flow">
+      <li><b>돌아본다</b><span>폼·자기소개 공유 · 우수작과 가져올 개선</span></li>
+      <li><b>자리를 잡는다</b><span>흐름 · 박스 · float · position</span></li>
+      <li><b>정렬한다</b><span>Flexbox · Grid</span></li>
+      <li><b>폭에 맞춘다</b><span>반응형 · 이미지 · Gradient</span></li>
+      <li><b>기록한다</b><span>사진 전시회 과제 · 레이아웃 변천사</span></li>
+      <li><b>움직인다</b><span>값 · 함수 · DOM · 이벤트</span></li>
+    </ol>
+  </section>
+
+  <section class="sec unnumbered" id="concepts">
+    <h2>핵심 개념</h2>
+
+    <div class="concept" id="c-flow">
+      <h3>기본 배치는 문서 순서를 따릅니다 · 블록과 인라인, 숨기기</h3>
+      <p class="concept-def">별도의 배치 속성을 지정하지 않으면 요소는 HTML에 작성된 순서대로 놓입니다. <code>p</code>·<code>div</code>는 기본적으로 블록, <code>span</code>·<code>a</code>는 기본적으로 인라인 상자를 만듭니다. CSS로 숨긴 요소는 HTML 문서에 남아 있으며, 세 가지 방법은 자리와 키보드 초점이 서로 다릅니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>display 값과 세 가지 숨기기</caption>
+          <thead><tr><th scope="col">값</th><th scope="col">줄과 자리</th><th scope="col">크기 · 초점</th></tr></thead>
+          <tbody>
+            <tr><td><code>block</code></td><td>앞뒤 줄이 분리됨</td><td><code>width</code>·<code>height</code> 반영</td></tr>
+            <tr><td><code>inline</code></td><td>문장 흐름에 놓임</td><td>일반 텍스트 인라인의 <code>width</code>·<code>height</code>는 반영되지 않음</td></tr>
+            <tr><td><code>inline-block</code></td><td>문장 흐름에 놓임</td><td><code>width</code>·<code>height</code> 반영</td></tr>
+            <tr><td><code>display: none</code></td><td>자리가 없어짐</td><td>초점 받지 않음</td></tr>
+            <tr><td><code>visibility: hidden</code></td><td>자리 남음</td><td>초점 받지 않음</td></tr>
+            <tr><td><code>opacity: 0</code></td><td>자리 남음</td><td>초점 받을 수 있음 · 클릭도 됨</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout mistake"><code>display</code>를 바꿔도 HTML의 의미와 중첩 규칙은 그대로입니다. <code>p</code> 안에 <code>div</code>를 넣는 구조는 올바르지 않고, 링크 안에 링크를 넣을 수 없습니다. <code>opacity: 0</code>은 투명하게 만들 뿐 클릭과 키보드 초점을 막지 않습니다. <code>inline-block</code> 사이에는 HTML 공백이 간격으로 나타날 수 있고 기본 정렬은 baseline입니다.</p>
+      <a class="more" href="../week4.html#normal-flow">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-box">
+      <h3>박스 모델과 너비 계산 · content-box와 border-box</h3>
+      <p class="concept-def">내용(content), 안쪽 여백(padding), 테두리(border), 바깥 여백(margin)의 범위를 구분합니다. <code>box-sizing</code>에 따라 <code>width</code>에 포함되는 범위가 달라집니다. 기본값 <code>content-box</code>에서 <code>width</code>는 내용의 너비이고, <code>border-box</code>에서는 테두리까지의 너비입니다. 개발자 도구의 박스 모델 표시도 같은 네 영역으로 읽습니다.</p>
+<pre class="code" data-lang="css" data-file="같은 width: 200px · padding 20px · border 5px"><code>.box { box-sizing: content-box; width: 200px; padding: 20px; border: 5px solid; }
+/* 테두리까지 200 + 20×2 + 5×2 = 250px */
+.box { box-sizing: border-box; }
+/* 테두리까지 200px, 내용은 150px · margin은 두 방식 모두 지정 너비 바깥 */</code></pre>
+      <p class="callout mistake"><code>width: 100%</code>에 <code>padding</code>을 더하면 <code>content-box</code>에서는 부모를 넘칩니다. 같은 원리입니다. <code>margin</code>은 <code>border-box</code>의 지정 너비에도 포함되지 않습니다. 단위 없는 <code>width: 200;</code>은 표준 모드에서 무효이므로 새 문서는 <code>&lt;!DOCTYPE html&gt;</code>로 시작하고 <code>px</code> 같은 단위를 붙입니다.</p>
+      <a class="more" href="../week4.html#box-recall">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-float">
+      <h3>float는 주변 글이 옆으로 흐르게 합니다 · clear와 부모 높이</h3>
+      <p class="concept-def">웹 레이아웃은 표·프레임 → CSS(1996·1998) → float → 반응형(2010) → Flexbox·Grid 순서로 필요한 도구가 더해졌습니다. <code>float</code>는 이미지 옆으로 글이 흐르도록 배치할 때 씁니다. 여러 열의 페이지를 만드는 데에도 쓰였지만, 지금은 Flexbox와 Grid로 그런 배치를 구성합니다. 떠 있는 요소는 부모의 일반 흐름 높이 계산에서 빠집니다.</p>
+<pre class="code" data-lang="css" data-file="글과 float · 다음 영역과 부모 높이"><code>.picture { float: left; width: 120px; margin: 0 18px 12px 0; }
+footer   { clear: both; }          /* 다음 영역만 float 옆에 오지 않게 */
+.story   { display: flow-root; }   /* 부모가 안의 float를 포함하도록 */</code></pre>
+      <p class="callout mistake"><code>clear</code>와 부모의 높이는 다른 문제입니다. 자식이 모두 float이면 부모의 자동 높이에 자식 높이가 들어가지 않아 배경이 짧아지거나 뒤 내용과 겹칩니다. <code>overflow: hidden</code>으로 해결하면 내용까지 잘릴 수 있으므로 목적을 구분합니다. float로 만든 여러 열은 앞의 높은 카드가 다음 카드의 이동을 막아 기대한 행과 다르게 놓일 수 있습니다.</p>
+      <a class="more" href="../week4.html#float">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-position">
+      <h3>position으로 요소의 위치를 지정합니다 · 기준 상자</h3>
+      <p class="concept-def"><code>position</code>의 기본값은 <code>static</code>입니다. <code>relative</code>는 자리를 유지하며 원래 위치에서 이동하고, <code>absolute</code>는 자리에서 빠져 기준 상자 안에 놓이며, <code>fixed</code>는 자리에서 빠져 보통 뷰포트에 고정되고, <code>sticky</code>는 자리를 유지하다 스크롤 경계에서 붙습니다. <code>absolute</code>의 기준 상자는 보통 가장 가까운 위치 지정 조상(<code>position</code>이 <code>static</code>이 아닌 조상)의 패딩 영역입니다. 아래 배지는 바깥 영역을 기준으로 놓여 있습니다. 카드가 기준이 되도록 고쳐 보세요.</p>
+      <div class="lab" data-title="배지의 기준 상자를 카드로 바꾸기" data-kicker="실습 1" data-active="css" data-height="240">
+<script type="text/plain" data-lab="html">
+<section class="outer">
+  <strong>바깥 영역 · relative</strong>
+  <article class="card">
+    <span class="badge">NEW</span>
+    <h2>독서 모임 신청</h2>
+    <p>배지가 카드의 오른쪽 위에 놓이게 하세요.</p>
+  </article>
+</section>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; color: #173c35; }
+.outer { position: relative; border: 2px dashed #2e4e9e; padding: 16px; }
+/* 지금 배지의 기준 상자는 .outer입니다. 카드가 기준이 되도록 .card에 한 줄을 추가하세요. */
+.card { margin-top: 36px; padding: 34px 16px 16px; border: 2px solid #1b6e68; background: #e4efed; }
+h2 { font-size: 20px; margin: 0 0 8px; }
+p { margin: 0; }
+.badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; background: #2e4e9e; color: white; }
+</script>
+<script type="text/plain" data-lab="test">
+test('배지의 기준 상자가 카드(.card)다', () => expect($('.badge').offsetParent).toBe($('.card')));
+test('카드는 제자리에 있다 (position: relative, 이동 값 없음)', () => { const s = getComputedStyle($('.card')); expect(s.position).toBe('relative'); expect(s.top === 'auto' || s.top === '0px').toBe(true); expect(s.left === 'auto' || s.left === '0px').toBe(true); });
+test('배지의 top·right 값은 그대로다', () => { const s = getComputedStyle($('.badge')); expect(s.top).toBe('12px'); expect(s.right).toBe('12px'); });
+</script>
+      </div>
+      <p class="callout mistake"><code>relative</code>로 이동해도 다음 항목은 밀려나지 않습니다. <code>absolute</code>로 바꾸면 다음 항목이 비워진 자리로 올라옵니다. <code>sticky</code>는 <code>top</code> 같은 경계값이 없으면 붙지 않고, 부모 영역이 끝나면 함께 사라지며, 조상에 <code>overflow: hidden</code>이 있으면 그 조상이 스크롤 기준이 될 수 있습니다. <code>fixed</code> 바가 본문을 가리면 바의 높이만큼 여백을 둡니다. 겹침은 같은 쌓임 맥락 안에서만 <code>z-index</code>로 비교합니다. 위치를 시각적으로 바꿔도 HTML의 읽기 순서는 바뀌지 않습니다.</p>
+      <a class="more" href="../week4.html#position">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-flex">
+      <h3>부모에 display: flex를 적용합니다 · 주축과 교차축</h3>
+      <p class="concept-def">Flexbox는 한 방향으로 아이템을 나열하고 공간을 배분하는 배치 방식입니다. 부모는 flex container, 직접 자식은 flex item이 됩니다. 주축(main axis)은 아이템을 놓는 방향이고 교차축(cross axis)은 그에 수직인 방향입니다. <code>flex-direction: row</code>면 주축이 가로, <code>column</code>이면 세로입니다. <code>justify-content</code>는 주축의 남는 공간을 배분하고, <code>align-items</code>는 교차축에서 모든 아이템을, <code>align-self</code>는 한 아이템만 정렬합니다. 아래 세 article이 한 줄에 12px 간격으로 놓이게 부모 한 곳만 고쳐 보세요.</p>
+      <div class="lab" data-title="세 아이템을 한 줄에 놓기" data-kicker="실습 2" data-active="css" data-height="220">
+<script type="text/plain" data-lab="html">
+<main class="container">
+  <article class="item">A · 메뉴</article>
+  <article class="item">B · 옵션</article>
+  <article class="item">C · 확인</article>
+</main>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; color: #173c35; }
+.item { padding: 16px; background: #e4efed; border: 2px solid #1b6e68; }
+.item:nth-child(2) { background: #e4eaf6; border-color: #2e4e9e; }
+.item:nth-child(3) { background: #f6e6ee; border-color: #9d2a62; }
+/* 세 article이 한 줄에 12px 간격으로 놓이게 하세요. 부모(.container)만 고칩니다. */
+.container { display: block; }
+</script>
+<script type="text/plain" data-lab="test">
+const items = () => $$('.item');
+test('부모가 flex 컨테이너다', () => expect(getComputedStyle($('.container')).display).toBe('flex'));
+test('세 아이템이 한 줄에 놓인다 (A와 C의 위쪽 위치가 같다)', () => expect(items()[0].offsetTop).toBe(items()[2].offsetTop));
+test('아이템 사이 간격이 12px이다 (gap)', () => { const [a, b] = items(); expect(b.offsetLeft - (a.offsetLeft + a.offsetWidth)).toBe(12); });
+</script>
+      </div>
+      <p class="callout mistake"><code>display: flex</code>는 부모에 지정합니다. 직접 자식만 아이템이 되고, 아이템 안의 요소까지 아이템이 되지는 않습니다. 주축은 항상 가로가 아닙니다. <code>column</code>이면 <code>justify-content</code>가 세로 방향의 남는 공간을 다룹니다. 남는 공간이 없으면 <code>justify-content</code> 값에 따른 차이가 작습니다. 아이템 사이 간격은 <code>gap</code>으로 따로 지정합니다. <code>stretch</code>는 교차축 크기가 <code>auto</code>인 아이템만 늘립니다.</p>
+      <a class="more" href="../week4.html#flex-intro">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-flex-size">
+      <h3>줄바꿈·크기·순서 · flex-wrap, flex, order</h3>
+      <p class="concept-def">한 줄에 들어가지 않을 때 <code>flex-wrap: wrap</code>은 다음 줄로 넘기고, <code>nowrap</code>은 한 줄을 유지하며 아이템을 줄입니다. <code>flex</code>는 <code>flex-grow</code>(남는 공간을 가져가는 비율), <code>flex-shrink</code>(부족할 때 줄어드는 비율), <code>flex-basis</code>(기준 크기)를 순서대로 적는 단축 속성입니다. <code>order</code>는 화면 배치 순서를, <code>margin-left: auto</code>는 그 줄의 남은 공간을 앞쪽 여백으로 가져갑니다.</p>
+<pre class="code" data-lang="css" data-file="grow / shrink / basis · order · auto 여백"><code>.container { display: flex; flex-wrap: wrap; gap: 12px; }
+.item      { flex: 1 1 160px; min-width: 0; }  /* 늘어남 / 줄어듦 / 기준 크기 */
+.item:nth-child(2) { flex-grow: 2; }            /* 남는 공간을 두 배로 가져감 */
+.item:nth-child(2) { order: -1; }               /* 화면 순서만 앞으로 */
+.confirm   { margin-left: auto; }               /* 줄의 남은 공간을 앞 여백으로 */</code></pre>
+      <p class="callout mistake"><code>flex-grow: 2</code>는 남는 공간을 나누는 비율이지 최종 너비의 비율이 아닙니다. 줄어듦도 기준 크기와 최소 크기의 영향을 받습니다. <code>order</code>와 <code>reverse</code>는 화면 배치만 바꾸고 HTML 문서 순서는 그대로이므로, 바꾼 뒤 <kbd>Tab</kbd>으로 초점 순서가 화면과 충돌하지 않는지 확인합니다. Flexbox는 줄마다 공간을 따로 배분하므로 여러 행의 열 위치를 맞추려면 Grid를 씁니다.</p>
+      <a class="more" href="../week4.html#flex-sizing">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-grid">
+      <h3>격자를 만들고 영역을 지정합니다 · CSS Grid</h3>
+      <p class="concept-def">부모에 <code>display: grid</code>를 지정하면 Grid 컨테이너가 되고 직접 자식이 아이템이 됩니다. <code>grid-template-columns</code>로 열 트랙을 만들고, <code>fr</code>은 고정 트랙과 <code>gap</code>을 뺀 남는 공간을 비율로 나눕니다. <code>gap</code>은 행 간격 열 간격 순서입니다. 배치는 ① 자동 배치 ② 시작선·끝선(<code>grid-column: 2 / 4</code>) ③ <code>grid-area: 행 시작 / 열 시작 / 행 끝 / 열 끝</code> ④ <code>grid-template-areas</code>의 이름, 네 가지로 표현합니다.</p>
+<pre class="code" data-lang="css" data-file="영역 이름으로 배치 · 선 번호로 배치"><code>body { display: grid; grid-template-columns: 2fr 1fr; gap: 12px;
+       grid-template-areas: "head head" "main side" "foot foot"; }
+header { grid-area: head; }  main   { grid-area: main; }
+aside  { grid-area: side; }  footer { grid-area: foot; }
+/* 선 번호로 같은 두 열: .item { grid-column: 2 / 4; }  → 2번 선부터 4번 선까지 */</code></pre>
+      <p class="callout mistake">열 수보다 세로 경계선이 하나 더 많습니다. 끝선 번호는 마지막 셀의 번호가 아닙니다. <code>grid-template-areas</code>에서 같은 이름은 직사각형이어야 하고, 떨어진 모양으로 적으면 그 선언이 무효가 됩니다. 이름을 붙이지 않는 칸은 점(<code>.</code>)으로 둡니다. 가로쓰기에서는 <code>justify</code>가 가로, <code>align</code>이 세로 방향입니다.</p>
+      <a class="more" href="../week4.html#grid-intro">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-layout-choice">
+      <h3>Flexbox와 Grid는 언제 사용할까요? · minmax와 조합</h3>
+      <p class="concept-def">Flexbox는 한 행 또는 한 열의 공간 배분과 정렬(버튼 묶음·내비게이션·카드 내부)에, Grid는 행과 열을 함께 정의하는 배치(페이지 영역·카드 목록·정렬된 폼)에 씁니다. <code>position</code>은 흐름 위에서 오프셋이나 겹침이 필요한 부분(배지·고정 안내)에만 씁니다. <code>repeat(auto-fit, minmax(180px, 1fr))</code>는 화면 폭에 따라 열 개수를 바꿉니다.</p>
+<pre class="code" data-lang="css" data-file="페이지에는 Grid, 버튼 묶음에는 Flexbox"><code>.cards   { display: grid; gap: 12px;
+           grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); }
+.layout  { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }   /* 페이지 영역 */
+.actions { display: flex; justify-content: flex-end; gap: 10px; }       /* 버튼 묶음 */
+@media (max-width: 480px) { .layout { grid-template-columns: 1fr; } }</code></pre>
+      <p class="callout mistake"><code>auto-fit</code>은 비어 있는 반복 트랙을 접고 <code>auto-fill</code>은 빈 트랙 자리를 유지합니다. 긴 내용 때문에 열이 줄어들지 않으면 <code>min-width: 0</code>과 <code>overflow-wrap</code>도 살펴봅니다. 전체 페이지를 좌표(<code>position</code>)만으로 배치하지 않습니다. 카드 목록을 Grid로 배치하고 카드 안의 배지는 <code>absolute</code>로 놓는 식으로 함께 씁니다.</p>
+      <a class="more" href="../week4.html#grid-flex-combine">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-responsive">
+      <h3>반응형 웹은 화면 크기를 하나로 가정하지 않습니다</h3>
+      <p class="concept-def">고정 폭(줄지 않음)·유동 폭(공간에 맞춰 축소)·반응형(좁으면 배치 변경)은 다릅니다. 뷰포트 <code>meta</code>는 모바일 브라우저가 CSS 레이아웃 폭을 기기 폭으로 잡게 합니다. 상대 단위의 기준은 서로 다릅니다. <code>width</code>의 <code>%</code>는 부모 내용 영역, <code>vw</code>·<code>vh</code>는 뷰포트의 1%, <code>em</code>은 그 요소의 글꼴 크기, <code>rem</code>은 <code>html</code>의 글꼴 크기입니다. 미디어 쿼리는 조건에 맞을 때 CSS를 추가합니다. 기본 규칙을 먼저 쓰고, 내용을 읽고 조작하기 어려워지는 폭을 찾아 중단점으로 정합니다.</p>
+<pre class="code" data-lang="css" data-file="한 열에서 두 열로 바뀌는 폼"><code>/* HTML head: &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt; */
+.fields { display: grid; gap: 16px; }          /* 기본: 한 열 */
+@media (min-width: 560px) {
+  .fields { grid-template-columns: 1fr 1fr; }  /* 560px부터 두 열 */
+}</code></pre>
+      <p class="callout mistake"><code>maximum-scale=1</code>이나 <code>user-scalable=no</code>로 사용자의 확대를 막지 않습니다. <code>min-width</code> 규칙은 기본 규칙을 없애는 것이 아니라 CSS 우선순위에 따라 함께 적용됩니다. 같은 <code>50%</code>와 <code>50vw</code>도 기준이 달라 결과가 다릅니다. 배치를 바꾼 뒤에는 좁게 → 넓게, 긴 메뉴 이름, 글자 확대, <kbd>Tab</kbd> 이동에서 가로 스크롤·겹침·잘림이 없는지 확인합니다.</p>
+      <a class="more" href="../week4.html#media-query">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-images">
+      <h3>이미지가 부모 영역을 넘지 않게 합니다 · object-fit · picture · Gradient</h3>
+      <p class="concept-def"><code>width: 100%</code>의 기준은 보통 부모의 내용 영역이고, <code>height: auto</code>는 원본 비율을 지킵니다. <code>object-fit</code>은 <code>img</code> 자신의 상자 안에 이미지를 넣는 방식입니다. <code>contain</code>은 전체 표시, <code>cover</code>는 비율을 지키며 잘라 채우기, <code>fill</code>은 비율이 달라질 수 있습니다. 같은 구도의 해상도 후보는 <code>srcset</code>·<code>sizes</code>로, 조건에 따라 다른 구도를 고를 때는 <code>picture</code>와 <code>source</code>로 제공합니다. Gradient는 색이 이어지는 CSS 이미지로 <code>background-image</code>에 지정합니다.</p>
+<pre class="code" data-lang="css" data-file="비율 유지 · 잘라 채우기 · 배경"><code>img        { width: 100%; height: auto; }               /* 부모를 넘지 않고 비율 유지 */
+.frame img { height: 200px; object-fit: cover; }         /* 틀에 맞추고 일부를 잘라 채움 */
+.banner    { background-color: #d8edf0;
+             background-image: linear-gradient(90deg, #d8edf0, #e6d7f2); }</code></pre>
+      <p class="callout mistake"><code>cover</code>는 일부를 잘라냅니다. 잘리는 부분이 사진의 의미에 맞는지 전시 과제에서 판단합니다. <code>picture</code>의 <code>source</code> 조건이 맞지 않으면 <code>img</code>의 이미지를 씁니다. Gradient 배경에서는 가장 밝은 곳과 어두운 곳 모두에서 글자 대비를 확인하고, 중요한 상태를 색만으로 전달하지 않습니다. 사진을 외부 주소나 컴퓨터의 절대 경로로만 연결하면 다른 환경에서 열리지 않습니다.</p>
+      <a class="more" href="../week4.html#responsive-images">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-js-role">
+      <h3>JavaScript는 실행할 동작을 담당합니다 · 파일 연결과 Console</h3>
+      <p class="concept-def">HTML은 내용과 구조, CSS는 표현과 배치, JavaScript는 클릭하거나 입력한 뒤 무엇을 계산·변경할지 담당합니다. JavaScript는 1995년 브라우저에서 시작했고 Java와는 별개의 언어입니다. ECMAScript는 언어 규칙의 표준 이름이고, 브라우저는 JS 엔진과 Web API(DOM·이벤트)를 제공합니다. <code>document.querySelector</code>는 언어 문법이 아니라 DOM API입니다. 이 수업은 <code>index.html</code>·<code>style.css</code>·<code>script.js</code>를 같은 폴더에 두고 외부 파일을 <code>defer</code>로 불러옵니다. <code>defer</code> 스크립트는 HTML 해석이 끝난 뒤 문서 순서대로 실행됩니다. Console은 실행 결과와 오류를 확인하는 창입니다.</p>
+<pre class="code" data-lang="html" data-file="index.html의 head · 개발자 도구 열기"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
+&lt;!-- Console: Windows F12 또는 Ctrl+Shift+I · macOS Option+Command+I --&gt;
+&lt;!-- console.log("시작") 뒤의 undefined는 반환값이지 오류가 아닙니다 --&gt;</code></pre>
+      <p class="callout mistake">페이지 내용이 보여도 <code>script.js</code> 경로가 틀리면 동작은 실행되지 않습니다. 파일 이름·대소문자·확장자를 확인합니다. <code>defer</code> 없이 <code>head</code>에서 불러오면 뒤의 요소를 너무 일찍 선택해 <code>null</code>이 나옵니다. <code>details</code>의 펼침·접힘과 기본 폼 유효성 검사는 HTML이 제공하는 동작이므로 JavaScript가 필요하지 않습니다.</p>
+      <a class="more" href="../week4.html#js-role">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-values">
+      <h3>변수는 값에 이름을 붙입니다 · 자료형 · 변환 · 조건 · 함수</h3>
+      <p class="concept-def">선언은 이름을 만들고 대입은 값을 정합니다. <code>=</code>는 비교가 아니라 대입이고, 비교는 타입을 바꾸지 않는 <code>===</code>를 씁니다. 우선 <code>const</code>로 선언하고 다시 대입할 때만 <code>let</code>을 씁니다. 숫자 <code>2</code>와 문자열 <code>"2"</code>는 <code>typeof</code>가 다르고, <code>+</code>는 숫자 덧셈과 문자열 연결에 모두 쓰이므로 입력값은 <code>Number()</code>로 바꾼 뒤 계산합니다. <code>if (조건) { } else { }</code>로 경우를 나눕니다. 함수는 다시 사용할 동작을 정의하고 호출해야 실행되며, <code>return</code>으로 결과를 돌려줍니다. 아래 <code>addOne</code>은 <code>"2"</code>에 1을 더해 <code>"21"</code>을 돌려줍니다. 숫자로 바꿔 보세요.</p>
+      <div class="lab" data-title="입력 문자열은 숫자로 바꾼 뒤 계산합니다" data-kicker="실습 3" data-active="js" data-height="230">
+<script type="text/plain" data-lab="js">
+const price = 3000;
+const quantityText = "2";   // 입력창에서 읽은 값은 문자열입니다
+
+function addOne(count) {
+  // "2" + 1은 "21"입니다. Number()로 숫자로 바꾼 뒤 더하세요.
+  return count + 1;
+}
+function calculateTotal(price, count) {
+  return price * count;
+}
+
+console.log(typeof quantityText, quantityText);
+console.log("수량 + 1:", addOne(quantityText));
+console.log("합계:", calculateTotal(price, addOne(quantityText)));
+</script>
+<script type="text/plain" data-lab="test">
+test('addOne("2")는 숫자 3을 돌려준다', () => expect(addOne("2")).toBe(3));
+test('돌려준 값의 종류가 number다', () => expect(typeof addOne("2")).toBe('number'));
+test('calculateTotal(3000, addOne("2"))는 9000이다', () => expect(calculateTotal(3000, addOne("2"))).toBe(9000));
+</script>
+      </div>
+      <p class="callout mistake"><code>const</code>는 재대입을 막을 뿐 객체 내부의 속성까지 고정하지 않습니다. <code>Number("")</code>는 0이므로 빈 입력인지 먼저 확인하고, 빈 숫자 입력의 <code>valueAsNumber</code>는 <code>NaN</code>입니다. <code>0.1 + 0.2</code>는 <code>0.3</code>이 아니므로 금액은 원 단위 정수로 계산합니다. <code>console.log</code>는 확인용 출력이고, <code>return</code>이 없는 함수의 반환값은 <code>undefined</code>입니다. 백틱(<code>`</code>)은 작은따옴표와 다른 문자입니다.</p>
+      <a class="more" href="../week4.html#variables">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-dom">
+      <h3>DOM은 문서를 요소의 관계로 표현합니다 · 선택과 변경</h3>
+      <p class="concept-def">DOM(Document Object Model)은 브라우저가 HTML을 읽어 요소와 텍스트를 객체로 만들고 부모·자식 관계로 연결한 구조입니다. <code>document.getElementById("total")</code>은 id 하나(<code>#</code>을 붙이지 않음), <code>querySelector("#total")</code>는 CSS 선택자에 처음 일치하는 요소 하나, <code>querySelectorAll(".item")</code>은 일치하는 요소들의 NodeList를 돌려줍니다. 점은 객체의 속성(정보)이나 메서드(함수)에 접근하고, 괄호는 호출입니다. 문장은 <code>textContent</code>로 넣고, 상태는 <code>classList</code>로 바꾸어 표현은 CSS에 맡깁니다.</p>
+<pre class="code" data-lang="js" data-file="선택 → 내용 변경 → 클래스 → 새 요소"><code>const message = document.querySelector("#message");   // 없으면 null
+message.textContent = "신청 내용을 먼저 확인하세요.";   // 일반 문장은 textContent
+document.body.classList.toggle("dark");                // 상태는 클래스로, 표현은 CSS로
+const item = document.createElement("li");
+item.textContent = "추가 요청 사항 확인";
+document.querySelector("#list").appendChild(item);     // 부모에 붙여야 화면에 보임</code></pre>
+      <p class="callout mistake">일치하는 요소가 없으면 <code>querySelector</code>는 <code>null</code>을 돌려주고, 그 뒤 <code>.textContent</code>를 쓰면 TypeError가 납니다. id 오타와 실행 시점부터 확인합니다. <code>innerHTML</code>은 문자열을 HTML로 해석하므로 확인하지 않은 사용자 입력이나 외부 내용을 그대로 넣지 않습니다. NodeList는 하나의 요소처럼 바로 바꾸지 않고 <code>forEach</code>로 순회합니다. 개발자 도구 Elements의 DOM은 JavaScript가 바꾼 뒤의 상태이며 파일 원문과 다를 수 있습니다.</p>
+      <a class="more" href="../week4.html#dom-intro">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-events">
+      <h3>이벤트가 발생하면 함수를 실행합니다 · 폼 입력 읽기와 오류 확인</h3>
+      <p class="concept-def">이벤트는 클릭·입력처럼 발생한 일을 알리는 신호이고, 처리 함수는 그때 실행할 코드입니다. <code>addEventListener</code>의 첫 인수는 이벤트 이름, 두 번째 인수는 실행할 함수입니다. 버튼 활성화는 <code>click</code>, 입력할 때마다는 <code>input</code>, 선택 변경 후는 <code>change</code>, 폼의 최종 확인은 <code>submit</code>입니다. <code>submit</code>은 버튼 클릭과 <kbd>Enter</kbd> 제출을 함께 처리하고 <code>event.preventDefault()</code>로 기본 전송을 막습니다. 수량은 <code>quantity.valueAsNumber</code>로 숫자로 읽어 <code>Number.isInteger</code>와 범위로 검사한 뒤 <code>output</code>의 <code>textContent</code>로 결과를 표시합니다. 아래 코드는 버튼을 누르기 전에 문장이 바뀌고, 누르면 아무 일도 없습니다. 고쳐 보세요.</p>
+      <div class="lab" data-title="함수 전달과 즉시 호출" data-kicker="실습 4" data-active="js" data-height="220">
+<script type="text/plain" data-lab="html">
+<button id="confirm" type="button">확인</button>
+<p id="result" aria-live="polite">대기 중</p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; color: #173c35; }
+button { font: inherit; padding: 8px 14px; cursor: pointer; }
+</script>
+<script type="text/plain" data-lab="js">
+function showMessage() {
+  document.querySelector("#result").textContent = "버튼을 눌렀습니다.";
+}
+const button = document.querySelector("#confirm");
+// 두 번째 인수에는 '나중에 실행할 함수'를 전달합니다. 지금은 호출한 결과를 전달하고 있습니다.
+button.addEventListener("click", showMessage());
+</script>
+<script type="text/plain" data-lab="test">
+test('실행 직후, 버튼을 누르기 전에는 "대기 중"이다', () => expect($('#result').textContent).toBe('대기 중'));
+test('버튼을 누르면 "버튼을 눌렀습니다."로 바뀐다', () => { $('#result').textContent = '대기 중'; click('#confirm'); expect($('#result').textContent).toBe('버튼을 눌렀습니다.'); });
+</script>
+      </div>
+      <p class="callout mistake"><code>showMessage</code>는 나중에 실행할 함수를 전달하고, <code>showMessage()</code>는 지금 호출합니다. 브라우저 유효성 검사(<code>required</code>·<code>min</code>·<code>max</code>)에서 막히면 <code>submit</code> 이벤트가 발생하지 않을 수 있습니다. 코드가 동작하지 않으면 파일 실행 → 요소 선택 → 값 읽기 → 이벤트 처리 순서로 <code>console.log</code>를 넣어 확인합니다. 오류는 이름부터 읽습니다. SyntaxError는 따옴표·괄호·값 누락, ReferenceError는 오타·선언 전 사용(<code>quanity</code> ≠ <code>quantity</code>), TypeError는 <code>null</code>에 속성 설정입니다.</p>
+      <a class="more" href="../week4.html#event-listener">확장판에서 더 보기</a>
+    </div>
+  </section>
+
+  <section class="sec unnumbered" id="ai">
+    <h2>AI와 함께 · 4주차 요약</h2>
+    <p>이번 주 등급은 <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>입니다. 4주차 교안의 AI 파트(PART 08)는 선택 참고였습니다. 발표에서 고른 개선을 실제 코드에 반영할 때 AI에게 무엇을 전달하고, 받은 결과를 어떻게 검토·확인하는지를 다뤘습니다. AI를 사용하지 않아도 같은 기준으로 직접 수정합니다. 교안 원문은 도구를 "이미 사용하는 VS Code의 AI 도구"라고만 적었습니다. 지금 공통 환경은 ChatGPT Edu(Codex 포함)이고, Claude Code는 선택이며, 도구의 종류·유료 여부는 평가 기준이 아닙니다.</p>
+    <ul>
+      <li><b>전달할 것은 범위입니다</b> — 기준 파일, 유지할 것(label 연결·<code>name</code>/<code>value</code>·메뉴·이용 조건), 변경할 것(버튼 묶음에 Flexbox, 좁은 폭에서는 줄바꿈), 제약(라이브러리 설치와 실제 주문 전송은 추가하지 않음), 확인할 것(320px·760px, 긴 메뉴 이름, 키보드 이동)을 적습니다. 아직 확인하지 못한 메뉴·가격·신청 조건은 구분해서 적고, 개인정보가 있는 부분은 자리표시자로 바꿉니다. 한 가지 개선씩 적용을 요청합니다.</li>
+      <li><b>요청한 변경과 실제 수정 범위를 비교합니다</b> — 교안의 예에서 AI 수정안은 버튼 배치를 Flexbox로 바꾸면서 <code>name="quantity"</code>를 <code>name="count"</code>로 바꾸고 <code>min</code>·<code>max</code> 범위까지 지웠습니다. 그대로 채택하지 않고 필요한 배치 변경만 반영한 뒤 입력 조건을 복구합니다. AI의 "완료" 설명과 실제 실행 결과는 다른 것입니다.</li>
+      <li><b>수정한 폼은 입력 세 가지로 확인합니다</b> — 일반 입력(현재 선택과 수량에 맞는 결과), 빈 값·범위 밖(계산하지 않고 입력 조건 안내), 값을 바꾼 뒤 다시 실행(이전 값이 아닌 현재 값으로 갱신). 검사할 입력값과 예상 결과를 요청문과 README에 적어 둡니다. 과제 README에는 AI에 맡긴 부분과 직접 바꾼 부분을 구분하고, AI 생성 이미지를 썼다면 캡션에 "AI 생성 이미지"라고 표시합니다.</li>
+    </ul>
+    <figure class="prompt">
+      <figcaption class="prompt-head"><span class="prompt-tool">Codex 또는 Claude Code</span><span class="prompt-purpose">발표에서 고른 개선을 범위 안에서 적용하기 · 교안 원문의 요청문</span></figcaption>
+      <pre class="prompt-text">기준 파일: form/index.html, form/style.css
+유지: label 연결, name/value, 메뉴·이용 조건
+변경: <var>버튼 묶음에 Flexbox, 좁은 폭에서는 줄바꿈</var>
+제약: 라이브러리 설치와 실제 주문 전송은 추가하지 않음
+확인: 320px·760px, 긴 메뉴 이름, 키보드 이동
+먼저 변경할 부분을 설명하고, 한 가지 개선씩 적용해 줘.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul>
+          <li>수정 전후 코드에서 바뀐 줄이 배치뿐인가요? <code>name</code>·<code>min</code>·<code>max</code>·<code>required</code>와 안내 문구는 그대로인가요?</li>
+          <li>320px·760px에서 버튼이 겹치거나 가로 스크롤이 생기지 않나요? 긴 메뉴 이름에서도 읽히나요?</li>
+          <li>빈 값·범위 밖 값에서 계산하지 않고 안내하나요? <kbd>Tab</kbd> 이동 순서와 초점 표시가 유지되나요?</li>
+          <li>AI가 "완료"라고 설명한 내용과 실제로 실행한 결과가 같은가요? 채택한 변경과 남은 문제를 기록했나요?</li>
+        </ul>
+      </div>
+    </figure>
+  </section>
+
+  <section class="sec unnumbered" id="check">
+    <h2>자가 점검 퀴즈</h2>
+    <form class="quiz" aria-label="4주차 자가 점검 퀴즈">
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q1</span>가운데 버튼을 보이지 않게 하되 자리는 남기고, 키보드 초점도 받지 않게 하려면?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="w04q1"> <code>display: none</code></label><p class="quiz-why">자리까지 없어집니다. 뒤의 요소가 올라옵니다.</p></li>
+          <li data-answer><label><input type="radio" name="w04q1"> <code>visibility: hidden</code></label><p class="quiz-why">맞습니다. 자리는 남고 초점은 받지 않습니다. HTML 요소는 그대로 남아 있습니다.</p></li>
+          <li><label><input type="radio" name="w04q1"> <code>opacity: 0</code></label><p class="quiz-why">투명해질 뿐 클릭과 키보드 초점을 막지 않습니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q2</span><code>width: 200px; padding: 20px; border: 5px solid; box-sizing: content-box;</code>일 때 테두리까지의 가로 너비는 몇 px인가요? (숫자만)</p>
+        <div class="quiz-short"><input type="text" data-accept="250|250px" aria-label="Q2 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why">200 + 20×2 + 5×2 = <b>250px</b>입니다. <code>border-box</code>로 바꾸면 테두리까지 200px, 내용은 150px이 됩니다. margin은 두 방식 모두 지정 너비 바깥입니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q3</span>카드 안의 배지(<code>position: absolute; top: 12px; right: 12px</code>)를 카드의 오른쪽 위에 놓으려면 카드에 무엇을 추가하나요?</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="radio" name="w04q3"> <code>position: relative</code></label><p class="quiz-why">맞습니다. 이동 값 없이 지정하면 카드는 제자리에 있으면서 배지의 기준 상자가 됩니다.</p></li>
+          <li><label><input type="radio" name="w04q3"> <code>position: absolute</code></label><p class="quiz-why">카드가 흐름에서 빠져 다음 항목이 비워진 자리로 올라옵니다. 기준만 잡을 때는 relative를 씁니다.</p></li>
+          <li><label><input type="radio" name="w04q3"> <code>z-index: 1</code></label><p class="quiz-why">z-index는 겹침 순서일 뿐 기준 상자를 만들지 않습니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q4</span><code>flex-direction: row</code>인 컨테이너에서 높이가 다른 아이템들을 세로 방향 가운데에 맞추려면?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="w04q4"> <code>justify-content: center</code></label><p class="quiz-why">주축(가로)의 남는 공간을 배분합니다. 세로 정렬이 아닙니다.</p></li>
+          <li data-answer><label><input type="radio" name="w04q4"> <code>align-items: center</code></label><p class="quiz-why">맞습니다. 교차축(여기서는 세로)에서 모든 아이템을 가운데에 맞춥니다. 한 아이템만 다르게 하려면 align-self를 씁니다.</p></li>
+          <li><label><input type="radio" name="w04q4"> <code>text-align: center</code></label><p class="quiz-why">글자의 가로 정렬입니다. 아이템 상자의 위치는 바꾸지 않습니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q5</span><code>console.log("2" + "2");</code>의 출력은 무엇인가요?</p>
+        <div class="quiz-short"><input type="text" data-accept="22|&quot;22&quot;|'22'|문자열 22" aria-label="Q5 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why">문자열 <b>"22"</b>입니다. <code>+</code>는 문자열을 이어 붙입니다. 숫자 4를 얻으려면 <code>Number("2") + Number("2")</code>처럼 바꾼 뒤 더합니다. <code>"2" === 2</code>는 false입니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q6</span><code>button.addEventListener("click", showMessage());</code>에서 무엇이 문제인가요?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="w04q6"> 이벤트 이름을 <code>"onclick"</code>으로 써야 한다</label><p class="quiz-why">addEventListener의 이벤트 이름은 "click"이 맞습니다.</p></li>
+          <li data-answer><label><input type="radio" name="w04q6"> <code>showMessage()</code>가 지금 호출되어 그 결과가 전달된다. 함수 이름 <code>showMessage</code>만 전달해야 한다</label><p class="quiz-why">맞습니다. 두 번째 인수는 나중에 실행할 함수입니다. 괄호를 붙이면 등록 시점에 한 번 실행되고 클릭에는 아무 일도 일어나지 않습니다.</p></li>
+          <li><label><input type="radio" name="w04q6"> 버튼에는 <code>addEventListener</code>를 쓸 수 없다</label><p class="quiz-why">버튼을 포함한 모든 요소에 쓸 수 있습니다.</p></li>
+        </ul>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="sec unnumbered" id="homework">
+    <h2>과제 · 제출 완료</h2>
+    <p>이미 제출을 마친 4주차 과제와 수업 활동의 기록입니다. 내용은 확장판 원문 그대로이며, 다시 제출할 필요는 없습니다. 제출처는 eTL 한 곳이고, 기한은 eTL 과제 페이지의 시각이 기준이었습니다.</p>
+    <article class="assignment" aria-labelledby="s-hw04-title" data-countdown="off">
+      <header class="assignment-head">
+        <span class="kicker">4주차 과제 3 · 개인 · 제출 완료</span>
+        <h3 class="assignment-title" id="s-hw04-title">온라인 사진 전시회</h3>
+        <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol>
+          <li>1단계 · 구조 설계 — 본인이 촬영한 사진 3~5점과 전시 주제(자유)를 정하고, CSS·JavaScript 없이 HTML만으로 전시 제목·소개, 작품과 캡션(<code>figure</code>·<code>figcaption</code>), 작성자 정보를 작성. 스타일 전 화면 한 장을 남김</li>
+          <li>2단계 · CSS 레이아웃 — 같은 HTML에 Flexbox 또는 Grid로 반응형 배치를 더하고 넓은·좁은 화면을 모두 확인. 사용성 개선 한 가지 이상을 골라 이유와 결과를 기록 (선택: JavaScript 동작, hover 효과, position 활용)</li>
+          <li><code>README.md</code> 세 항목에 화면 캡처를 넣고 같은 내용의 PDF 작성 — ① 전시와 구조(주제·관점, 작품을 고른 이유, 순서와 HTML 구조) ② 레이아웃과 사용성(Flexbox·Grid 선택 이유, 스타일 의도, 사용성 개선) ③ 확인과 AI 활용(넓은·좁은 화면 확인 결과, 남은 문제, AI에 맡긴 부분과 직접 바꾼 부분)</li>
+        </ol></dd></div>
+        <div><dt>예상 소요</dt><dd>수업 중 구조를 시작하고 남은 작업은 수업 후에 (원문에 시간 안내는 없습니다)</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd><code>학번_이름_week04.pdf</code>와 <code>학번_이름_week04.zip</code> 모두 제출 (ZIP 안에도 같은 PDF 포함). ZIP 구성: <code>week04-gallery/</code> — <code>index.html</code>, <code>style.css</code>, <code>images/</code>(작품 3~5점), <code>README.md</code>, <code>screenshots/</code>(HTML 단계·넓은 화면·좁은 화면), <code>script.js</code>는 JavaScript를 추가한 경우만</dd></div>
+        <div><dt>제출처</dt><dd>eTL 과제함 한 곳</dd></div>
+        <div class="due"><dt>마감</dt><dd>제출 완료<small>5주차 수업 전까지 제출한 과제입니다 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+        <div><dt>확인 기준</dt><dd><ul>
+          <li>필수: 작품 3~5점, 제목·소개·캡션, 내용의 역할에 맞는 HTML 구조, 반응형 CSS, 사용성 개선 한 가지 이상. 사진·캡션이 가로로 넘치거나 겹치지 않고, 비율이 찌그러지거나 중요한 부분이 의도와 다르게 잘리지 않는다</li>
+          <li>사진의 의미를 전달하는 <code>alt</code>가 있고, 캡션의 대비·줄간격이 적절하다. 효과를 썼다면 중요한 캡션이 hover에서만 보이지 않고 키보드·터치로도 확인할 수 있다</li>
+          <li>ZIP을 다른 폴더에 풀어도 <code>index.html</code>이 열린다(외부 주소·절대 경로만으로 연결하지 않음). AI 생성 이미지로 대체했다면 캡션에 "AI 생성 이미지"를 표시하고 README에 작품·도구·전시 주제와 연결되는 생성 이유를 적었다. 우수작은 스토리텔링·구조 설계·디자인 구현·디자인 적절성·코드의 이해를 함께 보며, 촬영 장비·사생활 공개 정도·AI 사용 여부 자체로 평가 차이를 두지 않는다</li>
+        </ul></dd></div>
+      </dl>
+    </article>
+
+    <article class="assignment" aria-labelledby="s-act04-title" data-countdown="off">
+      <header class="assignment-head">
+        <span class="kicker">4주차 수업 활동 · 조별 · 제출 완료</span>
+        <h3 class="assignment-title" id="s-act04-title">웹 레이아웃 변천사 탐구</h3>
+        <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol>
+          <li>선정과 관찰 — 조별로 웹사이트 하나를 정하고 Wayback Machine에서 같은 페이지의 서로 다른 시점 2~3개를 골라 보관 일시·URL·화면 캡처를 기록. 배치(메뉴·본문의 위치, 열의 수, 여백), 정보의 비중, 화면 폭을 줄였을 때의 변화를 개발자 도구로 확인</li>
+          <li>Markdown 기록 — 대표가 만든 Private 저장소의 <code>README.md</code>에 분석 대상·시점별 관찰(화면 관찰 / 코드 확인 또는 확인 불가 / 해석을 구분)·공동 결론을 각자 맡은 구역으로 작성하고 커밋</li>
+          <li>검토와 병합 — 공동 결론의 작은 수정을 새 브랜치에 기록해 PR로 제안하고, 다른 조원이 날짜·링크·캡처·인용 코드를 확인한 뒤 main에 병합 (조별 한 번)</li>
+        </ol></dd></div>
+        <div><dt>예상 소요</dt><dd>수업 시간 안에 진행 (원문에 시간 안내는 없습니다). 한 노트북으로 함께 진행해도 되며, 조작·화면 관찰·코드 확인·기록을 나눕니다</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd><code>학번_이름_week04_활동.pdf</code>(관찰 결과 · 공동 작업 기록 · 본인의 참여 내용)와 공동 <code>README.md</code> 사본. 이미지 등을 ZIP으로 묶었다면 같은 PDF도 ZIP 안에 넣고, PDF는 별도 파일로도 제출</dd></div>
+        <div><dt>제출처</dt><dd>eTL 과제함 한 곳</dd></div>
+        <div class="due"><dt>마감</dt><dd>제출 완료<small>4주차 수업 활동으로 제출한 기록입니다 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+        <div><dt>확인 기준</dt><dd><ul>
+          <li>사이트와 비교 시점, 화면 캡처, 핵심 변화와 확인 근거가 있다. 표가 있다는 이유만으로 표 레이아웃이라 단정하지 않고 실제 배치 역할을 확인했으며, 이미지·CSS가 보관되지 않아 생긴 깨짐은 당시 디자인과 구분했다</li>
+          <li>README 내용과 커밋·PR 화면, 맡은 역할과 검토한 내용을 적었다. 한 계정으로 진행했다면 직접 조작한 단계와 함께 검토한 단계를 구분했다</li>
+          <li>AI로 문장을 정리했더라도 관찰 날짜와 코드 근거는 직접 확인했다</li>
+        </ul></dd></div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="sec unnumbered" id="deeper">
+    <h2>심화·보충 파트</h2>
+    <p>요약에 넣지 않은 파트입니다. 제목을 누르면 확장판의 해당 위치로 이동합니다.</p>
+    <dl class="defs">
+      <div><dt><a href="../week4.html#layout-history">웹 레이아웃은 어떤 문제를 해결하며 바뀌었을까요?</a></dt><dd>표·프레임 → CSS 1·2 → float → 반응형(2010) → Flex·Grid, <a href="../week4.html#history-doctype">DOCTYPE과 호환 모드</a>, <a href="../week4.html#css-layout-separation">같은 HTML에 다른 CSS</a></dd></div>
+      <div><dt><a href="../week4.html#sticky-check">sticky의 동작 조건</a></dt><dd>경계값 · 움직일 공간 · 스크롤 기준, <a href="../week4.html#z-index">z-index와 쌓임 맥락</a>, <a href="../week4.html#position-use">메뉴·배지·안내 버튼의 위치 지정</a></dd></div>
+      <div><dt><a href="../week4.html#flex-line-alignment">align-content는 여러 줄의 묶음을 배치합니다</a></dt><dd><a href="../week4.html#flex-sizing-map">basis에서 출발해 공간을 더하거나 빼기</a>, <a href="../week4.html#flex-navbar">상단 메뉴</a>, <a href="../week4.html#flex-card-pattern">카드 버튼을 아래에 맞추기</a>, <a href="../week4.html#flex-movie-pattern">가로로 탐색하는 목록</a></dd></div>
+      <div><dt><a href="../week4.html#grid-area-short">grid-area의 숫자는 네 경계선입니다</a></dt><dd><a href="../week4.html#grid-alignment">셀 안의 요소와 격자 전체를 따로 정렬</a>, <a href="../week4.html#grid-minmax">minmax와 auto-fit·auto-fill</a></dd></div>
+      <div><dt><a href="../week4.html#media-conditions">중단점은 어느 폭에 두면 좋을까요?</a></dt><dd>너비·<code>orientation</code>·<code>print</code> 조건, <a href="../week4.html#responsive-check">반응형 화면에서 확인할 항목</a>, <a href="../week4.html#gradient-controls">방향과 색상 정지점</a></dd></div>
+      <div><dt><a href="../week4.html#css-variable-reading">CSS 변수의 선언과 사용</a></dt><dd><code>--accent</code> 선언 → <code>var()</code> 사용 → 부분 변경, <a href="../week4.html#design-tokens">공통 색상과 간격을 CSS 변수로</a>(5주차 디자인 시스템으로 이어짐)</dd></div>
+      <div><dt><a href="../week4.html#js-origin">누가, 어떤 필요에서 JavaScript를 만들었을까요?</a></dt><dd><a href="../week4.html#js-name-origin">Mocha → LiveScript → JavaScript</a>, <a href="../week4.html#js-history">1995 · 1997 · ES5 · ES2015 · ES2020의 코드 비교</a>, <a href="../week4.html#es2015-scope">var와 let의 범위</a></dd></div>
+      <div><dt><a href="../week4.html#number-precision">소수 계산 결과는 예상과 조금 다를 수 있습니다</a></dt><dd><code>0.1 + 0.2</code>, <a href="../week4.html#input-value-bridge">입력창의 2와 숫자 2 · <code>value</code>와 <code>valueAsNumber</code></a></dd></div>
+      <div><dt><a href="../week4.html#dom-content-modes">textContent와 innerHTML의 차이</a></dt><dd><a href="../week4.html#classlist">상태는 JavaScript로, 표현은 CSS로</a>, <a href="../week4.html#error-reading">오류 메시지 읽기 · 문법·이름·대상</a></dd></div>
+      <div><dt><a href="../week4.html#appendix-markdown">A · Markdown 복습</a></dt><dd>제목·목록·링크·이미지·표·코드 블록, 백틱과 파이프 기호, VS Code 미리보기</dd></div>
+      <div><dt><a href="../week4.html#appendix-css">B · 컨테이너와 배치의 확장</a></dt><dd><a href="../week4.html#container-query">컨테이너 쿼리</a>, <a href="../week4.html#subgrid">subgrid로 부모의 트랙 공유</a></dd></div>
+      <div><dt><a href="../week4.html#appendix-js">C · 조건·배열·반복의 확장</a></dt><dd>truthy·falsy, <code>else if</code>, 조건 연산자, <code>&amp;&amp;</code>·<code>||</code>·<code>??</code>, 변수 범위, <a href="../week4.html#arrays">배열</a>, <a href="../week4.html#for-loop">for</a>·<a href="../week4.html#foreach">forEach</a>, <a href="../week4.html#array-dom">데이터 목록으로 버튼 만들기</a>, 선택 활동 취향 퀴즈</dd></div>
+      <div><dt><a href="../week4.html#appendix-git">D · GitHub 협업 · PR과 검토</a></dt><dd>Issue → 브랜치 → PR → 검토(Comment·Request changes·Approve) → 병합 → 로컬 갱신 → 되돌림, <a href="../week4.html#pr-description">PR 설명 쓰기</a></dd></div>
+      <div><dt><a href="../week4.html#appendix-git-review">E · Git·GitHub 기초 참고</a></dt><dd>작업 폴더·스테이징·로컬·원격, init·clone, push·pull, 충돌 해결, 저장소 만들기·복제·커밋·push</dd></div>
+      <div><dt><a href="../week4.html#appendix-sources">F · 참고 자료</a></dt><dd>단원 찾아보기, MDN·CommonMark·Git 문서</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec unnumbered" id="more">
+    <h2>확장판에서 더 보기</h2>
+    <p>눌러서 움직여 보는 모형들입니다. 요약에서 헷갈린 개념은 여기서 한 번 더 확인합니다.</p>
+    <ul>
+      <li><a href="../week4.html#box-inspector">박스의 네 영역을 그림에서 구분합니다</a> — content → padding → border → margin을 눌러 보고 <a href="../week4.html#box-sizing-measure">여백을 늘리면 전체 너비가 어떻게 달라지는지</a> 숫자로 확인</li>
+      <li><a href="../week4.html#fixed-sticky">스크롤할 때 fixed와 sticky는 어떻게 다를까요?</a> — 세 화면의 스크롤 위치를 함께 바꾸며 static·sticky·fixed 비교</li>
+      <li><a href="../week4.html#flex-axes">Flexbox의 주축과 교차축</a> — 방향·주축 정렬·교차축 정렬을 바꾸며 A·B·C의 위치 비교, <a href="../week4.html#flex-justify-map">justify-content의 여섯 가지 배치</a></li>
+      <li><a href="../week4.html#grid-terms">Grid의 선·트랙·셀·영역</a> — 용어 버튼으로 강조하고 <a href="../week4.html#grid-placement-map">네 가지 배치 표현</a>을 같은 화면에서 비교</li>
+      <li><a href="../week4.html#variable-trace">한 줄씩 실행하면 값이 어떻게 바뀔까요?</a> — 실행 줄·변수의 값·Console 출력이 단계마다 바뀌는 모형, <a href="../week4.html#function-machine">함수 호출 · 인수에서 반환값까지</a></li>
+      <li><a href="../week4.html#dom-explorer">HTML·DOM·화면에서 같은 대상을 찾습니다</a> — 저장된 HTML, 브라우저의 DOM, 렌더된 화면을 나란히 보고 <a href="../week4.html#event-workbench">이벤트 처리 함수의 등록과 실행</a></li>
+    </ul>
+  </section>
+
+  <section class="sec unnumbered" id="contact">
+    <h2>질문 창구</h2>
+    <p>질문과 연락은 eTL 메시지로 보내 주세요(메일 확인이 어렵습니다). 수업 내용은 eTL 게시판에도 남길 수 있습니다. 질문에는 ① 하려던 작업 ② 수행한 절차 ③ 기대한 결과와 실제 결과(오류 화면)를 함께 적어 주시면 원인을 빨리 찾을 수 있습니다.</p>
+    <p>속성과 메서드를 다 외우지 않아도 됩니다. 제출한 전시 페이지의 <code>style.css</code>에서 규칙 하나를 바꾸어 보고, 왜 그렇게 보이는지 한 번만 말로 설명해 보세요. 그걸로 충분합니다.</p>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="../week4.html"><span>← 확장판</span>4주차 · 자세한 설명과 실습</a>
+    <a class="next" href="../map.html"><span>교안 지도 →</span>주차별 자료 한눈에 보기</a>
+  </nav>
+</main>
+</body>
+</html>

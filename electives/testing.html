@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ko" data-page="module">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선택 모듈 · 테스트: 체크리스트 한 줄을 자동으로 | 웹프로그래밍개론</title>
+<meta name="description" content="선택 모듈 6 테스트. 테스트가 보장하는 것과 피라미드, Vitest 단위 테스트, fetch를 가짜로 바꾸기, Playwright E2E와 axe 접근성 검사, GitHub Actions, 불안정 테스트의 원인, AI가 만든 테스트의 함정을 브라우저 안 실습으로 익히고 팀 프로젝트 적용 결정표로 끝납니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">선택 모듈 6 · 테스트</span>
+  <nav class="topbar-nav" aria-label="선택 모듈">
+    <a href="../map.html">교안 지도</a>
+    <a href="backend.html">2 · 백엔드</a>
+    <a href="serverless.html">3 · 서버리스</a>
+    <a href="testing.html" aria-current="page">6 · 테스트</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<div class="layout">
+<main class="doc" id="main">
+
+  <header class="doc-head">
+    <span class="kicker">선택 모듈 6 · 테스트</span>
+    <h1>테스트: 체크리스트 한 줄을 자동으로 확인하기</h1>
+    <p class="lead">10주차에 만든 <code>tests/checklist.md</code>는 사람이 매번 눈으로 확인하는 목록입니다. 이 모듈에서는 그중 한 줄을 코드로 옮겨, 바꿀 때마다 1분 안에 "아직 맞다"를 확인하는 방법을 익힙니다. 실습은 모두 브라우저 안의 연습용 러너에서 돌아갑니다. 마지막에는 우리 팀에 어떤 테스트가 얼마나 필요한지 결정표로 답합니다.</p>
+    <ul class="doc-meta">
+      <li><b>예상 시간</b> 읽기 20~30분 · 실습 30분</li>
+      <li><b>먼저 볼 것</b> 10주차 저장소·기본 하네스(<code>tests/checklist.md</code>), 12주차 AI 코드 검토와 테스트 입문 (<a href="../map.html">교안 지도</a>에서 엽니다)</li>
+      <li><b>기본 도구</b> ChatGPT Edu(기본) · 에이전트(Codex 또는 Claude Code)</li>
+      <li><b>AI 등급</b> AI ALLOWED</li>
+    </ul>
+  </header>
+
+  <section class="fit" aria-labelledby="fit-title">
+    <h2 id="fit-title">이 모듈이 맞는 프로젝트</h2>
+    <dl>
+      <div><dt>잘 맞는 경우</dt><dd><ul>
+        <li>계산하거나 분류하는 규칙이 있습니다. 예: 메모를 제목으로 분류한다, 점수를 더한다, 마감이 지났는지 판단한다.</li>
+        <li>여러 사람이 같은 파일을 고칩니다. 팀원 1이 고친 뒤 팀원 2의 기능이 깨졌는지 PR마다 확인하고 싶습니다.</li>
+        <li>AI가 코드를 많이 씁니다. 사람이 매번 다 읽기 어려우니 1차 검사를 코드에 맡기고 싶습니다.</li>
+        <li>13주차 알파 테스트 뒤에 고칠 것이 많습니다. 고치면서 다른 곳이 깨지지 않게 지키고 싶습니다.</li>
+      </ul></dd></div>
+      <div><dt>과한 경우</dt><dd><ul>
+        <li>화면이 한두 개이고 규칙이 거의 없습니다. <code>tests/checklist.md</code>를 손으로 확인하는 편이 빠릅니다.</li>
+        <li>베타 시연까지 일주일이 남았고 아직 알파가 안 돕니다. 지금은 테스트보다 사용 장면 하나를 끝까지 지나가는 일이 먼저입니다.</li>
+        <li>E2E 테스트를 열 개 넘게 쓰려 합니다. 알파 단계에서는 단위 테스트 한두 개와 E2E 하나면 충분합니다.</li>
+      </ul></dd></div>
+      <div><dt>먼저 할 것</dt><dd>팀 저장소에 <code>tests/checklist.md</code>가 있고, 그 안에 "이러면 맞다"가 한 줄 이상 적혀 있어야 합니다. 터미널에서 <code>node -v</code>가 22.12 이상이면 준비는 끝입니다(수업 권장 24 LTS). 12주차 교안의 테스트 입문을 먼저 읽으면 이 모듈이 쉬워집니다.</dd></div>
+    </dl>
+  </section>
+
+  <p>진행 상황을 표시하며 따라가세요. 표시는 이 브라우저에만 저장됩니다.</p>
+  <ul class="checklist" data-checklist="mod-testing-progress">
+    <li><label><input type="checkbox"> 01 테스트가 보장하는 것과 보장하지 않는 것을 한 줄씩 말할 수 있다</label></li>
+    <li><label><input type="checkbox"> 02 단위·더블·E2E·접근성 검사·불안정 테스트 다섯 개념을 설명할 수 있다</label></li>
+    <li><label><input type="checkbox"> 03 실습 네 개의 테스트를 모두 통과시키고 확인 문제를 풀었다</label></li>
+    <li><label><input type="checkbox"> 04 팀 저장소에 Vitest를 설치하고 테스트 한 개를 <code>npx vitest run</code>으로 돌렸다</label></li>
+    <li><label><input type="checkbox"> 05 AI에게 맡길 일과 내가 판단할 일을 나누었다</label></li>
+    <li><label><input type="checkbox"> 06 도구의 한계와 비용을 비교했다</label></li>
+    <li><label><input type="checkbox"> 07 더 배울 공식 문서를 하나 골랐다</label></li>
+    <li><label><input type="checkbox"> 08 팀 프로젝트 적용 결정표를 채워 <code>docs/architecture.md</code>에 붙였다</label></li>
+  </ul>
+
+  <!-- ================================================================ 01 -->
+  <section class="sec" id="why">
+    <h2>테스트가 보장하는 것</h2>
+    <p class="lead">테스트는 "이러면 맞다"를 코드로 적어 둔 것입니다. 사람이 확인하던 한 줄을 컴퓨터가 대신 확인합니다.</p>
+    <p>10주차의 <code>tests/checklist.md</code>에는 이런 줄이 있습니다. "제목에 '시험'이 들어간 메모는 '수업'으로 분류된다." 지금은 팀원이 화면에서 메모를 하나 써 보고 눈으로 확인합니다. 코드를 바꿀 때마다 같은 일을 반복합니다. 이 한 줄을 함수 호출 한 번과 <code>expect</code> 한 줄로 옮기면, 바꾼 뒤 명령 하나로 1분 안에 "아직 맞다"를 알 수 있습니다.</p>
+    <dl class="defs">
+      <div><dt>보장하는 것</dt><dd>적어 둔 경우가 지금도 같은 결과를 냅니다(회귀 방지). 바꾼 뒤 바로 확인할 수 있습니다. AI가 만든 변경을 사람보다 먼저 검사합니다.</dd></div>
+      <div><dt>보장하지 않는 것</dt><dd>적지 않은 경우. 테스트 자체가 틀린 경우(아래 실습 4). 사용자가 화면을 이해하는지 — 이것은 13주차 알파 테스트의 몫입니다.</dd></div>
+    </dl>
+
+    <h3>테스트 피라미드: 단위는 많이, E2E는 적게</h3>
+    <p>테스트는 확인하는 범위에 따라 세 층으로 나눕니다. 아래로 갈수록 작고 빠르고 많습니다. 위로 갈수록 사용자의 경험에 가깝지만 느리고 깨지기 쉽습니다.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 520 250" width="100%" role="img" aria-labelledby="pyr-title pyr-desc">
+        <title id="pyr-title">테스트 피라미드</title>
+        <desc id="pyr-desc">세 층으로 쌓인 피라미드. 맨 아래 넓은 층은 단위 테스트로 많고 빠르다. 가운데 층은 통합 테스트. 맨 위 좁은 층은 E2E 테스트로 적고 느리다. 오른쪽에 아래에서 위로 가는 화살표와 함께 느려짐·사용자에 가까움, 왼쪽에 위에서 아래로 가는 화살표와 함께 많아짐·빨라짐이라고 적혀 있다.</desc>
+        <polygon points="200,30 320,30 360,100 160,100" fill="var(--sunken)" stroke="var(--line)"/>
+        <polygon points="160,100 360,100 400,170 120,170" fill="var(--sunken)" stroke="var(--line)"/>
+        <polygon points="120,170 400,170 440,240 80,240" fill="var(--sunken)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="260" y="58" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="600">E2E (브라우저)</text>
+        <text x="260" y="80" text-anchor="middle" fill="var(--muted)" font-size="12">Playwright · 1~3개</text>
+        <text x="260" y="128" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="600">통합</text>
+        <text x="260" y="150" text-anchor="middle" fill="var(--muted)" font-size="12">화면 + 가짜 fetch · 몇 개</text>
+        <text x="260" y="198" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="600">단위 (함수 하나)</text>
+        <text x="260" y="220" text-anchor="middle" fill="var(--muted)" font-size="12">Vitest · 많이</text>
+        <line x1="470" y1="230" x2="470" y2="40" stroke="var(--muted)" marker-end="url(#pyr-arrow)"/>
+        <text x="482" y="120" fill="var(--muted)" font-size="12" transform="rotate(90 482 120)" text-anchor="middle">느려짐 · 사용자에 가까움</text>
+        <line x1="50" y1="40" x2="50" y2="230" stroke="var(--muted)" marker-end="url(#pyr-arrow)"/>
+        <text x="38" y="135" fill="var(--muted)" font-size="12" transform="rotate(-90 38 135)" text-anchor="middle">많아짐 · 빨라짐</text>
+        <defs><marker id="pyr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      </svg>
+      <figcaption>테스트 피라미드. 알파 버전에서는 아래 층(단위) 한두 개로 시작하고, E2E는 ★ 사용 장면 하나에만 둡니다.</figcaption>
+    </figure>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>세 층의 비용과 쓰임</caption>
+        <thead><tr><th scope="col">층</th><th scope="col">무엇을 확인하나</th><th scope="col">도구</th><th scope="col">한 번 돌리는 데</th><th scope="col">깨지는 이유</th></tr></thead>
+        <tbody>
+          <tr><td>단위</td><td>함수 하나의 입력과 출력. 예: <code>categorize('시험 준비')</code>는 <code>'수업'</code></td><td>Vitest</td><td>밀리초</td><td>거의 그 함수의 버그</td></tr>
+          <tr><td>통합</td><td>여러 조각이 함께 도는지. 예: 가짜 fetch가 준 데이터가 화면에 그려지나</td><td>Vitest + 가짜(더블)</td><td>수십 밀리초</td><td>조각 사이의 약속(데이터 모양)이 바뀜</td></tr>
+          <tr><td>E2E</td><td>진짜 브라우저에서 사용자처럼. 예: 버튼을 누르면 목록이 늘어나나</td><td>Playwright</td><td>초 단위</td><td>타이머·네트워크·순서(02의 다섯째 개념)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>언제 테스트가 과한가</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>지금 우리 팀에 맞는 양</caption>
+        <thead><tr><th scope="col">상황</th><th scope="col">알맞은 것</th><th scope="col">과한 것</th></tr></thead>
+        <tbody>
+          <tr><td>알파 버전을 만드는 중(11주차)</td><td>순수 함수 1개에 단위 테스트 1~3개</td><td>화면마다 E2E, 커버리지 목표</td></tr>
+          <tr><td>알파 테스트 뒤 고치는 중(13주차)</td><td>고친 버그마다 "다시 안 생기게" 테스트 1개</td><td>고치기 전에 테스트부터 전부 쓰기</td></tr>
+          <tr><td>베타 시연 직전(14주차)</td><td>★ 사용 장면 하나를 지나가는 E2E 1개 + 수동 체크리스트</td><td>새 테스트 도구 도입</td></tr>
+          <tr><td>규칙이 거의 없는 화면 위주 프로젝트</td><td><code>tests/checklist.md</code>와 axe 확장 프로그램</td><td>테스트 코드 자체</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <aside class="callout mistake">
+      <p class="callout-title">"테스트를 다 통과했으니 맞다"</p>
+      <p>통과하는 테스트와 맞는 테스트는 다릅니다. 테스트는 적어 둔 경우만 봅니다. 적어 둔 기대값이 틀렸거나 구현을 그대로 베꼈다면, 버그가 있어도 초록불이 켜집니다. 실습 4에서 직접 확인합니다.</p>
+    </aside>
+  </section>
+
+  <!-- ================================================================ 02 -->
+  <section class="sec" id="concepts">
+    <h2>핵심 개념 다섯 가지</h2>
+    <p class="lead">단위 테스트의 모양, 가짜로 바꾸기, 브라우저 E2E, 접근성 자동 검사, 불안정 테스트. 다섯 개념을 최소 예제로 읽습니다.</p>
+
+    <h3>1. 단위 테스트의 모양: 준비 → 실행 → 확인</h3>
+    <p>단위 테스트는 함수 하나를 부르고 결과를 확인합니다. 세 부분으로 읽습니다. 준비(입력을 만든다) → 실행(함수를 부른다) → 확인(<code>expect</code>로 기대값과 비교한다). Vitest의 공식 최소 예제입니다.</p>
+    <div class="pair">
+<pre class="code" data-lang="js" data-file="sum.js"><code>export function sum(a, b) {
+  return a + b
+}</code></pre>
+<pre class="code" data-lang="js" data-file="sum.test.js"><code>import { expect, test } from 'vitest'
+import { sum } from './sum.js'
+
+test('adds 1 + 2 to equal 3', () =&gt; {
+  expect(sum(1, 2)).toBe(3)
+})</code></pre>
+    </div>
+    <p>파일 이름에 <code>.test.</code> 또는 <code>.spec.</code>이 있어야 Vitest가 찾습니다. 한 번만 돌리려면 <code>npx vitest run</code>, 바꿀 때마다 자동으로 다시 돌리려면 <code>npm run test</code>(감시 모드)입니다. Vitest 5는 Node 22.12 이상이 필요합니다. 테스트 이름은 "이러면 맞다"를 한국어 문장으로 씁니다. 실패했을 때 무엇이 틀렸는지 이름만 보고 알 수 있어야 합니다.</p>
+
+    <h3>2. 테스트 더블: fetch를 가짜로</h3>
+    <p>화면 코드는 <code>fetch</code>로 서버를 부릅니다. 테스트할 때마다 진짜 서버를 켤 수는 없습니다. 그래서 <dfn title="테스트에서 진짜 대신 세우는 가짜 조각. 가짜 함수(mock), 미리 정한 값을 돌려주는 stub 등을 묶어 부르는 말.">테스트 더블</dfn>을 세웁니다. Vitest에서는 <code>vi.fn()</code>으로 가짜 함수를 만들고 <code>vi.stubGlobal()</code>로 전역 <code>fetch</code>를 바꿔치기합니다. 실습 2에서는 같은 생각을 연습용 러너 안에서 해 봅니다.</p>
+<pre class="code" data-lang="js" data-file="notes.test.js · fetch를 가짜로"><code>import { expect, test, vi } from 'vitest'
+import { loadNotes } from './notes.js'
+
+test('서버가 준 메모 2개를 돌려준다', async () =&gt; {
+  // 준비: fetch를 "항상 메모 2개를 주는 가짜"로 바꿉니다
+  vi.stubGlobal('fetch', vi.fn(async () =&gt;
+    new Response(JSON.stringify([{ title: '시험 준비' }, { title: '팀 회의 메모' }]))
+  ))
+  // 실행
+  const notes = await loadNotes('/api/notes')
+  // 확인
+  expect(notes).toHaveLength(2)
+  expect(fetch).toHaveBeenCalledWith('/api/notes')
+})</code></pre>
+    <!-- 확인 필요: vi.stubGlobal / vi.fn / toHaveBeenCalledWith 의 정확한 시그니처는 research-web-tooling.md에 없음. 수업 직전 vitest.dev 의 API 문서(vi, expect)에서 확인할 것. -->
+    <p>가짜는 두 종류를 구별해 둡니다. 함수 단위의 가짜(위 코드)는 빠르고 어떤 값이든 흉내 낼 수 있습니다. 네트워크 단위의 가짜(연습용 서버, 실제 프로젝트에서는 선택 모듈 2의 Express 서버를 테스트 전용 데이터로 띄우는 것)는 더 느리지만 요청과 응답의 모양까지 확인합니다.</p>
+
+    <h3>3. 브라우저 E2E: Playwright와 getByRole</h3>
+    <p>E2E는 진짜 브라우저를 열고 사용자처럼 누릅니다. Playwright 공식 예제를 우리 메모 앱에 맞춰 읽습니다. 요소를 찾을 때 CSS 선택자 대신 <code>getByRole</code>을 씁니다. 역할(button, heading, link)과 이름(사용자가 읽는 글자)으로 찾기 때문에, 접근성이 좋은 화면일수록 테스트도 쉽게 써집니다.</p>
+<pre class="code" data-lang="js" data-file="tests/e2e/memo.spec.js"><code>import { test, expect } from '@playwright/test';
+
+test('메모를 추가하면 목록에 한 줄이 늘어난다', async ({ page }) =&gt; {
+  await page.goto('/');                       // baseURL: http://localhost:5173
+
+  await page.getByRole('textbox', { name: '제목' }).fill('시험 준비');
+  await page.getByRole('button', { name: '추가' }).click();
+
+  await expect(page.getByRole('listitem').filter({ hasText: '시험 준비' })).toBeVisible();
+});</code></pre>
+    <p><code>page.goto('/')</code>가 되려면 <code>playwright.config</code>의 <code>baseURL</code>을 <code>http://localhost:5173</code>(Vite 개발 서버)로 두고, 테스트 전에 <code>npm run dev</code>가 떠 있어야 합니다. <code>getByRole('textbox', { name: '제목' })</code>이 되려면 입력창에 <code>&lt;label&gt;</code>이 연결되어 있어야 합니다. 3주차의 폼 규칙이 여기서 다시 쓰입니다.</p>
+    <!-- 확인 필요: filter({ hasText }) 와 getByRole('listitem') 의 정확한 표기는 research-web-tooling.md의 원문 예제(getByRole('link'/'heading'), toHaveTitle, toBeVisible)를 넘어선 부분. 수업 직전 playwright.dev/docs/locators 확인. -->
+
+    <h3>4. 접근성 자동 검사: axe</h3>
+    <p>axe-core는 페이지를 읽고 접근성 규칙 위반(라벨 없는 입력, 대비 부족, alt 없는 이미지 등)을 목록으로 돌려줍니다. Playwright와 함께 쓰면 E2E 테스트 한 개에 한 줄만 더하면 됩니다.</p>
+<pre class="code" data-lang="js" data-file="tests/e2e/a11y.spec.js"><code>const { AxeBuilder } = require('@axe-core/playwright');
+
+test('첫 화면에 접근성 위반이 없다', async ({ page }) =&gt; {
+  await page.goto('/');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});</code></pre>
+    <p>가장 쉬운 길은 브라우저 확장 프로그램 axe DevTools입니다. 설치 없이 결과만 보고 싶다면 Chrome DevTools의 Lighthouse 패널에서 Accessibility 항목을 봅니다. 자동 검사는 기계가 판단할 수 있는 규칙만 봅니다. 키보드로 끝까지 한 번 가 보는 일은 여전히 사람이 합니다.</p>
+
+    <h3>5. 불안정 테스트의 원인 세 가지</h3>
+    <p><dfn title="코드를 바꾸지 않았는데 어떤 때는 통과하고 어떤 때는 실패하는 테스트.">불안정 테스트</dfn>는 신뢰를 잃게 합니다. 한 번 "그냥 다시 돌리면 돼"가 되면 아무도 빨간불을 보지 않습니다. 원인은 거의 셋 중 하나입니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>불안정 테스트의 원인과 처방</caption>
+        <thead><tr><th scope="col">원인</th><th scope="col">증상</th><th scope="col">처방</th></tr></thead>
+        <tbody>
+          <tr><td>타이머</td><td><code>wait(50)</code>처럼 고정 시간을 기다립니다. 느린 컴퓨터나 CI에서 실패합니다.</td><td>시간이 아니라 조건을 기다립니다. <code>until(() =&gt; 목록이 2개)</code>, Playwright의 <code>expect(...).toBeVisible()</code>(자동 재시도).</td></tr>
+          <tr><td>네트워크</td><td>진짜 서버·외부 API를 부릅니다. 서버가 느리거나 데이터가 바뀌면 실패합니다.</td><td>가짜(더블)로 바꿉니다. E2E는 테스트 전용 데이터로 띄운 서버를 씁니다.</td></tr>
+          <tr><td>순서</td><td>앞 테스트가 남긴 데이터(전역 변수, 저장소)에 뒤 테스트가 기댑니다. 혼자 돌리면 통과, 같이 돌리면 실패.</td><td>테스트마다 준비를 새로 하고, 끝나면 되돌립니다(실습 2의 <code>finally</code>).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <aside class="deep" id="deep-builder">
+      <h3>테스트 데이터 빌더: 기본값은 한 곳에</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>테스트마다 <code>{ id, title, category, done, due }</code>를 전부 적으면, 메모에 필드 하나가 늘 때 테스트 스무 개를 고쳐야 합니다. 빌더는 "보통의 메모"를 돌려주는 함수 하나(<code>makeNote(overrides)</code>)에 기본값을 모아 두고, 테스트는 그 테스트에서 중요한 필드만 덮어씁니다. 구현은 객체 펼치기(<code>{ ...defaults, ...overrides }</code>) 한 줄입니다. 5주차 참고 파트의 '값을 꺼내고 배열·객체를 펼치기'가 여기서 쓰입니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://vitest.dev/guide/">Vitest Guide</a>(테스트 파일 구조) · <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN · Promise</a>(비동기 테스트가 기다리는 것)</dd></div>
+        <div><dt>트레이드오프</dt><dd>빌더가 똑똑해질수록(무작위 값, 연쇄 호출) 테스트를 읽을 때 "이 값이 어디서 왔지?"가 늘어납니다. 기본값은 고정된 평범한 값으로 두고, 테스트가 기대는 값은 그 테스트 안에서 눈에 보이게 덮어씁니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>아래 빌더에는 기본 마감일이 없어서 첫 테스트가 실패합니다. 테스트 탭의 TODO를 채워 기본값 한 줄을 넣고, 세 테스트가 모두 통과하는지 보세요. 그다음 <code>isOverdue</code>에 "마감 당일은 지나지 않은 것"이라는 규칙을 테스트로 먼저 적고 구현을 바꿔 보세요.</dd></div>
+      </dl>
+      <div class="lab" data-title="테스트 데이터 빌더" data-kicker="심화 실험" data-active="test" data-hide="css" data-autorun="false">
+<script type="text/plain" data-lab="html">
+<p>화면이 없는 실습입니다. <b>테스트</b> 탭을 보세요.</p>
+</script>
+<script type="text/plain" data-lab="js">
+// 마감이 지난 메모인지 판단합니다. 날짜는 'YYYY-MM-DD' 문자열입니다.
+function isOverdue(note, today) {
+  if (note.done) return false;
+  if (!note.due) return false;
+  return note.due < today;
+}
+console.log('isOverdue 준비됨');
+</script>
+<script type="text/plain" data-lab="test">
+// 테스트 데이터 빌더: 기본값은 한 곳에, 테스트마다 다른 부분만 적습니다.
+function makeNote(overrides = {}) {
+  return { id: 1, title: '시험 준비', category: '수업', done: false, ...overrides };
+  // TODO: 기본 마감일을 넣으세요 → done: false, due: '2026-11-10', ...overrides
+}
+
+test('마감이 지났고 끝내지 않았으면 overdue다', () => {
+  expect(isOverdue(makeNote(), '2026-11-11')).toBe(true);
+});
+test('끝낸 메모는 마감이 지나도 overdue가 아니다', () => {
+  expect(isOverdue(makeNote({ done: true }), '2026-11-11')).toBe(false);
+});
+test('마감이 없는 메모는 overdue가 아니다', () => {
+  expect(isOverdue(makeNote({ due: undefined }), '2026-11-11')).toBe(false);
+});
+</script>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ================================================================ 03 -->
+  <section class="sec" id="lab">
+    <h2>실습: 체크리스트 한 줄을 테스트로</h2>
+    <p class="lead">연습용 러너는 Vitest와 같은 <code>test</code>·<code>expect</code>를 씁니다. 네 실습 모두 처음에는 테스트 하나가 실패합니다. 어느 탭을 고쳐야 하는지가 실습마다 다릅니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>체크리스트 줄이 테스트 이름이 됩니다</caption>
+        <thead><tr><th scope="col"><code>tests/checklist.md</code>의 한 줄</th><th scope="col">테스트 이름</th><th scope="col">층</th></tr></thead>
+        <tbody>
+          <tr><td>제목에 '회의'가 들어간 메모는 '팀'으로 분류된다</td><td><code>'팀 회의 메모'는 '팀'으로 분류한다</code></td><td>단위 (실습 1)</td></tr>
+          <tr><td>서버가 오류를 내면 화면에 상태 코드가 보인다</td><td><code>서버가 500으로 답하면 상태 코드를 알려 준다</code></td><td>통합 (실습 2)</td></tr>
+          <tr><td>첫 화면에 메모 목록이 그려진다</td><td><code>메모 2개를 그린다</code></td><td>통합 (실습 3)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>실습 1 · 분류 함수에 단위 테스트</h3>
+    <p>JS 탭의 <code>categorize</code>는 '회의' 규칙이 빠져 있습니다. 테스트 탭을 먼저 읽고, 어떤 문장이 실패하는지 본 뒤 JS 탭의 TODO를 채우세요. 테스트는 고치지 않습니다.</p>
+    <div class="lab" data-title="분류 함수에 단위 테스트" data-kicker="실습 1" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<p>화면이 없는 실습입니다. <b>테스트</b> 탭과 콘솔을 보세요.</p>
+</script>
+<script type="text/plain" data-lab="js">
+// 메모 제목을 보고 분류를 정하는 순수 함수입니다.
+// 규칙: '시험'·'과제'가 있으면 '수업', '회의'가 있으면 '팀', 아니면 '기타'
+function categorize(title) {
+  const t = String(title || '').trim();
+  if (t.includes('시험') || t.includes('과제')) return '수업';
+  // TODO: '회의'가 들어 있으면 '팀'을 돌려주세요
+  return '기타';
+}
+
+console.log('시험 준비 →', categorize('시험 준비'));
+console.log('팀 회의 메모 →', categorize('팀 회의 메모'));
+console.log('빈 제목 →', categorize(''));
+</script>
+<script type="text/plain" data-lab="test">
+// 준비(입력) → 실행(함수 호출) → 확인(expect)
+test("'시험 준비'는 '수업'으로 분류한다", () => {
+  expect(categorize('시험 준비')).toBe('수업');
+});
+test("'팀 회의 메모'는 '팀'으로 분류한다", () => {
+  expect(categorize('팀 회의 메모')).toBe('팀');
+});
+test("빈 제목은 '기타'로 분류하고 오류를 내지 않는다", () => {
+  expect(categorize('')).toBe('기타');
+  expect(categorize(undefined)).toBe('기타');
+});
+</script>
+    </div>
+
+    <h3>실습 2 · fetch를 가짜로 바꾸고 오류 응답 확인하기</h3>
+    <p>테스트 탭에 더블이 두 종류 있습니다. 첫 테스트는 <code>window.fetch</code> 자체를 가짜 함수로 바꿉니다(Vitest의 <code>vi.stubGlobal</code>과 같은 생각). 둘째 테스트는 연습용 서버의 <code>/api/broken</code>이 500을 돌려줍니다. JS 탭의 <code>loadNotes</code>는 아직 <code>res.ok</code>를 보지 않아서 둘째 테스트가 실패합니다. TODO를 채우세요.</p>
+    <div class="lab" data-title="fetch를 가짜로, 500은 서버로" data-kicker="실습 2" data-active="js" data-latency="300">
+<script type="text/plain" data-lab="html">
+<button id="load">메모 불러오기</button>
+<p id="status" role="status"></p>
+<ul id="list"></ul>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+</script>
+<script type="text/plain" data-lab="js">
+const statusEl = document.querySelector('#status');
+const listEl = document.querySelector('#list');
+
+async function loadNotes(url = '/api/notes') {
+  statusEl.textContent = '불러오는 중…';
+  try {
+    const res = await fetch(url);
+    // TODO: res.ok가 false면 throw new Error('서버 응답 ' + res.status)
+    const notes = await res.json();
+    listEl.innerHTML = '';
+    for (const n of notes) {
+      const li = document.createElement('li');
+      li.textContent = n.title + ' · ' + n.category;
+      listEl.append(li);
+    }
+    statusEl.textContent = notes.length + '개를 불러왔습니다';
+  } catch (err) {
+    statusEl.textContent = '불러오지 못했습니다: ' + err.message;
+  }
+}
+
+document.querySelector('#load').addEventListener('click', () => loadNotes());
+</script>
+<script type="text/plain" data-lab="server">
+const notes = [
+  { id: 1, title: '시험 준비', category: '수업' },
+  { id: 2, title: '팀 회의 메모', category: '팀' },
+];
+app.get('/api/notes', (req, res) => res.json(notes));
+app.get('/api/broken', (req, res) => res.status(500).json({ error: '디스크 읽기 실패' }));
+</script>
+<script type="text/plain" data-lab="test">
+// 더블 1: fetch 자체를 가짜로 바꿉니다 (Vitest의 vi.stubGlobal('fetch', …)와 같은 생각)
+test('가짜 fetch가 돌려준 메모 2개를 그리고 개수를 알려 준다', async () => {
+  const realFetch = window.fetch;
+  window.fetch = async () => new Response(
+    JSON.stringify([{ title: '가짜 메모 1', category: '기타' }, { title: '가짜 메모 2', category: '팀' }]),
+    { status: 200, headers: { 'Content-Type': 'application/json' } }
+  );
+  try {
+    await loadNotes();
+    expect($$('#list li')).toHaveLength(2);
+    expect($('#status').textContent).toContain('2개');
+  } finally {
+    window.fetch = realFetch;   // 다음 테스트에 영향을 주지 않도록 되돌립니다
+  }
+});
+
+// 더블 2: 연습용 서버가 500을 돌려줍니다 (네트워크 탭에서 확인)
+test('서버가 500으로 답하면 상태 코드를 알려 준다', async () => {
+  await loadNotes('/api/broken');
+  expect($('#status').textContent).toContain('500');
+});
+</script>
+    </div>
+    <p>고친 뒤 네트워크 탭을 보세요. 첫 테스트는 요청이 기록되지 않습니다. 가짜 함수가 서버에 가기 전에 답했기 때문입니다. 둘째 테스트는 500 한 줄이 남습니다.</p>
+
+    <h3>실습 3 · 불안정 테스트 고치기</h3>
+    <p>이번에는 JS가 아니라 테스트 탭이 틀렸습니다. 첫 테스트는 50ms만 기다리고 목록을 셉니다. 네트워크 탭에서 지연을 0으로 바꾸면 통과하고, 300ms로 두면 실패합니다. 코드는 그대로인데 결과가 달라지는 것, 이것이 불안정 테스트입니다. 고정 시간 대신 조건을 기다리도록 바꾸세요.</p>
+    <div class="lab" data-title="불안정 테스트 고치기" data-kicker="실습 3" data-active="test" data-hide="css" data-latency="300">
+<script type="text/plain" data-lab="html">
+<p id="status" role="status"></p>
+<ul id="list"></ul>
+</script>
+<script type="text/plain" data-lab="js">
+async function show() {
+  const res = await fetch('/api/notes');
+  const notes = await res.json();
+  const listEl = document.querySelector('#list');
+  for (const n of notes) {
+    const li = document.createElement('li');
+    li.textContent = n.title;
+    listEl.append(li);
+  }
+  document.querySelector('#status').textContent = notes.length + '개';
+}
+show();
+</script>
+<script type="text/plain" data-lab="server">
+app.get('/api/notes', (req, res) => {
+  res.json([{ id: 1, title: '시험 준비' }, { id: 2, title: '팀 회의 메모' }]);
+});
+</script>
+<script type="text/plain" data-lab="test">
+// 불안정: 고정 시간만 기다립니다. 지연이 50ms보다 길면 실패합니다.
+test('메모 2개를 그린다', async () => {
+  await wait(50);
+  // TODO: 위 줄을 "조건을 기다리는 줄"로 바꾸세요 → await until(() => $$('#list li').length === 2);
+  expect($$('#list li')).toHaveLength(2);
+});
+
+// 안정: 조건이 참이 될 때까지(최대 3초) 기다립니다.
+test('상태 문구가 개수를 알려 준다', async () => {
+  await until(() => $('#status').textContent !== '');
+  expect($('#status').textContent).toContain('2개');
+});
+</script>
+    </div>
+
+    <h3>실습 4 · 구현을 베낀 테스트 찾기</h3>
+    <p>AI에게 "이 함수의 테스트를 써 줘"라고 하면, 기대값을 손으로 적는 대신 구현과 같은 식으로 계산하는 테스트가 자주 나옵니다. 그런 테스트는 버그가 있어도 통과합니다. 아래 JS의 <code>countByCategory</code>에는 버그가 하나 있습니다. 테스트 A는 통과하고 B는 실패합니다. 순서대로 해 보세요.</p>
+    <ol>
+      <li>실행해서 A는 초록, B는 빨강인 것을 봅니다. B의 메시지에서 실제 결과를 읽습니다.</li>
+      <li>JS 탭의 버그를 고칩니다. 힌트: 빈 문자열 <code>''</code>은 <code>??</code>를 그냥 지나갑니다(5주차 참고 파트 '중간 객체가 없을 때의 속성 접근').</li>
+      <li>다시 실행합니다. 이제 B는 통과하고 A가 실패합니다. 구현을 베낀 테스트는 버그를 지키는 테스트였습니다. A의 기대값을 구체적인 값으로 다시 쓰세요.</li>
+    </ol>
+    <div class="lab" data-title="구현을 베낀 테스트 찾기" data-kicker="실습 4" data-active="test" data-hide="css">
+<script type="text/plain" data-lab="html">
+<p>화면이 없는 실습입니다. <b>테스트</b> 탭을 보세요.</p>
+</script>
+<script type="text/plain" data-lab="js">
+// 메모를 분류별로 셉니다. 분류가 비어 있으면('' 또는 없음) '기타'로 셉니다.
+function countByCategory(notes) {
+  const counts = {};
+  for (const n of notes) {
+    const key = n.category ?? '기타';
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return counts;
+}
+console.log(countByCategory([{ category: '수업' }, { category: '' }]));
+</script>
+<script type="text/plain" data-lab="test">
+const notes = [
+  { title: '시험 준비', category: '수업' },
+  { title: '제목만 있는 메모', category: '' },
+  { title: '과제 제출', category: '수업' },
+];
+
+// A. AI가 만들어 준 테스트. 기대값을 구현과 같은 식으로 "계산"합니다.
+test('A · 분류별 개수를 센다 (기대값을 계산식으로)', () => {
+  const expected = {};
+  for (const n of notes) {
+    const key = n.category ?? '기타';
+    expected[key] = (expected[key] || 0) + 1;
+  }
+  expect(countByCategory(notes)).toEqual(expected);
+});
+
+// B. 사람이 손으로 적은 기대값. "이러면 맞다"를 숫자로 적었습니다.
+test('B · 수업 2개, 기타 1개로 센다 (기대값을 구체적인 값으로)', () => {
+  expect(countByCategory(notes)).toEqual({ '수업': 2, '기타': 1 });
+});
+</script>
+    </div>
+
+    <aside class="deep" id="deep-snapshot">
+      <h3>스냅샷 테스트의 함정</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>스냅샷 테스트는 결과(HTML 문자열, 큰 객체)를 통째로 파일에 저장해 두고, 다음 실행에서 바이트 단위로 같은지 비교합니다. 쓰기는 쉽습니다. 기대값을 적지 않아도 되니까요. 그런데 바로 그 이유로 "무엇이 맞는지"를 아무도 적지 않은 테스트가 됩니다. 클래스 하나, 공백 하나가 바뀌어도 빨간불이 켜지고, 사람은 읽지 않고 스냅샷을 갱신합니다. 그 순간 버그도 함께 저장됩니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://vitest.dev/guide/">Vitest Guide</a>(Snapshot 항목) · <a href="https://playwright.dev/docs/writing-tests">Playwright · Writing tests</a>(행동 기준 assertion)</dd></div>
+        <div><dt>트레이드오프</dt><dd>스냅샷은 "바뀌었다"는 사실을 빨리 알려 줍니다. 디자인 시스템의 마크업처럼 바뀌면 안 되는 출력에는 맞습니다. 사용자가 보는 행동(글자가 보인다, 버튼이 늘어난다)을 확인하고 싶다면 그 행동을 적은 테스트가 낫습니다. 둘을 섞을 때는 스냅샷이 실패하면 반드시 diff를 읽는다는 규칙을 하네스에 적습니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>아래 테스트 A는 어제 저장한 HTML 문자열과 비교합니다. 오늘 디자인 담당 팀원이 <code>&lt;li&gt;</code>에 클래스를 하나 붙였고, 화면은 멀쩡한데 A가 실패합니다. A를 "제목과 분류가 보인다"처럼 행동을 적는 테스트로 바꾸거나, 스냅샷을 갱신하기 전에 무엇이 바뀌었는지 읽어 보세요.</dd></div>
+      </dl>
+      <div class="lab" data-title="스냅샷 테스트의 함정" data-kicker="심화 실험" data-active="test" data-hide="css" data-autorun="false">
+<script type="text/plain" data-lab="html">
+<ul id="list"></ul>
+</script>
+<script type="text/plain" data-lab="js">
+const notes = [{ title: '시험 준비', category: '수업' }];
+function render(notes) {
+  const ul = document.querySelector('#list');
+  ul.innerHTML = '';
+  for (const n of notes) {
+    const li = document.createElement('li');
+    li.className = 'note';           // 오늘 디자인 담당이 붙인 클래스
+    const b = document.createElement('b');
+    b.textContent = n.title;
+    li.append(b, ' · ' + n.category);
+    ul.append(li);
+  }
+}
+render(notes);
+</script>
+<script type="text/plain" data-lab="test">
+// A. 스냅샷식: 어제 저장한 HTML 문자열과 통째로 비교합니다.
+test('A · 목록 HTML이 어제 저장한 스냅샷과 같다', () => {
+  expect($('#list').innerHTML).toBe('<li><b>시험 준비</b> · 수업</li>');
+});
+
+// B. 행동식: 사용자가 보는 것만 확인합니다.
+test('B · 첫 메모에 제목과 분류가 보인다', () => {
+  expect($('#list li').textContent).toContain('시험 준비');
+  expect($('#list li').textContent).toContain('수업');
+});
+</script>
+      </div>
+    </aside>
+
+    <aside class="deep" id="deep-coverage">
+      <h3>커버리지는 정확성이 아닙니다</h3>
+      <dl class="defs">
+        <div><dt>내부 동작</dt><dd>커버리지 도구는 테스트가 도는 동안 어떤 줄(또는 분기)이 한 번이라도 실행되었는지 셉니다. "실행되었다"와 "맞는지 확인했다"는 다릅니다. 실습 4의 테스트 A만 남기면 <code>countByCategory</code>의 모든 줄이 실행되어 커버리지는 100%지만, 빈 분류 버그는 그대로입니다. 커버리지가 낮은 곳은 "아직 안 본 곳"을 알려 주는 지도로만 씁니다.</dd></div>
+        <div><dt>명세·문서</dt><dd><a href="https://vitest.dev/guide/">Vitest Guide</a>(Coverage 항목)</dd></div>
+        <div><dt>트레이드오프</dt><dd>숫자 목표(예: 80%)를 두면 숫자를 채우는 테스트가 늘어납니다. 그 테스트는 대개 기대값이 없거나 구현을 베낀 것입니다. 팀 규칙은 숫자 대신 "★ 장면의 순수 함수에는 테스트가 있다"처럼 장소로 정합니다.</dd></div>
+        <div><dt>5분 실험</dt><dd>실습 4에서 테스트 B를 지우고 실행해 보세요. 모든 테스트가 통과하고 함수의 모든 줄이 실행됩니다. 그래도 <code>''</code> 분류는 '기타'로 세지 않습니다. B를 되살리고, 기대값이 구체적인 값인 테스트만이 버그를 잡는다는 것을 확인하세요.</dd></div>
+      </dl>
+    </aside>
+
+    <h3>확인 문제</h3>
+    <form class="quiz" aria-label="테스트 모듈 확인 문제">
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q1</span>테스트 피라미드에서 가장 많이 두는 층은?</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="radio" name="mt-q1"> 단위 테스트</label><p class="quiz-why">맞습니다. 작고 빠르고 깨지는 이유가 분명해서 많이 둘 수 있습니다.</p></li>
+          <li><label><input type="radio" name="mt-q1"> E2E 테스트</label><p class="quiz-why">E2E는 사용자에 가깝지만 느리고 타이머·네트워크·순서에 흔들립니다. ★ 장면 하나에만 둡니다.</p></li>
+          <li><label><input type="radio" name="mt-q1"> 수동 체크리스트</label><p class="quiz-why">수동 체크리스트는 피라미드의 층이 아니라, 아직 코드로 옮기지 않은 "이러면 맞다"의 목록입니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q2</span>Vitest 테스트를 감시 모드 없이 한 번만 돌리는 명령을 쓰세요.</p>
+        <div class="quiz-short"><input type="text" data-accept="npx vitest run|vitest run|npm run test -- --run|npx vitest run ." aria-label="Q2 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why"><code>npx vitest run</code>입니다. <code>npm run test</code>는 <code>"test": "vitest"</code>일 때 감시 모드로 들어갑니다. 에이전트나 CI에서는 한 번만 도는 명령을 씁니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q3</span>불안정 테스트의 흔한 원인을 모두 고르세요.</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="checkbox" name="mt-q3"> 고정 시간을 기다리는 타이머</label><p class="quiz-why">맞습니다. 느린 컴퓨터나 CI에서 시간이 모자랍니다. 조건을 기다리도록 바꿉니다.</p></li>
+          <li data-answer><label><input type="checkbox" name="mt-q3"> 진짜 서버나 외부 API를 부르는 네트워크</label><p class="quiz-why">맞습니다. 서버 상태와 데이터가 바뀌면 결과도 바뀝니다. 더블로 바꿉니다.</p></li>
+          <li data-answer><label><input type="checkbox" name="mt-q3"> 앞 테스트가 남긴 데이터에 기대는 순서</label><p class="quiz-why">맞습니다. 혼자 돌리면 통과하고 같이 돌리면 실패합니다. 테스트마다 준비하고 되돌립니다.</p></li>
+          <li><label><input type="checkbox" name="mt-q3"> 테스트 이름이 한국어인 것</label><p class="quiz-why">이름의 언어는 결과와 무관합니다. 오히려 실패했을 때 읽기 쉬운 한국어 문장을 권합니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q4</span>Playwright에서 '추가' 버튼을 찾는 방법으로 가장 권장되는 것은?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="mt-q4"> <code>page.locator('.btn-3')</code></label><p class="quiz-why">클래스 이름은 디자인이 바뀌면 함께 바뀝니다. 사용자가 보는 것과도 무관합니다.</p></li>
+          <li data-answer><label><input type="radio" name="mt-q4"> <code>page.getByRole('button', { name: '추가' })</code></label><p class="quiz-why">맞습니다. 역할과 이름으로 찾으면 사용자가 보는 방식과 같고, 접근성이 좋은 화면일수록 잘 찾힙니다.</p></li>
+          <li><label><input type="radio" name="mt-q4"> <code>page.locator('div &gt; div &gt; button:nth-child(2)')</code></label><p class="quiz-why">구조에 기대는 선택자는 요소 하나만 끼어들어도 깨집니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q5</span>다음 중 '구현을 베낀 테스트'는?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="mt-q5"> <code>expect(sum(1, 2)).toBe(3)</code></label><p class="quiz-why">기대값 3을 사람이 적었습니다. 좋은 테스트입니다.</p></li>
+          <li><label><input type="radio" name="mt-q5"> <code>expect(sum(1, 2)).toBe(sum(1, 2))</code></label><p class="quiz-why">항상 참인 테스트입니다. 베낀 것은 아니지만 아무것도 확인하지 않습니다. 이것도 함정입니다.</p></li>
+          <li data-answer><label><input type="radio" name="mt-q5"> <code>let e = 0; for (const n of [1, 2]) e += n; expect(sum(1, 2)).toBe(e)</code></label><p class="quiz-why">맞습니다. 기대값을 구현과 같은 방법으로 계산합니다. 구현에 버그가 있으면 기대값도 같이 틀려서 통과합니다.</p></li>
+        </ul>
+      </fieldset>
+    </form>
+  </section>
+
+  <!-- ================================================================ 04 -->
+  <section class="sec" id="attach">
+    <h2>실제 프로젝트에 붙이는 순서</h2>
+    <p class="lead">단위 테스트 한 개부터 시작합니다. 10분이면 됩니다. Playwright·axe·CI는 알파가 돈 뒤에 하나씩 더합니다.</p>
+    <ol class="flow vertical">
+      <li><b>버전 확인</b><span><code>node -v</code>가 22.12 이상이어야 합니다(수업 권장 24 LTS). 낮으면 <a href="https://nodejs.org/en/download">nodejs.org</a>에서 24를 설치합니다.</span></li>
+      <li class="is-on"><b>Vitest 설치와 첫 테스트</b><span>순수 함수 하나를 <code>src/</code>로 꺼내 <code>export</code>하고, 옆에 <code>.test.js</code>를 만듭니다.</span></li>
+      <li><b>하네스에 적기</b><span><code>AGENTS.md</code>(또는 <code>CLAUDE.md</code>)에 테스트 명령과 "바꾼 뒤 실행하고 결과를 보여 줄 것"을 적습니다.</span></li>
+      <li><b>Playwright + axe (선택)</b><span>★ 사용 장면 하나에 E2E 1개, 첫 화면에 axe 검사 1개.</span></li>
+      <li><b>CI (선택)</b><span>GitHub Actions가 PR마다 <code>npx vitest run</code>을 돌리게 합니다.</span></li>
+    </ol>
+
+    <h3>1단계 · Vitest</h3>
+<pre class="code" data-lang="bash" data-file="터미널 · 팀 저장소 폴더에서"><code>$ node -v
+$ npm install -D vitest
+$ npx vitest run</code></pre>
+<pre class="code" data-lang="json" data-file="package.json · scripts만"><code>{
+  "name": "team-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  }
+}</code></pre>
+    <p><code>node_modules/</code>, <code>dist/</code>, <code>.env</code>, 그리고 Vitest의 산출물 폴더 <code>.vitest/</code>를 <code>.gitignore</code>에 둡니다. 첫 테스트는 실습 1의 <code>categorize</code>를 그대로 옮기면 됩니다. 함수 앞에 <code>export</code>를 붙이고, 테스트 파일 맨 위에 <code>import { expect, test } from 'vitest'</code>와 <code>import { categorize } from './notes.js'</code>를 적습니다.</p>
+    <ul class="filetree" aria-label="테스트를 붙인 팀 저장소 구조">
+      <li class="dir"><span>team-app</span>
+        <ul>
+          <li><span>AGENTS.md</span><span class="ft-note">테스트 명령을 적습니다</span></li>
+          <li><span>package.json</span></li>
+          <li class="dir"><span>src</span>
+            <ul>
+              <li><span>notes.js</span><span class="ft-note">export function categorize…</span></li>
+              <li class="is-new"><span>notes.test.js</span><span class="ft-note">단위 테스트</span></li>
+            </ul>
+          </li>
+          <li class="dir"><span>tests</span>
+            <ul>
+              <li><span>checklist.md</span><span class="ft-note">아직 코드로 안 옮긴 줄</span></li>
+              <li class="is-new"><span>e2e/memo.spec.js</span><span class="ft-note">선택 · Playwright</span></li>
+            </ul>
+          </li>
+          <li class="is-new"><span>.github/workflows/test.yml</span><span class="ft-note">선택 · CI</span></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>2단계 · 하네스에 적기</h3>
+<pre class="code" data-lang="md" data-file="AGENTS.md 에 더할 줄"><code>## 테스트
+- 단위 테스트: `npx vitest run` (한 번만 실행). 감시 모드 `npm run test`는 사람만 씁니다.
+- JavaScript 파일을 바꾼 뒤에는 반드시 `npx vitest run`을 실행하고 출력을 보여 줄 것.
+- 테스트의 기대값은 계산식이 아니라 구체적인 값으로 쓸 것.
+- 실패한 테스트를 지우거나 스냅샷을 갱신하지 말고, 먼저 무엇이 바뀌었는지 보고할 것.</code></pre>
+    <p>Codex는 작업 전에 <code>AGENTS.md</code>를 읽고, Claude Code는 <code>CLAUDE.md</code>를 읽되 <code>AGENTS.md</code>도 읽을 수 있습니다. 10주차에 정한 대로 <code>AGENTS.md</code> 하나에 적고 <code>CLAUDE.md</code>에서 가져오면 두 도구가 같은 규칙을 봅니다. Claude Code가 <code>npm test</code>를 돌리려 할 때 권한 프롬프트가 뜨면, "Yes, and don't ask again for: npm test *"처럼 테스트 명령만 허용해 두면 됩니다.</p>
+
+    <h3>3단계 · Playwright와 axe (선택)</h3>
+<pre class="code" data-lang="bash" data-file="터미널"><code>$ npm init playwright@latest
+$ npm install @axe-core/playwright
+$ npx playwright test
+$ npx playwright show-report
+$ npx playwright test --ui</code></pre>
+    <p><code>npm init playwright@latest</code>는 TypeScript/JavaScript, 테스트 폴더 이름, GitHub Actions 워크플로를 추가할지, 브라우저를 설치할지를 묻고 <code>playwright.config</code>와 <code>tests/example.spec</code>을 만듭니다. 설정에서 <code>baseURL</code>을 <code>http://localhost:5173</code>으로 두고, 테스트에서는 <code>page.goto('/')</code>로 엽니다. 02의 3·4번 코드를 <code>tests/e2e/</code>에 옮기면 됩니다.</p>
+
+    <h3>4단계 · CI (선택)</h3>
+    <p>CI는 "PR을 올릴 때마다 남의 컴퓨터에서 테스트를 돌려 주는 것"입니다. 6주차의 GitHub Pages 배포가 Actions로 되어 있다면 같은 폴더에 파일 하나를 더합니다.</p>
+<pre class="code" data-lang="yaml" data-file=".github/workflows/test.yml"><code>name: Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npx vitest run</code></pre>
+    <aside class="callout note">
+      <p class="callout-title">수업 직전 확인</p>
+      <p>위 워크플로의 액션 버전 표기(<code>actions/setup-node@v4</code>)와 <code>npm init playwright@latest</code>가 만들어 주는 워크플로 파일의 현재 내용은 수업 직전에 GitHub·Playwright 공식 문서에서 확인합니다. 액션 버전이 달라도 단계의 순서(받기 → Node 준비 → 설치 → 테스트)는 같습니다.</p>
+    </aside>
+    <!-- 확인 필요: actions/setup-node 의 현재 태그(@v4 등)와 Playwright가 생성하는 playwright.yml 원문. research-web-tooling.md 에는 Pages 스타터(actions/checkout@v4, configure-pages@v5, upload-pages-artifact@v3, deploy-pages@v5)만 원문 확인됨. -->
+    <p>PR 화면에서 초록 체크가 보이면 병합하고, 빨간 X면 로그를 열어 어느 테스트가 왜 실패했는지 PR 본문에 한 줄 적습니다. 이 줄이 12주차 교차 검토의 '동작' 묶음 증거가 됩니다.</p>
+  </section>
+
+  <!-- ================================================================ 05 -->
+  <section class="sec" id="ai">
+    <h2>AI에게 맡길 일 · 직접 판단할 일</h2>
+    <p class="lead">이 모듈의 AI 단계는 Test와 Inspect입니다. 테스트의 초안은 AI가 빨리 씁니다. 무엇이 맞는지(기대값)와 무엇을 테스트할지(장소)는 여러분이 정합니다. "AI가 다 해 줘도 되나요?"의 답은 늘 같습니다. 설명·검증·판단을 할 수 있으면 됩니다.</p>
+    <figure class="prompt">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu</span><span class="prompt-purpose">함수 하나의 단위 테스트 초안 받기</span></figcaption>
+      <pre class="prompt-text">아래 함수에 Vitest 단위 테스트를 써 줘. 파일 이름은 <var>notes.test.js</var>.
+
+- 경계값을 포함해 줘: 빈 배열, 분류가 ''인 메모, 분류가 없는 메모
+- 기대값은 계산식이 아니라 구체적인 값으로 적어 줘 (예: { 수업: 2, 기타: 1 })
+- 테스트 이름은 한국어 문장으로, "이러면 맞다"가 드러나게
+- 새 라이브러리는 쓰지 마
+
+<var>(여기에 countByCategory 함수 붙여 넣기)</var></pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul>
+          <li>기대값이 구체적인 값인가요? <code>for</code>나 <code>reduce</code>로 기대값을 "계산"하는 테스트는 다시 쓰게 합니다.</li>
+          <li>실패하는 경우(빈 입력, 잘못된 값)도 있나요? 성공 경로만 있으면 경계값을 더 요청합니다.</li>
+          <li><code>import</code> 경로와 함수 이름이 우리 파일과 맞나요? ChatGPT Edu는 JavaScript를 실행하지 못하므로 <code>npx vitest run</code>은 여러분이 돌립니다.</li>
+        </ul>
+      </div>
+    </figure>
+    <figure class="prompt">
+      <figcaption class="prompt-head"><span class="prompt-tool">Claude Code</span><span class="prompt-purpose">테스트를 쓰고 실행해서 증거 보여 주기 (Codex도 같은 문장)</span></figcaption>
+      <pre class="prompt-text">src/notes.js의 <var>categorize</var>와 <var>countByCategory</var>에 Vitest 단위 테스트를 써 줘.
+경계값(빈 배열, 분류가 ''인 메모)을 포함하고, 기대값은 구체적인 값으로.
+쓴 뒤 npx vitest run 을 실행해서 결과를 그대로 보여 줘. 실패하면 테스트를 지우지 말고 이유를 먼저 설명해 줘.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul>
+          <li>"통과했다"는 말이 아니라 실제 출력(<code>✓ src/notes.test.js (n tests)</code>)을 보여 줬나요?</li>
+          <li>요청하지 않은 파일(구현 코드, 다른 테스트)을 건드리지 않았나요? <code>git diff</code>로 봅니다.</li>
+          <li>실패를 "고치려고" 구현 대신 테스트를 바꾸지 않았나요?</li>
+        </ul>
+      </div>
+    </figure>
+    <p>에이전트의 리뷰 명령(Claude Code <code>/review</code>, Codex <code>/review</code>)에 "이 테스트가 구현을 베끼고 있는지, 기대값이 구체적인지 봐 줘"라고 덧붙이면 실습 4의 A 같은 테스트를 찾아 줍니다. 다만 리뷰가 통과시켰다고 맞는 것은 아닙니다. 12주차의 "통과하는 리뷰 ≠ 맞는 리뷰"가 테스트에도 그대로 적용됩니다.</p>
+    <h3>검토 질문 세 개</h3>
+    <ol>
+      <li>기대값이 구체적인 값인가요, 구현에서 베껴 온 계산식인가요?</li>
+      <li>실패해야 하는 경우(빈 입력·오류 응답·마감 없음)도 테스트에 있나요?</li>
+      <li>테스트가 실제로 실행되어 통과했다는 출력을 내 눈으로 봤나요? (말이 아니라 증거)</li>
+    </ol>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>맡길 일과 판단할 일</caption>
+        <thead><tr><th scope="col">AI에게 맡길 일</th><th scope="col">내가 판단할 일</th></tr></thead>
+        <tbody>
+          <tr><td>테스트 파일의 뼈대, 경계값 후보 나열</td><td>어느 함수·어느 체크리스트 줄을 먼저 테스트할지(장소)</td></tr>
+          <tr><td>실패한 테스트의 오류 메시지 해석</td><td>기대값이 무엇인지(이러면 맞다)</td></tr>
+          <tr><td><code>getByRole</code> 선택자 초안, 설정 파일 초안</td><td>실패했을 때 구현을 고칠지 테스트를 고칠지</td></tr>
+          <tr><td>불안정 테스트의 원인 후보 세 가지 중 어디인지 추정</td><td>E2E·CI를 지금 도입할지, 베타 뒤로 미룰지(결정표)</td></tr>
+          <tr><td>CI 로그 요약</td><td>PR을 병합할지. 설명할 수 없는 테스트가 있으면 "지금 배운 문법으로 풀어 써 달라"고 요청</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <aside class="callout ai">
+      <p>AI 등급은 AI ALLOWED입니다. 단, 첫 테스트 한 개는 직접 쓰기를 권합니다. 그래야 AI가 준 테스트를 읽을 수 있습니다. AI USE NOTE에는 도구, 맡긴 작업(예: "countByCategory 테스트 초안"), 여러분의 판단(예: "기대값을 손으로 다시 적음"), 검증 방법(예: "<code>npx vitest run</code> 3개 통과, 출력 캡처")을 짧게 적습니다.</p>
+    </aside>
+  </section>
+
+  <!-- ================================================================ 06 -->
+  <section class="sec" id="limits">
+    <h2>한계와 비용</h2>
+    <p class="lead">도구는 모두 npm으로 설치하는 오픈소스입니다. 돈이 드는 곳은 도구가 아니라 시간입니다. 테스트 하나를 쓰는 시간보다, 깨진 테스트를 읽고 고치는 시간이 더 듭니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>도구별 요구 사항과 한계 (2026-10 기준)</caption>
+        <thead><tr><th scope="col">도구</th><th scope="col">버전·요구</th><th scope="col">비용</th><th scope="col">한계</th></tr></thead>
+        <tbody>
+          <tr><td>Vitest</td><td>5.0 · Node 22.12 이상 (Node 20은 2026-04-30에 지원 종료)</td><td>무료</td><td>브라우저 없이 돕니다. DOM이 필요한 코드는 더블을 세우거나 E2E로 넘깁니다.</td></tr>
+          <tr><td>Playwright</td><td>1.64 · Node 22·24·26</td><td>무료 · 브라우저를 따로 내려받습니다(시간이 걸립니다)</td><td>개발 서버가 떠 있어야 합니다. 타이머·네트워크·순서에 흔들리기 쉽습니다.</td></tr>
+          <tr><td>axe-core / @axe-core/playwright</td><td>4.14</td><td>무료</td><td>기계가 판단할 수 있는 규칙만 봅니다. 키보드 순서, 문구의 뜻은 사람이 봅니다.</td></tr>
+          <tr><td>Lighthouse</td><td>Chrome DevTools 내장 (CLI는 Node 22.19 이상)</td><td>무료</td><td>한 번에 30~60초. 점수는 환경에 따라 흔들립니다. 13주차 성능 점검에서 다시 봅니다.</td></tr>
+          <tr><td>GitHub Actions</td><td>저장소에 <code>.github/workflows/</code></td><td>무료 사용량은 저장소 공개 여부와 계정 유형에 따라 다릅니다</td><td>PR마다 수 분이 걸립니다. 브라우저 설치가 들어가면 더 깁니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- 확인 필요: GitHub Actions 무료 분(공개/비공개 저장소, 학생 계정)의 현재 수치 — research-web-tooling.md 에 없음. Playwright 브라우저 다운로드 용량도 기재 없음. 수업 직전 GitHub Docs(Billing for GitHub Actions)·playwright.dev 확인. -->
+    <p>시간 비용을 줄이는 규칙은 세 가지입니다. 순수 함수부터(화면 코드에서 계산을 함수로 꺼내면 테스트도 쉬워집니다). 깨지면 바로 고치기(빨간불을 하루 두면 모두가 보지 않게 됩니다). 숫자 목표 없이 장소로 정하기(★ 장면의 함수에는 테스트가 있다).</p>
+  </section>
+
+  <!-- ================================================================ 07 -->
+  <section class="sec" id="learn-more">
+    <h2>더 배우기</h2>
+    <p class="lead">공식 문서부터 읽습니다. AI에게 물을 때도 "이 문서 기준으로"라고 붙이면 답이 정확해집니다.</p>
+    <dl class="defs">
+      <div><dt>Vitest</dt><dd><a href="https://vitest.dev/guide/">Getting Started</a> — 설치, 파일 이름 규칙, <code>vitest run</code>, Snapshot·Coverage 항목</dd></div>
+      <div><dt>Playwright</dt><dd><a href="https://playwright.dev/docs/intro">Installation</a> · <a href="https://playwright.dev/docs/writing-tests">Writing tests</a> — <code>getByRole</code>, <code>expect</code>의 자동 재시도</dd></div>
+      <div><dt>axe · Lighthouse</dt><dd><a href="https://github.com/dequelabs/axe-core">axe-core README</a>(브라우저 확장 링크 포함) · <a href="https://developer.chrome.com/docs/lighthouse/overview">Lighthouse overview</a></dd></div>
+      <div><dt>접근성 기준</dt><dd><a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2</a> — axe가 검사하는 규칙의 원문. 네 원칙(인식·운용·이해·견고)은 13주차에서 다시 봅니다.</dd></div>
+      <div><dt>에이전트와 테스트</dt><dd><a href="https://code.claude.com/docs/en/code-review-local">Claude Code · 로컬 코드 리뷰</a> · <a href="https://learn.chatgpt.com/codex/agent-configuration/agents-md">Codex · AGENTS.md</a> — 테스트 명령을 하네스에 적는 법</dd></div>
+      <div><dt>이 수업 안에서</dt><dd>12주차 교안의 테스트 입문(체크리스트 한 줄 → 테스트 한 개)과 AI 코드 검토 6묶음, 13주차의 접근성·성능 점검이 이 모듈과 이어집니다. 서버 코드를 테스트하려면 <a href="backend.html">2 · 백엔드</a>의 연습용 서버를, 저장소 설정은 <a href="serverless.html">3 · 서버리스와 BaaS</a>를 함께 보세요. 질문은 eTL 게시판 주간 스레드 '이번 주 막힌 것'에 남깁니다.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================================================================ 08 -->
+  <section class="sec" id="decide">
+    <h2>팀 프로젝트 적용 결정표</h2>
+    <p class="lead">채택하든 말든 표를 채웁니다. 이 표는 11주차 팀 과제의 선택 제출물이고, 15주차 발표에서 "왜 이 기술을 골랐나"를 설명하는 바탕이 됩니다. 제출은 eTL 한 곳이며, 11주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>채운 예 — 메모 분류 팀 A (중립 예시)</caption>
+        <thead><tr><th scope="col">항목</th><th scope="col">팀 A의 답</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">필요 조건</th><td>★ 장면 "메모를 쓰면 자동으로 분류된다"의 <code>categorize</code>가 규칙 5개를 가진다. 팀원 셋이 같은 파일을 고친다.</td></tr>
+          <tr><th scope="row">첫 테스트</th><td><code>src/notes.test.js</code> · <code>categorize</code> 3개(수업·팀·빈 제목). checklist.md 2번 줄을 옮김.</td></tr>
+          <tr><th scope="row">대안</th><td>테스트 없이 <code>tests/checklist.md</code>를 PR마다 손으로 확인. E2E는 베타 뒤로.</td></tr>
+          <tr><th scope="row">예상 시간</th><td>Vitest 설치·첫 테스트 30분. 규칙이 늘 때마다 테스트 1개에 5분. CI는 20분(선택).</td></tr>
+          <tr><th scope="row">채택 여부</th><td>단위 테스트만 채택. Playwright·CI는 보류, 13주차 알파 테스트 뒤 고칠 것이 많으면 재검토.</td></tr>
+          <tr><th scope="row">이유</th><td>★ 장면에 규칙이 있고 AI가 그 함수를 자주 고친다. 화면은 아직 바뀌는 중이라 E2E는 깨지기만 한다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>아래 표를 채우고 <b>Markdown 만들기</b>를 누르면 <code>docs/architecture.md</code>의 '기술 선택' 아래에 붙여 넣을 조각이 만들어집니다. 입력은 이 브라우저에만 저장됩니다. 이름 대신 역할(팀원 1·2·3)로 적습니다.</p>
+    <form id="decision-form" aria-labelledby="decision-title">
+      <div class="table-wrap">
+        <table class="table">
+          <caption id="decision-title">우리 팀의 결정표 · 선택 모듈 6 테스트</caption>
+          <thead><tr><th scope="col">항목</th><th scope="col">우리 팀의 답</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" id="dec-need">필요 조건</th><td><div class="quiz-short"><input type="text" name="need" data-label="필요 조건" aria-labelledby="dec-need" autocomplete="off" placeholder="★ 장면에 어떤 규칙(계산·분류·판단)이 있나, 몇 명이 같은 파일을 고치나"></div></td></tr>
+            <tr><th scope="row" id="dec-first">첫 테스트</th><td><div class="quiz-short"><input type="text" name="first" data-label="첫 테스트" aria-labelledby="dec-first" autocomplete="off" placeholder="어느 함수 · checklist.md의 몇 번 줄 · 파일 이름"></div></td></tr>
+            <tr><th scope="row" id="dec-alt">대안</th><td><div class="quiz-short"><input type="text" name="alt" data-label="대안" aria-labelledby="dec-alt" autocomplete="off" placeholder="수동 체크리스트 · axe 확장 프로그램 · 알파 테스트만"></div></td></tr>
+            <tr><th scope="row" id="dec-time">예상 시간</th><td><div class="quiz-short"><input type="text" name="time" data-label="예상 시간" aria-labelledby="dec-time" autocomplete="off" placeholder="설치 · 첫 테스트 · 테스트 하나 더할 때 · CI"></div></td></tr>
+            <tr><th scope="row" id="dec-adopt">채택 여부</th><td><div class="quiz-short"><input type="text" name="adopt" data-label="채택 여부" aria-labelledby="dec-adopt" autocomplete="off" placeholder="단위만 · 단위+E2E 1개 · 보류 (언제 재검토할지)"></div></td></tr>
+            <tr><th scope="row" id="dec-why">이유</th><td><div class="quiz-short"><input type="text" name="why" data-label="이유" aria-labelledby="dec-why" autocomplete="off" placeholder="★ 장면의 규칙과 팀의 시간을 기준으로 한 줄"></div></td></tr>
+            <tr><th scope="row" id="dec-owner">담당</th><td><div class="quiz-short"><input type="text" name="owner" data-label="담당" aria-labelledby="dec-owner" autocomplete="off" placeholder="빨간불을 보면 먼저 읽을 사람 (역할로, 예: 팀원 2)"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><button type="submit" class="btn primary small">Markdown 만들기</button> <button type="reset" class="btn small">지우기</button></p>
+      <p id="decision-status" role="status"></p>
+      <div id="decision-md" hidden>
+<pre class="code" data-lang="md" data-file="docs/architecture.md 에 붙일 조각"><code></code></pre>
+      </div>
+    </form>
+    <p>결정표를 붙인 PR 본문에는 '무엇을·왜' 한 줄과 6단어 체크(동작·범위·복잡성·접근성·보안·개인정보)를 그대로 씁니다. 테스트를 채택하지 않기로 한 결정도 같은 무게로 기록합니다.</p>
+    <p>테스트는 많이 쓰는 팀이 아니라 빨간불을 읽는 팀에게 도움이 됩니다. 한 개로 시작해도 충분합니다. 막히면 혼자 오래 붙들지 말고 eTL 메시지로 알려 주세요.</p>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="serverless.html"><span>← 선택 모듈 3</span>서버리스와 BaaS: 서버 없이 같이 쓰는 데이터</a>
+    <a class="next" href="../map.html"><span>교안 지도 →</span>다른 선택 모듈과 주차 자료 보기</a>
+  </nav>
+</main>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('decision-form');
+  if (!form) return;
+  var box = document.getElementById('decision-md');
+  var code = box.querySelector('code');
+  var status = document.getElementById('decision-status');
+  var KEY = 'mod-testing-decision';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('input[name]'));
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    fields.forEach(function (f) { if (typeof saved[f.name] === 'string') f.value = saved[f.name]; });
+  } catch (e) {}
+  function save() {
+    try {
+      var o = {};
+      fields.forEach(function (f) { o[f.name] = f.value; });
+      localStorage.setItem(KEY, JSON.stringify(o));
+    } catch (e) {}
+  }
+  fields.forEach(function (f) { f.addEventListener('input', save); });
+  function markdown() {
+    var rows = fields.map(function (f) {
+      var v = f.value.trim() || '(아직 비어 있음)';
+      return '| ' + f.getAttribute('data-label') + ' | ' + v.replace(/\|/g, '\\|') + ' |';
+    });
+    return '## 기술 선택 · 테스트 (선택 모듈 6)\n\n| 항목 | 우리 팀의 답 |\n|---|---|\n' + rows.join('\n') + '\n';
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = markdown();
+    code.textContent = text;
+    box.hidden = false;
+    function done() { status.textContent = 'Markdown을 복사했습니다. docs/architecture.md 에 붙여 넣으세요.'; }
+    function fallback() { status.textContent = 'Markdown을 아래에 만들었습니다. 코드 상자의 복사 버튼을 누르세요.'; }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  });
+  form.addEventListener('reset', function () {
+    setTimeout(function () { save(); code.textContent = ''; box.hidden = true; status.textContent = '지웠습니다.'; }, 0);
+  });
+})();
+</script>
+</body>
+</html>

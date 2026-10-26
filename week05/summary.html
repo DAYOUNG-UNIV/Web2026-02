@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ko" data-page="summary">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5주차 요약판 · JavaScript 기초 | 웹프로그래밍개론</title>
+<meta name="description" content="5주차 핵심만: DESIGN.md와 Bootstrap·Tailwind, JavaScript의 역할과 실행 환경, 값·변수·자료형, 연산과 변환, 조건, 함수, 객체, DOM, 이벤트와 상태, 배열과 반복, 폼 입력 검사, 조별 활동 퀴즈 페이지, 오류 확인.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">5주차 · 요약판</span>
+  <nav class="topbar-nav" aria-label="5주차 자료">
+    <a href="../week5.html">확장판</a>
+    <a href="summary.html" aria-current="page">요약판</a>
+    <a href="../week5show.html">발표</a>
+    <a href="../map.html">교안 지도</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<main class="doc" id="main">
+  <header class="doc-head">
+    <span class="kicker">5주차 · 9월 29일(화) · 요약판</span>
+    <h1>JavaScript 기초</h1>
+    <p class="lead">값을 계산하고, 입력에 반응하고, 화면의 내용을 바꿉니다. HTML은 내용과 구조, CSS는 표현, JavaScript는 실행할 동작을 맡습니다. 디자인 기준(DESIGN.md·Bootstrap·Tailwind)에서 출발해 값·함수·DOM·이벤트·배열을 거쳐, 선택에 따라 결과가 달라지는 페이지까지 연결합니다.</p>
+    <ul class="doc-meta">
+      <li><b>읽는 시간</b> 약 10분</li>
+      <li><b>자세한 설명과 실습</b> <a href="../week5.html">확장판</a> · <a href="../week5show.html">수업용 발표</a></li>
+      <li><b>과제</b> 과제 3(온라인 사진 전시회) 제출 완료 · 수업 시작에 공유 · 조별 활동은 수업 중 진행</li>
+    </ul>
+  </header>
+
+  <section class="sec unnumbered" id="goals">
+    <h2>학습 목표</h2>
+    <ol class="goals">
+      <li>디자인 기준을 DESIGN.md에 적고, 직접 CSS·Bootstrap·Tailwind 세 방식의 차이를 설명할 수 있다.</li>
+      <li>숫자와 문자열을 구별하고, 입력 문자열을 숫자로 바꾼 뒤 계산·비교할 수 있다.</li>
+      <li>함수를 정의한 뒤 호출하고, 출력(<code>console.log</code>)과 반환(<code>return</code>)을 구별할 수 있다.</li>
+      <li>요소를 선택해 클릭·입력·제출 이벤트에 함수를 연결하고, 상태가 바뀌면 화면을 다시 그릴 수 있다.</li>
+      <li>배열과 반복으로 질문·선택지·결과 데이터를 다루고, 오류 메시지와 기대 결과로 코드를 확인할 수 있다.</li>
+    </ol>
+  </section>
+
+  <section class="sec unnumbered" id="map">
+    <h2>오늘의 지도</h2>
+    <p>5주차는 개인 구간(2~7주)에서 HTML(2주차)·CSS(3주차)·레이아웃(4주차)에 이어 JavaScript를 처음 다루는 주입니다. 6주차는 온라인 영상(Git·GitHub·Pages)으로 이어집니다. 오늘은 사용자의 입력이 화면의 변화로 이어지는 길을 봅니다.</p>
+    <figure class="stack-map" data-active="user client" data-note-user="오늘: 버튼을 누르고 값을 입력합니다" data-note-client="오늘: JavaScript — 값·함수·DOM·이벤트·배열">
+      <figcaption>웹서비스 구조 지도. 오늘은 사용자와 브라우저 안의 HTML·CSS·JS 층을 봅니다. 서버와 네트워크는 아직 다루지 않습니다.</figcaption>
+    </figure>
+    <ol class="flow">
+      <li><b>입력</b><span>사용자가 버튼을 누르거나 값을 입력합니다.</span></li>
+      <li><b>처리</b><span>현재 값을 읽고 조건에 따라 계산합니다.</span></li>
+      <li><b>표시</b><span>계산 결과를 문서의 요소에 반영합니다.</span></li>
+      <li><b>확인</b><span>Console과 기대 결과로 실행 결과를 비교합니다.</span></li>
+    </ol>
+    <p>코드는 결과 예상 → 실행 → 한 곳 수정 → 다시 실행의 순서로 읽습니다. 화면이 바뀌었다면 어떤 값과 문장이 그 변화를 만들었는지 찾습니다.</p>
+  </section>
+
+  <section class="sec unnumbered" id="concepts">
+    <h2>핵심 개념</h2>
+
+    <div class="concept" id="c-design-md">
+      <h3>디자인 기준을 DESIGN.md에 적습니다</h3>
+      <p class="concept-def"><dfn>디자인 시스템</dfn>은 여러 화면에서 함께 쓰는 디자인 기준과 재사용 요소를 모아 관리하는 체계입니다. 색과 간격을 정한 이유, 반복할 규칙을 DESIGN.md에 남기고, "주요 동작 색은 #0f766e" 같은 기준은 CSS 변수 <code>--color-action</code>으로 옮겨 버튼과 링크가 같은 값을 참조하게 합니다.</p>
+<pre class="code" data-lang="md" data-file="DESIGN.md · 수업용 예시"><code>## 공통 값
+- 주요 동작 색: #0f766e
+- 본문: 1rem, 줄간격 1.7
+## 사용 규칙
+- 버튼 문구는 실행할 동작을 적는다.
+- 키보드 초점은 테두리로 표시한다.</code></pre>
+      <p class="callout mistake">DESIGN.md를 저장하는 것만으로 브라우저 화면이 바뀌지는 않습니다. 파일을 읽은 사람이나 도구가 HTML·CSS에 반영해야 합니다.</p>
+      <a class="more" href="../week5.html#design-document">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-frameworks">
+      <h3>Bootstrap과 Tailwind · 같은 버튼을 세 가지 방식으로</h3>
+      <p class="concept-def"><dfn>CSS 프레임워크</dfn>는 반복해서 사용하는 스타일과 작성 규칙을 모아 둔 도구입니다. Bootstrap은 <code>btn btn-primary</code>처럼 준비된 컴포넌트 클래스를, Tailwind CSS는 <code>px-4</code>·<code>bg-teal-700</code>처럼 작은 유틸리티 클래스를 조합하며, Tailwind는 HTML에 쓴 클래스 이름을 도구가 찾아 CSS 파일을 생성해야 브라우저가 읽습니다.</p>
+<pre class="code" data-lang="html" data-file="관심 작품에 추가 · 세 방식"><code>&lt;button type="button" class="exhibit-button"&gt;관심 작품에 추가&lt;/button&gt;      &lt;!-- 직접 CSS --&gt;
+&lt;button type="button" class="btn btn-primary"&gt;관심 작품에 추가&lt;/button&gt;     &lt;!-- Bootstrap --&gt;
+&lt;button type="button" class="bg-teal-700 px-4 text-white"&gt;관심 작품에 추가&lt;/button&gt;  &lt;!-- Tailwind --&gt;</code></pre>
+      <p class="callout mistake">클래스 이름만 적고 CSS를 연결하지 않으면 서식이 적용되지 않습니다. Tailwind에는 Bootstrap의 <code>btn-primary</code>가 기본으로 없으므로, AI에 수정을 요청할 때 Bootstrap 5인지 Tailwind 4인지를 함께 알려줍니다. DESIGN.md와 프레임워크 사용은 선택 사항입니다.</p>
+      <a class="more" href="../week5.html#framework-choice">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-js-role">
+      <h3>JavaScript의 역할과 실행 환경</h3>
+      <p class="concept-def">HTML은 어떤 입력과 버튼이 필요한지, CSS는 어떻게 배치할지, JavaScript는 클릭하거나 입력한 뒤 무엇이 달라질지를 맡습니다. <code>const</code>·함수는 언어 문법(표준 이름은 <dfn>ECMAScript</dfn>)이고 <code>document.querySelector</code>는 브라우저가 제공하는 DOM API이며, 수업 예제는 <code>script.js</code>를 <code>defer</code>로 연결하고 결과와 오류는 개발자 도구의 Console(<kbd>F12</kbd>)에서 봅니다.</p>
+<pre class="code" data-lang="html" data-file="index.html · head 안"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;   &lt;!-- 문서 해석이 끝난 뒤 실행 --&gt;</code></pre>
+      <p class="callout mistake">페이지 내용이 보이더라도 <code>script.js</code> 경로가 틀리면 동작은 실행되지 않습니다. Console에서 <code>console.log("시작")</code> 아래에 보이는 <code>undefined</code>는 호출의 반환값이지 오류가 아닙니다.</p>
+      <a class="more" href="../week5.html#js-files">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-values">
+      <h3>값·변수·자료형</h3>
+      <p class="concept-def"><dfn>변수</dfn>는 값에 붙인 이름입니다. 다시 대입하지 않을 값은 <code>const</code>, 바뀌는 값은 <code>let</code>으로 선언하고, <code>=</code>는 같다는 뜻이 아니라 오른쪽 값을 왼쪽 변수에 대입하는 기호입니다. 수량 2는 숫자, 화면에 표시할 <code>"2"</code>는 문자열, 선택 여부 <code>true</code>는 불리언이며 <code>typeof</code>로 종류를 확인합니다.</p>
+<pre class="code" data-lang="js" data-file="script.js"><code>const price = 3000;      // 다시 대입하지 않을 값
+let quantity = 1;        // 바뀌는 값
+quantity = 2;            // 재대입
+console.log(price * quantity);                  // 6000
+console.log(typeof 2, typeof "2", typeof true); // number string boolean</code></pre>
+      <p class="callout mistake"><code>total = price * quantity</code>를 한 번 계산한 뒤 <code>quantity</code>만 바꾼다고 <code>total</code>이 자동으로 다시 계산되지는 않습니다. 계산문을 다시 실행해야 합니다.</p>
+      <a class="more" href="../week5.html#variable-first-binding">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-operators">
+      <h3>연산·비교·변환 · 입력 문자열은 숫자로 바꾼 뒤 계산합니다</h3>
+      <p class="concept-def"><code>+</code>는 숫자를 더할 때도, 문자열을 이어 붙일 때도 쓰이므로 <code>"2" + "2"</code>는 <code>"22"</code>입니다. <code>===</code>는 타입을 변환하지 않고 비교하고(<code>2 === "2"</code>는 false) <code>==</code>는 변환할 수 있으므로, 기본 예제는 <code>Number()</code>로 직접 변환한 뒤 <code>===</code>로 비교합니다. 아래 코드는 오류 없이 실행되지만 결과가 틀립니다. 한 곳을 고쳐 테스트를 통과시켜 보세요.</p>
+      <div class="lab" data-title="문자열 연결을 숫자 계산으로 수정하기" data-kicker="실습 1" data-active="js" data-height="180">
+<script type="text/plain" data-lab="js">
+// 입력창에서 읽은 값은 문자열입니다. 수량에 1을 더한 숫자 3이 나와야 합니다.
+const raw = "2";
+const quantity = raw;
+const total = quantity + 1;
+console.log(total, typeof total);
+</script>
+<script type="text/plain" data-lab="test">
+test('"2"에 1을 더한 결과가 숫자 3이다 — Number(raw)로 변환', () => expect(total).toBe(3));
+test('total의 자료형이 number다', () => expect(typeof total).toBe('number'));
+</script>
+      </div>
+      <p class="callout mistake"><code>=</code>는 대입, <code>===</code>는 비교, <code>%</code>는 백분율이 아니라 나머지입니다. <code>Number("")</code>는 0이므로 빈 입력인지 먼저 확인합니다.</p>
+      <a class="more" href="../week5.html#conversion">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-conditions">
+      <h3>조건에 따라 다른 코드를 실행합니다</h3>
+      <p class="concept-def">블록은 중괄호 <code>{ }</code>로 여러 문장을 묶은 부분입니다. <code>if</code>의 조건이 true이면 첫 블록을, false이면 <code>else</code>의 블록을 실행하며 둘 다 실행하지는 않습니다. <code>&amp;&amp;</code>는 두 조건이 모두 참인지, <code>||</code>는 하나라도 참인지 조합합니다.</p>
+<pre class="code" data-lang="js" data-file="범위가 겹치는 조건"><code>const score = 85;
+if (score &gt;= 90) {
+  console.log("A");
+} else if (score &gt;= 80) {
+  console.log("B");          // 앞 조건이 거짓이고 이 조건이 참일 때
+} else {
+  console.log("C");
+}</code></pre>
+      <p class="callout mistake">큰 범위 조건을 먼저 두면 세부 조건에 도달하지 못할 수 있습니다. 앞에서 참인 조건을 만나면 뒤의 <code>else if</code>는 실행하지 않습니다. 들여쓰기는 읽기 쉽게 할 뿐, 범위를 정하는 문법은 중괄호입니다.</p>
+      <a class="more" href="../week5.html#else-if">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-functions">
+      <h3>함수 · 정의한 뒤 호출하고, 출력과 반환을 구별합니다</h3>
+      <p class="concept-def"><dfn>함수</dfn>는 이름을 붙여 다시 실행할 수 있게 묶은 동작입니다. 정의만 하면 실행되지 않고 <code>greet()</code>처럼 호출해야 실행되며, 호출할 때 보내는 값이 인수, 정의에서 받는 이름이 매개변수입니다. <code>console.log</code>는 확인용 출력이고 <code>return</code>은 호출한 코드가 사용할 값을 돌려줍니다. 아래 함수는 6을 출력하지만 돌려주지는 않습니다.</p>
+      <div class="lab" data-title="출력과 반환을 직접 바꾸기" data-kicker="실습 2" data-active="js" data-height="180">
+<script type="text/plain" data-lab="js">
+// 함수 안에서 출력한 값과 호출한 자리로 돌려준 값은 다릅니다.
+function double(value) {
+  console.log(value * 2);
+}
+const result = double(3);
+console.log("반환값:", result);
+</script>
+<script type="text/plain" data-lab="test">
+test('double(3)이 6을 돌려준다 — return으로 결과를 돌려주기', () => expect(double(3)).toBe(6));
+test('반환값을 다른 계산에 쓸 수 있다 — double(3) + 1은 7', () => expect(double(3) + 1).toBe(7));
+</script>
+      </div>
+      <p class="callout mistake"><code>return</code>이 없는 함수의 반환값은 <code>undefined</code>이고, <code>return</code>을 만나면 그 함수의 실행이 끝납니다. 화살표 함수 <code>(width, height) =&gt; width * height</code>도 같은 계산을 하지만 <code>this</code> 동작이 달라 모든 함수를 그대로 치환하지는 않습니다.</p>
+      <a class="more" href="../week5.html#return-or-log">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-objects">
+      <h3>객체 · 한 대상의 여러 정보를 묶습니다</h3>
+      <p class="concept-def"><dfn>객체</dfn>는 값을 속성 이름과 짝지어 묶은 것입니다. 점 뒤에는 속성 이름을 직접 쓰고 대괄호 안에는 이름을 담은 문자열이나 변수를 넣으며, 속성에 들어 있는 함수를 메서드라고 부릅니다(<code>document.querySelector</code>에서 <code>document</code>는 문서 객체, <code>querySelector</code>는 메서드).</p>
+<pre class="code" data-lang="js" data-file="속성 읽기와 변경"><code>const exhibition = { title: "쉬는 시간", photoCount: 3 };
+console.log(exhibition.title);       // 점: 이름을 직접 씀
+const key = "title";
+console.log(exhibition[key]);        // 대괄호: 변수에 담긴 이름 "title"
+exhibition.title = "여행의 기록";    // const여도 속성 변경은 가능
+console.log(exhibition.missing);     // 없는 속성은 undefined</code></pre>
+      <p class="callout mistake"><code>const</code>가 막는 것은 이름에 다른 객체를 다시 대입하는 일이고, 속성 변경까지 막지는 않습니다. <code>artwork.key</code>는 이름이 key인 속성을 찾고, <code>artwork[key]</code>는 key의 값을 속성 이름으로 씁니다.</p>
+      <a class="more" href="../week5.html#object-first-record">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-dom">
+      <h3>DOM · 요소를 선택한 뒤 내용을 바꿉니다</h3>
+      <p class="concept-def"><dfn>DOM</dfn>은 브라우저가 HTML을 읽어 요소와 텍스트를 객체로 만들고 부모·자식 관계로 연결한 구조입니다. <code>querySelector</code>에는 CSS 선택자와 같은 표기를 쓰고, 일반 문장은 <code>textContent</code>로 넣으며, 입력창의 현재 값 <code>input.value</code>는 <code>type="number"</code>여도 문자열입니다(숫자로 읽으려면 <code>valueAsNumber</code>).</p>
+<pre class="code" data-lang="js" data-file="선택 → 변경"><code>const title = document.querySelector("#title");   // 일치하는 요소가 없으면 null
+title.textContent = "새로운 제목";                  // 글자로 넣기
+document.querySelector("#plain").textContent = "&lt;strong&gt;중요&lt;/strong&gt;"; // 태그가 글자로 보임
+document.querySelector("#markup").innerHTML = "&lt;strong&gt;중요&lt;/strong&gt;";  // strong 요소가 생김
+console.log(document.querySelectorAll("li").length);  // NodeList의 개수</code></pre>
+      <p class="callout mistake">선택한 요소가 <code>null</code>이면 <code>textContent</code>를 설정할 때 TypeError가 납니다. id 오타와 스크립트 실행 시점부터 확인합니다. 확인하지 않은 사용자 입력이나 외부 내용을 <code>innerHTML</code>에 그대로 넣지 않습니다.</p>
+      <a class="more" href="../week5.html#dom-text">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-events">
+      <h3>이벤트와 화면의 상태 · 함수를 전달하고, 값이 바뀌면 다시 그립니다</h3>
+      <p class="concept-def"><dfn>이벤트</dfn>는 클릭·입력처럼 발생한 일을 알리는 신호이고, <code>addEventListener("click", showMessage)</code>는 나중에 실행할 함수를 전달합니다(<code>showMessage()</code>는 지금 호출). 값만 바꾸면 화면은 이전 글자를 표시하므로 상태를 바꾼 뒤 <code>render()</code>처럼 <code>textContent</code>에 새 값을 넣고, 여러 스타일이 함께 바뀌는 상태는 <code>classList.toggle("dark")</code>로 클래스를 바꿉니다. 아래 버튼은 눌러도 횟수가 늘지 않습니다.</p>
+      <div class="lab" data-title="함수 전달과 즉시 호출" data-kicker="실습 3" data-active="js" data-height="200">
+<script type="text/plain" data-lab="html">
+<button id="act" type="button">실행할 버튼</button>
+<output id="calls" aria-live="polite">0회</output>
+</script>
+<script type="text/plain" data-lab="js">
+const button = document.querySelector("#act");
+const output = document.querySelector("#calls");
+let count = 0;
+function handleClick() {
+  count = count + 1;
+  output.textContent = count + "회";
+}
+// handleClick은 함수 값이고, handleClick()은 지금 실행한 결과입니다.
+button.addEventListener("click", handleClick());
+</script>
+<script type="text/plain" data-lab="test">
+test('시작할 때는 0회다 — 등록하는 줄에서 함수를 호출하지 않기', () => expect($('#calls').textContent).toBe('0회'));
+test('두 번 누르면 2회가 된다', () => { click('#act'); click('#act'); expect($('#calls').textContent).toBe('2회'); });
+</script>
+      </div>
+      <p class="callout mistake">폼 제출은 <code>form</code>의 <code>submit</code>에 연결하고 <code>event.preventDefault()</code>로 기본 전송을 막습니다. 텍스트 입력의 <code>change</code>는 포커스를 잃을 때, <code>input</code>은 입력할 때마다 발생합니다.</p>
+      <a class="more" href="../week5.html#callback-passing">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-arrays">
+      <h3>배열과 반복 · 여러 항목에 같은 작업을 실행합니다</h3>
+      <p class="concept-def"><dfn>배열</dfn>은 순서가 있는 값의 묶음으로, 첫 항목의 인덱스는 0이고 항목이 3개이면 마지막 인덱스는 2입니다. <code>for (시작; 조건; 갱신)</code>은 조건 → 본문 → 갱신 → 조건을 반복하고 <code>forEach</code>는 항목마다 함수를 호출하며, 목록을 반복해 <code>createElement</code> → <code>textContent</code> → <code>appendChild</code>로 요소를 만듭니다. 아래 반복은 한 번 더 실행됩니다.</p>
+      <div class="lab" data-title="마지막 인덱스와 반복 종료 조건" data-kicker="실습 4" data-active="js" data-height="200">
+<script type="text/plain" data-lab="html">
+<h1>과일 목록</h1>
+<ul id="fruit-list"></ul>
+</script>
+<script type="text/plain" data-lab="js">
+const fruits = ["사과", "바나나", "딸기"];
+const list = document.querySelector("#fruit-list");
+// 항목이 3개면 인덱스는 0, 1, 2입니다. 조건을 확인하세요.
+for (let i = 0; i <= fruits.length; i = i + 1) {
+  const item = document.createElement("li");
+  item.textContent = fruits[i];
+  list.appendChild(item);
+  console.log(i, fruits[i]);
+}
+</script>
+<script type="text/plain" data-lab="test">
+test('li가 3개다 — 조건은 i < fruits.length', () => expect($$('#fruit-list li')).toHaveLength(3));
+test('마지막 항목은 딸기다', () => expect($$('#fruit-list li').map(li => li.textContent)).toEqual(['사과', '바나나', '딸기']));
+</script>
+      </div>
+      <p class="callout mistake"><code>i &lt;= menus.length</code>이면 범위를 벗어난 위치까지 접근해 <code>undefined</code>가 나옵니다. <code>forEach</code> 콜백의 <code>return</code>은 이번 콜백만 끝내며 <code>break</code>처럼 전체 반복을 중단하지 않습니다.</p>
+      <a class="more" href="../week5.html#loop-boundary-view">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-form">
+      <h3>입력에서 결과까지 · 폼 입력을 읽어 검사하고 계산합니다</h3>
+      <p class="concept-def">화면의 입력 → 값 읽기 → 검사 → 계산 → 결과 표시를 <code>submit</code> 처리 함수에서 연결합니다. 수량은 빈 값 → 숫자 변환 → 유한한 정수 → 허용 범위(1~5)의 순서로 확인하고, HTML의 <code>required</code>·<code>min</code>·<code>max</code> 검사에서 막히면 <code>submit</code> 이벤트가 발생하지 않습니다.</p>
+<pre class="code" data-lang="js" data-file="주문 금액 확인 · submit 처리"><code>form.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();                 // 기본 전송을 막습니다
+  const count = quantity.valueAsNumber;   // .value는 문자열, valueAsNumber는 숫자
+  if (!Number.isInteger(count) || count &lt; 1 || count &gt; 5) {
+    total.textContent = "수량을 1~5 사이의 정수로 입력하세요.";
+    return;                               // 계산은 생략합니다
+  }
+  total.textContent = "합계: " + calculateTotal(price, count) + "원";
+});</code></pre>
+      <p class="callout mistake">빈 숫자 입력의 <code>valueAsNumber</code>는 <code>NaN</code>이고 <code>Number("")</code>는 0이므로, 빈 입력과 실제로 입력한 0을 구별하려면 변환 전 문자열을 먼저 검사합니다. 브라우저 검사는 우회할 수 있어 실제 서비스에는 서버 측 검증도 필요합니다.</p>
+      <a class="more" href="../week5.html#number-input-inspector">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-quiz">
+      <h3>조별 활동 · 선택에 따라 결과가 달라지는 페이지</h3>
+      <p class="concept-def">하나의 질문은 객체, 질문 여러 개는 배열로 적고, 선택지의 <code>type</code>이 점수의 속성 이름과 연결됩니다. 선택하면 해당 분류의 점수가 1 늘고 다음 질문으로 이동하며, <code>questionIndex &lt; questions.length</code>가 false가 되면 결과 화면으로 갑니다. 화면 전환은 <code>hidden</code>으로, 키보드 초점은 <code>title.focus()</code>로 옮깁니다.</p>
+<pre class="code" data-lang="js" data-file="질문 데이터 → 점수 → 다음 화면"><code>const questions = [
+  { text: "전시에 들어서면 먼저 무엇을 하나요?",
+    options: [ { text: "전체 동선을 둘러본다", type: "walk" },
+               { text: "한 작품 앞에 머문다", type: "look" } ] }
+];
+const scores = { walk: 0, look: 0 };
+scores[type] = scores[type] + 1;     // 선택지의 type을 속성 이름으로
+if (questionIndex &lt; questions.length) showQuestion(); else showResult();</code></pre>
+      <p class="callout mistake"><code>scores.type</code>은 문자 그대로 type이라는 속성을 찾습니다. 다시 시작할 때 질문 번호만 되돌리면 이전 응답의 점수가 남으므로 응답 기록과 점수를 함께 초기화합니다. 한 예제의 데이터(<code>choices</code>·<code>category</code>)를 다른 예제(<code>options</code>·<code>type</code>)에 붙이면 자동으로 호환되지 않습니다.</p>
+      <a class="more" href="../week5.html#quiz-data-model">확장판에서 더 보기</a>
+    </div>
+
+    <div class="concept" id="c-debug">
+      <h3>오류 확인 · 메시지를 읽고, 기대 결과와 비교합니다</h3>
+      <p class="concept-def">코드가 동작하지 않으면 ① 파일이 실행되었나(<code>console.log("시작")</code>) ② 요소를 찾았나(<code>null</code>이면 선택자·실행 시점) ③ 입력값은 어떤 종류인가(<code>typeof</code>·빈 문자열·NaN) ④ 이벤트가 연결되었나를 차례로 봅니다. 오류 이름과 파일·줄 번호를 읽고 한 곳씩 고친 뒤 다시 실행합니다.</p>
+<pre class="code" data-lang="js" data-file="자주 만나는 세 가지 오류"><code>const total = ;                  // SyntaxError: 표현식이 빠짐 → 따옴표·괄호·값 확인
+console.log(quanity);            // ReferenceError: 이름을 찾지 못함 → 오타·선언·범위 확인
+const title = document.querySelector("#missing");
+title.textContent = "새 제목";   // TypeError: null에는 설정 불가 → 선택자·실행 시점 확인</code></pre>
+      <p class="callout mistake">오류 메시지가 없다는 사실만으로 의도한 계산이 된 것은 아닙니다. <code>"2" + 1</code>은 오류 없이 <code>"21"</code>이 됩니다. 입력과 기대 결과(<code>"2"</code> → 6000, <code>""</code>·<code>"0"</code>·<code>"6"</code>·<code>"2.5"</code> → 입력 오류)를 먼저 적고 실제 결과와 비교합니다.</p>
+      <a class="more" href="../week5.html#debug-first">확장판에서 더 보기</a>
+    </div>
+  </section>
+
+  <section class="sec unnumbered" id="ai">
+    <h2>AI와 함께 · 5주차 요약</h2>
+    <!-- 확인 필요: 원문(5주차 확장판)에는 이번 주 AI 등급 표기가 없음. OT 기본 등급 ALLOWED를 적용함. -->
+    <p>이번 주 등급은 <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>입니다. 조별 활동에 AI를 사용한다면 합의한 질문·선택지·결과 표와 바꿀 동작을 전달하고, 생성된 코드가 표의 연결을 그대로 따르는지 조원이 함께 확인합니다.</p>
+    <ul>
+      <li><b>요청은 구체적으로</b> — 기준 파일(DESIGN.md), 바꿀 범위(버튼 한 종류), 확인할 결과(문구·간격·초점·좁은 화면)를 함께 적습니다. 수정을 요청할 때는 입력, 기대한 결과, 실제 결과를 함께 전달합니다. 예: "빈 수량에서는 안내 문구가 나와야 하는데 0원이 표시됩니다."</li>
+      <li><b>검토 절차</b> — 목적 정하기(바꾸려는 동작과 유지할 HTML 구조) → 작은 변경 요청 → 변경한 코드 읽기(새 변수·함수·이벤트가 무엇을 하는지) → 예상 결과와 비교(정상·경계·빈 값·다시 시작). 수정 후에는 실패했던 입력과 원래 정상이었던 입력을 다시 실행합니다.</li>
+      <li><b>사람이 판단할 지점</b> — 모르는 문법이 한꺼번에 추가되면 현재 배운 변수·함수·조건·반복으로 풀어 써 달라고 요청할 수 있습니다. AI가 수정했다고 설명한 내용과 직접 실행해 확인한 결과를 나누어 기록합니다. 도구 이름이 결과물의 품질을 정하지는 않습니다.</li>
+    </ul>
+    <figure class="prompt">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu</span><span class="prompt-purpose">조별 퀴즈 예제의 데이터 바꾸기</span></figcaption>
+      <pre class="prompt-text">아래 질문·선택지·결과 표를 사용해 제공된 예제 데이터를 바꿔 줘.
+선택 한 번에 점수는 한 번만 더하고 다음 질문으로 이동해야 해.
+마지막에는 결과 제목·이미지·설명을 보여 줘.
+동점 처리 규칙: <var>[조에서 정한 규칙]</var>
+다시 시작하면 질문과 점수가 모두 초기화되어야 해.
+배열, 객체, 함수, if, forEach를 사용하고 바뀐 부분을 설명해 줘.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul>
+          <li>선택지에 지정한 유형과 실제로 올라가는 점수, 마지막에 표시되는 결과가 일치하나요?</li>
+          <li>한 유형만 골랐을 때 그 결과가 나오고, 다시 시작하면 첫 질문과 0점에서 출발하나요?</li>
+          <li>배우지 않은 문법이 한꺼번에 들어오지 않았나요? 들어왔다면 변수·함수·조건·반복으로 풀어 써 달라고 다시 요청합니다.</li>
+        </ul>
+      </div>
+    </figure>
+  </section>
+
+  <section class="sec unnumbered" id="check">
+    <h2>자가 점검 퀴즈</h2>
+    <form class="quiz" aria-label="5주차 자가 점검 퀴즈">
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q1</span><code>console.log("2" + "2");</code>의 출력을 쓰세요.</p>
+        <div class="quiz-short"><input type="text" data-accept="22|&quot;22&quot;" aria-label="Q1 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why"><code>"22"</code>입니다. <code>+</code>는 문자열을 이어 붙입니다. 숫자로 계산하려면 <code>Number("2") + Number("2")</code>처럼 먼저 변환합니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q2</span>버튼을 누를 때마다 <code>showMessage</code>가 실행되게 하려면?</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="radio" name="w05q2"> <code>button.addEventListener("click", showMessage);</code></label><p class="quiz-why">맞습니다. 나중에 실행할 함수를 전달합니다.</p></li>
+          <li><label><input type="radio" name="w05q2"> <code>button.addEventListener("click", showMessage());</code></label><p class="quiz-why"><code>showMessage()</code>는 지금 호출한 결과(<code>undefined</code>)를 전달하므로 이후 클릭에 반응하지 않습니다.</p></li>
+        </ul>
+      </fieldset>
+      <div class="quiz-item">
+        <p class="quiz-q"><span class="quiz-no">Q3</span><code>const items = ["숲", "바다", "도시"];</code>에서 마지막 항목의 인덱스를 쓰세요.</p>
+        <div class="quiz-short"><input type="text" data-accept="2|items[2]" aria-label="Q3 답" autocomplete="off" spellcheck="false"></div>
+        <p class="quiz-why">2입니다. 첫 항목의 인덱스는 0이므로 항목이 3개이면 마지막 인덱스는 <code>items.length - 1</code>, 즉 2입니다.</p>
+      </div>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q4</span><code>function showOnly(value) { console.log(value); }</code>를 <code>const r = showOnly(6000);</code>으로 호출하면 <code>r</code>의 값은?</legend>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="w05q4"> <code>6000</code></label><p class="quiz-why">6000은 Console에 출력된 값이지 돌려준 값이 아닙니다.</p></li>
+          <li data-answer><label><input type="radio" name="w05q4"> <code>undefined</code></label><p class="quiz-why">맞습니다. <code>return</code>이 없는 함수의 반환값은 <code>undefined</code>입니다.</p></li>
+          <li><label><input type="radio" name="w05q4"> 오류가 난다</label><p class="quiz-why">오류 없이 실행됩니다. 출력과 반환을 구별합니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q5</span>사용자가 입력창에 적은 글을 화면의 문단에 보여 줄 때 기본으로 쓰는 속성은?</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="radio" name="w05q5"> <code>textContent</code></label><p class="quiz-why">맞습니다. 일반 문장은 글자로 넣습니다. 태그 문자가 있어도 그대로 보입니다.</p></li>
+          <li><label><input type="radio" name="w05q5"> <code>innerHTML</code></label><p class="quiz-why"><code>innerHTML</code>은 문자열을 HTML로 해석하므로, 확인하지 않은 사용자 입력이나 외부 내용을 그대로 넣지 않습니다.</p></li>
+          <li><label><input type="radio" name="w05q5"> <code>value</code></label><p class="quiz-why"><code>value</code>는 입력창의 현재 값을 읽을 때 씁니다.</p></li>
+        </ul>
+      </fieldset>
+      <fieldset class="quiz-item">
+        <legend class="quiz-q"><span class="quiz-no">Q6</span>DESIGN.md와 CSS 프레임워크에 대한 설명으로 맞는 것을 모두 고르세요.</legend>
+        <ul class="quiz-options">
+          <li data-answer><label><input type="checkbox" name="w05q6"> Tailwind는 HTML에 쓴 클래스 이름을 도구가 찾아 CSS 파일을 생성한다</label><p class="quiz-why">맞습니다. 브라우저는 생성된 CSS를 읽으므로, 새 클래스를 쓰면 CSS를 다시 생성합니다.</p></li>
+          <li><label><input type="checkbox" name="w05q6"> DESIGN.md를 저장하면 브라우저 화면이 바로 바뀐다</label><p class="quiz-why">Markdown 문서는 CSS로 실행되지 않습니다. 사람이나 도구가 HTML·CSS에 반영해야 합니다.</p></li>
+          <li data-answer><label><input type="checkbox" name="w05q6"> Bootstrap 버튼·카드의 모양에는 CSS만 있으면 된다</label><p class="quiz-why">맞습니다. 접히는 메뉴나 모달 같은 기능에만 별도의 JavaScript 파일이 필요합니다.</p></li>
+          <li><label><input type="checkbox" name="w05q6"> Tailwind에도 Bootstrap의 <code>btn-primary</code>가 기본으로 제공된다</label><p class="quiz-why">제공되지 않습니다. AI에 요청할 때 어느 프레임워크의 몇 버전인지 함께 알려줍니다.</p></li>
+        </ul>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="sec unnumbered" id="homework">
+    <h2>과제 · 제출 완료</h2>
+    <p>5주차에는 수업 시작에 지난 과제(과제 3 · 온라인 사진 전시회)를 서로 소개했고, 수업 중 조별 활동으로 선택에 따라 결과가 달라지는 페이지를 만들었습니다. 아래는 조별 활동의 기록이며 내용은 확장판 원문 그대로입니다. 다시 제출할 필요는 없습니다.</p>
+    <article class="assignment" aria-labelledby="s-hw05-title" data-countdown="off">
+      <header class="assignment-head">
+        <span class="kicker">5주차 조별 활동 · 팀 · 완료</span>
+        <h3 class="assignment-title" id="s-hw05-title">선택에 따라 결과가 달라지는 페이지</h3>
+        <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol>
+          <li>데이터 정하기 — 관심사나 일상적인 선택을 주제로, 질문·선택지·점수 규칙을 배열과 객체로 정리 (개인적인 경험을 공개해야 하는 질문은 필수로 두지 않음)</li>
+          <li>진행 연결 — 선택 → 다음 질문 → 결과. 뒤로 가거나 다시 시작할 때의 상태도 정의. 한 사람의 노트북에서 전체 실행 예제의 데이터를 바꾸고 함께 선택해 보기</li>
+          <li>결과 확인 — 동점·미응답·반복 실행을 점검하고, 결과 문구가 과도한 판단(의학·심리 진단)을 하지 않는지 검토</li>
+        </ol></dd></div>
+        <div><dt>예상 소요</dt><dd>수업 중 진행 (원문에 시간 안내는 없습니다)</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd>수업 중 조별 공유 — 주제와 대표 질문 / 점수와 결과 / 실행 결과와 남은 문제 (원문에 별도 파일 제출 안내는 없습니다. DESIGN.md·Stitch·특정 AI 도구 사용은 필수 조건이 아니며, 기존 HTML·CSS로 진행해도 됩니다)</dd></div>
+        <div><dt>제출처</dt><dd>수업 중 조별 공유. 제출이 필요한 과제는 eTL 한 곳에만 냅니다</dd></div>
+        <div class="due"><dt>마감</dt><dd>제출 완료<small>5주차 수업 중 진행한 활동입니다 · 과제 여부와 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+        <div><dt>확인 기준</dt><dd><ul>
+          <li>한 유형만 골랐을 때 그 결과가 나오는가</li>
+          <li>선택 한 번에 점수와 질문 위치가 각각 1만 증가하는가</li>
+          <li>다시 시작하면 첫 질문과 0점에서 출발하는가</li>
+        </ul></dd></div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="sec unnumbered" id="deeper">
+    <h2>심화·보충 파트</h2>
+    <p>요약에 넣지 않은 파트입니다. 전공자와 다른 언어 경험자는 '다른 언어와 비교' 상자부터, 처음 배우는 분은 기본 흐름 1~41을 따라 읽습니다.</p>
+    <dl class="defs">
+      <div><dt><a href="../week5.html#part-css-bridge">PART 02 · 디자인 기준과 CSS 도구</a></dt><dd>디자인 시스템(KRDS·IBM Carbon), Stitch의 DESIGN.md 형식, Bootstrap 연결과 격자, Tailwind CSS 생성 과정(<code>npm run dev</code>·<code>@source</code>), 같은 카드를 두 방식으로 만들기</dd></div>
+      <div><dt><a href="../week5.html#part-js-context">PART 03 · JavaScript의 역할과 변화</a></dt><dd>1995년 Netscape의 탄생, Mocha → LiveScript → JavaScript, ECMAScript 표준화, 확대·좋아요·필터 예제</dd></div>
+      <div><dt><a href="../week5.html#js-core-route">다른 언어와 비교</a></dt><dd>Python·Java 경험자용 상자 — 동적 자료형, <code>==</code>와 <code>===</code>, 들여쓰기와 블록, 배열의 음수 인덱스, 빈 배열의 참·거짓, 언어 문법과 브라우저 API</dd></div>
+      <div><dt><a href="../week5.html#data-types">값의 종류와 변환 규칙</a></dt><dd>typeof 전체 표, <code>0.1 + 0.2</code>, <code>Number</code>와 <code>parseInt</code>, truthy·falsy, switch, 조건 연산자, <code>&amp;&amp;</code>·<code>||</code>·<code>??</code>의 단락 평가</dd></div>
+      <div><dt><a href="../week5.html#call-stack-view">함수·객체의 동작</a></dt><dd>호출 스택, ES2015 전후 문법, <code>this</code>와 호출 방식, <code>?.</code>, 객체 참조와 복사, 클로저, 구조 분해와 전개</dd></div>
+      <div><dt><a href="../week5.html#json-data">데이터와 반복의 확장</a></dt><dd>JSON, try/catch/finally, undefined·null·미선언, 엄격 모드, var와 호이스팅, while, for...of와 for...in, map·filter·find, Set·Map</dd></div>
+      <div><dt><a href="../week5.html#script-defer">브라우저에서 확인할 차이</a></dt><dd>script의 defer·async, 인라인·내부·외부 스크립트, 이벤트 버블링, NodeList와 현재 DOM, 이벤트 등록과 해제, 화면 전환과 키보드 초점</dd></div>
+      <div><dt><a href="../week5.html#callback-timing">비동기 처리와 다음 학습</a></dt><dd>콜백의 실행 시점, Promise, 현재 실행·Promise·타이머의 순서, fetch로 JSON 읽기, import·export 모듈, JavaScript 학습 경로</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec unnumbered" id="more">
+    <h2>확장판에서 더 보기</h2>
+    <p>눌러서 움직여 보는 도해입니다. 요약에서 헷갈린 개념은 여기서 한 번 더 확인합니다.</p>
+    <ul>
+      <li><a href="../week5.html#variable-trace">한 줄씩 실행하면 값이 어떻게 바뀔까요?</a> — 실행 줄, 변수의 값, Console 출력을 단계별로 보기</li>
+      <li><a href="../week5.html#function-machine">함수 호출 · 인수에서 반환값까지</a> — 인수를 고르고 호출해 매개변수 전달과 반환 순서 확인</li>
+      <li><a href="../week5.html#dom-explorer">HTML·DOM·화면에서 같은 대상을 찾습니다</a> — 저장된 HTML, 브라우저의 DOM, 렌더된 화면 나란히 보기</li>
+      <li><a href="../week5.html#event-workbench">이벤트 처리 함수의 등록과 실행</a> — 등록 전후에 버튼을 눌러 비교</li>
+      <li><a href="../week5.html#quiz-screen-flow">질문 위치와 점수로 다음 화면을 정합니다</a> — 시작·질문·결과 화면과 상태의 변화</li>
+      <li><a href="../week5.html#debugger-breakpoint">중단점에서 멈춰 현재 값을 확인합니다</a> — Sources·Scope·Console 모사 화면으로 자료형 확인</li>
+    </ul>
+  </section>
+
+  <section class="sec unnumbered" id="contact">
+    <h2>질문 창구</h2>
+    <p>질문과 연락은 eTL 메시지로 보내 주세요(메일 확인이 어렵습니다). 수업 내용은 eTL 게시판에도 남길 수 있습니다. 질문에는 ① 하려던 동작 ② 실행한 코드와 입력값 ③ Console의 오류 메시지나 실제 결과를 함께 적어 주시면 원인을 빨리 찾을 수 있습니다.</p>
+    <p>문법을 한 번에 다 외우지 않아도 됩니다. 조별 활동 예제를 다시 열어 질문 하나를 바꾸고, 결과 예상 → 실행 → 한 곳 수정 → 다시 실행을 한 번만 해 보세요. 그걸로 충분합니다.</p>
+  </section>
+
+  <nav class="doc-foot" aria-label="자료 이동">
+    <a class="prev" href="../week5.html"><span>← 확장판</span>5주차 · 자세한 설명과 실습</a>
+    <a class="next" href="../map.html"><span>교안 지도 →</span>주차별 자료 한눈에 보기</a>
+  </nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="ko" data-page="reading">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9주차 확장판 · 팀 아이디어를 하나로 | 웹프로그래밍개론</title>
+<meta name="description" content="팀 프로젝트 시트 ①~⑩을 따라 팀원 모두의 아이디어를 쪼개기 표로 합치고, 사용 장면과 화면·데이터·기술을 구체화한 뒤 알파 버전의 범위를 정하는 9주차 읽기 교안.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <a class="topbar-home" href="../index.html">웹프로그래밍개론</a>
+  <span class="topbar-page">9주차 · 팀 아이디어를 하나로</span>
+  <nav class="topbar-nav" aria-label="9주차 자료">
+    <a href="index.html" aria-current="page">확장판</a>
+    <a href="summary.html">요약판</a>
+    <a href="survey-reply.html">설문 답변</a>
+    <a href="../map.html">교안 지도</a>
+  </nav>
+  <div class="topbar-tools"></div>
+</header>
+
+<div class="layout">
+<main class="doc" id="main">
+
+  <header class="doc-head">
+    <span class="kicker">9주차 · 10월 27일(화) · 확장판</span>
+    <h1>팀 아이디어를 하나로: 팀 토의와 알파 정하기</h1>
+    <p class="lead">8주차에 팀이 정해졌습니다. 이번 주에는 팀원 모두의 아이디어 조각이 들어가도록 하나의 팀 아이디어로 합치고, 그것을 사용 장면과 화면·데이터·기술로 구체화한 뒤, 학기 안에 만들 수 있을 만큼 작은 <dfn title="사용 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전. OT 로드맵의 '수직 프로토타입'이 이것입니다.">알파 버전</dfn>의 범위를 정합니다. 수업은 팀 토의와 피드백으로 진행되고, 이 페이지는 그 토의를 뒷받침하는 읽기 교안입니다.</p>
+    <ul class="doc-meta">
+      <li><b>읽는 시간</b> 약 60분 (실습 포함 90분)</li>
+      <li><b>선수 내용</b> 5주차 배열·객체·DOM, 8주차 TAG와 대표 질문</li>
+      <li><b>AI 단계</b> Define</li>
+      <li><b>AI 등급</b> AI ALLOWED</li>
+      <li><b>수업 시작 3장</b> <a href="survey-reply.html">설문 답변 슬라이드</a></li>
+      <li><b>핵심만 5~10분</b> <a href="summary.html">요약판</a></li>
+    </ul>
+  </header>
+
+  <!-- PART 01 -->
+  <section class="part" id="map">
+    <header class="part-head">
+      <h2>오늘의 지도</h2>
+      <p class="lead">학기 흐름 속에서 지금 어디에 있는지, 웹서비스 구조 지도의 어느 층을 다루는지, 그리고 설문에서 들은 것이 어떻게 바뀌는지 먼저 봅니다.</p>
+    </header>
+
+    <section class="sec" id="position">
+      <h3>학기 흐름 속 오늘의 위치</h3>
+      <p>후반부 일곱 주는 "팀 웹서비스를 실제로 만들고, 테스트하고, 시연·발표·아카이빙하는" 한 줄기 흐름입니다. 9주차는 그 출발점이고, 코드보다 먼저 <b>질문과 범위</b>를 정하는 주입니다.</p>
+      <ol class="timeline" aria-label="후반부 일정">
+        <li class="is-now"><span class="tl-week">9주차</span><span class="tl-date">10/27</span><span class="tl-title">팀 아이디어를 하나로</span></li>
+        <li><span class="tl-week">10주차</span><span class="tl-date">11/3</span><span class="tl-title">저장소·터미널·에이전트·하네스</span></li>
+        <li><span class="tl-week">11주차</span><span class="tl-date">11/10</span><span class="tl-title">알파 버전 · 상태·저장·fetch</span></li>
+        <li><span class="tl-week">12주차</span><span class="tl-date">11/17</span><span class="tl-title">특별 세션 · AI 코드 검토·테스트</span></li>
+        <li><span class="tl-week">13주차</span><span class="tl-date">11/24</span><span class="tl-title">알파 테스트 결과로 고치기</span></li>
+        <li><span class="tl-week">14주차</span><span class="tl-date">12/1</span><span class="tl-title">시연회(베타)</span></li>
+        <li><span class="tl-week">15주차</span><span class="tl-date">12/8</span><span class="tl-title">쇼케이스·아카이빙·포스트모템</span></li>
+      </ol>
+      <p>OT 로드맵으로 읽으면 팀 트랙은 <b>10주 저장소·기본 하네스 → 11주 수직 프로토타입(이 수업에서는 '알파 버전') → 12~14주 테스트·고치기·베타 시연 → 15주 아카이빙·포스트모템</b>입니다. 팀 산출물의 도착점은 12월 중순 정보문화학과 과제전(웹사이트 + 아카이빙 영상)이며, 전시 형태는 베타 이후에 고민합니다.</p>
+    </section>
+
+    <section class="sec" id="where">
+      <h3>구조 지도에서 오늘 켜지는 층</h3>
+      <p>2~5주차에는 HTML·CSS·JS 층을 손으로 만들었습니다. 오늘은 맨 위의 <b>사용자</b> 층으로 올라가, "누가, 언제, 무엇을 하면, 어떻게 될까"를 적습니다. 화면 층은 손그림과 가짜 데이터로만 건드립니다. 요청·응답과 서버는 10~11주차에 켜집니다.</p>
+      <figure class="stack-map" data-active="user client" data-note-user="오늘: 사용 장면과 행동(동사)" data-note-client="오늘: 화면 2~3개 손그림 · 가짜 데이터">
+        <figcaption>웹서비스 구조 지도. 오늘은 사용자 층을 중심으로, 화면 층은 이름과 손그림까지만 다룹니다.</figcaption>
+      </figure>
+      <h4>이번 주의 AI 단계 · Define</h4>
+      <p>OT의 AI-Native Workflow 여섯 단계 가운데 오늘은 첫 단계인 <b>문제 정의(Define)</b>입니다. AI에게 무엇을 맡길지보다 "무엇을 만들 것인가"를 팀이 먼저 정해야, 다음 주부터 맡길 일이 생깁니다.</p>
+      <ol class="flow" aria-label="AI-Native Workflow 여섯 단계">
+        <li class="is-on"><b>Define</b><span>이번 주. 질문·사용 장면·알파 범위를 정합니다.</span></li>
+        <li><b>Delegate</b><span>10주차. 에이전트에게 첫 할 일을 맡깁니다.</span></li>
+        <li><b>Inspect</b><span>11~12주차. 변경을 diff로 읽습니다.</span></li>
+        <li><b>Test</b><span>12~13주차. 검사와 알파 테스트.</span></li>
+        <li><b>Revise</b><span>13주차. 고칩니다.</span></li>
+        <li><b>Integrate</b><span>14주차. 베타로 합칩니다.</span></li>
+      </ol>
+    </section>
+
+    <section class="sec" id="survey">
+      <h3>설문에서 들은 것 → 바뀌는 것</h3>
+      <p>5주차에 21명이 설문에 답해 주었습니다. 만족도 평균은 5점 만점에 4.3이었고, 가장 도움이 된 것으로 수업 후 개인 과제(12명), 수업 교안(9명), 과제 공유 시간(9명), 팀 활동(8명)을 꼽았습니다. 복습은 대부분 교안을 다시 읽는 방식(16명)이었습니다. 자유 의견에서 반복된 말은 네 가지였고, 9주차부터 아래처럼 바꿉니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>설문에서 들은 것과 바뀌는 것</caption>
+          <thead><tr><th scope="col">들은 것</th><th scope="col">바뀌는 것</th></tr></thead>
+          <tbody>
+            <tr><td>"교안이 너무 길다. 간결한 버전도 있으면 좋겠다."</td><td><b>요약판</b>을 따로 만듭니다(인쇄 2~4쪽, 5~10분). 확장판은 그대로 두되, 전공자용 내용은 <b>심화</b> 상자로 접어 둡니다. 상단 바의 "심화 펼치기"로 한 번에 열 수 있습니다.</td></tr>
+            <tr><td>"교안의 과제 안내와 eTL 제출 방식이 다를 때가 있어 헷갈린다. 마감이 오전인지 자정인지 모르겠다."</td><td>모든 과제를 같은 <b>과제 카드</b> 형식으로 씁니다. 제출처는 eTL 한 곳, 기한은 eTL 과제 페이지의 시각이 기준입니다. 카드에는 예상 소요 시간을 적고, 개인 과제는 3시간 이내를 목표로 줄입니다.</td></tr>
+            <tr><td>"AI를 코딩에 어떻게 활용하면 좋을지 배우고 싶다. AI가 거의 다 해 주는 느낌이라 이래도 되나 싶다."</td><td>매주 <b>'AI와 함께'</b> 꼭지를 둡니다. 실제로 쓸 수 있는 요청 문장, 결과를 검토하는 질문 3개, 사람이 판단할 지점을 같은 형식으로 적습니다. 불안에 대한 답은 아래 절에 있습니다.</td></tr>
+            <tr><td>"온라인 Q&amp;A가 활성화되면 좋겠다. 설명이 빠를 때가 있다."</td><td>eTL 게시판에 주간 스레드 <b>'이번 주 막힌 것'</b>을 엽니다. 강사가 다음 주 '오늘의 지도'에서 그중 두 개에 답합니다. 개인 연락은 eTL 메시지로 합니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>"문법을 매주 많이 배우니 금방 휘발된다, 더 큰 그림에서 구조를 이해하고 싶다"는 의견은 이 '오늘의 지도' 파트가 답입니다. 매주 같은 구조 지도 위에서 오늘 켜지는 층을 보고 시작합니다.</p>
+    </section>
+
+    <section class="sec" id="ai-anxiety">
+      <h3>"AI가 다 해 줘도 되나요?"</h3>
+      <p>됩니다. 이 수업에서 AI 사용은 예외가 아니라 기본입니다. 다만 조건이 하나 있습니다. 그 결과물을 <b>설명</b>하고, <b>검증</b>하고, <b>판단</b>할 수 있어야 합니다. OT의 문장으로는 "YOUR CODE, YOUR RESPONSIBILITY"입니다.</p>
+      <dl class="defs">
+        <div><dt>설명</dt><dd>이 코드(문서)가 어떤 구조로, 왜 이렇게 동작하는지 내 말로 말할 수 있습니다. 설명하지 못하는 코드는 제출하지 않습니다. 설명이 안 되면 "지금 배운 문법으로 풀어 써 달라"고 다시 요청합니다.</dd></div>
+        <div><dt>검증</dt><dd>돌아가는지 직접 확인했습니다. 브라우저에서 눌러 보고, 개발자 도구를 열고, 가능하면 테스트를 돌립니다. "AI가 됐다고 했다"는 검증이 아닙니다.</dd></div>
+        <div><dt>판단</dt><dd>무엇을 맡기고 무엇을 뺄지, 어느 제안을 받아들이고 어느 것을 거절할지 사람이 정했습니다. 그 판단을 AI USE NOTE에 짧게 남깁니다.</dd></div>
+      </dl>
+      <p>평가도 같은 기준입니다. 이해·판단·검증·협업·기록을 보고, 코드 양이나 AI의 가격으로 평가하지 않습니다. 감점되는 것은 세 가지뿐입니다. 설명하지 못하는 코드, 검토 없는 제출, 출처를 적지 않은 자료. 그래서 이 수업이 기르려는 사람은 "AI보다 코드를 빨리 쓰는 사람이 아니라, AI에게 일을 잘 맡기고 그 결과를 판단할 수 있는 사람"입니다.</p>
+      <aside class="callout ai">
+        <p>AI USE NOTE는 네 칸이면 충분합니다. <b>도구</b>(ChatGPT Edu, 에이전트 등) / <b>맡긴 작업</b> / <b>내가 판단한 것</b> / <b>직접 검증한 방법</b>. 과제 README 끝에 서너 줄로 적습니다. 이번 주 팀 시트에도 AI를 썼다면 ⑤ 아래에 같은 형식으로 한 줄 남깁니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="recap">
+      <h3>8주차 돌아보기</h3>
+      <p>8주차에는 25명이 3분씩 WIP 발표를 하고, TAG(좋았던 점·궁금한 점·제안할 점)를 주고받고, 질문 카드를 다섯 묶음으로 묶어 묶음마다 <dfn title="질문 묶음에서 투표 합계가 가장 높았던 카드의 질문. 팀 질문의 출발점이며, 팀이 고쳐 쓰거나 합쳐도 됩니다.">대표 질문</dfn>을 정했습니다. 발표가 길어져 팀은 정했지만 팀 토의는 하지 못했습니다. 그래서 오늘 팀 토의를 처음부터 합니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>8주차에 손에 쥔 것과 오늘 이어 쓰는 곳</caption>
+          <thead><tr><th scope="col">8주차에 생긴 것</th><th scope="col">오늘 어디에 쓰나</th></tr></thead>
+          <tbody>
+            <tr><td>내 프로젝트가 받은 TAG 스티커</td><td>개인 과제 최종본의 수정 계획(<a href="#tag-plan">06.2</a>). 팀 시트에서는 ③ '개인 과제와 달라진 점'을 쓸 때 참고합니다.</td></tr>
+            <tr><td>묶음의 대표 질문</td><td>팀 시트 ② '우리의 질문 한 문장'의 출발점. 그대로 쓰지 않고 틀에 맞춰 다시 씁니다.</td></tr>
+            <tr><td>내 질문 카드의 동사(기록한다·비교한다·고른다·함께 쓴다)</td><td>④ 팀원 아이디어 "___을(를) ___한다"의 재료.</td></tr>
+            <tr><td>8주차 덱의 팀 시트 ①~④</td><td>그대로 이어 씁니다. 8주차 덱의 ⑤~⑦(첫 실험 후보·사용자 테스트 2개·누가 무엇을)은 <b>더 이상 쓰지 않고</b>, 오늘의 ⑤~⑩으로 바꿉니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>8주차 안내 자체는 <a href="../midterm.html">8주차 WIP 발표와 팀 편성</a>에 그대로 있습니다. 투표 기준(질문의 참신함·웹 매체와의 적합성·과정의 치열함)과 WIP Show 《만들기로 한 것들》의 네 항목(Research / Sketch·Code / AI Process / Failed Attempts)은 14~15주차 시연과 쇼케이스까지 그대로 씁니다.</p>
+    </section>
+
+    <section class="sec" id="today-flow">
+      <h3>오늘의 흐름</h3>
+      <p>오늘은 강의가 거의 없습니다. 팀 토의 다섯 단계를 지나는 동안, 작가님이 팀을 번갈아 불러 개인 과제를 짧게 피드백하고, 강사는 팀을 돌며 팀 시트를 피드백합니다. 순서만 적습니다. 시간은 현장에서 조정합니다.</p>
+      <ol class="flow vertical" aria-label="9주차 진행 순서">
+        <li><b>설문 답변과 지도</b><span>설문에서 들은 것 → 바뀌는 것, "AI가 다 해 줘도 되나요?", 9~15주 한눈에. <a href="survey-reply.html">세 장짜리 슬라이드</a>로 봅니다.</span></li>
+        <li><b>팀 토의 1 · 질문 다시 보기</b><span>팀 시트 ①~④를 확인하고 ②를 틀에 맞춰 다시 씁니다.</span></li>
+        <li><b>팀 토의 2 · 아이디어 펼치기</b><span>④ 한 사람 한 문장, 그리고 ⑤ 쪼개기 표에 모두의 줄을 채웁니다.</span></li>
+        <li><b>팀 토의 3 · 하나로 합치기</b><span>⑤ 고르기(스탬프·★)와 엮기(팀 아이디어 한 문장·웹이어야 하는 이유·기여 표). 여기까지는 오늘 꼭 합니다.</span></li>
+        <li><b>팀 토의 4 · 구체화하기</b><span>⑥ 사용 장면, ⑦ 화면과 기술. 되는 데까지.</span></li>
+        <li><b>팀 토의 5 · 알파 정하기</b><span>⑧ 알파 버전, ⑨ 10주차까지 누가 무엇을.</span></li>
+        <li><b>피드백</b><span>작가님의 개인 과제 피드백(팀을 번갈아 호출, 빠진 동안 팀은 이어 갑니다)과 강사의 팀 피드백(살릴 것·덜어낼 것·다음에 해 볼 것)을 ⑩에 기록합니다.</span></li>
+      </ol>
+      <p>팀 토의 다섯 단계와 산출물은 <a href="#studio">PART 08 팀 스튜디오</a>에, 팀 시트 각 칸의 쓰는 법은 <a href="#sheet">PART 02</a>부터 차례로 있습니다.</p>
+    </section>
+
+    <section class="sec" id="why-merge">
+      <h3>왜 '하나로 합치기'인가</h3>
+      <p>OT에서 약속한 문장이 있습니다. "팀 프로젝트는 한 명의 아이디어를 채택하는 과정이 아닙니다. 개인 프로젝트로 서로의 관심사를 확인한 뒤 연결·발전시켜 새로운 프로젝트를 만듭니다." 대표 질문을 낸 사람의 아이디어로 가는 것이 가장 빠른 길처럼 보이지만, 그러면 나머지 네 명은 그 사람의 조수가 됩니다. 학기 끝에 "내가 만든 조각"을 가리킬 수 없는 사람이 생깁니다.</p>
+      <p>그래서 오늘의 합치기는 <b>고르기</b>가 아니라 <b>엮기</b>입니다. 아이디어를 "누가·언제 / 무엇을 하면 / 어떻게 될까 / 재료"로 쪼갠 뒤, 모든 사람의 줄에서 한 칸 이상을 가져와 한 문장으로 엮습니다. 어색한 조각은 빼지 않고 크기를 줄입니다. 기능 하나가 화면의 한 부분이 되고, 화면의 한 부분이 문구 하나가 되어도 들어갑니다. 그리고 "안 돼요" 대신 "그럼 이렇게 하면?"으로 말합니다.</p>
+      <p class="side-note">기준은 완성도가 아니라 질문과 과정입니다. 결과물이 손에 있을 때 토의하고, 진행자는 학생 대신 정하지 않으며, 학기 안에 만들 수 있을 만큼 작게 갑니다.</p>
+      <p>큰 단어는 눈에 보이는 것으로 바꿉니다. "취향", "즐거움", "소통", "문제 해결" 같은 말은 토의를 길게 만들고 화면을 만들지 못합니다. "친구의 분류 결과를 내 메모 옆에 나란히 놓는다"처럼 화면에서 보이는 것으로 적어야 다음 주에 저장소를 만들 수 있습니다.</p>
+    </section>
+
+    <section class="sec" id="before-after">
+      <h3>앞에서 한 것 / 이번에 새로 하는 것</h3>
+      <p>2~5주차에서 이미 배운 것은 다시 설명하지 않고 링크로 둡니다. 오늘 새로 하는 것은 오른쪽 열입니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>앞에서 한 것과 이번에 새로 하는 것</caption>
+          <thead><tr><th scope="col">앞에서 한 것</th><th scope="col">이번에 새로 하는 것</th></tr></thead>
+          <tbody>
+            <tr><td><a href="../week2.html#s4">2주차 · HTML과 접근성</a>, <a href="../week3.html#html-accessibility">3주차 · 준비와 HTML 구조</a></td><td>알파 테스트 규칙 "설명하지 않고 할 일만"(<a href="#alpha-test">05.5</a>). 설명 없이 쓰이는 화면이 접근성의 출발점입니다.</td></tr>
+            <tr><td><a href="../week3.html#observe">3주차 · 키오스크 화면에서 확인할 네 가지</a></td><td>전시용 점검표(<a href="#kiosk">06.3</a>)와 ⑦ 화면 이름 짓기.</td></tr>
+            <tr><td><a href="../week4.html#responsive-check">4주차 · 반응형 점검</a></td><td>⑦ 화면 손그림에 "좁은 화면에서는?" 한 줄 메모.</td></tr>
+            <tr><td><a href="../week5.html#form-to-number">5주차 · 폼 입력을 읽어 결과 표시</a>, <a href="../week5.html#quiz-data-model">질문과 결과의 데이터 구조</a></td><td>⑥ 사용 장면: 입력→처리→표시를 "한 사람이 들어와서 나갈 때까지" 3~5단계로 늘려 씁니다(<a href="#scene">PART 03</a>).</td></tr>
+            <tr><td><a href="../week5.html#state-and-render">5주차 · 상태는 JavaScript로, 표현은 CSS로</a></td><td>⑦ 데이터 세 종류: 받는 것·남기는 것·가져오는 것(<a href="#data-kinds">04.2</a>). 상태·저장·fetch 코드는 11주차.</td></tr>
+            <tr><td><a href="../week5.html#object-list">5주차 · 관련 값은 객체로, 목록은 배열에</a>, <a href="../week5.html#array-dom">데이터 목록으로 버튼 만들기</a></td><td>가짜 데이터(JS 배열)로 사용 장면 한 단계를 흉내 내기(<a href="#fake-lab">04.5</a>).</td></tr>
+            <tr><td><a href="../week5.html#design-document">5주차 · DESIGN.md</a></td><td>⑦ 화면 손그림. 10주차에 팀원들의 DESIGN.md를 하나로 '고르기'해 docs/design.md로 옮깁니다.</td></tr>
+            <tr><td><a href="../week5.html#json-data">5주차 · JSON</a></td><td>심화: 쪼개기 표를 데이터로 다루기(<a href="#deep-table-data">PART 02 심화</a>).</td></tr>
+            <tr><td><a href="../week5.html#screen-state-focus">5주차 · 화면 전환과 키보드 초점</a></td><td>심화: 해시(#)로 화면 바꾸기와 한 화면 = 한 URL(<a href="#deep-routing">PART 03 심화</a>).</td></tr>
+            <tr><td><a href="../week5.html#ai-code-review">5주차 · AI 코드의 수정과 실행 확인</a></td><td>'AI와 함께' 고정 형식: 단계·요청 문장·검토 질문 3개·맡길 일/판단할 일·등급(<a href="#ai">PART 07</a>).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sec" id="goals">
+      <h3>이번 주 목표</h3>
+      <ol class="goals">
+        <li>팀원 모두의 아이디어 조각이 들어가도록 쪼개기 표로 합칠 수 있다.</li>
+        <li>팀 질문을 사용 장면(3~5단계)과 화면·데이터·기술로 구체화할 수 있다.</li>
+        <li>알파 버전(사용 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전)의 범위를 정할 수 있다.</li>
+        <li>받은 피드백(TAG·작가님·강사)을 기록하고 개인 과제 최종본(11주차)에 반영할 계획을 세울 수 있다.</li>
+        <li>ChatGPT Edu로 쪼개기 표·사용 장면 초안을 만들고, 우리 질문에서 벗어난 것을 걸러낼 수 있다.</li>
+      </ol>
+      <p>수업이 끝날 때 아래에 스스로 표시해 보세요. 표시는 이 브라우저에만 저장됩니다.</p>
+      <ul class="checklist" data-checklist="w09-goals">
+        <li><label><input type="checkbox"> ⑤ 기여 표에 우리 팀 모든 사람의 이름과 들어간 조각이 있다.</label></li>
+        <li><label><input type="checkbox"> ⑥ 사용 장면이 3~5단계이고 ★ 단계가 하나 있다.</label></li>
+        <li><label><input type="checkbox"> ⑧ '확인할 것' 한 줄이 ②의 질문과 이어진다.</label></li>
+        <li><label><input type="checkbox"> 내 개인 과제의 TAG 3개와 작가님 피드백을 어디에 적을지 정했다.</label></li>
+        <li><label><input type="checkbox"> AI가 만든 초안에서 우리 질문에서 벗어난 조각을 하나 이상 걸러냈다.</label></li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- PART 02 -->
+  <section class="part" id="sheet">
+    <header class="part-head">
+      <h2>팀 프로젝트 시트 ①~⑩</h2>
+      <p class="lead">9주차부터 쓰는 새 틀입니다. 각 칸의 뜻과 쓰는 법을 중립 예시(메모 분류)로 보여 줍니다. ⑤까지는 오늘 꼭 쓰고, ⑥~⑨는 되는 데까지 씁니다.</p>
+    </header>
+
+    <section class="sec" id="sheet-overview">
+      <h3>시트 한눈에</h3>
+      <p class="sec-goal">이 절을 읽고 나면 열 칸이 각각 무엇을 묻는지, 오늘 어디까지 써야 하는지 말할 수 있습니다.</p>
+      <p>팀 시트는 보드 한 장입니다. 열 칸이 "질문 → 아이디어 → 하나로 합치기 → 장면 → 화면·기술 → 알파 → 분담 → 피드백" 순서로 이어집니다. 앞 칸이 비면 뒤 칸이 흔들리므로 순서대로 씁니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>팀 프로젝트 시트 열 칸</caption>
+          <thead><tr><th scope="col" class="num">칸</th><th scope="col">이름</th><th scope="col">한 줄 뜻</th><th scope="col">오늘</th></tr></thead>
+          <tbody>
+            <tr><td class="num">①</td><td>팀 이름(임시)</td><td>부르기 쉬운 이름. 바꿔도 됩니다.</td><td>꼭</td></tr>
+            <tr><td class="num">②</td><td>우리의 질문 한 문장</td><td>"___한 사람이 ___할 때, 웹에서 ___하면 ___할까?"</td><td>꼭</td></tr>
+            <tr><td class="num">③</td><td>개인 과제와 달라진 점</td><td>내 개인 프로젝트를 그대로 가져오지 않았다는 증거.</td><td>꼭</td></tr>
+            <tr><td class="num">④</td><td>팀원 아이디어</td><td>한 사람 한 문장 "___을(를) ___한다".</td><td>꼭</td></tr>
+            <tr><td class="num">⑤</td><td>팀 아이디어 · 하나로 합치기</td><td>쪼개기 표 → 고르기 → 엮기(팀 아이디어 한 문장 + 웹이어야 하는 이유 + 기여 표).</td><td>꼭</td></tr>
+            <tr><td class="num">⑥</td><td>사용 장면</td><td>들어와서 나갈 때까지 3~5단계. ②의 '무엇을 하면' 단계에 ★.</td><td>되는 데까지</td></tr>
+            <tr><td class="num">⑦</td><td>화면과 기술</td><td>화면 2~3개, 데이터 세 종류, 기술(아는 것 / 알아볼 것).</td><td>되는 데까지</td></tr>
+            <tr><td class="num">⑧</td><td>알파 버전</td><td>꼭 넣을 것 / 가짜로 둘 것 / 나중에 할 것 + 확인할 것 한 줄.</td><td>되는 데까지</td></tr>
+            <tr><td class="num">⑨</td><td>10주차까지 누가 무엇을</td><td>이름 · 할 일 · 10주차에 보여 줄 것.</td><td>되는 데까지</td></tr>
+            <tr><td class="num">⑩</td><td>피드백 기록</td><td>살릴 것 · 덜어낼 것 · 다음에 해 볼 것 · 그래서 우리가 바꿀 것.</td><td>피드백 받을 때</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>시트 템플릿은 수업 보드에 있습니다(링크는 eTL 공지). 아래 절들은 칸마다 "왜 → 쓰는 법 → 예시 → 자주 하는 실수" 순서로 읽습니다.</p>
+      <ul class="checklist" data-checklist="w09-sheet-progress" aria-label="팀 시트 진행">
+        <li><label><input type="checkbox"> ①~④ 확인했다</label></li>
+        <li><label><input type="checkbox"> ⑤ 쪼개기 표에 모든 사람의 줄이 있다</label></li>
+        <li><label><input type="checkbox"> ⑤ 고르기와 엮기를 마쳤다</label></li>
+        <li><label><input type="checkbox"> ⑥ 사용 장면을 썼다</label></li>
+        <li><label><input type="checkbox"> ⑦ 화면과 기술을 썼다</label></li>
+        <li><label><input type="checkbox"> ⑧ 알파 버전을 정했다</label></li>
+        <li><label><input type="checkbox"> ⑨ 10주차까지 누가 무엇을 정했다</label></li>
+        <li><label><input type="checkbox"> ⑩ 피드백을 기록했다</label></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="question">
+      <h3>① 팀 이름 · ② 우리의 질문 한 문장</h3>
+      <p>팀 이름은 임시여도 됩니다. 중요한 것은 ②입니다. 8주차의 대표 질문은 출발점일 뿐이고, 오늘은 아래 틀에 맞춰 다시 씁니다. 틀의 네 빈칸은 누가·언제·무엇을 하면·어떻게 될까입니다.</p>
+      <pre class="code" data-lang="text" data-file="② 질문 틀"><code>___한 사람이 ___할 때, 웹에서 ___하면 ___할까?
+ (누가)        (언제)        (무엇을 하면)  (어떻게 될까)</code></pre>
+      <pre class="code" data-lang="text" data-file="② 예시 · 메모 분류"><code>수업 메모를 혼자만 보던 대학생이 시험 공부를 시작할 때,
+웹에서 같은 메모를 친구가 나눈 결과와 나란히 놓아 보면
+자기 메모를 다시 정리할까?</code></pre>
+      <p>네 빈칸을 모두 채우면 질문이 저절로 작아집니다. "누가"가 정해지면 화면의 말투가 정해지고, "언제"가 정해지면 첫 화면이 정해지고, "무엇을 하면"이 ⑥의 ★ 단계가 되고, "어떻게 될까"가 ⑧의 '확인할 것'이 됩니다.</p>
+      <dl class="defs">
+        <div><dt>누가</dt><dd>한 사람으로 씁니다. "대학생"보다 "수업 메모를 혼자만 보던 대학생"처럼 상태를 붙이면 더 좋습니다.</dd></div>
+        <div><dt>언제</dt><dd>그 사람이 우리 화면을 열 계기. "시험 공부를 시작할 때".</dd></div>
+        <div><dt>무엇을 하면</dt><dd>사용자가 웹에서 하는 행동 하나. 동사로 끝납니다. "나란히 놓아 보면".</dd></div>
+        <div><dt>어떻게 될까</dt><dd>우리가 확인하고 싶은 변화. "자기 메모를 다시 정리할까".</dd></div>
+      </dl>
+      <aside class="callout mistake">
+        <p class="callout-title">질문이 "___을 만들면 좋을까?"로 끝납니다</p>
+        <p>그것은 기능 제안이지 질문이 아닙니다. 기능은 ⑤와 ⑦에서 나옵니다. ②에는 사용자에게 일어나는 변화를 묻는 문장만 둡니다. 확인할 수 없는 질문("재미있을까?")도 피합니다. "다시 정리할까?"는 분류를 바꾼 횟수로 확인할 수 있습니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="ideas">
+      <h3>③ 개인 과제와 달라진 점 · ④ 팀원 아이디어</h3>
+      <p>③은 짧은 증거입니다. 내 개인 프로젝트를 그대로 가져오지 않았다는 것을 한두 줄로 적습니다. "개인 과제는 혼자 분류했지만, 팀에서는 다른 사람의 분류와 비교한다"처럼 씁니다. 이 칸이 비어 있으면 ⑤를 쓸 때 한 사람 아이디어로 기울기 쉽습니다.</p>
+      <p>④는 한 사람이 한 문장입니다. 틀은 <b>"___을(를) ___한다"</b>이고, 동사 하나로 끝냅니다. 8주차 질문 카드에 썼던 동사(기록한다·비교한다·고른다·함께 쓴다)를 그대로 가져와도 됩니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>④ 예시 · 메모 분류 팀</caption>
+          <thead><tr><th scope="col">이름</th><th scope="col">아이디어 "___을(를) ___한다"</th></tr></thead>
+          <tbody>
+            <tr><td>팀원 1</td><td>메모를 주제별로 분류한다</td></tr>
+            <tr><td>팀원 2</td><td>친구의 분류 결과를 내 것과 나란히 본다</td></tr>
+            <tr><td>팀원 3</td><td>저장 버튼 없이 입력하면 바로 반영한다</td></tr>
+            <tr><td>팀원 4</td><td>일주일 지난 메모를 다시 보라고 알린다</td></tr>
+            <tr><td>팀원 5</td><td>주제마다 색을 달리해 보여 준다</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>다섯 문장이 서로 달라 보여도 괜찮습니다. 지금은 펼치는 단계이고, 합치는 것은 ⑤에서 합니다. 한 사람의 문장이 길면 두 문장으로 나누어도 됩니다. 단, 한 사람의 문장이 비어 있으면 안 됩니다.</p>
+    </section>
+
+    <section class="sec" id="split-table">
+      <h3>⑤ 쪼개기 표</h3>
+      <p class="sec-goal">이 절을 읽고 나면 아이디어 한 문장을 네 칸으로 쪼갤 수 있습니다.</p>
+      <p>문장끼리는 합치기 어렵습니다. 그래서 먼저 쪼갭니다. ④의 문장 하나를 "누가·언제 / 무엇을 하면 / 어떻게 될까 / 재료"로 나누어 한 줄씩 적으면, 다른 사람의 조각과 같은 단위로 놓입니다. 재료는 그 조각을 만들 때 필요한 데이터나 입력입니다(메모 글, 날짜, 친구의 분류 결과).</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑤ 쪼개기 표 예시 · 메모 분류 팀</caption>
+          <thead><tr><th scope="col">이름</th><th scope="col">누가·언제</th><th scope="col">무엇을 하면</th><th scope="col">어떻게 될까</th><th scope="col">재료</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">팀원 1</th><td>시험 2주 전 대학생</td><td>메모를 올리고 주제를 고른다</td><td>주제별 목록이 생긴다</td><td>메모 글, 주제 목록</td></tr>
+            <tr><th scope="row">팀원 2</th><td>같은 수업을 듣는 친구</td><td>같은 메모를 자기 기준으로 나눈다</td><td>두 분류가 나란히 보인다</td><td>친구의 분류 결과</td></tr>
+            <tr><th scope="row">팀원 3</th><td>메모를 막 올린 사람</td><td>저장 버튼 없이 입력한다</td><td>화면이 바로 바뀐다</td><td>입력 이벤트</td></tr>
+            <tr><th scope="row">팀원 4</th><td>일주일 지난 메모의 주인</td><td>아무것도 하지 않는다</td><td>"지난주 메모" 칸이 위로 온다</td><td>메모의 날짜</td></tr>
+            <tr><th scope="row">팀원 5</th><td>결과를 보는 사람</td><td>분류 결과를 본다</td><td>주제마다 색이 다르다</td><td>주제별 색 표</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>칸이 비어도 됩니다. 팀원 4의 "무엇을 하면"은 "아무것도 하지 않는다"입니다. 그래도 적습니다. 비어 있는 칸은 토의 거리이지 결함이 아닙니다.</p>
+      <h4>쓰는 순서</h4>
+      <ol class="flow">
+        <li><b>각자 자기 줄</b><span>말없이 자기 문장을 네 칸으로 쪼갭니다.</span></li>
+        <li><b>돌려 읽기</b><span>옆 사람의 줄을 읽고 모르는 칸에 물음표를 붙입니다.</span></li>
+        <li><b>물음표 풀기</b><span>주인이 한 문장으로 설명하고 칸을 고칩니다.</span></li>
+        <li><b>표 완성</b><span>모든 사람의 줄이 있으면 고르기로 넘어갑니다.</span></li>
+      </ol>
+    </section>
+
+    <section class="sec" id="pick">
+      <h3>⑤ 고르기 · 스탬프와 ★</h3>
+      <p>표가 완성되면 고릅니다. 고르는 단위는 <b>문장이 아니라 칸</b>입니다. 한 사람이 칸마다 1표씩 스탬프를 찍습니다. 한 칸에 여러 표가 모여도 됩니다. 그다음 팀이 ★을 1~2개 정합니다. ★은 "이것이 빠지면 우리 질문이 아니다" 하는 칸입니다.</p>
+      <p>규칙은 하나입니다. <b>모든 사람의 줄에서 한 칸 이상</b>이 고른 칸에 들어 있어야 합니다. 어떤 줄에서도 칸을 고르지 않았다면, 그 사람의 아이디어는 아직 팀 아이디어에 들어가지 않은 것입니다. 그 줄로 돌아가 가장 작은 칸이라도 고릅니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>고르기 결과 예시 · ✓는 고른 칸, ★은 핵심</caption>
+          <thead><tr><th scope="col">이름</th><th scope="col">누가·언제</th><th scope="col">무엇을 하면</th><th scope="col">어떻게 될까</th><th scope="col">재료</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">팀원 1</th><td>✓</td><td>★ 메모를 올리고 주제를 고른다</td><td></td><td>✓ 메모 글, 주제 목록</td></tr>
+            <tr><th scope="row">팀원 2</th><td></td><td></td><td>★ 두 분류가 나란히 보인다</td><td>✓ 친구의 분류 결과</td></tr>
+            <tr><th scope="row">팀원 3</th><td></td><td>✓ 저장 버튼 없이 입력한다</td><td></td><td></td></tr>
+            <tr><th scope="row">팀원 4</th><td></td><td></td><td>(아직 없음 → 돌아가서 한 칸)</td><td></td></tr>
+            <tr><th scope="row">팀원 5</th><td></td><td></td><td></td><td>✓ 주제별 색 표</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>팀원 4의 줄에서 아무것도 고르지 않았습니다. 이대로 엮으면 팀원 4는 조수가 됩니다. "일주일 뒤 알림"은 크지만, "어떻게 될까" 칸의 <b>"지난주 메모" 칸이 위로 온다</b>는 작습니다. 그 칸을 고릅니다.</p>
+      <aside class="callout tip">
+        <p>표가 다섯 줄을 넘으면(한 사람이 두 문장을 냈을 때) 스탬프 수가 많은 순서로 위에서부터 보되, 사람별로 한 번은 꼭 봅니다. 표가 넓어 보드에서 읽기 어려우면 '재료' 열을 접고 세 열만 두고 고릅니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="weave">
+      <h3>⑤ 엮기 · 팀 아이디어 한 문장과 기여 표</h3>
+      <p>고른 칸들을 한 문장으로 엮습니다. 세 가지를 씁니다. <b>팀 아이디어 한 문장</b>, <b>웹이어야 하는 이유</b>, <b>기여 표</b>(이름 · 들어간 조각).</p>
+      <pre class="code" data-lang="text" data-file="⑤ 엮기 예시"><code>팀 아이디어 한 문장:
+  시험 공부를 시작한 대학생이 수업 메모를 올리면, 같은 메모를
+  친구가 나눈 결과와 나란히 놓고 주제를 다시 고른다.
+
+웹이어야 하는 이유:
+  링크 하나로 친구와 같은 메모를 본다. 여러 사람의 분류가 한 화면에 모인다.</code></pre>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>기여 표 예시 · 조각의 크기를 줄여 넣은 줄에 주목</caption>
+          <thead><tr><th scope="col">이름</th><th scope="col">들어간 조각</th><th scope="col">크기</th></tr></thead>
+          <tbody>
+            <tr><td>팀원 1</td><td>메모를 올리고 주제를 고른다 ★</td><td>기능</td></tr>
+            <tr><td>팀원 2</td><td>두 분류가 나란히 보인다 ★</td><td>기능</td></tr>
+            <tr><td>팀원 3</td><td>저장 버튼 없이 입력하면 바로 반영된다 → 목록이 바로 바뀌는 한 부분</td><td>화면의 한 부분</td></tr>
+            <tr><td>팀원 4</td><td>일주일 뒤 알림 → "지난주 메모" 문구 한 줄</td><td>문구 하나</td></tr>
+            <tr><td>팀원 5</td><td>주제마다 다른 색</td><td>화면의 한 부분</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>어색한 조각은 빼지 말고 크기를 줄입니다</h4>
+      <p>조각이 팀 문장에 안 들어가 보일 때 빼는 대신 한 단계 작게 만듭니다. <b>기능 → 화면의 한 부분 → 문구 하나</b>. "일주일 뒤 알림"(기능)은 서버와 알림 권한이 필요해 학기 안에 어렵지만, "지난주 메모" 문구 한 줄(문구)은 오늘 넣을 수 있습니다. 조각이 작아져도 기여 표에 이름이 남습니다. 그것이 중요합니다.</p>
+      <p>토의할 때 쓰는 말도 정합니다. "안 돼요" 대신 <b>"그럼 이렇게 하면?"</b>으로 받습니다. "알림은 안 돼요"가 아니라 "그럼 문구 한 줄로 하면?"입니다. 반대 의견을 막는 것이 아니라, 크기를 바꾼 제안으로 돌려주는 것입니다.</p>
+      <p>웹이어야 하는 이유는 8주차 ③의 네 가지(링크로 공유·데이터·여럿이 동시에·접근성)에서 고릅니다. 하나도 해당하지 않으면 그 아이디어는 종이나 앱으로도 되는 것입니다. 질문으로 돌아갑니다.</p>
+    </section>
+
+    <section class="sec" id="sheet-lab">
+      <h3>실습 · 쪼개기 표를 데이터로 검사하기</h3>
+      <p>고르기 규칙("모든 사람의 줄에서 한 칸 이상")은 눈으로 세어도 되지만, 표를 데이터로 두면 코드가 대신 셉니다. 5주차에 배운 배열과 객체 그대로입니다. 아래 표에서 팀원 4의 줄에는 고른 칸이 없습니다. JS 탭의 <code>uncovered</code> 함수가 그 사람을 찾아내도록 <code>TODO</code> 줄을 고쳐 보세요. 처음 실행하면 세 테스트 중 하나가 실패합니다.</p>
+      <div class="lab" data-title="고르기 규칙 검사: 빠진 사람 찾기" data-kicker="실습 1" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<h1>쪼개기 표 · 고르기 검사</h1>
+<table id="t">
+  <thead><tr><th>이름</th><th>누가·언제</th><th>무엇을 하면</th><th>어떻게 될까</th><th>재료</th></tr></thead>
+  <tbody></tbody>
+</table>
+<p id="report" role="status"></p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; }
+h1 { font-size: 16px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+td.pick { background: #e6f4f1; }
+td.star { background: #fdf0c2; font-weight: 600; }
+#report { font-weight: 600; }
+</script>
+<script type="text/plain" data-lab="js">
+// 쪼개기 표: 한 줄 = 객체 하나, 표 = 배열
+const rows = [
+  { name: '팀원 1', who: '시험 2주 전 대학생', what: '메모를 올리고 주제를 고른다', result: '주제별 목록이 생긴다', material: '메모 글, 주제 목록' },
+  { name: '팀원 2', who: '같은 수업을 듣는 친구', what: '같은 메모를 자기 기준으로 나눈다', result: '두 분류가 나란히 보인다', material: '친구의 분류 결과' },
+  { name: '팀원 3', who: '메모를 막 올린 사람', what: '저장 버튼 없이 입력한다', result: '화면이 바로 바뀐다', material: '입력 이벤트' },
+  { name: '팀원 4', who: '일주일 지난 메모의 주인', what: '아무것도 하지 않는다', result: '"지난주 메모" 칸이 위로 온다', material: '메모의 날짜' },
+  { name: '팀원 5', who: '결과를 보는 사람', what: '분류 결과를 본다', result: '주제마다 색이 다르다', material: '주제별 색 표' },
+];
+
+// 고르기 결과: 스탬프가 모인 칸. col은 who / what / result / material 중 하나
+const picks = [
+  { row: '팀원 1', col: 'what', star: true },
+  { row: '팀원 1', col: 'material' },
+  { row: '팀원 2', col: 'result', star: true },
+  { row: '팀원 2', col: 'material' },
+  { row: '팀원 3', col: 'what' },
+  { row: '팀원 5', col: 'material' },
+];
+
+function stars(picks) {
+  return picks.filter(p => p.star).length;
+}
+
+function uncovered(rows, picks) {
+  // TODO: 고른 칸(picks)이 한 개도 없는 사람의 이름을 배열로 돌려주세요.
+  // 힌트: rows.filter(...)로 줄을 거르고, .map(r => r.name)으로 이름만 남깁니다.
+  //       어떤 줄에 고른 칸이 있는지는 picks.some(p => p.row === r.name)으로 알 수 있습니다.
+  return [];
+}
+
+function render() {
+  const tbody = document.querySelector('#t tbody');
+  tbody.innerHTML = '';
+  for (const r of rows) {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = r.name;
+    tr.append(th);
+    for (const col of ['who', 'what', 'result', 'material']) {
+      const td = document.createElement('td');
+      const pick = picks.find(p => p.row === r.name && p.col === col);
+      td.textContent = (pick && pick.star ? '★ ' : pick ? '✓ ' : '') + r[col];
+      if (pick) td.className = pick.star ? 'star' : 'pick';
+      tr.append(td);
+    }
+    tbody.append(tr);
+  }
+  const missing = uncovered(rows, picks);
+  document.querySelector('#report').textContent =
+    `고른 칸 ${picks.length}개 · ★ ${stars(picks)}개 · 빠진 사람: ${missing.length ? missing.join(', ') : '없음'}`;
+  console.log('빠진 사람:', missing);
+}
+
+render();
+</script>
+<script type="text/plain" data-lab="test">
+test('표에 다섯 사람의 줄이 그려진다', () => {
+  expect($$('#t tbody tr')).toHaveLength(5);
+});
+
+test('★는 1~2개다', () => {
+  const n = stars(picks);
+  expect(n).toBeGreaterThanOrEqual(1);
+  expect(n).toBeLessThan(3);
+});
+
+test('한 칸도 고르지 않은 사람(팀원 4)을 찾아낸다', () => {
+  expect(uncovered(rows, picks)).toEqual(['팀원 4']);
+  expect($('#report').textContent).toContain('팀원 4');
+});
+</script>
+      </div>
+      <p>해 볼 것: 테스트가 모두 통과하면 <code>picks</code>에 <code>{ row: '팀원 4', col: 'result' }</code>를 더해 다시 실행해 보세요. 보고 문장이 "빠진 사람: 없음"으로 바뀌면 팀원 4의 조각이 들어간 것입니다. 우리 팀 시트의 내용으로 <code>rows</code>와 <code>picks</code>를 바꿔 넣으면 그대로 검사 도구가 됩니다.</p>
+
+      <aside class="deep" id="deep-table-data">
+        <h4>심화 · 쪼개기 표는 데이터 모델입니다: 조합의 수와 구조화의 대가</h4>
+        <p><b>내부 동작.</b> 쪼개기 표의 한 줄은 객체 하나이고, 표 전체는 객체의 배열입니다. 그래서 고르기는 <code>filter</code>, 엮기는 <code>map</code>과 <code>join</code>, ★ 세기는 <code>filter(...).length</code>로 적을 수 있습니다. 표가 데이터가 되는 순간 "모든 사람의 줄에서 한 칸 이상"은 검사할 수 있는 규칙이 됩니다. 규칙이 왜 필요한지도 숫자로 보입니다. 누가·언제 5개, 무엇을 하면 5개, 어떻게 될까 5개를 자유롭게 조합하면 5 × 5 × 5 = 125가지 팀 아이디어가 가능합니다. 여섯 줄이면 216가지입니다. 사람은 이 가운데 두어 개만 떠올리고, 보통 목소리가 큰 사람의 조합이 남습니다. 스탬프와 ★은 이 조합 공간을 사람 수만큼의 제약으로 줄이는 장치입니다.</p>
+        <p><b>명세·문서.</b> 표를 파일로 주고받을 때의 형식은 JSON입니다. 키는 큰따옴표, 마지막 쉼표 금지, 주석 금지라는 규칙은 5주차 <a href="../week5.html#json-data">JSON: 데이터를 문자열로 주고받기</a>에 있고, 공식 설명은 MDN의 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a> 문서입니다. 배열 메서드의 반환값은 5주차 <a href="../week5.html#array-method-results">배열 메서드의 반환값</a>에서 다시 봅니다.</p>
+        <!-- 확인 필요: MDN JSON 레퍼런스 URL은 research-web-tooling.md에 없는 링크입니다. 수업 전 클릭해 확인하세요. -->
+        <p><b>트레이드오프.</b> 자유로운 글 vs 구조화된 표. 표로 적으면 코드와 AI가 검사하고 변환할 수 있지만, 네 칸에 안 들어가는 아이디어는 잘리거나 왜곡됩니다. "분위기가 따뜻했으면 좋겠다" 같은 바람은 칸이 없습니다. 그래서 '재료' 칸은 자유 글을 허용하고, 표 밖에 '못 넣은 것' 메모를 둡니다. 구조화는 토의를 빠르게 하는 대신 표현의 폭을 줄입니다. 어느 쪽을 택할지는 팀이 정하되, 10주차에 저장소로 옮길 때는 구조화된 쪽이 docs/requirements.md가 됩니다.</p>
+        <p><b>5분 실험.</b> 위 실습의 JS 탭 맨 아래에 다음 두 줄을 넣고 실행합니다.</p>
+<pre class="code" data-lang="js"><code>console.log(JSON.stringify(rows, null, 2));   // 표를 JSON 문자열로
+console.log('가능한 조합 수:', rows.length ** 3); // 누가 × 무엇을 × 어떻게</code></pre>
+        <p>콘솔에 찍힌 JSON을 복사해 ChatGPT Edu 프로젝트의 파일로 올리면 <a href="#ai">PART 07 'AI와 함께'</a>의 요청에 그대로 쓸 수 있습니다. 이어서 <code>rows</code>에 여섯 번째 줄을 더하고 조합 수가 216으로 뛰는 것을 확인합니다. 마지막으로 <code>JSON.parse(JSON.stringify(rows))[0] === rows[0]</code>을 찍어 보세요. <code>false</code>가 나옵니다. 문자열을 거치면 같은 내용의 새 객체가 만들어지기 때문이며, 이것이 5주차 <a href="../week5.html#object-reference-view">객체 참조와 복사</a>의 이야기입니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="sheet-mistakes">
+      <h3>자주 하는 실수</h3>
+      <aside class="callout mistake">
+        <p class="callout-title">기능 목록부터 씁니다</p>
+        <p>"로그인, 메모 작성, 분류, 공유, 알림"처럼 기능을 늘어놓으면 질문이 사라지고 범위가 커집니다. 기능은 ⑤ 고르기와 ⑦ 화면에서 나오고, 그 전에는 ②의 질문과 ④의 한 문장만 있습니다. 기능 목록이 먼저 나왔다면 ②로 돌아가 "이 기능이 없으면 질문에 답할 수 없나?"를 하나씩 묻습니다.</p>
+      </aside>
+      <p>그 밖에 두 가지가 더 있습니다.</p>
+      <ul>
+        <li><b>한 사람 아이디어로 기울기.</b> 기여 표에 같은 이름이 세 줄이고 다른 이름이 비어 있다면 엮기가 아니라 고르기를 한 것입니다. 고르기 규칙으로 돌아갑니다. 실습 1의 <code>uncovered</code>가 찾아 주는 것이 바로 이것입니다.</li>
+        <li><b>개인 과제를 그대로 가져오기.</b> ③이 "없음"이거나 비어 있다면, 팀 아이디어가 누군가의 개인 과제와 같다는 뜻입니다. ③을 다시 쓰고, 그 사람의 조각을 한 단계 줄여 다른 조각이 들어올 자리를 만듭니다.</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- PART 03 -->
+  <section class="part" id="scene">
+    <header class="part-head">
+      <h2>사용 장면 쓰기 ⑥</h2>
+      <p class="lead">팀 아이디어 한 문장을 "한 사람이 들어와서 나갈 때까지"의 3~5단계로 늘려 씁니다. 왼쪽에는 사용자가 하는 일(동사), 오른쪽에는 화면에서 일어나는 일을 적습니다.</p>
+    </header>
+
+    <section class="sec" id="scene-why">
+      <h3>왜 사용 장면인가</h3>
+      <p class="sec-goal">이 절을 읽고 나면 사용 장면이 기능 목록과 무엇이 다른지 설명할 수 있습니다.</p>
+      <p>팀 아이디어 한 문장은 아직 화면이 아닙니다. "나란히 놓고 주제를 다시 고른다"를 만들려면, 그 사람이 어디로 들어와서, 무엇을 먼저 보고, 어떤 순서로 누르고, 어디서 나가는지가 있어야 합니다. 그것을 적은 것이 <dfn title="한 사용자가 우리 화면에 들어와서 나갈 때까지 하는 일과 화면에서 일어나는 일을 3~5단계로 적은 것.">사용 장면</dfn>입니다. 5주차의 입력 → 처리 → 표시를 한 사람의 시간 순서로 늘린 것이라고 보면 됩니다.</p>
+      <p>사용 장면이 있으면 세 가지가 저절로 정해집니다. 화면이 몇 개 필요한지(⑦), 어떤 데이터가 들어오고 남는지(⑦), 알파에서 꼭 동작해야 하는 단계가 어디인지(⑧). 반대로 사용 장면 없이 화면부터 그리면 "이 버튼은 언제 누르지?"가 나중에 터집니다.</p>
+      <p class="side-note">장면에는 한 사람만 둡니다. "친구가 분류를 올리면 내가 본다"처럼 두 사람이 나오면 장면이 두 개입니다. 알파에서는 그중 하나만 고르고, 다른 사람의 몫은 가짜 데이터로 둡니다.</p>
+      <p>큰 단어는 눈에 보이는 것으로 바꿉니다. "취향을 발견한다"는 화면에 그릴 수 없습니다. "같은 메모에 친구가 붙인 주제가 내 것과 다르게 보인다"는 그릴 수 있습니다. 단계를 쓰다가 그릴 수 없는 말이 나오면 그 자리에서 작은 말로 바꿉니다.</p>
+    </section>
+
+    <section class="sec" id="scene-structure">
+      <h3>구조 · 3~5단계, 동사와 화면, 그리고 ★</h3>
+      <p>표 한 장입니다. 줄은 3~5개, 열은 두 개입니다.</p>
+      <dl class="defs">
+        <div><dt>사용자가 하는 일</dt><dd>동사로 끝나는 한 문장. "링크를 연다", "메모를 붙여 넣는다", "주제를 고른다". 생각이나 느낌("고민한다")은 쓰지 않습니다. 화면이 알 수 없기 때문입니다.</dd></div>
+        <div><dt>화면에서 일어나는 일</dt><dd>그 행동의 결과로 눈에 보이는 변화. "목록 맨 위에 메모가 생긴다", "주제 색이 칠해진다".</dd></div>
+        <div><dt>★</dt><dd>②의 '무엇을 하면'에 해당하는 단계에 ★ 하나. 이 단계가 알파에서 실제로 동작해야 하는 곳입니다.</dd></div>
+        <div><dt>첫 줄과 끝 줄</dt><dd>첫 줄은 "들어온다"(어디로, 무엇을 보고), 끝 줄은 "나간다"(무엇을 가지고, 무엇이 남고). 이 두 줄이 있어야 알파의 '시작과 끝'이 정해집니다.</dd></div>
+      </dl>
+      <p>3단계보다 적으면 장면이 아니라 버튼 하나이고, 5단계보다 많으면 알파가 커집니다. 6단계가 나왔다면 두 단계를 하나로 합치거나, 한 단계를 '나중에 할 것'으로 보냅니다.</p>
+    </section>
+
+    <section class="sec" id="scene-example">
+      <h3>최소 예제 · 메모 분류 장면</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑥ 사용 장면 예시 · 시험 공부를 시작한 대학생</caption>
+          <thead><tr><th scope="col" class="num">단계</th><th scope="col">사용자가 하는 일</th><th scope="col">화면에서 일어나는 일</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>친구가 보낸 링크를 연다</td><td>메모 목록과 "시험 2주 전" 안내가 보인다</td></tr>
+            <tr><td class="num">2</td><td>수업 메모를 붙여 넣고 주제를 고른다</td><td>메모가 목록 맨 위에 주제 색과 함께 생긴다</td></tr>
+            <tr><td class="num">3 ★</td><td>"친구 분류 보기"를 누른다</td><td>내 분류와 친구 분류가 나란히 보인다</td></tr>
+            <tr><td class="num">4</td><td>다른 주제로 바꾼다</td><td>바뀐 주제가 양쪽에 반영된다</td></tr>
+            <tr><td class="num">5</td><td>창을 닫는다</td><td>다음에 열면 바꾼 분류가 남아 있다</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>3단계에 ★이 있습니다. ②의 '무엇을 하면'이 "나란히 놓아 보면"이기 때문입니다. 5단계의 "남아 있다"는 데이터가 '남는 것'이라는 뜻이고, ⑦의 데이터 칸으로 이어집니다. 1단계의 "친구가 보낸 링크"는 웹이어야 하는 이유(링크로 공유)가 장면 안에 들어온 자리입니다.</p>
+      <p>장면을 다 쓰면 한 사람이 소리 내어 읽습니다. 읽다가 막히는 곳("여기서 주제는 어디서 고르지?")이 ⑦에서 그릴 화면입니다.</p>
+    </section>
+
+    <section class="sec" id="scene-lab">
+      <h3>실습 · 장면을 단계별로 넘겨 보기</h3>
+      <p>사용 장면도 배열입니다. 아래 실습은 장면의 단계를 '다음' 버튼으로 하나씩 보여 줍니다. 지금 데이터는 6단계라 "3~5단계" 테스트가 실패합니다. JS 탭의 <code>scene</code> 배열에서 두 단계를 하나로 합쳐 테스트를 통과시켜 보세요. 위 예시 표의 2단계가 힌트입니다.</p>
+      <div class="lab" data-title="사용 장면 넘겨 보기: 6단계를 5단계로" data-kicker="실습 2" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<h1>사용 장면 · 메모 분류</h1>
+<p id="pos"></p>
+<p><b>사용자:</b> <span id="user"></span></p>
+<p><b>화면:</b> <span id="screen"></span></p>
+<button id="prev" type="button">이전</button>
+<button id="next" type="button">다음</button>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+h1 { font-size: 16px; }
+#pos { color: #555; font-size: 13px; }
+.star { background: #fdf0c2; padding: 0 4px; }
+</script>
+<script type="text/plain" data-lab="js">
+// 한 줄 = 장면의 한 단계. star: true 는 ②의 '무엇을 하면' 단계
+const scene = [
+  { user: '친구가 보낸 링크를 연다', screen: '메모 목록과 "시험 2주 전" 안내가 보인다' },
+  { user: '수업 메모를 붙여 넣는다', screen: '메모가 목록 맨 위에 생긴다' },
+  { user: '메모에 주제를 고른다', screen: '주제 색이 칠해진다' },
+  { user: '"친구 분류 보기"를 누른다', screen: '내 분류와 친구 분류가 나란히 보인다', star: true },
+  { user: '다른 주제로 바꾼다', screen: '바뀐 주제가 양쪽에 반영된다' },
+  { user: '창을 닫는다', screen: '다음에 열면 바꾼 분류가 남아 있다' },
+];
+
+let i = 0;
+
+function render() {
+  const step = scene[i];
+  document.querySelector('#pos').textContent =
+    `${i + 1} / ${scene.length} 단계${step.star ? ' · ★' : ''}`;
+  const user = document.querySelector('#user');
+  user.textContent = step.user;
+  user.className = step.star ? 'star' : '';
+  document.querySelector('#screen').textContent = step.screen;
+  document.querySelector('#prev').disabled = i === 0;
+  document.querySelector('#next').disabled = i === scene.length - 1;
+}
+
+document.querySelector('#next').addEventListener('click', () => { i = Math.min(i + 1, scene.length - 1); render(); });
+document.querySelector('#prev').addEventListener('click', () => { i = Math.max(i - 1, 0); render(); });
+
+render();
+console.log('단계 수:', scene.length, '/ ★ 단계:', scene.findIndex(s => s.star) + 1);
+</script>
+<script type="text/plain" data-lab="test">
+test('들어와서 나갈 때까지 3~5단계다', () => {
+  expect(scene.length).toBeGreaterThanOrEqual(3);
+  expect(scene.length).toBeLessThan(6);
+});
+
+test('★ 단계가 꼭 하나 있다', () => {
+  expect(scene.filter(s => s.star)).toHaveLength(1);
+});
+
+test('"다음"을 끝까지 누르면 마지막 단계에서 나간다', () => {
+  for (let k = 0; k < scene.length; k++) click('#next');
+  expect($('#user').textContent).toContain('닫는다');
+  expect($('#next').disabled).toBeTruthy();
+});
+</script>
+      </div>
+      <p>해 볼 것: ★이 두 개가 되게 바꾸고 실행하면 두 번째 테스트가 실패합니다. ★이 둘이면 알파에서 실제로 동작해야 하는 곳이 둘이 되어 범위가 두 배가 됩니다. 우리 팀 장면으로 배열을 바꿔 넣고 소리 내어 읽으며 넘겨 보세요.</p>
+
+      <aside class="deep" id="deep-ia">
+        <h4>심화 · 정보 구조와 URL 설계: 한 화면 = 한 URL</h4>
+        <p><b>내부 동작.</b> 사용 장면의 단계 가운데 사용자가 <b>공유하고, 새로고침하고, 뒤로가기</b>를 할 수 있어야 하는 단위를 '화면'이라 부릅니다. 이 세 행동은 모두 브라우저가 URL을 기준으로 하기 때문에, 화면 하나에 URL 하나를 주어야 셋 다 동작합니다. 화면들의 관계를 정하는 것이 <dfn title="Information Architecture. 화면과 내용이 어떤 관계로 놓이는지(계층·평행·순차)와 사용자가 그 사이를 어떻게 오가는지를 정하는 일.">정보 구조</dfn>입니다. 팀 프로젝트에서 자주 쓰는 세 패턴은 목록 → 상세(계층), 탭(평행), 단계 진행(순차)입니다. URL은 그 구조를 그대로 적습니다. 자원은 경로의 명사로(<code>/memos/3</code>), 같은 화면의 다른 조건은 쿼리로(<code>?topic=수학</code>), 화면 안의 위치나 정적 호스팅의 화면 이름은 조각으로(<code>#compare</code>) 둡니다.</p>
+        <p><b>명세·문서.</b> URL의 다섯 부분(스킴·호스트·경로·쿼리·조각)은 2주차 <a href="../week2.html#s1">인터넷과 웹</a>에서 처음 보았고, 정식 문법은 <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 · URI: Generic Syntax</a>입니다. 조각(<code>#</code>) 뒤는 서버로 보내지 않는다는 규칙이 이 문서 3.5절에 있습니다.</p>
+        <!-- 확인 필요: RFC 3986 링크는 research-web-tooling.md 밖의 링크입니다. 수업 전 클릭해 확인하세요. -->
+        <p><b>트레이드오프.</b> URL을 잘게 나누면 공유·새로고침·뒤로가기가 모두 되지만, 화면 상태와 URL을 맞추는 코드가 늘어납니다(아래 PART 04 심화의 '단일 진실 공급원'). 한 URL에 모든 화면을 넣으면 코드는 단순하지만 친구에게 "3번 메모 비교 화면"을 보낼 수 없습니다. 알파에서는 ★ 단계의 화면 하나에만 URL을 주고 나머지는 한 URL 안에 두는 절충이 흔합니다.</p>
+        <p><b>5분 실험.</b> 아래 심화의 실습에서 <code>#memo/2</code>처럼 "화면 이름/값" 꼴의 조각을 읽는 코드를 봅니다. 거기에 <code>#topic/수학</code> 화면을 하나 더 만들어, 같은 주제의 메모만 보이게 해 보세요. 화면이 하나 늘 때 URL 규칙 한 줄과 <code>render</code>의 분기 한 줄이 함께 늘어나는 것을 확인합니다.</p>
+      </aside>
+
+      <aside class="deep" id="deep-routing">
+        <h4>심화 · 해시(#) 라우팅 vs 경로 라우팅, 그리고 GitHub Pages의 404</h4>
+        <p><b>내부 동작.</b> 주소에서 <code>#</code> 뒤만 바뀌면 브라우저는 서버에 새 요청을 보내지 않습니다. 대신 같은 문서 안에서 <code>hashchange</code> 이벤트를 일으키고 히스토리에 한 칸을 더합니다. 그래서 <code>location.hash</code>를 읽어 화면을 바꾸는 코드는 서버 설정 없이 어디서나 동작합니다. 반면 <code>/memos/3</code>처럼 경로를 바꾸면 브라우저는 서버에 그 경로를 요청합니다. GitHub Pages 같은 정적 호스팅에는 <code>memos/3</code>이라는 파일이 없으므로 404가 돌아옵니다. 페이지 안에서만 경로를 바꾸는 History API(<code>history.pushState(state, '', '/memos/3')</code>)를 써도 새로고침하면 다시 서버 요청이 가서 같은 404를 만납니다. 그래서 정적 호스팅에서는 해시 라우팅을 쓰거나, 404 페이지가 앱을 다시 띄우는 우회 설정을 합니다. 14주차 배포 점검에서 다시 봅니다.</p>
+        <p><b>명세·문서.</b> GitHub Pages가 어떤 파일을 어떤 주소로 내놓는지는 <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">docs.github.com · Creating a GitHub Pages site</a>에 있습니다(진입 파일은 <code>index.html</code>, 프로젝트 사이트 주소는 <code>https://&lt;user&gt;.github.io/&lt;repository&gt;/</code>). <code>pushState</code>는 MDN <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API">History API</a> 문서가 기준입니다.</p>
+        <!-- 확인 필요: MDN History API URL은 research-web-tooling.md에 없는 링크입니다. 수업 전 클릭해 확인하세요. -->
+        <p><b>트레이드오프.</b> 해시 라우팅은 설정이 없고 Pages에서 바로 되지만, URL이 <code>#</code>를 품어 덜 깔끔하고 서버가 어느 화면이 열렸는지 모릅니다(접속 통계·검색 노출에 불리). 경로 라우팅은 깔끔하지만 호스팅에 우회 설정이 필요하고, 빌드 도구를 쓰면 <code>base</code> 경로까지 맞춰야 합니다. 알파·베타는 해시로 충분합니다. 정적 호스팅의 기준은 7주차 특강의 한 문장, "서버가 요청마다 코드를 실행하는가"입니다. 실행하지 않으면 경로를 해석해 줄 코드도 없습니다.</p>
+        <p><b>5분 실험.</b> 아래 실습은 <code>#list</code>, <code>#memo/2</code>, <code>#compare</code> 세 화면을 해시로 나눕니다. 처음에는 주소가 바뀌어도 화면이 그대로입니다. 한 번만 그리고 끝나기 때문입니다. <code>TODO</code> 줄에 <code>hashchange</code> 이벤트를 연결해 두 번째 테스트를 통과시키세요. 그다음 결과 화면에서 링크를 누르고 브라우저의 뒤로가기처럼 <code>history.back()</code>을 콘솔에서 불러 보세요.</p>
+        <div class="lab" data-title="해시로 화면 바꾸기: 한 화면 = 한 URL" data-kicker="심화 실습" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<nav>
+  <a href='#list'>목록</a> ·
+  <a href='#compare'>나란히 보기</a> ·
+  <a href='#memo/2'>메모 2</a>
+</nav>
+<main id="view"></main>
+<p id="url"></p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+nav { margin-bottom: 12px; }
+#url { color: #555; font-size: 13px; }
+h2 { font-size: 16px; margin: 0 0 6px; }
+</script>
+<script type="text/plain" data-lab="js">
+const memos = [
+  { id: 1, text: '미적분 정리', topic: '수학' },
+  { id: 2, text: '영어 단어 30개', topic: '영어' },
+  { id: 3, text: '통계 과제 메모', topic: '수학' },
+];
+
+// '#memo/2' → { name: 'memo', arg: '2' }, 비어 있으면 list
+function route() {
+  const h = location.hash.slice(1) || 'list';
+  const [name, arg] = h.split('/');
+  return { name, arg };
+}
+
+function render() {
+  const { name, arg } = route();
+  const view = document.querySelector('#view');
+  view.innerHTML = '';
+  const h2 = document.createElement('h2');
+  view.append(h2);
+
+  if (name === 'list') {
+    h2.textContent = '메모 목록';
+    const ul = document.createElement('ul');
+    for (const m of memos) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#memo/' + m.id;
+      a.textContent = m.text;
+      li.append(a);
+      ul.append(li);
+    }
+    view.append(ul);
+  } else if (name === 'memo') {
+    const m = memos.find(m => m.id === Number(arg));
+    h2.textContent = m ? `메모 ${m.id} · ${m.topic}` : '없는 메모';
+    if (m) view.append(document.createTextNode(m.text));
+  } else if (name === 'compare') {
+    h2.textContent = '나란히 보기';
+    view.append(document.createTextNode('내 분류 | 친구 분류 (가짜 데이터)'));
+  } else {
+    h2.textContent = '없는 화면: ' + name;
+  }
+  document.querySelector('#url').textContent = '주소의 조각: ' + (location.hash || '(없음)');
+  console.log('그린 화면:', name, arg ?? '');
+}
+
+render();
+
+// TODO: 주소의 # 뒤가 바뀔 때마다 render()가 다시 실행되게 하세요.
+// 힌트: window.addEventListener('hashchange', render);
+</script>
+<script type="text/plain" data-lab="test">
+test('처음에는 목록 화면이 보인다', () => {
+  expect($('#view h2').textContent).toContain('메모 목록');
+  expect($$('#view li')).toHaveLength(3);
+});
+
+test('#memo/2 로 바꾸면 메모 2 화면으로 바뀐다', async () => {
+  location.hash = '#memo/2';
+  await until(() => $('#view h2').textContent.includes('메모 2'));
+  expect($('#view').textContent).toContain('영어 단어');
+  expect($('#url').textContent).toContain('#memo/2');
+});
+
+test('없는 화면 이름이면 안내 문장을 보여 준다', () => {
+  location.hash = '#nowhere';
+  render();
+  expect($('#view h2').textContent).toContain('없는 화면');
+});
+</script>
+        </div>
+      </aside>
+    </section>
+
+    <section class="sec" id="scene-mistakes">
+      <h3>자주 하는 실수</h3>
+      <aside class="callout mistake">
+        <p class="callout-title">장면에 두 사람이 나옵니다</p>
+        <p>"친구가 분류를 올리면 내가 본다"는 두 사람의 장면입니다. 알파에서는 한 사람만 실제로 움직이고, 다른 사람의 몫(친구의 분류)은 가짜 데이터로 둡니다. 장면을 '나'의 시간 순서로 다시 쓰고, 친구의 분류는 ⑦의 '가져오는 것'에 적습니다.</p>
+      </aside>
+      <ul>
+        <li><b>화면 이름을 단계로 씁니다.</b> "메인 화면 → 분류 화면 → 비교 화면"은 사용 장면이 아니라 화면 목록입니다. 단계마다 사용자가 하는 동사가 있어야 합니다.</li>
+        <li><b>큰 단어가 남아 있습니다.</b> "메모를 정리하며 성취감을 느낀다"에서 "성취감"은 화면이 모릅니다. 화면이 아는 것으로 바꿉니다. "바꾼 주제 수가 위에 표시된다".</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- PART 04 -->
+  <section class="part" id="screens">
+    <header class="part-head">
+      <h2>화면과 기술 ⑦</h2>
+      <p class="lead">사용 장면에서 화면 2~3개, 데이터 세 종류, 그리고 기술 칸을 뽑아냅니다. 기술 칸은 정답을 쓰는 곳이 아니라 '알아볼 것'을 적는 곳입니다.</p>
+    </header>
+
+    <section class="sec" id="screens-why">
+      <h3>화면 2~3개 · 이름, 하는 일, 손그림</h3>
+      <p class="sec-goal">이 절을 읽고 나면 사용 장면에서 화면을 뽑아 이름을 붙이고 손그림 한 장으로 그릴 수 있습니다.</p>
+      <p>⑥의 장면을 소리 내어 읽다가 "화면이 바뀐다"고 느껴지는 곳이 화면의 경계입니다. 메모 분류 장면은 세 화면입니다. 화면마다 <b>이름</b>, <b>하는 일 한 줄</b>, <b>손그림 또는 링크</b>를 둡니다. 손그림은 종이에 그려 사진을 올려도 되고, 5주차에 만든 화면의 링크여도 됩니다. 깔끔할 필요는 없고, 버튼이 어디 있는지만 보이면 됩니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑦ 화면 예시 · 메모 분류</caption>
+          <thead><tr><th scope="col">화면 이름</th><th scope="col">하는 일</th><th scope="col">장면의 단계</th><th scope="col">손그림/링크</th></tr></thead>
+          <tbody>
+            <tr><td>목록</td><td>메모를 올리고 주제를 고른다. 주제별 색이 보인다.</td><td>1, 2</td><td>손그림 1장</td></tr>
+            <tr><td>나란히 보기 ★</td><td>내 분류와 친구 분류를 같은 메모 기준으로 두 열에 보여 준다. 주제를 바꿀 수 있다.</td><td>3, 4</td><td>손그림 1장</td></tr>
+            <tr><td>(없음)</td><td>5단계 '창을 닫는다'는 화면이 아니라 '남는 것'(데이터)이다.</td><td>5</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>화면이 네 개를 넘으면 장면이 너무 길거나 화면을 잘게 쪼갠 것입니다. 로그인·설정·소개 화면은 알파에 없습니다. 각 화면이 <a href="#deep-ia">한 URL</a>을 가질지는 심화에서, 좁은 화면에서는 어떻게 놓일지는 <a href="../week4.html#responsive-check">4주차 반응형 점검</a>을 떠올리며 손그림 옆에 한 줄만 적습니다. 설명 없이 처음 쓰는 사람의 눈으로 보는 법은 <a href="../week3.html#observe">3주차 키오스크 관찰</a>의 네 가지와 같습니다.</p>
+    </section>
+
+    <section class="sec" id="data-kinds">
+      <h3>데이터 세 종류 · 받는 것, 남기는 것, 가져오는 것</h3>
+      <p>화면마다 데이터가 세 방향으로 움직입니다. 사용자에게서 <b>받는 것</b>(입력), 다음에 열어도 있어야 하는 <b>남기는 것</b>(저장), 우리 화면 밖에서 <b>가져오는 것</b>(친구의 데이터, 외부 API). 세 종류를 나누어 적으면 11주차에 어떤 코드가 필요한지 거의 정해집니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑦ 데이터 예시 · 메모 분류</caption>
+          <thead><tr><th scope="col">종류</th><th scope="col">무엇</th><th scope="col">모양(예)</th><th scope="col">11주차에 배우는 코드</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">받는 것</th><td>메모 글, 고른 주제</td><td><code>{ text: '미적분 정리', topic: '수학' }</code></td><td>폼 입력 → 상태(state)</td></tr>
+            <tr><th scope="row">남기는 것</th><td>내 메모 목록과 주제</td><td><code>[{ id: 1, text, topic }, …]</code></td><td><code>localStorage</code> 저장·복원</td></tr>
+            <tr><th scope="row">가져오는 것</th><td>친구의 분류 결과</td><td><code>[{ id: 1, topic: '통계' }, …]</code></td><td><code>fetch</code>로 JSON 읽기 (알파에서는 가짜 데이터)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>5주차의 <a href="../week5.html#state-and-render">상태는 JavaScript로, 표현은 CSS로</a>에서 본 '상태'가 '받는 것'입니다. 거기에 '남기는 것'과 '가져오는 것'이 더해지는 것이 후반부의 전부입니다. 지금은 코드를 쓰지 않고, 세 칸에 이름만 적습니다. 모양(예) 칸까지 적어 두면 10주차 docs/architecture.md에 그대로 들어갑니다.</p>
+      <aside class="callout warn" data-label="개인정보">
+        <p>'받는 것'과 '남기는 것'에 이름·학번·연락처·사진·위치가 들어간다면 왜 필요한지 한 줄 적습니다. 없어도 질문에 답할 수 있으면 받지 않습니다. 알파의 가짜 데이터에도 실제 사람의 이름을 쓰지 않습니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="tech-cell">
+      <h3>기술 칸 · 지금 아는 것으로 되는 것 / 새로 알아볼 것</h3>
+      <p>기술 칸은 두 줄입니다. <b>지금 아는 것으로 되는 것</b>과 <b>새로 알아볼 것</b>. 정답을 쓰는 칸이 아닙니다. "React로 한다"처럼 도구 이름을 먼저 적지 말고, 장면의 어느 단계가 어느 줄에 들어가는지 적습니다.</p>
+      <pre class="code" data-lang="text" data-file="⑦ 기술 칸 예시"><code>지금 아는 것으로 되는 것:
+  - 메모 입력 폼과 목록 그리기 (5주차 폼·배열·DOM)
+  - 주제별 색 (5주차 클래스와 CSS 변수)
+  - 목록 화면 하나를 GitHub Pages에 올리기 (6주차)
+
+새로 알아볼 것:
+  - 새로고침해도 메모가 남게 하기 → 11주차 localStorage
+  - 친구의 분류 결과를 가져오기 → 알파에서는 가짜 JSON, 이후 11주차 fetch
+  - 두 사람이 같은 메모를 보려면? → 기술 결정 카드 ①</code></pre>
+      <p>"새로 알아볼 것"의 화살표 오른쪽은 비워 두어도 됩니다. 10주차에 저장소를 만들 때 docs/architecture.md로 옮기면서 채웁니다. 다만 아래 결정 카드 세 문항은 10주차 전에 팀이 답을 정해 둡니다. 저장소 구조가 달라지기 때문입니다.</p>
+    </section>
+
+    <section class="sec" id="tech-cards">
+      <h3>기술 결정 카드 3문</h3>
+      <p>세 질문에 예/아니오로 답합니다. "예"가 하나라도 있으면 그 줄의 오른쪽이 팀이 더 볼 자료입니다. 셋 다 "아니오"면 HTML·CSS·JS와 GitHub Pages만으로 학기를 마칠 수 있습니다. 그것도 훌륭한 답입니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>기술 결정 카드 · 10주차 저장소 전에 답을 정해 둡니다</caption>
+          <thead><tr><th scope="col" class="num">문항</th><th scope="col">질문</th><th scope="col">"예"라면</th><th scope="col">"아니오"라면</th></tr></thead>
+          <tbody>
+            <tr><td class="num">①</td><td>여러 사람 또는 여러 기기가 <b>같은 데이터</b>를 보나요?</td><td>서버가 필요합니다. 선택 모듈 '서버리스·BaaS'를 봅니다. 가장 빨리 "여럿이 같이 쓰는 데이터"를 얻는 길입니다.</td><td>이 브라우저 안에 남기면 됩니다(11주차 localStorage).</td></tr>
+            <tr><td class="num">②</td><td>우리 밖의 <b>데이터나 API</b>를 가져오나요?</td><td>11주차 fetch. 키가 필요한 API면 비밀 키와 공개(제한) 키를 구분해야 합니다.</td><td>가짜 JSON 파일로 시작합니다.</td></tr>
+            <tr><td class="num">③</td><td>서비스 안에서 <b>생성형 AI</b>를 호출하나요?</td><td>선택 모듈 'genai-api'. 키는 브라우저에 둘 수 없으므로 프록시(서버리스 함수)가 필요합니다.</td><td>AI는 만드는 과정에서만 씁니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>메모 분류 팀의 답은 ① 예(친구와 같은 메모), ② 아니오, ③ 아니오입니다. 그래서 알파에서는 친구의 분류를 가짜 데이터로 두고, 10주차 이후 서버리스·BaaS 모듈을 검토합니다. "예"라고 답했다고 바로 서버를 만들지는 않습니다. 알파는 가짜로 두고, ⑧의 '나중에 할 것'에 적습니다.</p>
+    </section>
+
+    <section class="sec" id="fake-lab">
+      <h3>실습 · 사용 장면 한 단계를 가짜 데이터로 흉내 내기</h3>
+      <p>⑥의 2단계 "메모 목록에서 주제를 고른다"를 HTML과 JS 배열만으로 흉내 냅니다. 저장도, 서버도 없습니다. 이것이 알파에서 '가짜로 둘 것'의 감각입니다. 데이터는 5주차의 객체 배열 그대로입니다. 두 개의 <code>TODO</code>를 채워 주제별 거르기와 빈 목록 안내를 완성하세요. 상태·저장·fetch는 11주차에서 더합니다.</p>
+      <div class="lab" data-title="가짜 데이터로 주제 고르기" data-kicker="실습 3" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<h1>메모 목록 · 주제 고르기</h1>
+<p>
+  주제:
+  <button type="button" data-topic="전체">전체</button>
+  <button type="button" data-topic="수학">수학</button>
+  <button type="button" data-topic="영어">영어</button>
+  <button type="button" data-topic="약속">약속</button>
+</p>
+<ul id="list"></ul>
+<p id="empty" hidden>이 주제의 메모가 아직 없습니다.</p>
+<p id="count"></p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+h1 { font-size: 16px; }
+li { margin: 3px 0; }
+.topic { font-size: 12px; color: #555; margin-left: 6px; }
+#count { color: #555; font-size: 13px; }
+</script>
+<script type="text/plain" data-lab="js">
+// 가짜 데이터: 진짜 저장소가 생겨도 모양은 이대로 둡니다.
+const notes = [
+  { id: 1, text: '미적분 정리', topic: '수학' },
+  { id: 2, text: '영어 단어 30개', topic: '영어' },
+  { id: 3, text: '통계 과제 메모', topic: '수학' },
+  { id: 4, text: '발표 스크립트', topic: '영어' },
+];
+
+let topic = '전체';
+
+function render() {
+  // TODO 1: topic이 '전체'가 아니면 notes를 topic이 같은 것만 남기세요.
+  //         힌트: notes.filter(n => n.topic === topic)
+  const shown = notes;
+
+  const list = document.querySelector('#list');
+  list.innerHTML = '';
+  for (const n of shown) {
+    const li = document.createElement('li');
+    li.textContent = n.text;
+    const tag = document.createElement('span');
+    tag.className = 'topic';
+    tag.textContent = n.topic;
+    li.append(tag);
+    list.append(li);
+  }
+
+  // TODO 2: shown이 비어 있으면 #empty 안내를 보이고, 아니면 숨기세요.
+  //         힌트: document.querySelector('#empty').hidden = shown.length > 0;
+
+  document.querySelector('#count').textContent = `${topic} · ${shown.length}개`;
+  console.log('주제:', topic, '/ 보이는 메모:', shown.length);
+}
+
+document.querySelectorAll('button[data-topic]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    topic = btn.dataset.topic;
+    render();
+  });
+});
+
+render();
+</script>
+<script type="text/plain" data-lab="test">
+test('처음에는 메모 4개가 모두 보인다', () => {
+  expect($$('#list li')).toHaveLength(4);
+  expect($('#empty').hidden).toBeTruthy();
+});
+
+test('"수학"을 누르면 수학 메모 2개만 보인다', () => {
+  click('button[data-topic="수학"]');
+  expect($$('#list li')).toHaveLength(2);
+  expect($('#count').textContent).toContain('2개');
+});
+
+test('"약속"을 누르면 빈 목록 안내가 보인다', () => {
+  click('button[data-topic="약속"]');
+  expect($$('#list li')).toHaveLength(0);
+  expect($('#empty').hidden).toBeFalsy();
+});
+</script>
+      </div>
+      <p>해 볼 것: 테스트가 통과하면 <code>notes</code>에 우리 팀 장면의 가짜 데이터를 넣어 보세요. 글자는 실제 사람의 것이 아니어야 합니다. 그다음 "친구의 분류"를 두 번째 배열로 두고 같은 <code>id</code>끼리 나란히 보이게 해 보면, 그것이 ★ 단계의 가짜 버전입니다.</p>
+
+      <aside class="deep" id="deep-state-home">
+        <h4>심화 · 상태가 사는 곳 네 가지와 '단일 진실 공급원'</h4>
+        <p><b>내부 동작.</b> 위 실습의 <code>topic</code>은 변수, 곧 <b>메모리</b>에 삽니다. 새로고침하면 사라지고, 다른 탭은 모릅니다. 같은 값을 둘 수 있는 곳은 네 가지이고, 수명과 공유 범위가 다릅니다.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <caption>상태가 사는 곳 네 가지</caption>
+            <thead><tr><th scope="col">곳</th><th scope="col">수명</th><th scope="col">누가 보나</th><th scope="col">크기</th><th scope="col">메모 앱에서</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">메모리(변수)</th><td>새로고침까지</td><td>이 탭</td><td>넉넉함</td><td>지금 고른 주제, 입력 중인 글</td></tr>
+              <tr><th scope="row">URL(쿼리·해시)</th><td>링크가 있는 한</td><td>링크를 받은 모두</td><td>짧음(수천 자)</td><td>보고 있는 메모 번호, 필터</td></tr>
+              <tr><th scope="row">localStorage · IndexedDB</th><td>지우기 전까지</td><td>이 기기의 이 브라우저</td><td>수 MB 수준(브라우저마다 다름)</td><td>내 메모 목록</td></tr>
+              <tr><th scope="row">서버</th><td>서버가 정함</td><td>모든 사람·모든 기기</td><td>서버가 정함</td><td>친구의 분류 결과</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- 확인 필요: localStorage 용량은 브라우저마다 다릅니다(research 문서에 수치 없음). 숫자를 단정하지 않았습니다. -->
+        <p>원칙은 하나입니다. <dfn title="Single Source of Truth. 같은 값을 두 곳에 두지 않고 한 곳에서만 읽으며, 나머지는 그 값에서 계산한다는 원칙.">단일 진실 공급원</dfn>. 같은 값을 두 곳에 두면 언젠가 둘이 어긋나고, 화면은 그중 하나를 보여 주며, 사용자는 "분명히 바꿨는데" 하고 말합니다. 값은 한 곳에 두고 나머지는 거기서 계산합니다. 필터가 URL에 산다면 변수에는 복사하지 않고 매번 URL에서 읽습니다.</p>
+        <p><b>명세·문서.</b> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">MDN · Window.localStorage</a>(<code>setItem</code>·<code>getItem</code>·<code>removeItem</code>·<code>clear</code>, 값은 문자열, 출처별로 분리). 개요는 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API">Using the Web Storage API</a>.</p>
+        <!-- 확인 필요: 'Using the Web Storage API' 가이드는 research-web-tooling.md에 URL만 있고 본문 미확인. 수업 전 클릭 확인. -->
+        <p><b>트레이드오프.</b> 메모리는 빠르고 단순하지만 사라집니다. URL은 공유되지만 짧고, 누구나 고쳐 쓸 수 있으니 읽을 때 검증해야 합니다(<code>#memo/abc</code>). localStorage는 남지만 이 기기뿐이고 개발자 도구로 누구나 읽으니 비밀을 두지 않습니다. 서버는 공유되지만 서버가 있어야 합니다. 그래서 기술 결정 카드 ①이 "서버가 필요한가"를 먼저 묻습니다.</p>
+        <p><b>5분 실험.</b> 아래 실습은 같은 '주제'를 변수와 URL 해시 두 곳에 둔 코드입니다. 버튼은 변수만 바꾸고 주소는 그대로 두어, 화면은 영어 메모인데 친구에게 보낼 주소는 '전체'인 어긋남이 생깁니다. 두 번째 테스트가 그것을 잡습니다. <code>TODO</code>대로 변수를 없애고 해시 한 곳만 보게 고치면 어긋남이 사라집니다.</p>
+        <div class="lab" data-title="같은 값을 두 곳에 두면 생기는 어긋남" data-kicker="심화 실습" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<p>
+  주제:
+  <button type="button" data-topic="전체">전체</button>
+  <button type="button" data-topic="수학">수학</button>
+  <button type="button" data-topic="영어">영어</button>
+</p>
+<ul id="list"></ul>
+<p id="share"></p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+#share { color: #555; font-size: 13px; }
+</script>
+<script type="text/plain" data-lab="js">
+const notes = [
+  { id: 1, text: '미적분 정리', topic: '수학' },
+  { id: 2, text: '영어 단어 30개', topic: '영어' },
+  { id: 3, text: '통계 과제 메모', topic: '수학' },
+  { id: 4, text: '발표 스크립트', topic: '영어' },
+];
+
+let topic = '전체';                                   // 상태가 사는 곳 1: 변수
+
+function topicFromHash() {                           // 상태가 사는 곳 2: URL 해시
+  return decodeURIComponent(location.hash.slice(1)) || '전체';
+}
+
+function render() {
+  const shown = topic === '전체' ? notes : notes.filter(n => n.topic === topic);
+  const list = document.querySelector('#list');
+  list.innerHTML = '';
+  for (const n of shown) {
+    const li = document.createElement('li');
+    li.textContent = `${n.text} (${n.topic})`;
+    list.append(li);
+  }
+  document.querySelector('#share').textContent =
+    '친구에게 보낼 주소 조각: ' + (decodeURIComponent(location.hash) || '#전체');
+  console.log('변수 topic =', topic, '/ 주소 =', decodeURIComponent(location.hash) || '(없음)');
+}
+
+document.querySelectorAll('button[data-topic]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    topic = btn.dataset.topic;      // 변수만 바꾸고 주소는 그대로 → 어긋남
+    render();
+  });
+});
+
+window.addEventListener('hashchange', () => {
+  topic = topicFromHash();          // 주소가 바뀌면 변수에 복사 → 두 곳이 됨
+  render();
+});
+
+render();
+
+// TODO: 상태를 한 곳(URL 해시)에만 두세요.
+//  1) 버튼은 location.hash = '#' + btn.dataset.topic 만 하고 render()를 부르지 않습니다.
+//  2) hashchange 때는 render()만 부릅니다.
+//  3) render 안에서는 topic 변수 대신 topicFromHash()를 읽습니다. 변수 topic은 지웁니다.
+</script>
+<script type="text/plain" data-lab="test">
+test('"영어"를 누르면 영어 메모 2개가 보인다', async () => {
+  click('button[data-topic="영어"]');
+  await until(() => $$('#list li').length === 2);
+  expect($('#list').textContent).toContain('영어 단어');
+});
+
+test('"영어"를 누르면 주소 조각도 #영어가 된다 (두 곳이 어긋나지 않는다)', async () => {
+  click('button[data-topic="영어"]');
+  await until(() => decodeURIComponent(location.hash) === '#영어', 1500);
+  expect($('#share').textContent).toContain('#영어');
+});
+
+test('주소 조각을 #수학으로 바꾸면 화면도 수학 메모가 된다', async () => {
+  location.hash = '#수학';
+  await until(() => $('#list').textContent.includes('통계 과제'));
+  expect($$('#list li')).toHaveLength(2);
+});
+</script>
+        </div>
+      </aside>
+
+      <aside class="deep" id="deep-data-shape">
+        <h4>심화 · 데이터 모양을 먼저 정하면 가짜가 진짜로 바뀌어도 화면 코드는 그대로입니다</h4>
+        <p><b>내부 동작.</b> 실습 3의 <code>render</code>는 <code>notes</code>가 어디서 왔는지 모릅니다. 파일 안의 배열이든, 11주차에 <code>await res.json()</code>으로 받은 배열이든, <code>{ id, text, topic }</code> 모양만 같으면 같은 코드가 돌아갑니다. 그래서 알파에서 가짜 데이터를 쓰는 것이 낭비가 아닙니다. 모양을 먼저 정하는 일이 곧 설계입니다. <code>id</code>가 필요한 이유도 여기에 있습니다. 화면의 한 줄과 데이터의 한 항목을 잇는 열쇠가 있어야 고치기·지우기·<code>#memo/2</code> 같은 주소가 가능합니다. 글자 내용은 바뀌지만 <code>id</code>는 바뀌지 않습니다.</p>
+        <p><b>명세·문서.</b> JSON을 받아 배열로 바꾸는 쪽은 MDN <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Using the Fetch API</a>(<code>response.ok</code> 검사 뒤 <code>await response.json()</code>)에 있고, 객체 배열을 화면으로 그리는 쪽은 5주차 <a href="../week5.html#object-list">관련 값은 객체로 묶고 목록은 배열에 넣습니다</a>입니다.</p>
+        <p><b>트레이드오프.</b> 모양을 일찍 고정하면 한 사람은 화면을, 다른 사람은 데이터를 동시에 만들 수 있습니다. 대신 나중에 바꾸기 어렵습니다. 그래서 저장 키에 <code>-v1</code>처럼 버전을 붙이고(11주차), 모양을 정할 때 세운 '가정'을 표 옆에 적어 둡니다. AI에게 초안을 받을 때 "가정 목록을 따로 적어 달라"고 하는 이유도 같습니다(PART 07).</p>
+        <p><b>5분 실험.</b> 실습 3의 <code>notes</code> 첫 항목에 <code>due: '11/3'</code> 필드를 더하고 실행합니다. 화면은 그대로입니다. <code>render</code>는 모르는 필드를 무시하기 때문입니다. 이번에는 두 번째 항목의 키 <code>topic</code>을 <code>subject</code>로 바꿔 보세요. 오류 없이 그 메모가 거르기에서 조용히 사라집니다. 오류가 나지 않는 실수가 가장 늦게 발견됩니다. 모양을 적어 두고 테스트로 지키는 이유입니다(12주차).</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="screens-mistakes">
+      <h3>자주 하는 실수</h3>
+      <aside class="callout mistake">
+        <p class="callout-title">기술 칸에 정답을 쓰려고 합니다</p>
+        <p>"React + Firebase"라고 적고 토의가 끝나면, 왜 그것이 필요한지 아무도 설명하지 못합니다. 기술 칸은 장면의 단계를 "아는 것 / 알아볼 것"으로 나누는 칸입니다. 도구 이름은 알아볼 것의 화살표 오른쪽에, 그것도 물음표를 붙여 둡니다. 결정은 기술 결정 카드 3문과 선택 모듈의 '적용 결정표'에서 합니다.</p>
+      </aside>
+      <ul>
+        <li><b>'남기는 것'을 빠뜨립니다.</b> 창을 닫았다 열면 무엇이 있어야 하는지 적지 않으면, 11주차에 저장 코드를 쓸 자리가 없습니다. ⑥의 마지막 단계를 다시 읽어 보세요.</li>
+        <li><b>화면을 다섯 개 이상 그립니다.</b> 로그인·설정·소개·도움말은 알파에 없습니다. 장면에 나오는 화면만 그립니다.</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- PART 05 -->
+  <section class="part" id="alpha">
+    <header class="part-head">
+      <h2>알파 버전 정하기 ⑧ · ⑨</h2>
+      <p class="lead">사용 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전이 알파입니다. 꼭 넣을 것, 가짜로 둘 것, 나중에 할 것을 나누고, 10주차까지 누가 무엇을 할지 정합니다.</p>
+    </header>
+
+    <section class="sec" id="alpha-why">
+      <h3>왜 알파인가 · 얇게, 끝까지</h3>
+      <p class="sec-goal">이 절을 읽고 나면 알파 버전이 "기능이 적은 버전"이 아니라 "장면을 끝까지 지나가는 버전"이라는 것을 설명할 수 있습니다.</p>
+      <p>⑥의 장면은 다섯 단계였습니다. 다섯 단계를 모두 제대로 만들면 학기가 끝납니다. 그렇다고 첫 단계만 제대로 만들면, 14주차 시연에서 "그다음은요?"라는 질문에 답할 수 없습니다. 그래서 <dfn title="⑥의 사용 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전. ★ 단계만 실제로 동작하고, 나머지는 가짜 데이터나 사람이 대신합니다. OT 로드맵의 '수직 프로토타입'이 이것입니다.">알파 버전</dfn>은 장면의 <b>모든 단계를 얇게</b> 지나갑니다. ★ 단계만 실제로 동작하고, 나머지 단계는 가짜 데이터로 채우거나 사람이 대신합니다.</p>
+      <p>이렇게 하면 두 가지가 생깁니다. 첫째, 11주차에 벌써 "처음부터 끝까지" 보여 줄 수 있어 알파 테스트가 가능합니다. 둘째, 단계 사이의 이음새("주제를 고르면 어디로 가지?")가 일찍 드러납니다. 이음새 문제는 마지막에 발견될수록 비쌉니다.</p>
+      <p>OT 로드맵의 <a href="../index.html#project">11주차 '수직 프로토타입 완성'</a>이 바로 이 알파입니다. 이 수업의 학생 자료에서는 '알파 버전'이라고 부릅니다.</p>
+    </section>
+
+    <section class="sec" id="alpha-structure">
+      <h3>구조 · 꼭 넣을 것, 가짜로 둘 것, 나중에 할 것, 확인할 것 한 줄</h3>
+      <p>⑧은 네 칸입니다. 앞의 세 칸은 ⑥의 단계와 ⑦의 화면·데이터를 세 갈래로 나누고, 마지막 칸은 ②의 질문으로 돌아갑니다.</p>
+      <dl class="defs">
+        <div><dt>꼭 넣을 것</dt><dd>★ 단계, 그리고 장면의 시작과 끝. 실제로 동작해야 하는 곳입니다. 보통 세 줄을 넘지 않습니다.</dd></div>
+        <div><dt>가짜로 둘 것</dt><dd>장면에는 있지만 실제로 만들지 않는 것. 친구의 분류 결과는 JS 배열로, 저장은 "새로고침하지 않기"로, 알림은 사람이 말로. 가짜라고 적어 두면 테스트하는 사람에게 미리 말할 수 있습니다.</dd></div>
+        <div><dt>나중에 할 것</dt><dd>알파 장면 밖의 것. 회원가입, 여러 사람이 동시에 쓰기, 일주일 뒤 알림. 적어 두되 지금은 만들지 않습니다. 기여 표에서 크기를 줄인 조각의 원래 크기가 여기에 남습니다.</dd></div>
+        <div><dt>확인할 것 한 줄</dt><dd>알파를 다른 사람에게 시켜 보았을 때 무엇이 일어나면 ②의 질문에 "그렇다"고 답할 수 있는지. "어떻게 될까"를 관찰할 수 있는 문장으로 바꿉니다.</dd></div>
+      </dl>
+      <p>'확인할 것 한 줄'이 ②와 이어지지 않으면 알파는 만들어도 질문에 답하지 못합니다. 과제의 확인 기준이 이 한 줄인 이유입니다.</p>
+    </section>
+
+    <section class="sec" id="alpha-example">
+      <h3>최소 예제 · 메모 분류 알파</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑥의 단계를 ⑧의 세 갈래로 나눈 예</caption>
+          <thead><tr><th scope="col" class="num">단계</th><th scope="col">사용자가 하는 일</th><th scope="col">알파에서는</th><th scope="col">어떻게</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>친구가 보낸 링크를 연다</td><td>실제</td><td>GitHub Pages 주소 하나. 목록 화면이 뜬다.</td></tr>
+            <tr><td class="num">2</td><td>메모를 붙여 넣고 주제를 고른다</td><td>가짜</td><td>메모 네 개가 처음부터 들어 있다. 입력은 되지만 저장은 안 된다.</td></tr>
+            <tr><td class="num">3 ★</td><td>"친구 분류 보기"를 누른다</td><td>실제</td><td>친구의 분류는 JS 배열(가짜 데이터)이지만, 나란히 보여 주는 화면은 실제로 동작한다.</td></tr>
+            <tr><td class="num">4</td><td>다른 주제로 바꾼다</td><td>가짜</td><td>바뀌는 것처럼 보이되 새로고침하면 돌아간다.</td></tr>
+            <tr><td class="num">5</td><td>창을 닫는다</td><td>실제</td><td>"바꾼 주제 2개"가 위에 표시된 채 끝난다. 저장은 나중에.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code" data-lang="text" data-file="⑧ 예시 · 메모 분류"><code>꼭 넣을 것:   1 링크로 들어온다 · 3★ 내 분류와 친구 분류를 나란히 본다 · 5 바꾼 수가 보인 채 끝난다
+가짜로 둘 것: 친구의 분류(JS 배열) · 메모 저장(새로고침하지 않기) · 주제 바꾸기 반영(화면만)
+나중에 할 것: 친구가 직접 분류를 올리기(서버) · 일주일 뒤 알림 · 회원가입
+확인할 것:    친구 분류를 나란히 본 사람이 자기 메모의 주제를 하나 이상 바꾸는가</code></pre>
+      <p>3★ 단계에서 "친구의 분류"가 가짜인데 "실제"라고 적힌 것이 이상해 보일 수 있습니다. 실제로 동작해야 하는 것은 <b>나란히 보여 주는 화면과 행동</b>이고, 그 화면에 들어가는 데이터는 가짜여도 됩니다. 데이터의 모양만 정해 두면 11주차에 진짜로 바꿔도 화면 코드는 그대로입니다(<a href="#deep-data-shape">PART 04 심화</a>).</p>
+    </section>
+
+    <section class="sec" id="alpha-lab">
+      <h3>실습 · 알파 범위 검사기</h3>
+      <p>⑧의 규칙 세 가지("★ 단계는 실제", "시작과 끝은 실제", "실제 단계는 3개 이하")도 코드가 검사할 수 있습니다. 아래 실습의 장면 데이터에는 ★ 단계가 '가짜'로 잘못 적혀 있습니다. JS 탭의 <code>problems</code> 함수에서 세 규칙을 구현하면 두 번째·세 번째 테스트가 통과하고, 화면의 보고 문장이 그 실수를 찾아냅니다. 그다음 데이터를 고쳐 "문제 없음"을 만들어 보세요.</p>
+      <div class="lab" data-title="알파 범위 검사기: 실제·가짜·나중에" data-kicker="실습 4" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<h1>⑧ 알파 범위 · 메모 분류</h1>
+<table id="t">
+  <thead><tr><th>단계</th><th>사용자가 하는 일</th><th>알파에서는</th></tr></thead>
+  <tbody></tbody>
+</table>
+<p id="later"></p>
+<p id="report" role="status"></p>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; }
+h1 { font-size: 16px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
+td.real { background: #e6f4f1; font-weight: 600; }
+td.fake { color: #555; }
+#report { font-weight: 600; }
+</script>
+<script type="text/plain" data-lab="js">
+// ⑥의 단계에 ⑧의 결정을 붙였습니다. status는 '실제' 또는 '가짜'.
+const scene = [
+  { user: '친구가 보낸 링크를 연다', status: '실제' },
+  { user: '메모를 붙여 넣고 주제를 고른다', status: '가짜' },
+  { user: '"친구 분류 보기"를 누른다', star: true, status: '가짜' },   // ← 잘못 적혔습니다
+  { user: '다른 주제로 바꾼다', status: '가짜' },
+  { user: '창을 닫는다', status: '실제' },
+];
+
+// 알파 장면 밖, 나중에 할 것
+const later = ['친구가 직접 분류를 올리기(서버)', '일주일 뒤 알림', '회원가입'];
+
+function problems(scene) {
+  const found = [];
+  // TODO: 아래 세 규칙을 검사해 어긋나면 found에 문장을 넣으세요.
+  //  1) ★ 단계의 status가 '실제'가 아니면: '★ 단계가 실제가 아닙니다'
+  //     힌트: scene.find(s => s.star)
+  //  2) 첫 단계나 끝 단계가 '실제'가 아니면: '첫 단계와 끝 단계는 실제여야 합니다'
+  //     힌트: scene[0], scene[scene.length - 1]
+  //  3) '실제' 단계가 3개를 넘으면: '실제 단계가 3개를 넘습니다'
+  //     힌트: scene.filter(s => s.status === '실제').length
+  return found;
+}
+
+function render() {
+  const tbody = document.querySelector('#t tbody');
+  tbody.innerHTML = '';
+  scene.forEach((s, i) => {
+    const tr = document.createElement('tr');
+    const no = document.createElement('td');
+    no.textContent = (i + 1) + (s.star ? ' ★' : '');
+    const user = document.createElement('td');
+    user.textContent = s.user;
+    const st = document.createElement('td');
+    st.textContent = s.status;
+    st.className = s.status === '실제' ? 'real' : 'fake';
+    tr.append(no, user, st);
+    tbody.append(tr);
+  });
+  document.querySelector('#later').textContent = '나중에 할 것: ' + later.join(' · ');
+
+  const real = scene.filter(s => s.status === '실제').length;
+  const found = problems(scene);
+  document.querySelector('#report').textContent =
+    `실제 ${real} · 가짜 ${scene.length - real} · 나중에 ${later.length} · ` +
+    (found.length ? '문제: ' + found.join(' / ') : '문제 없음');
+  console.log('검사 결과:', found);
+}
+
+render();
+</script>
+<script type="text/plain" data-lab="test">
+test('장면의 단계가 상태와 함께 표에 그려진다', () => {
+  expect($$('#t tbody tr')).toHaveLength(5);
+  expect($('#report').textContent).toContain('나중에 3');
+});
+
+test('★ 단계가 가짜면 문제로 찾아낸다', () => {
+  const found = problems(scene.map(s => ({ ...s, status: s.star ? '가짜' : s.status })));
+  expect(found.some(p => p.includes('★'))).toBeTruthy();
+});
+
+test('실제 단계가 3개를 넘으면 문제로 찾아낸다', () => {
+  const found = problems(scene.map(s => ({ ...s, status: '실제' })));
+  expect(found.some(p => p.includes('3개'))).toBeTruthy();
+});
+</script>
+      </div>
+      <p>해 볼 것: 테스트가 통과한 뒤 3단계의 <code>status</code>를 '실제'로 고치면 보고 문장이 "문제 없음"이 됩니다. 이번에는 2단계와 4단계도 '실제'로 바꿔 보세요. "실제 단계가 3개를 넘습니다"가 뜹니다. 그것이 알파가 커지는 순간입니다. 우리 팀 장면으로 <code>scene</code>과 <code>later</code>를 바꿔 넣으면 ⑧의 초안이 됩니다.</p>
+
+      <aside class="deep" id="deep-vertical">
+        <h4>심화 · 수직 슬라이스 vs 수평 레이어: 왜 '얇게 끝까지'가 먼저인가</h4>
+        <p><b>내부 동작.</b> 다섯 단계짜리 장면을 만드는 순서는 두 가지입니다. <b>수평 레이어</b>는 층별로 갑니다. 모든 화면의 HTML을 먼저, 그다음 모든 CSS, 그다음 모든 JS, 마지막에 데이터. 각 층은 깔끔하지만 마지막 층이 끝나기 전까지는 어떤 장면도 끝까지 가지 않습니다. <b>수직 슬라이스</b>는 한 장면을 골라 HTML → CSS → JS → 데이터를 얇게 관통합니다. 처음부터 끝까지 가는 버전이 매주 하나씩 생기고, 층과 층 사이의 이음새(폼의 값이 목록으로 어떻게 넘어가나, 화면이 바뀔 때 URL은 어떻게 되나)가 첫 주에 드러납니다. 소프트웨어에서 가장 늦게 발견되는 문제는 대부분 이음새에 있습니다. 알파가 수직 슬라이스인 이유입니다. 구조 지도로 말하면, 네 층을 한 번에 다 켜는 대신 한 장면이 지나가는 좁은 길만 네 층 모두에서 켭니다.</p>
+        <p><b>명세·문서.</b> 이 수업의 기준은 OT의 로드맵입니다. <a href="../index.html#project">팀 프로젝트 일정(10주 저장소·기본 하네스 → 11주 수직 프로토타입 → 12~14주 테스트·고도화)</a>과 <a href="../index.html#engineering">하네스 엔지니어링의 세 문서(requirements · tasks · checklist)</a>를 보세요. 10주차에 저장소를 만들면 ⑧이 <code>docs/requirements.md</code>의 '알파 범위' 절이 되고, ⑨가 <code>docs/tasks.md</code>의 첫 줄들이 됩니다.</p>
+        <p><b>트레이드오프.</b> 수직 슬라이스는 빨리 보여 주는 대신, 단계마다 "일단 되게 한" 코드가 남습니다. 알파 뒤에는 정리할 시간을 따로 잡아야 합니다(13주차 고치기). 수평 레이어는 층이 깔끔하고 여러 사람이 층을 나눠 맡기 쉽지만, 끝까지 가는 날까지 아무것도 보여 줄 수 없고 이음새 문제가 마지막에 몰립니다. 그래서 둘을 섞습니다. 아래 결정표의 왼쪽은 얇게 끝까지, 오른쪽은 층으로 먼저 깔아 두는 것이 나은 경우입니다.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <caption>무엇을 수직으로, 무엇을 수평으로</caption>
+            <thead><tr><th scope="col">수직 슬라이스로(한 장면 끝까지)</th><th scope="col">수평 레이어로(모든 화면에 먼저)</th></tr></thead>
+            <tbody>
+              <tr><td>★ 단계와 그 앞뒤 단계</td><td>색·글꼴·여백 같은 디자인 기준(5주차 DESIGN.md → docs/design.md)</td></tr>
+              <tr><td>데이터 모양이 아직 불확실한 기능</td><td>모든 화면이 같이 쓰는 머리글·내비게이션</td></tr>
+              <tr><td>사용자에게 시켜 보고 싶은 것</td><td>저장소·하네스·배포 설정(10주차)</td></tr>
+              <tr><td>"될지 안 될지" 모르는 기술(알아볼 것)</td><td>이미 아는 것으로 되는 것</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><b>5분 실험.</b> 실습 4의 <code>scene</code>에서 모든 <code>status</code>를 '실제'로 바꾸고 실행합니다. 검사기가 "실제 단계가 3개를 넘습니다"라고 말합니다. 이것이 수평으로 다 만들려는 계획의 모습입니다. 이번에는 모두 '가짜'로 바꿉니다. "★ 단계가 실제가 아닙니다"와 "첫 단계와 끝 단계는 실제여야 합니다"가 함께 뜹니다. 아무것도 실제로 만들지 않는 계획입니다. 두 경고 사이의 좁은 폭이 알파의 자리입니다. 우리 팀 ⑧을 넣고 어느 경고도 뜨지 않는지 확인해 보세요.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="alpha-test">
+      <h3>알파 테스트 미리 보기 · 알파를 만든 뒤</h3>
+      <p>알파를 만든 뒤(11주차 이후)에는 다른 팀 2~3명에게 시켜 봅니다. 오늘은 그때 쓸 카드를 미리 알고, ⑧의 '확인할 것'을 그 카드의 셋째 칸으로 쓰기 위해 봅니다. 카드는 세 칸, 기록은 네 칸입니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>알파 테스트 카드 예시 · 메모 분류</caption>
+          <thead><tr><th scope="col">칸</th><th scope="col">내용</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">누구에게</th><td>다른 팀 2~3명. 우리 프로젝트를 처음 보는 사람. 비전공 1명 이상.</td></tr>
+            <tr><th scope="row">시켜 볼 일</th><td>"이 메모를 붙여 넣고, '친구 분류 보기'를 누른 뒤, 마음에 안 드는 주제 하나를 바꿔 보세요." (메모 샘플은 종이로 건넵니다.)</td></tr>
+            <tr><th scope="row">이러면 맞다</th><td>설명 없이 2분 안에 주제 하나를 바꾸고 "바꾼 주제 1개"를 본다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>진행 규칙은 네 가지입니다. <b>설명하지 않고 할 일만</b> 말합니다. 테스트하는 사람은 <b>소리 내어 생각하며</b> 합니다. <b>돕지 않고</b> 막힌 곳을 적습니다. 끝나고 <b>TAG</b>를 받습니다. 기록은 테스트한 사람(테스터 1처럼 익명)·막힌 곳·놀란 점·바꿀 것의 네 칸입니다. 같은 곳에서 두 명이 막히면 그곳이 고칠 곳입니다. 2~3명이면 충분합니다.</p>
+      <p class="side-note">'이러면 맞다'는 ⑧의 '확인할 것'과 같은 문장이어야 합니다. 둘이 다르면 알파가 질문과 다른 것을 확인하고 있는 것입니다.</p>
+      <p>과제전을 미리 그려 보는 것은 선택입니다. 처음 본 사람이 1분 동안 해 볼 일과 가져가는 것을 한 줄씩 적어 두면 14주차 시연 준비가 빨라집니다. 아직 못 정한 것과 다음 버전 후보도 시트 끝에 남겨 둡니다.</p>
+    </section>
+
+    <section class="sec" id="prep-week10">
+      <h3>⑨ 10주차까지 누가 무엇을</h3>
+      <p>⑨는 세 열입니다. <b>이름 · 할 일 · 10주차에 보여 줄 것</b>. "보여 줄 것"이 핵심입니다. 손에 들고 올 수 있는 것으로 적어야 다음 주 스튜디오를 결과물로 시작할 수 있습니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑨ 예시 · 메모 분류 팀</caption>
+          <thead><tr><th scope="col">이름</th><th scope="col">할 일</th><th scope="col">10주차에 보여 줄 것</th></tr></thead>
+          <tbody>
+            <tr><td>팀원 1</td><td>팀 저장소 만들기, 팀원 초대</td><td>저장소 주소, 팀원 5명이 모두 보이는 화면</td></tr>
+            <tr><td>팀원 2</td><td>공용 CLAUDE.md·AGENTS.md 초안(팀 규칙 다섯 줄)</td><td>두 파일(10주차에 함께 고칩니다)</td></tr>
+            <tr><td>팀원 3</td><td>목록 화면·나란히 보기 화면 손그림</td><td>손그림 2장 사진</td></tr>
+            <tr><td>팀원 4</td><td>알아볼 것: "친구 분류를 가짜 JSON으로 두는 법"</td><td>JSON 파일 하나와 모양 설명 세 줄</td></tr>
+            <tr><td>팀원 5</td><td>⑧ '확인할 것'을 테스트 카드로 옮기기</td><td>카드 세 칸</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>CLAUDE.md와 AGENTS.md가 무엇인지 아직 몰라도 됩니다. 10주차에 터미널과 함께 처음부터 다룹니다. 오늘은 "누가 초안을 가져올지"만 정합니다. 그리고 모든 팀원이 10주차 전에 Node.js를 설치해 옵니다(<a href="#hw-prep">준비 과제</a>). 설치가 안 되어도 괜찮습니다. 오류 화면을 캡처해 오면 10주차 설치 클리닉에서 짝과 함께 해결합니다.</p>
+      <aside class="callout mistake">
+        <p class="callout-title">⑨에 "코드 짜기"를 적습니다</p>
+        <p>10주차에 보여 줄 것은 저장소·문서·손그림·알아본 것입니다. 코드는 11주차부터 하네스 안에서 씁니다. 혼자 앞서 짠 코드는 팀 저장소에 들어갈 때 다시 쓰게 되는 경우가 많습니다. 급하면 개인 과제 최종본에 힘을 쓰는 편이 낫습니다.</p>
+      </aside>
+    </section>
+  </section>
+
+  <!-- PART 06 -->
+  <section class="part" id="solo">
+    <header class="part-head">
+      <h2>개인 과제 · 피드백을 최종본으로</h2>
+      <p class="lead">오늘 작가님께 짧게 피드백을 받고, 8주차 TAG 가운데 세 가지를 골라 수정 계획을 세웁니다. 최종본은 11주차에 제출합니다. 새 기능을 더하는 것보다 받은 피드백을 반영하는 것이 최종본입니다.</p>
+    </header>
+
+    <section class="sec" id="artist-feedback">
+      <h3>작가님 피드백 받는 법</h3>
+      <p class="sec-goal">이 절을 읽고 나면 피드백 자리에 무엇을 들고 가고, 무엇을 받아 적을지 압니다.</p>
+      <p>작가님은 팀을 번갈아 불러 수강생 전원의 개인 과제를 짧게 봅니다. 짧기 때문에 준비가 전부입니다. 두 가지를 들고 갑니다. <b>지금까지 만든 것</b>(링크 하나, 바로 열리는 상태)과 <b>11주차까지 더 해 볼 것 하나</b>(한 문장). 설명은 8주차 발표의 첫 두 줄(질문 한 문장, 사용자가 해 볼 행동)로 충분합니다.</p>
+      <p>받아 적는 형식은 <b>'살릴 것 하나 · 다음에 해 볼 것 하나'</b>입니다. 들은 말을 모두 적으려 하지 말고, 이 두 칸만 채웁니다. 자리에 돌아오면 바로 README의 '피드백 기록'에 옮깁니다(아래 06.2의 표). 내 차례가 아닌 동안 팀 토의는 계속됩니다. 빠졌다 돌아오면 팀원이 한 문장으로 알려 줍니다.</p>
+      <dl class="defs">
+        <div><dt>살릴 것 하나</dt><dd>작가님이 "이건 그대로 두세요"라고 한 것. 최종본에서 지우거나 바꾸지 않습니다.</dd></div>
+        <div><dt>다음에 해 볼 것 하나</dt><dd>최종본 또는 그 이후에 시도할 것. 최종본에 넣을지는 06.2에서 TAG와 함께 정합니다.</dd></div>
+      </dl>
+      <p>피드백의 관점은 완성도가 아니라 <b>사용자 경험과 기술 구조</b>입니다. "처음 본 사람이 설명 없이 쓸 수 있나", "이 화면이 질문에 답하나"를 봅니다.</p>
+    </section>
+
+    <section class="sec" id="tag-plan">
+      <h3>TAG 세 가지 고르기 → 수정 계획 → 11주차 최종본</h3>
+      <p>8주차에 받은 TAG 스티커(좋았던 점·궁금한 점·제안할 점)를 모두 README에 옮기고, 그 가운데 <b>중요한 세 가지</b>를 고릅니다. 고른 세 가지에 작가님의 '다음에 해 볼 것'을 더해 수정 계획을 세웁니다. 세 가지 중 <b>1개 이상</b>을 코드에 반영하고, 나머지는 '다음에 할 일'로 남깁니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>README '피드백 기록' 표 예시 · 메모 분류 개인 과제</caption>
+          <thead><tr><th scope="col">받은 피드백(원문 요지)</th><th scope="col">종류</th><th scope="col">반영</th><th scope="col">할 일</th><th scope="col">상태</th></tr></thead>
+          <tbody>
+            <tr><td>메모를 올리자마자 분류가 바뀌어서 질문이 바로 이해됐다</td><td>T</td><td>살린다</td><td>그대로 둔다</td><td>—</td></tr>
+            <tr><td>여러 사람이 동시에 분류하면 누구 기준으로 저장되나</td><td>A</td><td>최종본 밖</td><td>README '한계'에 적는다. 팀 프로젝트 ⑦로 넘긴다</td><td>다음에</td></tr>
+            <tr><td>다른 사람의 분류와 내 분류를 나란히 비교하는 화면</td><td>G</td><td>반영</td><td>가짜 데이터로 두 열 화면을 만든다</td><td>진행 중</td></tr>
+            <tr><td>(작가님) 첫 화면에서 무엇을 하라는지 3초 안에 보이게</td><td>다음에 해 볼 것</td><td>반영</td><td>첫 화면 안내 문구 한 줄과 큰 버튼</td><td>완료</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code" data-lang="md" data-file="README.md · 피드백 기록 절"><code>## 피드백 기록
+
+| 받은 피드백 | 종류 | 반영 | 할 일 | 상태 |
+|---|---|---|---|---|
+| 메모를 올리자마자 분류가 바뀌어 질문이 바로 이해됨 | T | 살린다 | 그대로 둔다 | — |
+| 다른 사람 분류와 나란히 비교하는 화면 | G | 반영 | 가짜 데이터로 두 열 화면 | 진행 중 |
+| (작가님) 첫 화면에서 할 일이 3초 안에 보이게 | 다음에 해 볼 것 | 반영 | 안내 문구 한 줄, 큰 버튼 | 완료 |
+
+## AI USE NOTE
+- 도구: ChatGPT Edu
+- 맡긴 작업: 두 열 비교 화면의 HTML 초안
+- 판단한 것: 표(table) 대신 두 개의 목록(ul)으로 바꿈. 스크린리더가 열 순서로 읽기 쉬워서
+- 검증: 브라우저에서 메모 4개로 직접 확인, Tab 키로 이동 확인</code></pre>
+      <p>최종본의 제출 기한과 방법은 eTL 안내가 기준입니다. 8주차 덱에서 안내한 'TAG 세 가지와 수정 계획'은 이 표가 그 답입니다.</p>
+      <!-- 확인 필요: 8주차 덱의 'TAG 세 가지 과제'를 별도 제출로 받을지 최종본 README에 포함할지 강사 결정 후, 08.4 개인 과제 카드와 eTL에 같은 문장으로 안내. eTL 10주차 모듈 머리글 "개인 과제 최종본 제출"이 구버전(11주차가 맞음)인지도 확인. -->
+      <aside class="callout tip">
+        <p>최종본은 '새 기능'이 아니라 '수정'입니다. 기능을 하나 더하는 시간보다, 받은 피드백 하나를 반영하고 그 과정을 README에 적는 시간이 평가(이해·판단·검증·협업·기록)에 더 가깝습니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="kiosk">
+      <h3>전시 안내와 전시용 점검표</h3>
+      <p>11월 초 라운지 서울 전시(서울대 파워플랜트)는 수업과 별도 트랙입니다. 오픈콜에 낸 사람만 참여하고, 성적과 무관하며, 수업에서는 안내만 합니다. 날짜와 준비 사항은 eTL 공지를 따릅니다. 다만 "설명 없이 쓰는 웹"이라는 전시의 조건은 개인 과제 최종본에도, 팀 프로젝트의 알파 테스트에도 그대로 적용됩니다. 그래서 점검표는 모두에게 유용합니다.</p>
+      <p>3주차에 키오스크 화면을 관찰하며 본 네 가지(<a href="../week3.html#observe">3주차 · 관찰</a>)를 떠올리면 됩니다. 처음 본 사람이, 아무 설명 없이, 혼자서, 짧은 시간에 씁니다.</p>
+      <ul class="checklist" data-checklist="w09-kiosk" aria-label="전시용 점검표">
+        <li><label><input type="checkbox"> <b>첫 화면 3초</b> · 처음 본 사람이 3초 안에 무엇을 하라는지 안다. 안내 문구 한 줄과 가장 큰 버튼 하나.</label></li>
+        <li><label><input type="checkbox"> <b>큰 터치 목표</b> · 손가락으로 누를 것은 넉넉한 크기이고, 서로 붙어 있지 않다.</label></li>
+        <li><label><input type="checkbox"> <b>키보드</b> · Tab과 Enter만으로 끝까지 갈 수 있고, 초점이 보인다.</label></li>
+        <li><label><input type="checkbox"> <b>오프라인·핫링크</b> · 전시장 네트워크가 끊겨도 첫 화면이 뜬다. 외부 이미지·글꼴·스크립트를 핫링크하지 않는다.</label></li>
+        <li><label><input type="checkbox"> <b>자동 리셋</b> · 한동안 아무 입력이 없으면 처음 화면으로 돌아가고, 앞사람의 입력이 지워진다.</label></li>
+      </ul>
+      <p>다섯 항목 가운데 넷은 2~4주차에 이미 배운 것입니다. 마지막 '자동 리셋'만 새것이라 아래 실습에서 만들어 봅니다. 점검표를 한 쪽으로 인쇄하려면 요약판을 씁니다.</p>
+    </section>
+
+    <section class="sec" id="reset-lab">
+      <h3>실습 · 자동 리셋: 아무 입력이 없으면 처음 화면으로</h3>
+      <p>전시장과 알파 테스트에서는 앞사람이 쓰다 만 화면을 다음 사람이 봅니다. 그래서 일정 시간 입력이 없으면 처음 화면으로 돌아가고 입력을 지웁니다. 원리는 5주차 이벤트의 연장입니다. 입력이 있을 때마다 타이머를 다시 걸고, 타이머가 끝나면 리셋합니다. JS 탭의 <code>armIdle</code>에 <code>clearTimeout</code>과 <code>setTimeout</code> 두 줄을 채워 두 번째 테스트를 통과시키세요. 연습용으로 대기 시간은 1.2초입니다.</p>
+      <div class="lab" data-title="자동 리셋: 입력이 없으면 처음 화면으로" data-kicker="실습 5" data-active="js" data-hide="css">
+<script type="text/plain" data-lab="html">
+<section id="start">
+  <h1>메모 분류</h1>
+  <p>메모를 올리고 주제를 골라 보세요.</p>
+  <button id="go" type="button">시작</button>
+</section>
+<section id="memo" hidden>
+  <label>메모 <input id="text" autocomplete="off"></label>
+  <button id="add" type="button">올리기</button>
+  <ul id="list"></ul>
+  <p id="hint">아무 입력이 없으면 처음 화면으로 돌아갑니다.</p>
+</section>
+</script>
+<script type="text/plain" data-lab="css">
+body { font: 15px/1.6 system-ui, sans-serif; margin: 16px; }
+h1 { font-size: 18px; }
+#go { font-size: 18px; padding: 10px 20px; }
+#hint { color: #555; font-size: 13px; }
+</script>
+<script type="text/plain" data-lab="js">
+const IDLE_MS = 1200;   // 연습용. 전시에서는 1분 안팎부터 시험해 봅니다.
+let timer = null;
+
+function show(name) {
+  document.querySelector('#start').hidden = name !== 'start';
+  document.querySelector('#memo').hidden = name !== 'memo';
+}
+
+function reset() {
+  document.querySelector('#text').value = '';
+  document.querySelector('#list').innerHTML = '';
+  show('start');
+  console.log('자동 리셋: 처음 화면으로 돌아가고 입력을 지웠습니다');
+}
+
+function armIdle() {
+  // TODO: 1) 이전 타이머가 있으면 취소합니다.   힌트: clearTimeout(timer)
+  //       2) IDLE_MS 뒤에 reset()을 부르는 타이머를 새로 겁니다.
+  //          힌트: timer = setTimeout(reset, IDLE_MS)
+}
+
+document.querySelector('#go').addEventListener('click', () => {
+  show('memo');
+  document.querySelector('#text').focus();
+  armIdle();
+});
+
+document.querySelector('#add').addEventListener('click', () => {
+  const input = document.querySelector('#text');
+  if (!input.value.trim()) return;
+  const li = document.createElement('li');
+  li.textContent = input.value;
+  document.querySelector('#list').append(li);
+  input.value = '';
+});
+
+// 입력·키·터치가 있을 때마다 타이머를 다시 겁니다.
+for (const name of ['pointerdown', 'keydown', 'input']) {
+  document.addEventListener(name, () => {
+    if (!document.querySelector('#memo').hidden) armIdle();
+  });
+}
+
+show('start');
+</script>
+<script type="text/plain" data-lab="test">
+test('시작을 누르면 메모 화면이 보인다', async () => {
+  await click('#go');
+  expect($('#memo').hidden).toBeFalsy();
+  expect($('#start').hidden).toBeTruthy();
+});
+
+test('입력이 없으면 처음 화면으로 돌아가고 입력이 지워진다', async () => {
+  await click('#go');
+  await type('#text', '미적분 정리');
+  await wait(1600);
+  expect($('#start').hidden).toBeFalsy();
+  expect($('#text').value).toBe('');
+});
+
+test('입력 중이면 타이머가 다시 시작된다', async () => {
+  await click('#go');
+  await wait(700);
+  await type('#text', '영어 단어');
+  await wait(800);
+  expect($('#memo').hidden).toBeFalsy();
+});
+</script>
+      </div>
+      <p>해 볼 것: 통과한 뒤 <code>IDLE_MS</code>를 500으로 줄이면 세 번째 테스트가 실패합니다. 입력 사이의 간격(0.8초)보다 짧아서 쓰는 중에 리셋되기 때문입니다. 전시에서는 반대 문제가 생깁니다. 너무 길면 앞사람의 화면이 오래 남습니다. 적당한 값은 실제 사람에게 시켜 보고 정합니다.</p>
+
+      <aside class="deep" id="deep-kiosk">
+        <h4>심화 · 설명 없이 쓰는 웹: 유휴 타이머, 터치 목표, 네 가지 원칙</h4>
+        <p><b>내부 동작.</b> 자동 리셋은 "마지막 입력 뒤 N초"를 재는 유휴 타이머입니다. 브라우저에는 "사용자가 아무것도 안 한 지 N초"를 알려 주는 이벤트가 없으므로, 입력 이벤트(<code>pointerdown</code>·<code>keydown</code>·<code>input</code>)가 올 때마다 타이머를 취소하고 다시 겁니다. 이벤트는 <code>document</code>에서 한 번만 받습니다. 5주차 <a href="../week5.html#event-target-bubbling">이벤트 대상과 버블링</a>의 그 버블링 덕분에 화면 어디를 눌러도 올라옵니다. 리셋할 때는 화면만 바꾸지 말고 <b>입력값과 목록을 지워야</b> 합니다. 앞사람의 메모가 남는 것은 개인정보 문제이기도 합니다. 탭이 보이지 않게 되었을 때(<code>visibilitychange</code>)는 타이머를 멈추거나 즉시 리셋하는 선택이 있습니다.</p>
+        <p><b>명세·문서.</b> 접근성의 큰 틀은 <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2</a>의 네 원칙입니다. 인식 가능(Perceivable)·운용 가능(Operable)·이해 가능(Understandable)·견고함(Robust). 점검표의 '키보드'는 운용 가능, '첫 화면 3초'는 이해 가능에 해당합니다. WCAG 2.2에서 새로 들어온 성공 기준 가운데 전시와 가장 가까운 것은 2.5.8 Target Size(최소 24×24 CSS px)입니다. 점검표의 '큰 터치 목표'가 이것입니다.</p>
+        <!-- 확인 필요: WCAG 2.2 네 원칙과 2.5.8(24×24 CSS px)은 research-web-tooling.md §25에서 확인됨. setTimeout/visibilitychange의 MDN 링크는 연구 문서에 없어 본문에 넣지 않았습니다. 수업에서 보여 주려면 수업 전 MDN에서 직접 확인. -->
+        <p><b>트레이드오프.</b> 리셋 시간이 짧으면 생각하며 쓰는 사람의 입력이 날아가고, 길면 다음 사람이 남의 화면을 봅니다. 그래서 보통 리셋 전에 경고 단계를 둡니다("10초 뒤 처음 화면으로 돌아갑니다"와 '계속' 버튼). 경고는 화면 한 줄이면 되지만, 그 한 줄도 키보드로 닫을 수 있어야 하고 스크린리더에 읽혀야 합니다(<code>role="status"</code>). 전시용 조건을 모두 만족시키려다 알파가 커지면 안 됩니다. 알파 테스트에서는 '자동 리셋' 대신 진행자가 새로고침해 주는 '사람이 대신'으로 충분합니다.</p>
+        <p><b>5분 실험.</b> 실습 5의 <code>reset</code> 앞에 경고 단계를 넣어 보세요. <code>armIdle</code>에서 <code>IDLE_MS - 500</code>에 먼저 <code>#hint</code>의 글을 "곧 처음 화면으로 돌아갑니다"로 바꾸는 타이머를 하나 더 걸고, <code>IDLE_MS</code>에 <code>reset</code>을 겁니다. 타이머가 둘이 되었으니 취소도 둘이어야 합니다. 하나만 취소하면 어떤 일이 생기는지 콘솔로 확인해 보세요. 그다음 <code>document.addEventListener('visibilitychange', …)</code>로 탭이 숨겨질 때 바로 <code>reset()</code>을 부르게 하고, 결과 창을 다른 탭으로 가렸다가 돌아와 봅니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="solo-mistakes">
+      <h3>자주 하는 실수</h3>
+      <aside class="callout mistake">
+        <p class="callout-title">최종본에 새 기능을 더합니다</p>
+        <p>"피드백은 나중에 보고, 일단 기능 하나 더"는 최종본의 반대입니다. 평가 기준은 이해·판단·검증·협업·기록이고, 최종본에서 보는 것은 받은 피드백을 어떻게 판단해 반영했는지의 기록입니다. 기능을 더할 시간이 있으면 '피드백 기록' 표의 '상태' 열을 하나 더 '완료'로 만듭니다.</p>
+      </aside>
+      <ul>
+        <li><b>피드백을 적지 않고 고칩니다.</b> 코드는 바뀌었는데 README에 왜 바꿨는지가 없으면 '기록'이 비어 평가에서 보이지 않습니다. 표의 한 줄이 먼저, 코드가 다음입니다.</li>
+        <li><b>'궁금한 점(A)'을 모두 기능으로 받습니다.</b> A는 질문입니다. 답을 README '한계' 절에 적는 것으로 충분한 경우가 많고, 팀 프로젝트로 넘길 것도 있습니다.</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- PART 07 -->
+  <section class="part" id="ai">
+    <header class="part-head">
+      <h2>AI와 함께 · Define</h2>
+      <p class="lead">이번 주 AI의 일은 코드가 아니라 초안입니다. 팀 시트 ②~④를 주고 쪼개기 표와 사용 장면의 초안, 그리고 빠진 관점을 묻는 질문을 받습니다. 어느 장면을 고르고 무엇을 뺄지는 팀이 정합니다.</p>
+    </header>
+
+    <section class="sec" id="ai-stage">
+      <h3>이번 주의 단계 · Define</h3>
+      <p>AI-Native Workflow 여섯 단계 중 <b>문제 정의(Define)</b>입니다. 이 단계에서 AI에게 맡길 수 있는 것은 "우리가 적은 것을 다른 형태로 펼쳐 보여 주는 일"입니다. 문장을 표로, 표를 장면으로, 장면을 질문 목록으로. 무엇을 만들지 정하는 일은 맡길 수 없습니다. 정하는 사람이 없으면 AI는 가장 흔한 앱을 돌려줍니다.</p>
+      <ol class="flow" aria-label="이번 주의 단계">
+        <li class="is-on"><b>Define</b><span>이번 주. 팀 시트 ②~⑧의 초안과 누락 찾기.</span></li>
+        <li><b>Delegate</b><span>10주차. 저장소와 하네스 문서를 에이전트에게.</span></li>
+        <li><b>Inspect</b><span>11주차. 받은 코드를 diff로 읽기.</span></li>
+      </ol>
+      <p>이번 주 AI 등급은 <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>입니다. 쓰지 않아도 되고, 써도 됩니다. 썼다면 팀 시트 ⑤ 아래에 AI USE NOTE 한 줄을 남깁니다. 기본 도구는 모든 학생이 쓸 수 있는 ChatGPT Edu이고, 에이전트(Codex 또는 Claude Code)는 10주차 저장소부터 씁니다.</p>
+    </section>
+
+    <section class="sec" id="ai-prompts">
+      <h3>요청 문장</h3>
+      <p>먼저 ChatGPT Edu의 프로젝트(Projects)를 하나 만듭니다. 사이드바의 "New project"로 만들고, 팀 시트 ①~④를 파일(Markdown 또는 PDF)로 Sources에 올립니다. 프로젝트 지시(Project settings → Instructions)에는 팀 규칙을 적습니다. 지시는 그 프로젝트 안에서만 적용됩니다. 따라 하는 화면은 <a href="../ai/chatgpt-edu.html#s1">ChatGPT Edu 따라 하기 · 시나리오 1</a>에 있습니다.</p>
+      <pre class="code" data-lang="text" data-file="프로젝트 지시 예시"><code>우리는 웹프로그래밍개론 팀 프로젝트(5명, 비전공 포함)입니다.
+답은 한국어로. 과한 기능 제안은 '선택'으로 분리하세요.
+외부 서비스·로그인·개인정보 수집이 필요한 제안은 반드시 표시하세요.
+팀 시트에 없는 가정을 했다면 끝에 '가정' 목록으로 따로 적으세요.</code></pre>
+      <figure class="prompt">
+        <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu</span><span class="prompt-purpose">쪼개기 표·사용 장면 초안과 빠진 관점 받기</span></figcaption>
+        <pre class="prompt-text">첨부한 팀 시트의 ② 우리의 질문, ③ 개인 과제와 달라진 점, ④ 팀원 아이디어(<var>5문장</var>)를 바탕으로 세 가지를 만들어 줘.
+
+1. 쪼개기 표: ④의 문장마다 한 줄씩, 열은 이름 / 누가·언제 / 무엇을 하면 / 어떻게 될까 / 재료. 문장에 없는 칸은 비워 두고 '?'를 적어.
+2. 사용 장면 초안: 한 사람이 들어와서 나갈 때까지 3단계. 왼쪽은 사용자가 하는 일(동사), 오른쪽은 화면에서 일어나는 일. ②의 '무엇을 하면'에 해당하는 단계에 ★.
+3. 빠진 관점 질문 3개: ④에 없는 사용자, 상황, 데이터에 대해 우리에게 묻는 질문.
+
+기능 목록은 만들지 마. 팀 시트에 없는 가정은 끝에 '가정' 목록으로 따로 적어 줘.</pre>
+        <div class="prompt-check">
+          <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+          <ul>
+            <li>표의 줄 수가 ④의 문장 수와 같나요? 누군가의 문장이 합쳐지거나 빠지지 않았나요?</li>
+            <li>장면에 ②에 없는 사람이나 기능(로그인, 추천, 통계)이 들어오지 않았나요?</li>
+            <li>'가정' 목록이 있나요? 그 가정 가운데 팀이 동의하지 않는 것은 무엇인가요?</li>
+          </ul>
+        </div>
+      </figure>
+      <p>초안을 받은 뒤에는 거꾸로 검사시킵니다. 팀이 엮은 ⑤의 한 문장을 주고, 어디가 질문에서 벗어났는지 묻는 요청입니다.</p>
+      <figure class="prompt">
+        <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu</span><span class="prompt-purpose">엮은 문장을 질문과 대조하기</span></figcaption>
+        <pre class="prompt-text">우리의 질문: <var>②의 한 문장</var>
+팀 아이디어: <var>⑤에서 엮은 한 문장</var>
+기여 표: <var>이름 · 들어간 조각 (팀원 1·2·3처럼 익명)</var>
+
+팀 아이디어에서 질문과 이어지지 않는 조각을 찾아 이유를 한 줄씩 적어 줘. 그리고 기여 표에서 조각이 없는 사람이 있으면 알려 줘. 고쳐 쓰지는 말고 찾기만 해.</pre>
+        <div class="prompt-check">
+          <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+          <ul>
+            <li>"벗어났다"고 한 조각이 정말 ②와 무관한가요, 아니면 크기를 줄여 넣을 수 있나요?</li>
+            <li>AI가 고쳐 쓴 문장을 그대로 받아 적지 않았나요? 고치는 것은 팀이 합니다.</li>
+          </ul>
+        </div>
+      </figure>
+      <aside class="callout warn" data-label="비밀정보">
+        <p>팀 시트에 학생 이름·학번·연락처가 있으면 '팀원 1·2·3'으로 바꾼 뒤 올립니다. API 키나 비밀번호는 어떤 AI에도 넣지 않습니다. ChatGPT Edu는 대화를 모델 학습에 쓰지 않는다고 안내되어 있지만, 비밀정보 금지선은 그것과 별개로 그대로 지킵니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="ai-review">
+      <h3>검토 질문 3개</h3>
+      <p>AI의 초안을 팀 시트에 옮기기 전에 세 가지를 소리 내어 묻습니다. 셋 중 하나라도 "아니오"면 그 줄은 옮기지 않습니다.</p>
+      <ol class="flow vertical" aria-label="검토 질문">
+        <li><b>우리 질문에서 벗어났나?</b><span>②의 '누가·언제·무엇을 하면·어떻게 될까'와 이어지지 않는 줄은 아무리 좋아 보여도 뺍니다.</span></li>
+        <li><b>누구의 조각이 빠졌나?</b><span>기여 표에 이름이 없는 사람이 생겼다면 AI가 그 사람의 문장을 합치거나 지운 것입니다. 되돌립니다.</span></li>
+        <li><b>학기 안에 만들 수 있나?</b><span>서버·로그인·외부 API가 끼어들면 기술 결정 카드 3문으로 돌아갑니다. 알파에서는 가짜로 둡니다.</span></li>
+      </ol>
+    </section>
+
+    <section class="sec" id="ai-split">
+      <h3>맡길 일 / 내가 판단할 일</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>이번 주에 AI에게 맡길 일과 사람이 판단할 일</caption>
+          <thead><tr><th scope="col">맡길 일</th><th scope="col">내가 판단할 일</th></tr></thead>
+          <tbody>
+            <tr><td>④의 문장을 쪼개기 표로 옮기기</td><td>어느 칸에 스탬프를 찍고 ★을 둘지</td></tr>
+            <tr><td>사용 장면 초안 3단계</td><td>어느 장면을 고를지, 장면의 사람이 누구인지</td></tr>
+            <tr><td>빠진 관점·누락된 사람 찾기</td><td>무엇을 빼고 무엇의 크기를 줄일지</td></tr>
+            <tr><td>'가정' 목록 적기</td><td>그 가정에 동의할지</td></tr>
+            <tr><td>⑧ 초안을 docs/requirements.md 형식으로 바꾸기(10주차)</td><td>'확인할 것 한 줄'이 ②와 이어지는지</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>오른쪽 열이 비어 있는 팀 시트는 AI의 시트입니다. 왼쪽 열을 모두 맡겨도 오른쪽 열을 팀이 채웠다면 그 시트는 팀의 것입니다. 이것이 "AI가 다 해 줘도 되나요?"에 대한 이번 주의 답입니다.</p>
+    </section>
+
+    <section class="sec" id="ai-quiz">
+      <h3>연습 · AI 초안에서 벗어난 줄 걸러내기</h3>
+      <p>메모 분류 팀이 위의 첫 요청으로 받은 쪼개기 표 초안입니다. 팀 질문은 "수업 메모를 혼자만 보던 대학생이 시험 공부를 시작할 때, 웹에서 같은 메모를 친구가 나눈 결과와 나란히 놓아 보면 자기 메모를 다시 정리할까?"이고, ④의 다섯 문장은 <a href="#ideas">PART 02</a>의 표와 같습니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>AI가 돌려준 쪼개기 표 초안 (검토 전)</caption>
+          <thead><tr><th scope="col" class="num">줄</th><th scope="col">누가·언제</th><th scope="col">무엇을 하면</th><th scope="col">어떻게 될까</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>시험 2주 전 대학생</td><td>메모를 올리고 주제를 고른다</td><td>주제별 목록이 색과 함께 생긴다</td></tr>
+            <tr><td class="num">2</td><td>같은 수업을 듣는 친구</td><td>같은 메모를 자기 기준으로 나눈다</td><td>두 분류가 나란히 보인다</td></tr>
+            <tr><td class="num">3</td><td>모든 사용자</td><td>회원가입하고 로그인한다</td><td>내 메모만 보인다</td></tr>
+            <tr><td class="num">4</td><td>일주일 지난 메모의 주인</td><td>아무것도 하지 않는다</td><td>"지난주 메모" 문구가 위에 보인다</td></tr>
+            <tr><td class="num">5</td><td>결과를 보는 사람</td><td>AI가 주제를 자동으로 추천한다</td><td>추천 주제가 표시된다</td></tr>
+            <tr><td class="num">6</td><td>수업 담당 교수</td><td>전체 학생의 메모 통계를 본다</td><td>차트가 그려진다</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <form class="quiz" aria-label="AI 초안 검토 연습">
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q1</span>검토 질문 ①로 걸러낼 줄, 곧 우리 질문에서 벗어난 줄을 모두 고르세요.</legend>
+          <ul class="quiz-options">
+            <li><label><input type="checkbox" name="w09a1"> 1줄 · 메모를 올리고 주제를 고른다</label><p class="quiz-why">②의 '누가(대학생)·언제(시험 공부 시작)'와 이어집니다. 팀원 1의 조각입니다.</p></li>
+            <li data-answer><label><input type="checkbox" name="w09a1"> 3줄 · 회원가입하고 로그인한다</label><p class="quiz-why">②에 없는 행동이고, "링크 하나로 친구와 같은 메모를 본다"는 웹이어야 하는 이유와도 어긋납니다. 알파의 '나중에 할 것'에도 들어가지 않습니다.</p></li>
+            <li data-answer><label><input type="checkbox" name="w09a1"> 5줄 · AI가 주제를 자동으로 추천한다</label><p class="quiz-why">질문은 '친구가 나눈 결과와 나란히'입니다. AI 추천은 다른 질문이고, 기술 결정 카드 ③(생성형 AI 호출)에 "예"를 만들어 프록시가 필요해집니다.</p></li>
+            <li data-answer><label><input type="checkbox" name="w09a1"> 6줄 · 교수가 전체 통계를 본다</label><p class="quiz-why">'누가'가 ②의 대학생이 아니라 다른 사람입니다. 장면에 두 사람이 들어오는 전형적인 경우입니다.</p></li>
+            <li><label><input type="checkbox" name="w09a1"> 4줄 · 아무것도 하지 않는다</label><p class="quiz-why">'무엇을 하면'이 비어 있어도 질문에서 벗어난 것은 아닙니다. 팀원 4의 조각이 크기를 줄여 들어온 줄입니다.</p></li>
+          </ul>
+        </fieldset>
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q2</span>검토 질문 ②로 보면, 이 초안에서 조각이 빠진 사람은 누구입니까?</legend>
+          <ul class="quiz-options">
+            <li><label><input type="radio" name="w09a2"> 팀원 2 · 친구의 분류 결과를 나란히 본다</label><p class="quiz-why">2줄에 있습니다.</p></li>
+            <li data-answer><label><input type="radio" name="w09a2"> 팀원 3 · 저장 버튼 없이 입력하면 바로 반영한다</label><p class="quiz-why">맞습니다. 어느 줄에도 없습니다. AI는 "바로 반영"을 1줄에 합쳐 버렸거나 지웠습니다. 되돌려 "목록이 바로 바뀌는 한 부분"으로 넣습니다.</p></li>
+            <li><label><input type="radio" name="w09a2"> 팀원 5 · 주제마다 색을 달리해 보여 준다</label><p class="quiz-why">1줄의 "색과 함께"에 크기를 줄여 들어가 있습니다.</p></li>
+          </ul>
+        </fieldset>
+        <div class="quiz-item">
+          <p class="quiz-q"><span class="quiz-no">Q3</span>요청 문장 끝에 "팀 시트에 없는 ___은 따로 목록으로 적어 줘"라고 덧붙였습니다. 빈칸에 들어갈 두 글자를 쓰세요.</p>
+          <div class="quiz-short"><input type="text" data-accept="가정|가정 목록|가정목록" aria-label="Q3 답" autocomplete="off" spellcheck="false"></div>
+          <p class="quiz-why">'가정'입니다. AI는 비어 있는 칸을 그럴듯한 값으로 채웁니다. 그 값이 가정인지 팀 시트에서 온 것인지 구분되어야 팀이 동의 여부를 판단할 수 있습니다.</p>
+        </div>
+      </form>
+
+      <aside class="deep" id="deep-context">
+        <h4>심화 · 프로젝트 지시와 컨텍스트: AI는 창에 보이는 것만 압니다</h4>
+        <p><b>내부 동작.</b> 채팅형 AI가 답을 만들 때 참고하는 것은 그 순간 <dfn title="모델이 한 번의 응답을 만들 때 함께 읽는 글 전체. 시스템·프로젝트 지시, 첨부 파일, 지금까지의 대화가 들어가며 길이에 한도가 있습니다.">컨텍스트</dfn>에 들어 있는 글뿐입니다. 프로젝트의 지시(Instructions), Sources에 올린 파일, 그 대화의 이전 메시지. 팀 시트를 올리지 않은 새 채팅에서 "우리 팀 장면을 써 줘"라고 하면 AI는 가장 흔한 메모 앱을 상상해 채웁니다. 그래서 '가정' 목록을 요구합니다. 프로젝트 지시는 그 프로젝트 안에서만 적용되고 전역 맞춤 설정(custom instructions)보다 우선합니다. 임시 채팅은 프로젝트에 넣을 수 없습니다. Edu 워크스페이스에서는 프로젝트 안의 채팅이 프로젝트 안에 머물도록 안내되어 있습니다.</p>
+        <p><b>명세·문서.</b> 프로젝트의 공식 설명은 OpenAI 도움말 <a href="https://help.openai.com/en/articles/10169521-projects-in-chatgpt">Projects in ChatGPT</a>입니다. ChatGPT Edu의 데이터 처리 원칙(기본적으로 대화를 모델 학습에 쓰지 않음)은 같은 도움말의 데이터 제어 문서에 있습니다. 화면의 명칭과 단계는 <a href="../ai/chatgpt-edu.html">ChatGPT Edu 따라 하기</a>에 정리해 두었습니다.</p>
+        <!-- 확인 필요: 서울대 Edu 워크스페이스에서 Projects·파일 첨부·대화 공유가 학생 계정에 켜져 있는지(관리자 설정). research-chatgpt-edu.md §1.3, §3.9 참고. -->
+        <p><b>트레이드오프.</b> Sources에 많이 넣을수록 초안의 맥락은 좋아지지만, 시트가 바뀐 뒤에도 옛 파일이 남아 있으면 AI는 옛 전제로 답합니다. 시트를 고치면 Sources도 바꿉니다. 개인정보도 같은 축입니다. 팀원 이름이 들어간 시트를 올리면 초안이 편해지지만 공개 저장소로 옮길 때 지워야 합니다. 처음부터 '팀원 1·2·3'으로 적는 편이 쌉니다.</p>
+        <p><b>5분 실험.</b> 같은 첫 요청을 두 곳에 보냅니다. (a) 아무것도 첨부하지 않은 새 채팅, (b) 팀 시트를 Sources에 올린 프로젝트. 두 답의 '가정' 목록 길이와 '누가' 열을 비교합니다. (a)에서는 가정이 길고 사람이 "사용자"로 뭉뚱그려지는 것을 보게 됩니다. 그 차이가 컨텍스트가 하는 일입니다. 비교 결과를 팀 시트 ⑤ 아래 AI USE NOTE에 한 줄로 남깁니다.</p>
+      </aside>
+    </section>
+  </section>
+
+  <!-- PART 08 -->
+  <section class="part" id="studio">
+    <header class="part-head">
+      <h2>팀 스튜디오와 과제</h2>
+      <p class="lead">오늘 수업의 대부분은 팀 토의입니다. 순서와 산출물, 강사가 팀을 도는 방식, 그리고 이번 주 과제 카드 세 장과 확인 문제입니다.</p>
+    </header>
+
+    <section class="sec" id="studio-order">
+      <h3>팀 토의 순서</h3>
+      <p>순서만 적습니다. 시간은 현장에서 조정합니다. 결과물이 손에 있을 때 토의합니다. 보드의 팀 시트를 열어 두고 시작합니다.</p>
+      <ol class="flow vertical" aria-label="팀 토의 순서">
+        <li><b>팀 시트 확인</b><span>①~④를 소리 내어 읽습니다. ②를 틀에 맞춰 다시 씁니다(<a href="#question">02.2</a>).</span></li>
+        <li><b>아이디어 펼치기</b><span>④ 한 사람 한 문장을 확인하고, ⑤ 쪼개기 표에 각자 자기 줄을 씁니다. 돌려 읽고 물음표를 풉니다(<a href="#split-table">02.4</a>).</span></li>
+        <li><b>하나로 합치기</b><span>⑤ 고르기(칸마다 스탬프, ★ 1~2개, 모든 사람의 줄에서 한 칸 이상)와 엮기(팀 아이디어 한 문장, 웹이어야 하는 이유, 기여 표). 여기까지는 오늘 꼭 합니다(<a href="#pick">02.5</a>, <a href="#weave">02.6</a>).</span></li>
+        <li><b>구체화하기</b><span>⑥ 사용 장면 3~5단계와 ★, ⑦ 화면 2~3개·데이터 세 종류·기술 칸·결정 카드 3문(<a href="#scene">PART 03</a>, <a href="#screens">PART 04</a>).</span></li>
+        <li><b>알파 정하기</b><span>⑧ 꼭 넣을 것·가짜로 둘 것·나중에 할 것·확인할 것 한 줄, ⑨ 10주차까지 누가 무엇을(<a href="#alpha">PART 05</a>).</span></li>
+        <li><b>(선택) 짝 테스트</b><span>옆 팀과 ⑥을 바꿔 읽습니다. 읽다가 막히는 곳을 서로 말해 줍니다. 설명은 하지 않습니다.</span></li>
+      </ol>
+      <p>토의 중에 쓰는 말 두 가지를 다시 둡니다. "안 돼요" 대신 <b>"그럼 이렇게 하면?"</b>. 큰 단어 대신 <b>눈에 보이는 것</b>.</p>
+    </section>
+
+    <section class="sec" id="studio-output">
+      <h3>산출물과 강사 순회</h3>
+      <p>산출물은 팀 시트 한 장입니다. ⑤까지는 꼭, ⑥~⑨는 되는 데까지, ⑩은 피드백을 받을 때 씁니다. 수업이 끝나면 시트의 상태 그대로 과제 카드의 '제출물'이 됩니다.</p>
+      <p>강사는 팀을 돌며 피드백합니다. 순서는 <b>질문 카드를 세운 팀 먼저</b>입니다. 막힌 것이 있으면 테이블에 질문 카드를 세워 두세요. 피드백 형식은 세 가지로 고정입니다. <b>살릴 것 · 덜어낼 것 · 다음에 해 볼 것</b>. 받은 팀은 ⑩에 그 세 가지와 <b>'그래서 우리가 바꿀 것'</b> 한 줄을 적습니다. 작가님께 물어본 것이 있으면 선택으로 한 줄 더 둡니다.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <caption>⑩ 피드백 기록 예시 · 메모 분류 팀</caption>
+          <thead><tr><th scope="col">칸</th><th scope="col">내용</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">살릴 것</th><td>'친구 분류와 나란히'가 ★인 것. 질문과 바로 이어진다.</td></tr>
+            <tr><th scope="row">덜어낼 것</th><td>주제 자동 추천. 질문 밖이고 서버가 필요하다.</td></tr>
+            <tr><th scope="row">다음에 해 볼 것</th><td>⑥ 1단계의 "친구가 보낸 링크"를 알파에서 실제로 되게 하기(주소에 메모 묶음 이름 넣기).</td></tr>
+            <tr><th scope="row">그래서 우리가 바꿀 것</th><td>⑧의 '꼭 넣을 것'에 1단계를 실제로 올리고, 자동 추천은 '나중에 할 것'에서도 뺀다.</td></tr>
+            <tr><th scope="row">작가님께 물어본 것(선택)</th><td>두 열 화면을 좁은 화면에서는 어떻게 놓을지.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>작가님의 개인 피드백은 팀을 번갈아 호출합니다. 한 사람이 빠진 동안 팀은 멈추지 않고 이어 갑니다. 돌아온 사람에게는 한 문장으로 알려 줍니다.</p>
+    </section>
+
+    <section class="sec" id="your-code">
+      <h3>YOUR CODE 1분</h3>
+      <p>스튜디오가 끝날 때 팀원 한 명이 1분 동안, 이번 주 AI가 만든 것 한 조각을 팀에게 설명합니다. 이번 주는 코드가 아니라 초안입니다. AI가 돌려준 쪼개기 표의 한 줄이나 사용 장면의 한 단계를 골라, 왜 받아들였는지 또는 왜 뺐는지를 말합니다. 설명이 막히면 그 조각은 아직 팀의 것이 아닙니다. ⑨의 할 일에 "그 조각을 우리 말로 다시 쓰기"를 넣습니다.</p>
+      <p>10주차부터는 같은 자리에서 코드 한 조각을 설명합니다. 설명이 안 되면 <code>tasks.md</code>에 "지금 배운 문법으로 풀어 써 달라고 요청하기"를 적습니다. 그 한 줄이 YOUR CODE, YOUR RESPONSIBILITY의 가장 작은 실천입니다.</p>
+    </section>
+
+    <section class="sec" id="assignments">
+      <h3>이번 주 과제</h3>
+      <p>과제는 세 장입니다. 팀 하나, 개인 하나, 준비 하나. 제출처는 모두 eTL 한 곳이고, 기한은 eTL 과제 페이지의 시각이 기준입니다. 카드의 '마감'은 주차로만 적습니다.</p>
+
+      <article class="assignment" aria-labelledby="hw-team-title">
+        <header class="assignment-head">
+          <span class="kicker">9주차 과제 · 팀</span>
+          <h4 class="assignment-title" id="hw-team-title">팀 프로젝트 시트 ①~⑨</h4>
+          <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+        </header>
+        <dl class="assignment-fields">
+          <div><dt>할 일</dt><dd><ol>
+            <li>⑤ 쪼개기 표 → 고르기 → 엮기를 완성한다(수업 중).</li>
+            <li>⑥~⑧을 가능한 데까지 쓴다. ⑧의 '확인할 것 한 줄'까지.</li>
+            <li>⑨ 10주차까지 누가 무엇을 정한다(이름 · 할 일 · 10주차에 보여 줄 것).</li>
+          </ol></dd></div>
+          <div><dt>예상 소요</dt><dd>팀 합계 1시간 안팎 (수업 중 토의 뒤 남은 칸 채우기)</dd></div>
+          <div><dt>제출물·파일 이름</dt><dd>팀 시트(수업 보드). 보드 밖에 따로 만든 파일이 있으면 <code>team-sheet.md</code> 하나로.</dd></div>
+          <div><dt>제출처</dt><dd>eTL › 과제 › 9주차 팀 과제</dd></div>
+          <div class="due"><dt>마감</dt><dd>10주차 수업 전까지<small>정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+          <div><dt>배점</dt><dd>eTL 기준</dd></div>
+          <div><dt>확인 기준</dt><dd><ul>
+            <li>⑤의 기여 표에 모든 팀원의 이름과 들어간 조각이 있다.</li>
+            <li>⑧의 '확인할 것 한 줄'이 ②의 질문과 이어진다.</li>
+            <li>AI를 썼다면 ⑤ 아래에 AI USE NOTE 한 줄이 있다.</li>
+          </ul></dd></div>
+        </dl>
+      </article>
+
+      <article class="assignment" aria-labelledby="hw-solo-title">
+        <header class="assignment-head">
+          <span class="kicker">9주차 과제 · 개인</span>
+          <h4 class="assignment-title" id="hw-solo-title">개인 과제 최종본 준비 · 피드백 기록과 반영</h4>
+          <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+        </header>
+        <dl class="assignment-fields">
+          <div><dt>할 일</dt><dd><ol>
+            <li>8주차 TAG 가운데 중요한 세 가지와 작가님 피드백을 README '피드백 기록' 표에 옮긴다.</li>
+            <li>그중 1개 이상을 코드에 반영한다. 나머지는 '다음에 할 일'로 남긴다.</li>
+            <li>AI USE NOTE(도구 · 맡긴 작업 · 판단 · 검증)를 README 끝에 적는다.</li>
+          </ol></dd></div>
+          <div><dt>예상 소요</dt><dd>2~3시간 (최종본 제출은 11주차)</dd></div>
+          <div><dt>제출물·파일 이름</dt><dd>개인 저장소 링크 1개 + <code>README.md</code>(피드백 기록 표, AI USE NOTE 포함). 화면 캡처는 README 안에.</dd></div>
+          <div><dt>제출처</dt><dd>eTL › 과제 › 개인 과제 최종본</dd></div>
+          <div class="due"><dt>마감</dt><dd>11주차 수업 전까지<small>정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+          <div><dt>배점</dt><dd>eTL 기준</dd></div>
+          <div><dt>확인 기준</dt><dd><ul>
+            <li>피드백 기록 표에 TAG 세 가지와 작가님 피드백이 있고, 각 줄에 '반영 / 다음에'가 적혀 있다.</li>
+            <li>반영한 1개가 코드와 README에서 함께 보인다.</li>
+            <li>설명하지 못하는 코드가 없다.</li>
+          </ul></dd></div>
+        </dl>
+      </article>
+      <!-- 확인 필요: eTL에 '개인 과제 최종본'과 '9주차 팀 과제' 과제 페이지를 만들고 기한을 설정했는지(eTL 기한 설정 확인). 8주차 'TAG 세 가지' 과제를 별도로 받을지 이 카드에 포함할지 결정 뒤 한 문장으로 공지. -->
+
+      <article class="assignment" aria-labelledby="hw-prep-title" id="hw-prep">
+        <header class="assignment-head">
+          <span class="kicker">10주차 준비 · 개인</span>
+          <h4 class="assignment-title" id="hw-prep-title">Node.js LTS 설치하고 버전 확인하기</h4>
+          <span class="ai-grade" data-grade="allowed">AI ALLOWED</span>
+        </header>
+        <dl class="assignment-fields">
+          <div><dt>할 일</dt><dd><ol>
+            <li><a href="https://nodejs.org/en/download">nodejs.org 다운로드 페이지</a>에서 LTS(장기 지원) 버전을 설치한다.</li>
+            <li>터미널(macOS: 터미널, Windows: PowerShell)에서 <code>node -v</code>를 실행해 버전 숫자가 나오는 화면을 캡처한다.</li>
+            <li>안 되면 오류 화면을 캡처한다. 10주차 설치 클리닉에서 짝과 해결한다.</li>
+          </ol></dd></div>
+          <div><dt>예상 소요</dt><dd>15분</dd></div>
+          <div><dt>제출물·파일 이름</dt><dd>캡처 1장 <code>node-version.png</code> (또는 오류 캡처)</dd></div>
+          <div><dt>제출처</dt><dd>eTL › 과제 › 준비 확인</dd></div>
+          <div class="due"><dt>마감</dt><dd>10주차 수업 전까지<small>정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다.</small></dd></div>
+          <div><dt>배점</dt><dd>점수 없음 · 참여 반영</dd></div>
+          <div><dt>확인 기준</dt><dd><ul>
+            <li>캡처에 <code>node -v</code>와 버전 숫자(또는 오류 문장)가 함께 보인다.</li>
+          </ul></dd></div>
+        </dl>
+      </article>
+      <pre class="code" data-lang="bash" data-file="터미널에서 확인"><code>$ node -v
+v24.x.x</code></pre>
+      <!-- 확인 필요: 수업 시점의 LTS 버전 숫자(research-web-tooling.md §1: 2026-10-25 기준 v24.22.1 설치 파일 확인). 위 출력 예시는 자리 표시이므로 숫자를 단정하지 않았습니다. -->
+      <p>터미널이 처음이라면 괜찮습니다. 10주차에 터미널부터 다룹니다. 오늘은 설치 파일을 받아 실행하고, 위 명령 하나를 쳐 보는 것까지입니다.</p>
+    </section>
+
+    <section class="sec" id="quiz">
+      <h3>확인 문제</h3>
+      <p>다섯 문제입니다. 틀려도 설명이 나옵니다. 두 번째 시도 뒤에는 답이 보입니다.</p>
+      <form class="quiz" aria-label="9주차 확인 문제">
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q1</span>② '우리의 질문 한 문장' 틀의 네 빈칸은 순서대로 무엇입니까?</legend>
+          <ul class="quiz-options">
+            <li><label><input type="radio" name="w09q1"> 기능 · 화면 · 데이터 · 기술</label><p class="quiz-why">그것은 ⑦의 칸입니다. ②에는 기능이 들어가지 않습니다.</p></li>
+            <li data-answer><label><input type="radio" name="w09q1"> 누가 · 언제 · 무엇을 하면 · 어떻게 될까</label><p class="quiz-why">맞습니다. "___한 사람이 ___할 때, 웹에서 ___하면 ___할까?"입니다.</p></li>
+            <li><label><input type="radio" name="w09q1"> 좋았던 점 · 궁금한 점 · 제안할 점 · 투표</label><p class="quiz-why">TAG와 투표는 8주차 피드백의 틀입니다.</p></li>
+          </ul>
+        </fieldset>
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q2</span>⑤ 고르기의 규칙을 모두 고르세요.</legend>
+          <ul class="quiz-options">
+            <li data-answer><label><input type="checkbox" name="w09q2"> 고르는 단위는 문장이 아니라 칸이다</label><p class="quiz-why">맞습니다. 칸마다 1표 스탬프를 찍습니다.</p></li>
+            <li data-answer><label><input type="checkbox" name="w09q2"> 모든 사람의 줄에서 한 칸 이상을 고른다</label><p class="quiz-why">맞습니다. 이것이 '고르기'가 '엮기'가 되는 규칙입니다.</p></li>
+            <li><label><input type="checkbox" name="w09q2"> 스탬프를 가장 많이 받은 사람의 문장을 팀 문장으로 쓴다</label><p class="quiz-why">그러면 나머지는 조수가 됩니다. 문장이 아니라 칸을 엮습니다.</p></li>
+            <li data-answer><label><input type="checkbox" name="w09q2"> ★은 1~2개만 둔다</label><p class="quiz-why">맞습니다. ★이 늘면 알파에서 실제로 동작해야 하는 곳이 늘어납니다.</p></li>
+          </ul>
+        </fieldset>
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q3</span>알파 버전은 무엇입니까?</legend>
+          <ul class="quiz-options">
+            <li><label><input type="radio" name="w09q3"> 기능을 다 넣되 디자인은 나중에 하는 버전</label><p class="quiz-why">기능을 다 넣으면 학기가 끝납니다. 알파는 기능이 적은 것이 아니라 장면이 얇은 것입니다.</p></li>
+            <li><label><input type="radio" name="w09q3"> 첫 화면만 완벽하게 만든 버전</label><p class="quiz-why">첫 화면만 있으면 장면이 끝까지 가지 않아 알파 테스트를 할 수 없습니다.</p></li>
+            <li data-answer><label><input type="radio" name="w09q3"> ⑥의 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전. ★ 단계만 실제로 동작한다</label><p class="quiz-why">맞습니다. 나머지 단계는 가짜 데이터나 사람이 대신합니다.</p></li>
+          </ul>
+        </fieldset>
+        <div class="quiz-item">
+          <p class="quiz-q"><span class="quiz-no">Q4</span>어색한 조각은 빼지 말고 ___. 빈칸에 들어갈 말을 쓰세요. (기능 → 화면의 한 부분 → 문구 하나)</p>
+          <div class="quiz-short"><input type="text" data-accept="크기를 줄인다|크기를 줄여 넣는다|크기를 줄여 넣기|크기를 줄이기|줄인다|크기를 줄임" aria-label="Q4 답" autocomplete="off" spellcheck="false"></div>
+          <p class="quiz-why">'크기를 줄인다'입니다. 조각이 작아져도 기여 표에 이름이 남습니다.</p>
+        </div>
+        <fieldset class="quiz-item">
+          <legend class="quiz-q"><span class="quiz-no">Q5</span>메모 분류 팀의 '친구의 분류 결과'는 ⑦의 데이터 세 종류 가운데 무엇입니까?</legend>
+          <ul class="quiz-options">
+            <li><label><input type="radio" name="w09q5"> 받는 것</label><p class="quiz-why">받는 것은 사용자가 입력하는 것, 곧 내 메모와 내가 고른 주제입니다.</p></li>
+            <li><label><input type="radio" name="w09q5"> 남기는 것</label><p class="quiz-why">남기는 것은 다음에 열어도 있어야 하는 내 데이터입니다.</p></li>
+            <li data-answer><label><input type="radio" name="w09q5"> 가져오는 것</label><p class="quiz-why">맞습니다. 우리 화면 밖에서 오는 데이터입니다. 알파에서는 가짜 JS 배열로 두고, 기술 결정 카드 ①에 따라 나중에 서버에서 가져옵니다.</p></li>
+          </ul>
+        </fieldset>
+      </form>
+    </section>
+  </section>
+
+  <!-- PART 09 -->
+  <section class="part" id="wrapup">
+    <header class="part-head">
+      <h2>다음 주와 참고 자료</h2>
+      <p class="lead">10주차는 팀 저장소와 작업 환경입니다. 가져올 것과 질문 창구, 그리고 이번 주 내용을 더 읽을 공식 문서입니다.</p>
+    </header>
+
+    <section class="sec" id="preview">
+      <h3>다음 주 예고 · 10주차 터미널·저장소·AI 에이전트·기본 하네스</h3>
+      <p>10주차에는 팀 저장소를 만들고, 터미널에서 Node.js를 확인하고, AI 코딩 에이전트(Codex 또는 Claude Code)에게 첫 할 일을 맡깁니다. 그 전에 공용 CLAUDE.md·AGENTS.md와 docs/requirements.md·tasks.md·checklist.md의 기본 하네스를 만듭니다. AI 단계는 Delegate입니다.</p>
+      <p>가져올 것은 세 가지입니다. ⑨에 적은 "10주차에 보여 줄 것"(저장소·문서 초안·손그림·알아본 것), Node.js 설치 확인 캡처(<a href="#hw-prep">준비 과제</a>), 그리고 팀 시트 전체(⑤까지는 완성된 상태). 구조 지도로는 오늘의 사용자·화면 층에 더해 브라우저·네트워크 층이 켜지기 시작합니다. 요청과 응답의 기초를 거기서 처음 봅니다.</p>
+      <aside class="callout tip">
+        <p>터미널과 Git은 6주차 온라인 영상에서 한 번 보았습니다. 기억이 희미하면 10주차 전에 <code>git clone</code>과 <code>git push</code> 부분만 다시 봐 두면 충분합니다. 영상은 eTL에 있습니다.</p>
+      </aside>
+    </section>
+
+    <section class="sec" id="qa">
+      <h3>질문 창구</h3>
+      <p>막힌 것은 eTL 게시판의 주간 스레드 <b>'이번 주 막힌 것'</b>에 올립니다. 팀 시트의 어느 칸에서, 무엇을 시도했고, 어디서 막혔는지 세 줄이면 됩니다. 강사는 다음 주 '오늘의 지도'에서 그 가운데 두 개에 답합니다. 같은 질문이 둘 이상이면 먼저 답합니다.</p>
+      <p>개인적인 연락은 <b>eTL 메시지</b>로 합니다. 메일은 확인이 늦습니다. 작가님께 전할 질문은 ⑩의 '작가님께 물어본 것' 칸에 적어 두면 강사가 모아 전합니다.</p>
+    </section>
+
+    <section class="sec" id="resources">
+      <h3>참고 자료</h3>
+      <p>이번 주 내용과 이어지는 공식 문서입니다. 수업 자료는 2~5주차 교안의 해당 절에서 다시 볼 수 있습니다(<a href="#before-after">01.8 앞에서 한 것</a>).</p>
+      <dl class="defs">
+        <div><dt><a href="../index.html#project">OT · 팀 프로젝트 일정과 AI 정책</a></dt><dd>수직 프로토타입(알파), AI-Native Workflow 여섯 단계, AI 등급, AI USE NOTE의 원문.</dd></div>
+        <div><dt><a href="../ai/chatgpt-edu.html">ChatGPT Edu 따라 하기</a></dt><dd>프로젝트 만들기, 파일 올리기, 시나리오 1(팀 시트 → 쪼개기 표 초안)을 연습 화면으로.</dd></div>
+        <div><dt><a href="https://help.openai.com/en/articles/10169521-projects-in-chatgpt">OpenAI 도움말 · Projects in ChatGPT</a></dt><dd>프로젝트의 지시·파일·메모리 동작. 심화 상자의 근거.</dd></div>
+        <div><dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">MDN · Window.localStorage</a></dt><dd>'남기는 것'을 브라우저에 두는 방법. 11주차에서 씁니다.</dd></div>
+        <div><dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">MDN · Using the Fetch API</a></dt><dd>'가져오는 것'을 서버에서 받는 방법. 11주차에서 씁니다.</dd></div>
+        <div><dt><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">GitHub Docs · Creating a GitHub Pages site</a></dt><dd>정적 호스팅이 어떤 파일을 어떤 주소로 내놓는지. 해시 라우팅 심화의 근거.</dd></div>
+        <div><dt><a href="https://www.w3.org/TR/WCAG22/">W3C · WCAG 2.2</a></dt><dd>접근성의 네 원칙과 성공 기준. 전시용 점검표의 근거.</dd></div>
+        <div><dt><a href="https://nodejs.org/en/download">Node.js · Download</a></dt><dd>10주차 준비. LTS 버전을 받습니다.</dd></div>
+        <div><dt><a href="https://code.claude.com/docs/en/quickstart">Claude Code · Quickstart</a></dt><dd>10주차에 쓸 에이전트 가운데 하나. 미리 볼 사람만.</dd></div>
+        <div><dt><a href="https://openai.com/ko-KR/academy/codex">OpenAI Academy · Codex 시작하기</a></dt><dd>eTL 1주차 학습 자료의 그 링크. ChatGPT Edu 계정으로 쓰는 에이전트.</dd></div>
+        <div><dt><a href="https://roadmap.sh/frontend">roadmap.sh · Frontend</a>, <a href="https://www.theodinproject.com/paths/foundations">The Odin Project · Foundations</a></dt><dd>eTL 학습 자료. 기술 칸의 '알아볼 것'을 어디서 찾을지 모를 때.</dd></div>
+      </dl>
+      <!-- 확인 필요: 위 링크는 research-web-tooling.md·research-chatgpt-edu.md·research-claude-code.md·research-codex.md에서 2026-10-25에 확인된 주소입니다. Codex 문서 주소는 리다이렉트가 잦으니 수업 전 클릭 확인. -->
+      <p>오늘은 코드보다 말이 많은 날입니다. 토의가 길어지면 ⑤까지만 해도 괜찮습니다. 나머지는 다음 주에 결과물을 손에 들고 이어 갑니다.</p>
+    </section>
+  </section>
+
+  <nav class="doc-foot" aria-label="주차 이동">
+    <a class="prev" href="../midterm.html"><span>← 이전</span>8주차 · WIP 발표와 팀 편성</a>
+    <a class="next" href="summary.html"><span>요약판 →</span>9주차 핵심만 다시 보기</a>
+  </nav>
+</main>
+</div>
+</body>
+</html>
