@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="ko" data-page="deck">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10주차 발표 · 팀 저장소와 작업 환경 | 웹프로그래밍개론</title>
+<meta name="description" content="10주차 수업 슬라이드: 오늘의 지도, 터미널과 로컬 서버와 요청·응답, 팀 저장소와 룰셋·PR·충돌, AI 코딩 에이전트와 기본 하네스, AI와 함께, 팀 스튜디오, 과제.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../ds/ds.css">
+<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('ds-theme'));if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script defer src="../ds/ds.js" onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#main">슬라이드로 건너뛰기</a>
+
+<main class="deck" id="main" data-title="10주차 · 팀 저장소와 작업 환경">
+
+  <!-- ===== 도입 ===== -->
+  <section class="slide cover" data-phase="도입" data-title="표지">
+    <span class="kicker">웹프로그래밍개론 · 10주차</span>
+    <h1>팀 저장소와 작업 환경</h1>
+    <p class="sub">터미널 · 요청과 응답 · AI 에이전트 · 기본 하네스</p>
+    <div class="notes">
+      <ul>
+        <li>시간 계획(총 170분): 도입·지도 5 / 팀 시트 공유 10 / 설치 클리닉 10 / 강의 1 12 / 강의 2 10 / 휴식 10 / 강의 3 15 / AI와 함께 8 / 팀 스튜디오 75 / 마무리·과제 10 / 여유 5. 강의 합계 50분, 넘기지 않기.</li>
+        <li>시작 전: 확장판·요약판 링크 eTL 공지, 라이브 데모용 폴더(team-app, 템플릿 복사본) 준비, 터미널 글꼴 크게.</li>
+        <li class="check">확인 필요: eTL에 '10주차 팀 과제' 항목과 기한 설정. 모듈 머리글 '개인 과제 최종본 제출'은 구버전일 수 있음(최종본은 11주차).</li>
+        <li class="check">확인 필요: 라이브 데모 도구 하나로 결정·리허설(Codex / Claude Code / ChatGPT Edu 웹). 나머지는 ai/ 매뉴얼 대응표.</li>
+        <li class="check">확인 필요: 설치 클리닉용 USB(Node 설치 파일 .msi/.pkg). 강의실 Wi-Fi에서 npx serve 첫 다운로드가 되는지.</li>
+        <li class="check">확인 필요: GitHub ID 수집(eTL) 완료, Organization 생성 또는 팀 대표 계정 방식 결정, 템플릿 저장소 준비. 공개 저장소 원칙(Free 플랜에서 Pages·룰셋).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="오늘의 흐름">
+    <span class="kicker">오늘의 흐름</span>
+    <h2>강의는 짧게, 팀 시간은 길게</h2>
+    <ol class="pts body">
+      <li><b>도입</b><span>오늘의 지도 · 팀 시트 ⑤⑧⑨ 공유 · 설치 클리닉</span></li>
+      <li><b>강의 1</b><span>터미널 · 로컬 서버 · 요청과 응답 읽기</span></li>
+      <li><b>강의 2</b><span>팀 저장소 · 룰셋 · PR · 충돌</span></li>
+      <li><b>강의 3</b><span>AI 코딩 에이전트 · 기본 하네스 · AI와 함께</span></li>
+      <li><b>팀 스튜디오</b><span>저장소 만들기 → 문서 옮겨 적기 → 첫 PR → 과제</span></li>
+    </ol>
+    <p class="slide-foot">학기 중 외부 전시 기회가 있으면 별도로 안내합니다. 참여자는 스튜디오 시간 일부를 전시 버전 점검에 써도 됩니다.</p>
+    <div class="notes">
+      <ul>
+        <li>시간은 현장에서 조정. 팀 스튜디오 75분은 줄이지 않기. 밀리면 강의 3의 예시 슬라이드를 건너뛰고 확장판으로.</li>
+        <li>지난주 eTL '이번 주 막힌 것' 스레드에서 두 개 골라 여기서 답하기(2분).</li>
+        <li>외부 전시 참여자가 있으면: 스튜디오 3~4단계 시간에 전시 버전 점검, 나머지 팀원이 저장소 초기화.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="구조 지도">
+    <span class="kicker">오늘의 지도</span>
+    <h2>오늘은 화면 아래 두 층을 처음 직접 다룹니다</h2>
+    <figure class="stack-map horizontal body" data-active="network server" data-note-network="오늘: 상태 코드, 헤더, Network 탭" data-note-server="오늘: 내 컴퓨터의 로컬 서버"></figure>
+    <p class="slide-foot">2~5주차는 <b>화면</b>, 9주차는 <b>질문과 장면</b>, 오늘은 <b>요청과 응답</b>, 다음 주는 <b>알파 버전</b>입니다.</p>
+    <div class="notes">
+      <ul>
+        <li>5분. 작업 환경(터미널·저장소·에이전트)은 지도 바깥에서 네 층 모두를 다루는 도구라고 한 줄.</li>
+        <li>후반부 일곱 주 한 줄: 9 정하기 → 10 저장소 → 11 알파 → 12 검토·테스트 → 13 알파 테스트 → 14 베타 시연 → 15 쇼케이스.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="팀 시트 공유">
+    <span class="kicker">지난주에서 이어서</span>
+    <h2>팀 시트 ⑤ ⑧ ⑨를 팀마다 짧게</h2>
+    <ol class="pts body">
+      <li><b>⑤ 팀 아이디어 한 문장</b><span>"___을(를) ___한다"와 웹이어야 하는 이유</span></li>
+      <li><b>⑧ 알파 버전의 범위</b><span>꼭 넣을 것(★) · 가짜로 둘 것 · 나중에 할 것</span></li>
+      <li><b>⑨ 누가 무엇을 했나</b><span>저장소, 손그림, 알아볼 기술 — 못 정한 것도 말하기</span></li>
+    </ol>
+    <p class="slide-foot">완성도가 아니라 "무엇을 정했고 무엇을 아직 못 정했는지"를 말하면 됩니다.</p>
+    <div class="notes">
+      <ul>
+        <li>10분. 팀당 2분, 타이머. 질문은 스튜디오 순회에서 이어 가기. 여기서 토론 시작하지 않기.</li>
+        <li>듣는 사람은 "⑧ 확인할 것이 ②의 질문과 이어지나"만 메모.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="설치 클리닉">
+    <span class="kicker">설치 클리닉 · 짝과 함께</span>
+    <h2><code>node -v</code> 결과를 짝과 맞춰 봅니다</h2>
+    <ol class="pts body">
+      <li><b>v22.12.0 이상</b><span>이면 통과. 새로 설치한다면 LTS 최신.</span></li>
+      <li><b><code>npm -v</code>가 숫자</b><span>Node와 함께 설치됩니다.</span></li>
+      <li><b>터미널을 새로 열어도 같다</b><span>설치 전에 열어 둔 창은 PATH를 모릅니다.</span></li>
+    </ol>
+    <p class="slide-foot">안 되면 오류 메시지를 그대로 짝에게. 확장판 02.4의 표(새 창 열기 · 낮은 버전 · EACCES)로 함께 풀기.</p>
+    <div class="notes">
+      <ul>
+        <li>10분. 짝은 전공자-비전공자. 강사는 손 든 자리부터. USB의 설치 파일로 해결.</li>
+        <li>수업 직전 확인: 기준 22.12 이상, 권장 LTS 메이저 번호(교안은 Node 24 LTS). 설치 페이지 기본값이 바뀌어도 '22.12 이상 통과'는 유지.</li>
+        <li>끝까지 안 되는 사람은 경로 (c) ChatGPT Edu 웹으로 오늘 몫을 하고, 수업 뒤 eTL 메시지.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="AI 단계 · Delegate">
+    <span class="kicker">이번 주 AI 단계</span>
+    <h2>Delegate: 범위를 적어 맡기고, 결과는 내가 확인합니다</h2>
+    <ol class="flow body">
+      <li><b>Define</b><span>9주차</span></li>
+      <li class="is-on"><b>Delegate</b><span>이번 주</span></li>
+      <li><b>Inspect</b><span>11~12주차</span></li>
+      <li><b>Test</b><span>실행해 확인</span></li>
+      <li><b>Revise</b><span>고치거나 되돌림</span></li>
+      <li><b>Integrate</b><span>PR과 리뷰</span></li>
+    </ol>
+    <p class="slide-foot">"AI가 다 해 줘도 되나요?" 답은 늘 같습니다. <b>설명 · 검증 · 판단</b>.</p>
+    <div class="notes">
+      <ul>
+        <li>맡긴다 = 손을 뗀다가 아님. 읽을 자료 · 결과 형태 · 하지 말 것을 적어 건네는 것까지가 Delegate.</li>
+        <li>오늘 맡기기 좋은 일은 문서 초안과 명령 설명. 코드는 다음 주부터.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="도입" data-title="오늘의 목표">
+    <span class="kicker">오늘의 목표</span>
+    <h2>수업이 끝날 때 할 수 있는 것 네 가지</h2>
+    <ol class="pts body">
+      <li><b>터미널 · 로컬 서버</b><span>프로젝트 폴더에서 서버를 띄우고 Network 탭을 읽는다</span></li>
+      <li><b>팀 저장소</b><span>룰셋으로 main을 보호하고 브랜치·PR로 협업, 충돌을 푼다</span></li>
+      <li><b>AI 에이전트</b><span>권한을 수동으로 두고 변경을 확인하고 되돌린다</span></li>
+      <li><b>기본 하네스</b><span>팀 시트를 문서 여섯 개로 옮겨 적는다</span></li>
+    </ol>
+    <div class="notes">
+      <ul>
+        <li>확장판 학습 목표 그대로. 자가 점검 체크리스트는 확장판 01.6에 있다고 안내.</li>
+        <li>앞에서 한 것(2주차 Live Server, 4주차 부록 D PR, 5주차 npx, 6주차 Pages, 9주차 팀 시트)과 이어진다고 한 줄.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 강의 1 ===== -->
+  <section class="slide section" data-phase="강의 1" data-title="터미널 · 서버 · 요청과 응답">
+    <span class="sec-no">01</span>
+    <h2>터미널, 로컬 서버, 요청과 응답</h2>
+    <p class="lead">명령 다섯 개 · npm scripts · file://와 http:// · Network 탭 · 상태 코드</p>
+    <div class="notes"><ul><li>12분. 터미널 글꼴 크게, 창 하나만. 데모는 14번 슬라이드에서.</li></ul></div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="다섯 명령">
+    <span class="kicker">강의 1 · 터미널</span>
+    <h2>"어느 폴더에서, 무엇을 실행할지"를 글자로 적습니다</h2>
+<pre class="code body" data-lang="bash" data-file="터미널"><code>$ pwd              # 지금 어디에 있나
+$ ls -a            # 숨김 파일까지 목록
+$ cd team-app      # 들어가기 (te 까지 치고 Tab)
+$ mkdir docs       # 폴더 만들기
+$ code .           # 이 폴더를 VS Code로
+$ node -v          # v22.12.0 이상이면 통과</code></pre>
+    <p class="slide-foot"><kbd>Tab</kbd> 자동 완성 · <kbd>Ctrl</kbd> <kbd>C</kbd> 멈추기 · <kbd>↑</kbd> 직전 명령. <code>$</code>는 치지 않습니다.</p>
+    <div class="notes">
+      <ul>
+        <li>왜 글자로? 같은 일을 정확히 되풀이, 남에게 그대로 전달, 에이전트가 같은 명령 실행.</li>
+        <li>터미널 명령의 절반은 "지금 어디에 있나" 확인. 이번 주 할 일은 셋: 폴더 들어가기, 서버 띄우기, 에이전트 실행.</li>
+        <li>Windows는 PowerShell에서 같은 이름으로 동작(pwd, ls, cd, mkdir). 경로 구분자만 \ .</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="예시 · 다른 폴더에서 실행">
+    <span class="kicker">강의 1 · 자주 하는 실수</span>
+    <h2>오류의 절반은 폴더 위치 문제입니다</h2>
+    <div class="pair body">
+<pre class="code bad" data-lang="console" data-file="고치기 전"><code>$ npm run dev
+npm ERR! enoent ENOENT: no such file or
+directory, open '/Users/student/package.json'</code></pre>
+<pre class="code good" data-lang="console" data-file="고친 뒤"><code>$ pwd
+/Users/student
+$ cd team-app
+$ npm run dev</code></pre>
+    </div>
+    <p class="slide-foot">명령이 실패하면 먼저 <code>pwd</code>로 어디에 있는지, <code>ls</code>로 기대한 파일이 보이는지 봅니다.</p>
+    <div class="notes">
+      <ul>
+        <li>실제로 홈 폴더에서 npm run dev를 쳐서 오류를 한 번 보여 주기. 그 다음 cd로 들어가 다시.</li>
+        <li>"No such file or directory", "package.json을 찾을 수 없음"이 모두 같은 종류.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="package.json">
+    <span class="kicker">강의 1 · npm</span>
+    <h2>package.json의 scripts가 "실행 방법"입니다</h2>
+<pre class="code body" data-lang="json" data-file="package.json"><code>{
+  "name": "team-app",
+  "private": true,
+  "scripts": {
+    "dev": "serve .",
+    "test": "vitest run"
+  }
+}</code></pre>
+    <p class="slide-foot"><code>npm run dev</code> → <code>serve .</code> 실행. <code>npx 이름</code>은 설치 없이 한 번 실행합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>긴 명령에 짧은 이름. 팀원과 에이전트가 같은 이름으로 같은 일을 한다.</li>
+        <li>5주차 npx @tailwindcss/cli가 npx였다고 연결. 이번 주 설치할 패키지는 없음.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="예시 · npm test 순서">
+    <span class="kicker">강의 1 · 예시</span>
+    <h2>이름만으로 앞뒤 순서가 정해집니다</h2>
+<pre class="code body" data-lang="console" data-file="npm test를 치면"><code>$ npm test
+
+&gt; pretest
+&gt; node check-node.js        # 1. 앞에 자동으로
+
+&gt; test
+&gt; vitest run                # 2. 본래 명령
+
+&gt; posttest
+&gt; echo 테스트 끝            # 3. 뒤에 자동으로</code></pre>
+    <p class="slide-foot"><code>.gitignore</code>에는 <code>node_modules/</code> · <code>dist/</code> · <code>.env</code> 세 줄. 지금 넣어 두면 나중에 실수로 올리지 않습니다.</p>
+    <div class="notes">
+      <ul>
+        <li>pre·post 접두사 규칙. 확장판 실습 1(runOrder)은 자습으로 안내.</li>
+        <li>node_modules는 수천 개 파일, package.json만 있으면 다시 만들 수 있으니 저장소에 안 올림. 이미 올렸다면 git rm -r --cached node_modules.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="file:// vs http://">
+    <span class="kicker">강의 1 · 로컬 서버</span>
+    <h2>더블클릭 대신 서버로 엽니다</h2>
+    <div class="two body">
+      <div>
+        <p class="big">file://</p>
+        <ol class="pts">
+          <li><b>출처(origin)가 없다</b><span><code>fetch</code>가 막힙니다</span></li>
+          <li><b>모듈이 막힌다</b><span><code>&lt;script type="module"&gt;</code></span></li>
+          <li><b>배포와 조건이 다르다</b><span>"배포하니 안 되네"</span></li>
+        </ol>
+      </div>
+      <div>
+        <p class="big">http://localhost:3000</p>
+        <ol class="pts">
+          <li><b>localhost</b><span>이 컴퓨터</span></li>
+          <li><b>3000</b><span>서버가 기다리는 문 번호(포트)</span></li>
+          <li><b>정적 서버</b><span>요청마다 코드를 실행하지 않고 파일을 그대로</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="notes">
+      <ul>
+        <li>2주차 08의 file:///C:/Users/… 주소를 떠올리게. 다음 주 fetch 코드가 전부 이 영향을 받는다.</li>
+        <li>정적/동적 기준 "서버가 요청마다 코드를 실행하는가"(특강 때 들은 말) 회수.</li>
+        <li>세 가지 도구(Live Server / npx serve / Vite)는 결과가 같다. 팀은 AGENTS.md에 하나를 적는다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="라이브 데모 · npx serve">
+    <span class="kicker">강의 1 · 라이브 데모</span>
+    <h2>서버를 띄우고 Network 탭을 엽니다</h2>
+<pre class="code body" data-lang="console" data-file="터미널 · 프로젝트 폴더에서"><code>$ npx serve .
+Need to install the following packages:
+serve@14.2.6
+Ok to proceed? (y) y
+
+   Serving!
+   - Local:    http://localhost:3000</code></pre>
+    <p class="slide-foot">브라우저에서 주소를 열고, 개발자 도구 › <b>Network</b> 탭을 연 채 새로고침합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>데모 순서: ① cd team-app ② npx serve . ③ 브라우저 localhost:3000 ④ F12 › Network ⑤ 새로고침 → index.html 200, style.css 200 ⑥ 주소창에 /없는파일.html → 빨간 404 ⑦ 터미널로 돌아와 Ctrl+C.</li>
+        <li>서버가 쓰는 창에는 다른 명령 못 침 → 새 탭. 창을 그냥 닫으면 다음에 EADDRINUSE.</li>
+        <li>실패 대비: 다운로드가 안 되면 Live Server(Go Live)로 같은 것, 또는 확장판 '연습 · 서버 띄우기' 화면.</li>
+        <li>수업 직전 확인: serve 버전 표시(교안 14.2.6)는 달라져도 됨. 포트 바꾸기 -l 3001.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="상태 코드">
+    <span class="kicker">강의 1 · 요청과 응답</span>
+    <h2>상태 코드는 첫 자리부터 읽습니다</h2>
+    <div class="three body">
+      <div><p class="big">2xx</p><p><b>성공</b> · 200 OK, 201 Created. 받은 데이터를 그립니다.</p></div>
+      <div><p class="big">4xx</p><p><b>요청 쪽 문제</b> · 400, 401, 404. 주소·입력·키를 다시 봅니다.</p></div>
+      <div><p class="big">5xx</p><p><b>서버 쪽 문제</b> · 500, 503. 내 코드 잘못이 아닐 수 있습니다.</p></div>
+    </div>
+    <p class="slide-foot">3xx는 이동·그대로(<code>304</code> 캐시). <code>404</code>를 받아도 <code>fetch</code>는 실패하지 않습니다 → 다음 주 <code>res.ok</code>.</p>
+    <div class="notes">
+      <ul>
+        <li>"누구 잘못인가"를 첫 숫자가 말한다. 세 자리 다 외울 필요 없음.</li>
+        <li>Network 탭 한 줄 누르면 Headers › General에 URL·메서드·상태 코드. Type 열은 Content-Type에서.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="예시 · 세 요청 보내기">
+    <span class="kicker">강의 1 · 예시 (같이 실행)</span>
+    <h2>연습용 서버에 세 요청을 보내 봅니다</h2>
+    <div class="lab" data-title="상태 코드 계열로 나누기" data-kicker="실습" data-height="190" data-active="js" data-hide="css test" data-latency="300">
+<script type="text/plain" data-lab="html">
+<ul id="log"></ul>
+</script>
+<script type="text/plain" data-lab="js">
+function kind(status) {
+  if (status >= 200 && status < 300) return '성공';
+  if (status >= 400 && status < 500) return '요청 쪽 문제';
+  // TODO: 500번대는 '서버 쪽 문제'
+  return '알 수 없음';
+}
+async function probe(url) {
+  const res = await fetch(url);              // 404여도 여기서 멈추지 않습니다
+  const li = document.createElement('li');
+  li.textContent = `GET ${url} → ${res.status} ${kind(res.status)}`;
+  document.getElementById('log').append(li);
+  console.log(url, res.status, res.ok ? 'ok' : 'not ok');
+}
+(async () => { await probe('/api/notes'); await probe('/api/nothing'); await probe('/api/boom'); })();
+</script>
+<script type="text/plain" data-lab="server">
+app.get('/api/notes', (req, res) => res.json([{ id: 1, topic: 'HTTP' }]));
+app.get('/api/boom', (req, res) => res.status(500).json({ error: '연습용 서버 오류' }));
+// /api/nothing 은 어느 경로와도 맞지 않아 404가 됩니다.
+</script>
+    </div>
+    <div class="notes">
+      <ul>
+        <li>실행 → 네트워크 탭에서 200 · 404 · 500 세 줄. 500이 '알 수 없음'으로 찍히는 것을 보여 주고 TODO 한 줄 채우기.</li>
+        <li>오프라인 스위치를 켜면 fetch가 TypeError로 실패 — "응답이 아예 없는 것"과 "404"의 차이.</li>
+        <li>실패 대비: 확장판 실습 2(테스트 포함)를 화면에 띄우기.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="헤더">
+    <span class="kicker">강의 1 · 요청과 응답</span>
+    <h2>헤더는 겉봉투, 본문은 내용물입니다</h2>
+<pre class="code body" data-lang="text" data-file="응답 (서버 → 브라우저)"><code>HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 182
+Cache-Control: max-age=0, must-revalidate
+ETag: "a1b2c3"
+
+[{"id":1,"topic":"HTTP","lines":["요청과 응답"]}]</code></pre>
+    <p class="slide-foot"><code>Content-Type</code>은 본문의 형식, <code>Cache-Control</code>은 얼마나 오래 재사용해도 되는지.</p>
+    <div class="notes">
+      <ul>
+        <li>Network 탭 Headers 패널이 겉봉투. 빈 줄 아래가 본문.</li>
+        <li>JSON을 text/html로 주면 화면에 글자로 찍힌다 — Type 열이 왜 중요한지.</li>
+        <li>심화(HTTP 캐시: ETag·304)는 확장판 03.9로 안내.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 1" data-title="예시 · 고쳤는데 안 바뀜">
+    <span class="kicker">강의 1 · 자주 하는 실수</span>
+    <h2>"고쳤는데 화면이 안 바뀌어요"</h2>
+    <ol class="pts body">
+      <li><b>Size 열에 "(memory cache)" 또는 304</b><span>내 브라우저가 옛 사본을 쓰는 중</span></li>
+      <li><b>강력 새로고침</b><span><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>R</kbd> / <kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>R</kbd> — 캐시를 무시하고 다시 받습니다</span></li>
+      <li><b>200인데 내용이 옛것</b><span>Pages 배포 지연(최대 10분). 내 캐시가 아닙니다</span></li>
+    </ol>
+    <p class="slide-foot">Network 탭을 나중에 열면 목록이 비어 있습니다. 탭을 연 채 새로고침합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>두 가지를 구분: 304/캐시 = 내 브라우저, 200인데 옛 내용 = 배포 지연.</li>
+        <li>여기까지 강의 1. 12분 넘으면 헤더 슬라이드는 건너뛰어도 됨.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 강의 2 ===== -->
+  <section class="slide section" data-phase="강의 2" data-title="팀 저장소와 협업 규칙">
+    <span class="sec-no">02</span>
+    <h2>팀 저장소와 협업 규칙</h2>
+    <p class="lead">룰셋 · 브랜치 · PR · 리뷰 · 충돌</p>
+    <div class="notes"><ul><li>10분. 4주차 부록 D와 6주차 영상은 링크로. 오늘 새로운 것은 룰셋·충돌·PR 본문.</li></ul></div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="규칙 셋">
+    <span class="kicker">강의 2 · 왜 규칙인가</span>
+    <h2>부딪혀도 안전하게 풀리도록, 설정으로 겁니다</h2>
+    <ol class="pts body">
+      <li><b>main은 PR로만</b><span>직접 push는 거부. "Require a pull request before merging"</span></li>
+      <li><b>리뷰 1명</b><span>자기 PR은 자기가 승인하지 않습니다. "Required approvals: 1"</span></li>
+      <li><b>지우기·강제 push 금지</b><span>"Restrict deletions" · "Block force pushes"</span></li>
+    </ol>
+    <p class="slide-foot">공개(Public) 저장소여야 Pages와 룰셋을 무료로 씁니다. 약속은 깨져도 설정은 지켜집니다.</p>
+    <div class="notes">
+      <ul>
+        <li>다섯 명 + 에이전트가 커밋하면 약속만으로는 안 된다. 사람이 깜빡해도, 에이전트가 시도해도 설정은 지켜진다.</li>
+        <li>OT의 GitHub 흐름 그대로: Issue → Branch → AI 작업 → Diff·Test → PR → Review·Merge.</li>
+        <li class="check">확인 필요: 저장소 소유 방식(강사 Organization vs 팀 대표 계정 + Collaborator). 어느 쪽이든 Public.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="예시 · GH013">
+    <span class="kicker">강의 2 · 예시</span>
+    <h2>main에 직접 push하면 이렇게 거부됩니다</h2>
+<pre class="code body" data-lang="console" data-file="터미널"><code>$ git push origin main
+remote: error: GH013: Repository rule violations found for refs/heads/main.
+remote: - Changes must be made through a pull request.
+ ! [remote rejected] main -> main (push declined due to repository rule violations)</code></pre>
+    <p class="slide-foot">거부는 실패가 아니라 규칙이 작동한 것입니다. 그 자리에서 <code>git switch -c feature/이름-기능</code> → push → PR.</p>
+    <div class="notes">
+      <ul>
+        <li>스튜디오에서 일부러 한 번 겪어 보라고. 변경은 새 브랜치로 따라온다.</li>
+        <li>"Bypass list"에는 아무도 넣지 않기. 강사가 저장소를 볼 때 룰셋 Active, 승인 1 확인.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="룰셋 만들기">
+    <span class="kicker">강의 2 · 룰셋</span>
+    <h2>한 사람이 한 번만 설정합니다</h2>
+    <ol class="flow vertical body">
+      <li><b>Settings › Rules › Rulesets</b><span>"Code, planning, and automation" 아래</span></li>
+      <li><b>New ruleset › New branch ruleset</b><span>이름 <code>protect-main</code>, Enforcement status: Active</span></li>
+      <li><b>Target branches › Include default branch</b><span>main이 대상</span></li>
+      <li><b>Branch protections 세 개 체크</b><span>Restrict deletions · Block force pushes · Require a pull request (approvals 1)</span></li>
+      <li><b>Create</b><span>이제 직접 push는 거부됩니다</span></li>
+    </ol>
+    <div class="notes">
+      <ul>
+        <li>메뉴 이름은 GitHub 문서 그대로. 화면이 바뀌었으면 '룰셋(Rulesets)' 검색.</li>
+        <li>라이브로 보여 줄지는 시간 보고 결정. 안 보여 주면 확장판 04.3 순서대로 스튜디오에서.</li>
+        <li>같은 자리에서 Settings › Pages도 켜기(Deploy from a branch · main · root). 반영 최대 10분.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="한 번의 작업">
+    <span class="kicker">강의 2 · 브랜치와 PR</span>
+    <h2>한 번의 작업은 이 여덟 줄입니다</h2>
+<pre class="code body" data-lang="bash" data-file="터미널 · 한 번의 작업"><code>$ git switch main &amp;&amp; git pull            # 남의 변경을 먼저 받습니다
+$ git switch -c feature/팀원1-readme     # 브랜치를 만들고 옮깁니다
+# … 파일을 고칩니다 …
+$ git status                              # 무엇이 바뀌었나
+$ git diff                                # 어떤 줄이 바뀌었나
+$ git add README.md
+$ git commit -m "docs: README에 실행 방법 추가"
+$ git push -u origin feature/팀원1-readme # 처음 한 번만 -u</code></pre>
+    <p class="slide-foot">브랜치 이름은 <code>feature/이름-기능</code>. GitHub 화면의 "Compare &amp; pull request"로 PR을 엽니다.</p>
+    <div class="notes">
+      <ul>
+        <li>git pull을 먼저 하는 이유: 오래된 main에서 시작하면 나중에 충돌이 커진다.</li>
+        <li>git diff는 에이전트가 고친 것도 여기서 읽는다 — 강의 3과 연결.</li>
+        <li>병합 뒤: git switch main → git pull → git branch -d 브랜치.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="예시 · PR 본문">
+    <span class="kicker">강의 2 · 예시</span>
+    <h2>PR 본문은 세 칸과 검토 6단어</h2>
+    <div class="two body">
+      <ol class="pts">
+        <li><b>무엇을</b><span>tasks.md의 어느 줄인지 한 줄</span></li>
+        <li><b>왜</b><span>requirements.md의 어느 단계 때문인지</span></li>
+        <li><b>어떻게 확인했나</b><span>직접 해 본 것만</span></li>
+      </ol>
+<pre class="code" data-lang="md" data-file=".github/pull_request_template.md"><code>- [ ] 동작 · requirements와 맞다
+- [ ] 범위 · 요청 밖 파일 없음
+- [ ] 복잡성 · 더 단순한 방법 확인
+- [ ] 접근성 · label·alt·대비·키보드
+- [ ] 보안 · 키 없음, innerHTML 주의
+- [ ] 개인정보 · 실명·연락처 없음</code></pre>
+    </div>
+    <p class="slide-foot">리뷰어는 막는 의견(Request changes)과 제안(Comment)을 구분합니다. 자기 PR은 자기가 승인하지 않습니다.</p>
+    <div class="notes">
+      <ul>
+        <li>templates/.github/에 양식 있음. 저장소에 두면 PR 열 때 자동으로 채워진다.</li>
+        <li>6단어는 12주차 AI 코드 검토에서 같은 순서로 다시.</li>
+        <li>리뷰 순서: Files changed → 줄 옆 + → Start a review → Review changes → Submit.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="충돌">
+    <span class="kicker">강의 2 · 충돌</span>
+    <h2>충돌은 같은 줄을 다르게 고쳤을 때만 납니다</h2>
+<pre class="code body" data-lang="text" data-file="README.md (충돌 상태)"><code># 메모 분류
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+실행: npx serve .
+=======
+실행: npx serve src
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
+빌드 없음</code></pre>
+    <p class="slide-foot"><code>HEAD</code> 쪽이 내 것, 아래가 상대 것. 하나로 정리하고 표시 줄 세 개를 반드시 지웁니다.</p>
+    <div class="notes">
+      <ul>
+        <li>다른 줄을 고쳤으면 Git이 알아서 합친다. 충돌은 Git이 "못 고르겠다"고 멈춘 것, 실패가 아님.</li>
+        <li>셋 중 하나: 내 것, 상대 것, 둘을 합친 새 문장.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 2" data-title="예시 · 충돌 풀기">
+    <span class="kicker">강의 2 · 예시</span>
+    <h2>충돌 풀기 네 단계</h2>
+    <ol class="flow body">
+      <li><b><code>git pull origin main</code></b><span>CONFLICT … 정상입니다</span></li>
+      <li><b>파일 정리</b><span>VS Code의 Accept Current / Incoming / Both</span></li>
+      <li><b><code>git add README.md</code></b><span>정리한 파일을 올립니다</span></li>
+      <li><b><code>git commit</code></b><span>병합 커밋 한 줄</span></li>
+    </ol>
+    <p class="slide-foot">충돌을 풀었다고 코드가 맞는 것은 아닙니다. 로컬 서버로 열어 README의 명령이 실제로 맞는지 보고 push합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>확장판 '연습 · 충돌 해결' 화면을 띄워 한 번 같이 클릭해도 됨(2분).</li>
+        <li>표시 줄을 남긴 채 커밋하면 페이지에 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD가 글자로 보인다 — 검색해서 정리.</li>
+        <li>휴식 10분은 여기서.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 강의 3 ===== -->
+  <section class="slide section" data-phase="강의 3" data-title="AI 에이전트와 기본 하네스">
+    <span class="sec-no">03</span>
+    <h2>AI 코딩 에이전트와 기본 하네스</h2>
+    <p class="lead">네 단계 · 세 경로 · 권한 프롬프트 · 되돌리기 · 문서 여섯 개</p>
+    <div class="notes"><ul><li>15분. 라이브 데모는 32번 슬라이드 하나만. 도구는 수업 전 리허설한 하나로.</li></ul></div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="네 단계">
+    <span class="kicker">강의 3 · 공통 원리</span>
+    <h2>어떤 에이전트든 네 단계로 돕니다</h2>
+    <ol class="flow body">
+      <li><b>읽는다</b><span>AGENTS.md·CLAUDE.md, 요청한 파일, 폴더 구조</span></li>
+      <li><b>바꾼다</b><span>바꾸기 전에 diff를 보여 주고 묻습니다</span></li>
+      <li><b>실행한다</b><span>테스트·서버·git. 실행 전에 묻습니다</span></li>
+      <li class="is-on"><b>사람이 확인한다</b><span>프롬프트에 답하고, diff를 읽고, 직접 봅니다</span></li>
+    </ol>
+    <p class="slide-foot">중요한 것은 도구가 아니라 "사람이 확인하는 지점"을 어디에 두느냐입니다.</p>
+    <div class="notes">
+      <ul>
+        <li>모델을 둘러싼 이 바깥 층이 'agentic harness'. OT에서 들은 하네스가 바로 이것.</li>
+        <li>ChatGPT Edu 웹에 파일을 붙여 넣고 제안을 받아 내가 적용하는 것도 같은 흐름을 손으로 하는 것.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="세 경로">
+    <span class="kicker">강의 3 · 세 경로 중 하나</span>
+    <h2>지금 되는 것 하나면 됩니다</h2>
+    <div class="three body">
+      <div><p class="big">(a)</p><p><b>Codex</b> · CLI 또는 VS Code 확장. ChatGPT 계정으로 로그인. AGENTS.md를 먼저 읽습니다.</p></div>
+      <div><p class="big">(b)</p><p><b>Claude Code</b> · CLI 또는 VS Code 확장. 유료 플랜 또는 Console. CLAUDE.md(AGENTS.md도)를 읽습니다.</p></div>
+      <div><p class="big">(c)</p><p><b>ChatGPT Edu 웹</b> · 설치 없이 지금 바로. 파일을 붙여 넣고 제안을 받아 내가 적용합니다.</p></div>
+    </div>
+    <p class="slide-foot">유료 여부는 성적 차이로 이어지지 않습니다. 설치가 막히면 (c)로 오늘 몫을 합니다.</p>
+    <div class="notes">
+      <ul>
+        <li class="check">확인 필요: 학교 ChatGPT Edu 계정으로 codex 로그인이 되는지(수업 전 학생 1~2명에게 테스트 부탁). 안 되면 eTL 메시지로 알리게.</li>
+        <li class="check">확인 필요: Codex Windows 지원(README는 WSL2, 문서 사이트는 PowerShell). 먼저 PowerShell, 안 되면 (c).</li>
+        <li>수업 직전 확인: 설치 명령·요금·플랜 포함 여부는 바뀔 수 있음 → 확장판 05.2~05.4와 ai/ 매뉴얼의 현재 문구로.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="권한 프롬프트">
+    <span class="kicker">강의 3 · 권한 프롬프트</span>
+    <h2>바뀌는 줄을 읽고 나서 답합니다</h2>
+<pre class="code body" data-lang="text" data-file="Bash 명령 프롬프트 (문서의 문구 그대로)"><code>Run the test suite
+  npm test
+This command requires approval
+
+Do you want to proceed?
+❯ 1. Yes
+  2. Yes, and don't ask again for: npm test *
+  3. Yes, and switch to auto mode
+  4. No
+Esc to cancel · Tab to amend</code></pre>
+    <p class="slide-foot">수업에서는 Manual 모드로 시작합니다. Claude Code는 <kbd>Shift</kbd> <kbd>Tab</kbd>, Codex는 Ask for approval.</p>
+    <div class="notes">
+      <ul>
+        <li>수업 직전 확인: Claude Code 최근 버전은 auto 모드로 시작(교안 기준 v2.1.283 이후). 상태 표시줄이 ⏸ manual mode on이 되게.</li>
+        <li class="check">확인 필요: 파일 수정(Edit) 프롬프트의 정확한 선택지 문구 — 문서에는 Bash 프롬프트만 원문. 라이브 데모 전 실제 화면으로.</li>
+        <li>읽기 전용 명령(ls, cat, git status, git diff)은 묻지 않는다. curl·wget 같은 네트워크 명령은 자동 승인 안 됨.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · 선택지 네 개">
+    <span class="kicker">강의 3 · 예시</span>
+    <h2>네 선택지, 수업의 권장</h2>
+    <ol class="pts body">
+      <li><b>1. Yes</b><span>이번 한 번만. 명령을 읽고 이해했을 때 — 기본</span></li>
+      <li><b>2. don't ask again for …</b><span>그 패턴을 허용 목록에 저장. <code>npm test</code>처럼 안전한 명령에만</span></li>
+      <li><b>3. switch to auto mode</b><span>이후 분류기가 대신 승인. 수업에서는 고르지 않습니다</span></li>
+      <li><b>4. No</b><span>모르는 명령, 요청 밖 파일, 네트워크·삭제·push. <kbd>Tab</kbd>으로 이유를 적어 보냅니다</span></li>
+    </ol>
+    <p class="slide-foot"><code>--dangerously-skip-permissions</code>는 "사람이 확인하는 지점"을 전부 없앱니다. 수업 노트북에서는 쓰지 않습니다.</p>
+    <div class="notes">
+      <ul>
+        <li>프롬프트를 읽지 않고 1번 연타 = auto와 같다. 모르는 명령이면 No + "이 명령이 무엇을 하는지 먼저 설명해 줘".</li>
+        <li>OT 금지선 '무조건적 에이전트 권한' 회수.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="라이브 데모 · 계획만 받기">
+    <span class="kicker">강의 3 · 라이브 데모</span>
+    <h2>첫 요청은 "읽고 제안만"</h2>
+    <figure class="prompt body">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu(기본) · 에이전트(Codex 또는 Claude Code)</span><span class="prompt-purpose">tasks.md의 첫 할 일 제안 받기</span></figcaption>
+      <pre class="prompt-text"><var>docs/requirements.md</var>를 읽고 <var>docs/tasks.md</var>의 첫 할 일 세 줄을 제안해 줘.
+파일은 수정하지 말고 계획만. '나중에 할 것'에 있는 일은 넣지 마.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul><li>⑧ 알파 범위를 넘는 줄이 있나요?</li><li>우리가 모르는 도구를 전제하나요?</li><li>파일이 실제로 바뀌지 않았나요? (<code>git status</code>)</li></ul>
+      </div>
+    </figure>
+    <div class="notes">
+      <ul>
+        <li>데모 순서: ① git status 깨끗한지 ② 프로젝트 폴더에서 에이전트 실행(처음 폴더면 '신뢰' 대화상자) ③ Shift+Tab으로 manual ④ 위 요청 ⑤ 제안 읽기 — ⑧ 범위 대조 ⑥ "1번 줄만 tasks.md에 추가, 다른 줄은 건드리지 마" ⑦ diff 읽고 1(Yes) ⑧ 새 탭에서 git diff docs/tasks.md ⑨ /usage 한 번.</li>
+        <li>되돌리기 시연: git restore docs/tasks.md 한 줄. 에이전트 안에서는 /rewind.</li>
+        <li>실패 대비(로그인·네트워크): 확장판 '연습 · 권한 프롬프트, diff, 되돌리기' 화면을 띄워 숫자 키로 같이 진행. ChatGPT Edu 웹이면 '연습 · ChatGPT Edu에서 같은 요청' 화면.</li>
+        <li class="check">확인 필요: 데모용 폴더에 docs/requirements.md(메모 분류 예시)와 AGENTS.md가 들어 있는지.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · 되돌리기 세 층">
+    <span class="kicker">강의 3 · 예시</span>
+    <h2>잘못 가면 가까운 층부터 되돌립니다</h2>
+    <ol class="pts body">
+      <li><b>에이전트의 체크포인트</b><span>Claude Code <code>/rewind</code>(<kbd>Esc</kbd> <kbd>Esc</kbd>). 진행 중이면 <kbd>Esc</kbd> 한 번으로 중단</span></li>
+      <li><b>에이전트에게 요청</b><span>"방금 바꾼 것을 되돌려 줘." Codex는 <code>/review</code>로 먼저 점검</span></li>
+      <li><b>Git</b><span><code>git diff</code>로 보고 <code>git restore 파일</code>. 커밋했으면 <code>git revert</code></span></li>
+    </ol>
+    <p class="slide-foot">습관 하나: 맡기기 전 <code>git status</code> 깨끗하게 → 끝나면 <code>git diff</code> 읽기 → 그다음 커밋.</p>
+    <div class="notes">
+      <ul>
+        <li>체크포인트는 Bash가 바꾼 것을 추적하지 않는다. 버전 관리를 대신하지 못함. 영구 기록은 git.</li>
+        <li>커밋하지 않은 변경은 git이 모른다 → 그래서 작업 전에 커밋.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · 요청의 범위">
+    <span class="kicker">강의 3 · 자주 하는 실수</span>
+    <h2>범위 없는 요청은 diff를 읽을 수 없게 만듭니다</h2>
+    <div class="pair body">
+<pre class="code bad" data-lang="text" data-file="고치기 전"><code>코드 전체를 더 좋게 만들어 줘.</code></pre>
+<pre class="code good" data-lang="text" data-file="고친 뒤"><code>src/split.js의 splitNotes에
+빈 입력 처리를 추가해 줘.
+다른 파일은 건드리지 마.
+바뀐 부분만 보여 줘.</code></pre>
+    </div>
+    <p class="slide-foot">읽을 파일 · 결과의 형태 · 하지 말 것. 이 셋이 있으면 검토 기준도 저절로 생깁니다.</p>
+    <div class="notes">
+      <ul>
+        <li>"다 됐다"는 말을 믿지 않기: "테스트 출력을 보여 줘", 그리고 내가 로컬 서버에서 직접.</li>
+        <li>비밀 키·개인정보는 프롬프트에 붙여 넣지 않기. .env는 읽지도 말라고 AGENTS.md에.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="하네스란">
+    <span class="kicker">강의 3 · 기본 하네스</span>
+    <p class="big">프롬프트 엔지니어링은 한 번의 요청을 잘 쓰는 일. 하네스 엔지니어링은 AI가 계속 잘 일하도록 문서·규칙·검사·기록을 설계하는 일.</p>
+    <p class="slide-foot">매번 "우리 프로젝트는 메모 분류 앱이고, 정적 웹이고…"를 다시 적지 않습니다. 파일로 두고 에이전트가 먼저 읽게 합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>OT 하네스 6요소(Intent·Context·Tasks·Guardrails·Verify·Feedback) ↔ 오늘 문서 여섯 개. 대응표는 확장판 06.1.</li>
+        <li>3주차 C.23에서 읽기만 한 모형을 오늘은 팀이 직접 쓴다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="문서 여섯 개">
+    <span class="kicker">강의 3 · 기본 하네스</span>
+    <h2>팀 시트를 문서 여섯 개로 옮깁니다</h2>
+    <div class="two body">
+      <ol class="pts">
+        <li><b>docs/requirements.md</b><span>무엇을 만들까 — ② ⑤ ⑥ ⑧</span></li>
+        <li><b>docs/tasks.md</b><span>지금 무엇을 — ⑨ (한 줄 = 한 PR)</span></li>
+        <li><b>docs/checklist.md</b><span>제대로 되었나 — ⑥ 단계, ⑧ 확인할 것</span></li>
+      </ol>
+      <ol class="pts">
+        <li><b>docs/design.md</b><span>5주차 DESIGN.md를 하나로 '고르기'</span></li>
+        <li><b>docs/architecture.md</b><span>⑦ 화면·데이터·폴더 + 기술 결정 카드 3문</span></li>
+        <li><b>AGENTS.md</b><span>에이전트가 먼저 읽는 지도 (+ CLAUDE.md 한 줄)</span></li>
+      </ol>
+    </div>
+    <p class="slide-foot">양식은 교안 저장소의 <code>templates/</code>에. 중립 예시(메모 분류)는 읽고 지운 뒤 우리 내용으로.</p>
+    <div class="notes">
+      <ul>
+        <li>복사: cp -r templates/docs your-repo/docs · cp templates/AGENTS.md · cp -r templates/.github(숨김 폴더 주의) · echo "@AGENTS.md" &gt; CLAUDE.md.</li>
+        <li>README는 사람이 처음 보는 문서, AGENTS.md는 에이전트가 처음 읽는 문서. 둘 다 실행 방법이 같아야 한다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · requirements.md">
+    <span class="kicker">강의 3 · 예시 (메모 분류)</span>
+    <h2>requirements.md는 질문 → 장면 → 범위 순서로</h2>
+<pre class="code body" data-lang="md" data-file="docs/requirements.md (일부)"><code>## 2. 팀 아이디어 한 문장 (팀 시트 ⑤)
+&gt; 붙여 넣은 수업 메모를 주제별 카드로 나누고, 친구가 나눈 결과와 나란히 보여 준다.
+
+## 4. 사용 장면 (팀 시트 ⑥)
+| 단계 | 사용자가 하는 일 | 화면에서 일어나는 일 | ★ |
+| 2 | '나누기'를 누른다 | 메모가 주제별 카드 3~5개로 나뉘어 보인다 | ★ |
+
+## 6. 알파 버전 (팀 시트 ⑧)
+- 꼭 넣을 것: 1 → 2(★) → 3 · 가짜로 둘 것: 친구 데이터 data/friend.json
+- 나중에 할 것: 로그인, 실제 공유 링크</code></pre>
+    <div class="notes">
+      <ul>
+        <li>기능 목록부터 쓰면 장면 없이 기능만 는다. ② 질문 → ⑥ 장면 → ⑧ 범위 순서.</li>
+        <li>기여 표(이름·들어간 조각)에 모든 팀원 이름 — 과제 확인 기준.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · tasks.md">
+    <span class="kicker">강의 3 · 예시 (메모 분류)</span>
+    <h2>tasks.md는 한 줄 = 한 PR</h2>
+<pre class="code body" data-lang="md" data-file="docs/tasks.md (이번 주 표)"><code>| 이름 | 할 일 | 이번 주에 보여 줄 것 | 상태 |
+|---|---|---|---|
+| 팀원 1 | 저장소 만들기, 룰셋, Pages | 저장소 링크가 열리고 빈 페이지가 배포된다 | 완료 |
+| 팀원 2 | 사용 장면 1·2 화면(HTML·CSS) | 메모를 붙여 넣으면 '나누기' 버튼이 보인다 | 진행 중 |
+| 팀원 3 | 가짜 친구 데이터 data/friend.json | 친구 카드가 오른쪽 열에 보인다 | 시작 전 |
+| YOUR CODE 1분 | 팀원 2: 카드로 나누는 함수 설명 | 팀 앞에서 1분 설명 | 시작 전 |</code></pre>
+    <p class="slide-foot">'보여 줄 것'은 눈으로 확인할 수 있는 문장. "잘 되게"는 완료 기준이 아닙니다.</p>
+    <div class="notes">
+      <ul>
+        <li>에이전트에게 맡길 때도 이 표의 한 줄을 가리킨다: "tasks.md의 팀원 3 줄을 해 줘".</li>
+        <li>끝난 줄은 지우지 않고 '완료'. 매주 스튜디오 끝에 갱신.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="AGENTS.md">
+    <span class="kicker">강의 3 · 기본 하네스</span>
+    <h2>AGENTS.md에는 네 가지, CLAUDE.md에는 한 줄</h2>
+<pre class="code body" data-lang="md" data-file="AGENTS.md (핵심 부분)"><code>## 프로젝트 한 줄 · 먼저 읽을 문서
+docs/requirements.md · docs/tasks.md · docs/checklist.md
+## 실행 방법
+npx serve .          # http://localhost:3000 에서 index.html 열기
+## 코딩 규칙
+- 요청한 파일만 고칩니다. 새 패키지는 추가 전에 묻습니다.
+## 하지 말 것 (사람이 확인한 뒤에만)
+- 파일 삭제, 패키지 설치, 배포, .env·키 커밋, git push --force
+## 확인 방법
+끝났다고 말하기 전에 docs/checklist.md의 해당 줄을 확인합니다.</code></pre>
+    <p class="slide-foot"><code>CLAUDE.md</code>는 <code>@AGENTS.md</code> 한 줄. 두 파일을 따로 쓰면 언젠가 다른 말을 합니다.</p>
+    <div class="notes">
+      <ul>
+        <li>짧을수록 좋다(Claude Code 문서 200줄 이하, Codex 합계 32 KiB). "write clean code" 같은 자명한 말은 뺀다.</li>
+        <li>'하지 말 것'은 맥락이지 강제가 아니다 — 반드시 막을 것(.env 읽기, git push)은 deny 규칙·룰셋에 함께. 심화 05로 안내.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="강의 3" data-title="예시 · checklist → 테스트">
+    <span class="kicker">강의 3 · 예시</span>
+    <h2>checklist 한 줄이 그대로 테스트 이름이 됩니다</h2>
+    <div class="pair body">
+<pre class="code" data-lang="md" data-file="docs/checklist.md"><code>- [ ] 2 나누기(★): '나누기'를 누르면
+      카드가 3개 이상 보인다.
+- [ ] 2 나누기(★): 빈 입력이면
+      "메모를 먼저 붙여 넣어 주세요"가 보인다.</code></pre>
+<pre class="code" data-lang="js" data-file="tests/split.test.js (12주차)"><code>test("2 나누기(★): 누르면 카드 3개", async () => {
+  type('#memo', 'HTTP\n상태 코드\n헤더');
+  click('#split');
+  await until(() => $$('#cards li').length === 3);
+});</code></pre>
+    </div>
+    <p class="slide-foot">한 줄에 조건 하나, 눈으로 확인할 수 있는 문장으로. 체크는 확인한 사람이 합니다. AI가 "확인했다"고 한 것은 체크하지 않습니다.</p>
+    <div class="notes">
+      <ul>
+        <li>확장판 실습 4(checklist 한 줄을 테스트로)는 자습. 12주차에 Vitest로 실제 저장소에서.</li>
+        <li>여기까지 강의 3. 밀렸으면 37·38·40번 예시는 건너뛰고 확장판으로.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== AI와 함께 ===== -->
+  <section class="slide" data-phase="AI와 함께" data-title="AI와 함께 · Delegate">
+    <span class="kicker">AI와 함께 · Delegate · AI REQUIRED</span>
+    <h2>맡기되, 확인은 직접</h2>
+    <figure class="prompt body">
+      <figcaption class="prompt-head"><span class="prompt-tool">ChatGPT Edu(기본) · 에이전트(Codex 또는 Claude Code)</span><span class="prompt-purpose">README '실행 방법' 절 쓰기</span></figcaption>
+      <pre class="prompt-text"><var>README.md</var>의 '실행 방법' 절만 써 줘. 다른 절은 건드리지 마.
+실행 명령은 <var>AGENTS.md</var>와 똑같이(npx serve .). 명령 세 줄 이내.
+바뀐 부분만 코드 블록으로 보여 주고, 왜 그렇게 썼는지 한 줄.</pre>
+      <div class="prompt-check">
+        <p class="prompt-check-title">결과를 받은 뒤 확인할 것</p>
+        <ul><li>실행 방법이 AGENTS.md와 같은 명령인가요?</li><li>새 폴더에 clone해 그대로 따라 하면 실제로 열리나요?</li><li>요청하지 않은 절이 바뀌지 않았나요?</li></ul>
+      </div>
+    </figure>
+    <div class="notes">
+      <ul>
+        <li>8분. 맡길 일: 문서 초안·반복 작업·명령 설명. 내가 판단할 일: 권한 허용·범위·병합.</li>
+        <li>등급 REQUIRED = 세 경로 중 하나로 문서 한 조각 이상, AI USE NOTE 한 줄(도구 / 맡긴 작업 / 판단 / 검증). 어떤 도구를 썼는지는 평가하지 않는다.</li>
+        <li>설명·검증·판단 — 설명 못 하는 코드, 검토 없는 제출, 출처 미기재는 감점.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 팀 스튜디오 ===== -->
+  <section class="slide" data-phase="팀 스튜디오" data-title="팀 스튜디오 · 순서">
+    <span class="kicker">팀 스튜디오</span>
+    <h2>오늘의 산출물: 저장소 + 문서 6개 + 첫 PR + 분담표</h2>
+    <ol class="pts body">
+      <li><b>저장소와 룰셋</b><span>한 명이 공개 저장소를 만들고 팀원 초대, 룰셋 3개, Pages</span></li>
+      <li><b>모두 clone</b><span><code>git clone</code> → <code>cd</code> → <code>git log --oneline</code> → 로컬 서버로 한 번</span></li>
+      <li><b>문서 옮겨 적기</b><span><code>templates/</code> 복사, 한 사람이 한 문서씩. 기술 결정 3문의 답은 architecture.md에</span></li>
+      <li><b>첫 PR · README</b><span>브랜치에서 '실행 방법' → PR → 6단어 리뷰 → 병합 → 모두 <code>git pull</code></span></li>
+      <li><b>tasks.md 분담</b><span>11주차까지 이름별 한 줄씩. ★ 단계가 누구 줄인지</span></li>
+    </ol>
+    <p class="slide-foot"><button type="button" class="timer-btn" data-timer="600">10분 타이머</button> <button type="button" class="timer-btn" data-timer="900">15분 타이머</button></p>
+    <div class="notes">
+      <ul>
+        <li>75분. 안내: 1단계 10 / 2단계 10 / 3단계 25 / 4단계 15 / 5단계 10 / YOUR CODE 5.</li>
+        <li>강사 순회: 질문 카드를 세운 팀부터. 보는 것 셋 — 룰셋 켜졌나, 템플릿 예시 남았나, '보여 줄 것'이 눈으로 확인되는 문장인가.</li>
+        <li>①(공유 데이터)이 '예'인 팀은 BaaS 계정 만들 사람을 정하게. 어떤 BaaS를 권할지 선택 모듈과 맞출 것.</li>
+        <li>설치·로그인으로 막힌 사람은 (c)로 오늘 몫. 오늘 꼭 끝나야 하는 것은 저장소와 문서이지 도구 설치가 아님.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="팀 스튜디오" data-title="산출물 점검">
+    <span class="kicker">팀 스튜디오 · 끝나기 전에</span>
+    <h2>팀에서 함께 확인합니다</h2>
+    <ol class="pts body">
+      <li><b>저장소</b><span>공개이고 팀원 전원이 Write 권한</span></li>
+      <li><b>룰셋 Active · Pages 켜짐</b><span>PR 필수 · 승인 1 · 삭제 금지 · 강제 push 금지</span></li>
+      <li><b>docs/ 5개 + AGENTS.md</b><span>템플릿 예시(메모 분류)가 남아 있지 않다</span></li>
+      <li><b>architecture.md</b><span>기술 결정 카드 3문의 답이 있다</span></li>
+      <li><b>README PR 병합 · tasks.md</b><span>모두 <code>git pull</code>, 11주차 할 일이 이름별로</span></li>
+    </ol>
+    <p class="slide-foot"><b>YOUR CODE 1분</b>: 팀원 한 명이 오늘 AI가 만든 문서 한 조각을 자기 말로 설명합니다. 안 되면 tasks.md에 "풀어 써 달라고 요청하기".</p>
+    <div class="notes">
+      <ul>
+        <li>확장판 '산출물 점검' 체크리스트와 같음(브라우저에 저장). 못 끝낸 것은 과제로.</li>
+        <li>설명이 안 되는 순간을 발견한 것은 좋은 일. 담당은 매주 돌아가며.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 마무리 ===== -->
+  <section class="slide dense" data-phase="마무리" data-title="과제">
+    <span class="kicker">마무리 · 과제</span>
+    <article class="assignment" aria-labelledby="d-hw10-title">
+      <header class="assignment-head">
+        <span class="kicker">10주차 과제 · 팀</span>
+        <h3 class="assignment-title" id="d-hw10-title">저장소와 하네스: 팀의 그릇 만들기</h3>
+        <span class="ai-grade" data-grade="required">AI REQUIRED</span>
+      </header>
+      <dl class="assignment-fields">
+        <div><dt>할 일</dt><dd><ol><li>팀 저장소 링크 — 룰셋과 Pages가 켜져 있게</li><li>하네스 문서 6개 (템플릿 예시는 지우고 우리 내용으로)</li><li><code>docs/tasks.md</code>에 11주차까지 할 일을 이름별로 (한 줄 = 한 PR)</li></ol></dd></div>
+        <div><dt>예상 소요</dt><dd>1인당 1.5시간 (스튜디오에서 시작한 것을 마무리)</dd></div>
+        <div><dt>제출물·파일 이름</dt><dd>저장소 링크 1개. PR 본문에 AI USE NOTE 한 줄</dd></div>
+        <div><dt>제출처</dt><dd>eTL › 과제 › 10주차 팀 과제 (팀 대표 1명이 제출)</dd></div>
+        <div class="due"><dt>마감</dt><dd>11주차 수업 전까지 · 정확한 기한(날짜·시각)은 eTL 과제 페이지가 기준입니다</dd></div>
+        <div><dt>확인 기준</dt><dd>각자 커밋 1개 이상 · AGENTS.md에 실행 방법과 하지 말 것 · main 직접 push 없음, PR이 리뷰를 거쳐 병합 · 기여 표에 모든 이름, 템플릿 예시 없음</dd></div>
+      </dl>
+    </article>
+    <div class="notes">
+      <ul>
+        <li>10분. 제출처는 eTL 한 곳, 기한은 eTL 과제 페이지의 시각이 기준 — 같은 문장으로 한 번 더.</li>
+        <li>개인 과제는 새로 없음. 9주차에 안내한 최종본을 11주차에 제출(기한·방법 eTL). 개인 저장소에도 .gitignore 세 줄과 README 실행 방법 절 권장.</li>
+        <li class="check">확인 필요: eTL 과제 항목 생성, 기한 설정(수업 시작 직전 시각 관행), 대표 1명 제출 방식 안내.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-phase="마무리" data-title="다음 주">
+    <span class="kicker">다음 주 · 11주차</span>
+    <p class="big">오늘 만든 저장소 안에서 알파 버전을 만듭니다. ★ 단계가 실제로 동작하고, 나머지는 가짜 데이터로.</p>
+    <p class="slide-foot">자료: <a href="index.html">확장판</a> · <a href="summary.html">요약판</a> · <a href="../map.html">교안 지도</a> · 질문은 eTL 게시판 '이번 주 막힌 것', 연락은 eTL 메시지</p>
+    <div class="notes">
+      <ul>
+        <li>11주차 내용 한 줄: render(state), localStorage 저장·복원, fetch·async/await로 JSON 가져와 로딩·빈·오류 세 상태. 오늘 Network 탭이 그대로 이어진다.</li>
+        <li>준비물 셋: tasks.md의 내 줄, 기술 결정 답이 적힌 architecture.md, 개인 과제 최종본.</li>
+        <li class="check">확인 필요: 11주차 'AI 워크플로 쇼케이스' 학생 2명 섭외. 공유 데이터 팀의 BaaS 계정.</li>
+        <li>마지막 한 줄: 새 도구가 많았지만 전부 외울 필요 없음. 저장소가 있고, 문서가 있고, 명령 한 줄이 실행되면 충분.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
