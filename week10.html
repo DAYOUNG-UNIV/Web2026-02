@@ -1,0 +1,1938 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10주차 · 팀 저장소와 기본 하네스 · 읽기 자료</title>
+<meta name="description" content="웹프로그래밍개론 10주차 읽기 자료(확장판). AI에게 팀 프로젝트를 맡길 때 함께 주는 것(하네스)과 어느 도구에서나 같은 저장소 파일 구조, 일 시키는 법, Claude와 ChatGPT에서의 방법, 여럿이 함께 쓰는 Git 규칙을 공식 문서 기준으로 정리했습니다. 맨 위 요약만 읽어도 오늘 할 일이 보이고, 용어 사전으로 처음 보는 말을 찾을 수 있습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#ffffff;--canvas:#f4f4f1;--surface:#e9e9e4;--ink:#1a1a1a;--ink2:#3d3d3a;--muted:#62625d;--line:#e3e3de;--strong:#cbcbc4;
+  --accent:#001871;--accent-strong:#00114F;--accent-soft:#E3E7F4;--accent-line:#A9B9F2;--hl:rgba(169,185,242,.55);
+  --cl:#A8532E;--cl-soft:#F6E9E2;--gp:#0E7A62;--gp-soft:#E1F1EC;
+  --ok:#1E7A4C;--ok-soft:#E3F1E8;--no:#B3261E;--no-soft:#F8E4E1;--warn:#855400;--warn-soft:#F4EBD8;
+  --term:#1d1f21;--term-ink:#e6e6e2;
+  --body:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono","Pretendard Variable",monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#181917;--canvas:#20211e;--surface:#111210;--ink:#ecebe6;--ink2:#d4d3cd;--muted:#a9a8a1;--line:#30312d;--strong:#4b4c46;
+    --accent:#A9B9F2;--accent-strong:#C6D1F7;--accent-soft:#1B2347;--accent-line:#3d4c8a;--hl:rgba(169,185,242,.26);
+    --cl:#EBA685;--cl-soft:#3a251b;--gp:#74D3B6;--gp-soft:#13332a;
+    --ok:#83D6A8;--ok-soft:#15301f;--no:#F3A399;--no-soft:#3b1b18;--warn:#E6C27E;--warn-soft:#352910;
+    --term:#0c0d0c;--term-ink:#e6e6e2;
+    color-scheme:dark;
+  }
+}
+html{background:var(--canvas);scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.72;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+b,strong{font-weight:700}
+code,kbd,pre{font-family:var(--mono)}
+code{font-size:.9em;background:var(--canvas);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.ui{display:inline-block;font-weight:700;font-size:.92em;line-height:1.35;padding:0 7px;border:1px solid var(--strong);border-radius:6px;background:var(--bg)}
+kbd{display:inline-block;font-size:.85em;font-weight:600;padding:0 7px;border:1px solid var(--strong);border-bottom-width:2px;border-radius:5px;background:var(--bg);white-space:nowrap}
+.mut{color:var(--muted)}
+.sm{font-size:15px;line-height:1.6}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:6px 12px;border-radius:6px;z-index:50}
+.skip:focus{left:12px}
+
+/* 윗줄 */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1260px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.wm{font-weight:700;font-size:16px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink);text-decoration:none}
+.wm b{color:var(--accent)}
+.bar-t{flex:1;min-width:0;font-size:15px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
+.prog i{display:block;width:120px;height:7px;border-radius:9px;background:var(--surface);overflow:hidden}
+.prog i>s{display:block;height:100%;width:0;background:var(--accent);border-radius:9px;transition:width .25s}
+.bar a.deck{font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--strong);border-radius:999px;padding:3px 12px;color:var(--ink);white-space:nowrap;background:var(--bg)}
+
+/* 틀 */
+.shell{max-width:1260px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:28px 0 20px}
+.toc b{display:block;font-size:13px;color:var(--muted);margin:0 0 8px 10px}
+.toc ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px}
+.toc a{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:7px;font-size:14.5px;line-height:1.45;color:var(--ink2);text-decoration:none}
+.toc a:hover{background:var(--bg)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.toc a span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.toc a.full span{color:var(--ok);font-weight:700}
+.toc .sep{height:1px;background:var(--line);margin:8px 10px}
+main{min-width:0;padding-top:30px}
+
+/* 첫머리 */
+.eyebrow{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:6px}
+h1{font-size:40px;line-height:1.22;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+h1 em,h2 em{font-style:normal;background:linear-gradient(transparent 62%,var(--hl) 62%)}
+.lede{margin-top:12px;font-size:19.5px;line-height:1.65;color:var(--ink2);max-width:880px}
+.how{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.how div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.55;color:var(--ink2)}
+.how div b{display:block;font-size:15.5px;color:var(--ink);margin-bottom:2px}
+
+/* 고르기 */
+.ctrl{margin-top:22px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.ctrl .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ctrl .lab{width:86px;flex:none;font-size:14.5px;font-weight:700;color:var(--muted)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--strong);background:var(--bg);border-radius:999px;padding:4px 14px;font-size:15px;font-weight:600;line-height:1.5}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.ctrl .tools{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.ctrl .tools button{border:1px solid var(--line);background:var(--canvas);border-radius:8px;padding:3px 12px;font-size:14px;font-weight:600;color:var(--ink2)}
+.ctrl .note{font-size:14px;color:var(--muted)}
+
+/* 큰 제목 */
+.sec{margin-top:52px}
+.sec>h2{font-size:28px;line-height:1.3;letter-spacing:-.03em;font-weight:800}
+.sec>.sub{margin-top:6px;color:var(--muted);font-size:16px}
+
+/* 말 */
+.terms{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.terms div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.terms dt{font-weight:800;font-size:16.5px}
+.terms dt small{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--muted);margin-left:6px}
+.terms dd{margin:2px 0 0;font-size:15px;line-height:1.55;color:var(--ink2)}
+
+/* 흐름 */
+.flow{margin-top:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.flow a{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:10px 11px 12px;text-decoration:none;color:var(--ink)}
+.flow a.opt{border-top-color:var(--strong)}
+.flow a .n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent)}
+.flow a .t{font-size:15px;font-weight:700;line-height:1.35}
+.flow a .w{font-size:12.5px;font-weight:700;color:var(--muted);margin-top:auto}
+.exnote{margin-top:12px;font-size:15px;color:var(--muted)}
+.exq{display:inline-block;font-size:13px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:999px;padding:1px 10px;vertical-align:1px;margin-right:4px}
+
+/* 역할 태그 */
+.tl{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:1px 10px;border-radius:999px;white-space:nowrap;line-height:1.6}
+.tl.both{background:var(--accent-soft);color:var(--accent)}
+.tl.gr{background:var(--canvas);color:var(--muted);border:1px solid var(--line)}
+.tl.cl{background:var(--cl-soft);color:var(--cl)}
+.tl.gp{background:var(--gp-soft);color:var(--gp)}
+.tl.ok{background:var(--ok-soft);color:var(--ok)}
+.tl.no{background:var(--no-soft);color:var(--no)}
+
+/* 단계 */
+.step{margin-top:18px;background:var(--bg);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.step>summary{list-style:none;display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer}
+.step>summary::-webkit-details-marker{display:none}
+.step>summary .no{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-size:20px;font-weight:800}
+.step>summary .tt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.step>summary h3{font-size:22px;line-height:1.35;letter-spacing:-.025em;font-weight:800}
+.step>summary .who{display:flex;gap:6px;flex-wrap:wrap}
+.step>summary .cnt{flex:none;font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.step>summary .cnt.full{color:var(--ok)}
+.step>summary .chev{flex:none;width:12px;height:12px;border-right:2.5px solid var(--muted);border-bottom:2.5px solid var(--muted);transform:rotate(45deg);margin:0 4px 6px 4px;transition:transform .2s}
+.step[open]>summary .chev{transform:rotate(-135deg);margin-bottom:-4px}
+.step>summary .oth{display:none;font-size:13px;font-weight:700;color:var(--muted)}
+.step.other>summary .oth{display:inline}
+.step.other>summary .no{background:var(--strong)}
+.step.opt>summary .no{background:var(--canvas);color:var(--accent);border:2px solid var(--accent)}
+.sbody{padding:0 22px 22px 82px;display:flex;flex-direction:column;gap:14px}
+.goal{font-size:16.5px;color:var(--ink2);background:var(--canvas);border-radius:10px;padding:9px 14px}
+.goal b{color:var(--accent);margin-right:8px}
+.sbody h4{font-size:17.5px;font-weight:800;margin-top:6px}
+.sbody h4 .tl{margin-left:6px;vertical-align:2px}
+
+/* 할 일 목록 */
+.do{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:d}
+.do>li{counter-increment:d;display:flex;flex-direction:column;gap:10px;padding-left:0}
+.ck{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.ck input{flex:none;appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:3px 0 0;border:2px solid var(--strong);border-radius:6px;background:var(--bg);display:grid;place-items:center;cursor:pointer}
+.ck input:checked{background:var(--ok);border-color:var(--ok)}
+.ck input:checked::after{content:"";width:6px;height:11px;border:solid var(--bg);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ck>span{flex:1;min-width:0}
+.ck>span::before{content:counter(d) " · ";font-weight:800;color:var(--accent)}
+.ck input:checked+span{color:var(--muted)}
+.do>li>.more{margin-left:34px;display:flex;flex-direction:column;gap:10px}
+.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.steps li::marker{font-weight:700;color:var(--accent)}
+.bul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.bul li::marker{color:var(--accent)}
+
+/* 상자 */
+.when{display:flex;gap:12px;align-items:flex-start;background:var(--ok-soft);border-radius:12px;padding:12px 16px;font-size:16.5px}
+.when::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--ok);color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:14px;margin-top:2px}
+.when b{color:var(--ok)}
+.tip{border-left:4px solid var(--accent);background:var(--canvas);border-radius:0 10px 10px 0;padding:9px 14px;font-size:16px;color:var(--ink2)}
+.tip b:first-child{color:var(--ink)}
+.warn{border-left:4px solid var(--no);background:var(--no-soft);border-radius:0 10px 10px 0;padding:9px 14px;font-size:16px;color:var(--ink)}
+.warn b:first-child{color:var(--no)}
+
+/* 복사 상자 */
+.cpy{border:1px solid var(--line);border-radius:12px;background:var(--canvas);overflow:hidden}
+.cpy-h{display:flex;align-items:center;gap:10px;padding:7px 10px 7px 14px;border-bottom:1px solid var(--line);font-size:14px;font-weight:700;color:var(--muted)}
+.cpy-h>span{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cp{flex:none;border:1px solid var(--strong);background:var(--bg);border-radius:999px;padding:2px 14px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.cp.done{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+.cpy pre{margin:0;padding:12px 16px;overflow:auto;font-size:14.5px;line-height:1.65;color:var(--ink);white-space:pre}
+.cpy pre code{background:none;border:0;padding:0;font-size:inherit}
+.cpy pre.ko{white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.7}
+.cpy pre.ko code{font-family:var(--body)}
+.cpy pre i{font-style:normal;color:var(--muted)}
+
+/* 탭 */
+.tabs{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tabs>.tr{display:flex;flex-wrap:wrap;gap:0;background:var(--canvas);border-bottom:1px solid var(--line)}
+.tabs>.tr button{border:0;background:none;padding:9px 16px;font-size:15px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs>.tr button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);background:var(--bg)}
+.tabs>.pane{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.tabs>.pane[hidden]{display:none}
+
+/* 표 */
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55}
+.tbl th{text-align:left;font-size:13.5px;color:var(--muted);font-weight:700;padding:6px 10px;border-bottom:2px solid var(--strong)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:700}
+.tbl code{font-size:.86em}
+.tbl.err td:first-child{font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--no)}
+.tbl.err td.ko{font-family:var(--body);font-size:15px;color:var(--ink)}
+.twrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+
+/* 늘 쓰는 것 */
+.card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.card>h3{font-size:21px;font-weight:800;letter-spacing:-.02em}
+.card>h3 small{font-size:14px;font-weight:700;color:var(--muted);margin-left:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g2>*,.sbody>*,.more>*,.pane>*,.card>*{min-width:0}
+.mark{font-family:var(--mono);font-size:14px;line-height:1.6;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:10px 14px;white-space:pre;overflow:auto}
+.mark .mk{color:var(--no);font-weight:700}
+.mark .ou{display:block;background:var(--accent-soft);margin:0 -14px;padding:0 14px}
+.mark .th{display:block;background:var(--warn-soft);margin:0 -14px;padding:0 14px}
+
+/* 점검 */
+.final{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.final .ck{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.final .ck>span::before{content:none}
+.final .ck small{display:block;color:var(--muted);font-size:14px}
+
+/* 출처 */
+.src{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.src>div{min-width:0}
+.src h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.src ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.src a{display:block;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;line-height:1.45}
+.src a small{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.src a:hover{border-color:var(--accent)}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+
+@media (max-width:1100px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .toc{display:none}
+  .flow{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .bar-in{padding:8px 14px;gap:10px}
+  .bar-t,.prog i{display:none}
+  .shell{padding:0 14px 60px}
+  h1{font-size:30px}
+  .lede{font-size:17px}
+  .how,.terms,.final,.src,.g2{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .ctrl .lab{width:auto}
+  .ctrl .tools{margin-left:0}
+  .step>summary{padding:14px 14px;gap:12px}
+  .step>summary .no{width:36px;height:36px;font-size:17px}
+  .step>summary h3{font-size:19px}
+  .sbody{padding:0 14px 18px 14px}
+  .do>li>.more{margin-left:0}
+  .twrap{padding:4px 12px}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:auto!important}
+  .tbl tr:first-child{display:none}
+  .tbl tr{padding:9px 0;border-bottom:1px solid var(--line)}
+  .tbl tr:last-child{border-bottom:0}
+  .tbl td{border:0;padding:1px 0}
+  .tbl code{white-space:normal;word-break:break-all}
+  .tbl td.na{display:none}
+}
+@media print{
+  .bar,.toc,.ctrl,.skip,.cp{display:none!important}
+  .shell{display:block;padding:0}
+  body,html{background:#fff}
+  .tabs>.pane[hidden]{display:flex!important}
+  .step,.card{break-inside:avoid-page}
+}
+
+/* ---------- 화면 모사 (덱과 같은 부품) ---------- */
+/* ---------- GitHub 화면 모사 (gk) ---------- */
+.gk{position:relative;font-family:var(--body);font-size:16px;color:#1f2328;background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.gk .gtop{flex:none;display:flex;align-items:center;gap:12px;background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:8px 14px;font-size:15px;color:#59636e}
+.gk .gtop b{color:#1f2328;font-weight:600}
+.gk .gtop .crumb{display:flex;align-items:center;gap:6px}
+.gk .gtop .crumb i{width:16px;height:16px;border-radius:50%;background:#d0d7de;display:inline-block}
+.gk .gtabs{flex:none;display:flex;gap:4px;padding:0 10px;border-bottom:1px solid #d0d7de;background:#f6f8fa;font-size:14.5px}
+.gk .gtabs span{padding:9px 10px 8px;color:#59636e;border-bottom:2px solid transparent;display:flex;align-items:center;gap:6px}
+.gk .gtabs span.on{color:#1f2328;font-weight:600;border-bottom-color:#fd8c73}
+.gk .gtabs span em{font-style:normal;background:#eff1f3;border-radius:999px;font-size:12px;padding:1px 7px;color:#59636e}
+.gk .body{flex:1;min-height:0;padding:14px 18px;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.gk .body.side{display:grid;grid-template-columns:1fr 200px;gap:14px}
+.gk h5{margin:0;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.gk h6{margin:0;font-size:15px;font-weight:600;color:#1f2328}
+.gk .sub{font-size:14px;color:#59636e;line-height:1.4}
+.gk .lbl{font-size:14px;font-weight:600}
+.gk .hint{font-size:12.5px;color:#59636e;line-height:1.35}
+.gk .inp{border:1px solid #d0d7de;border-radius:6px;background:#fff;padding:6px 10px;font-family:var(--mono);font-size:15px;line-height:1.3;color:#1f2328;display:flex;align-items:center;gap:8px;min-height:34px}
+.gk .inp.ko{font-family:var(--body)}
+.gk .inp.on{border-color:#0969da;box-shadow:0 0 0 3px rgba(9,105,218,.3)}
+.gk .inp.ph{color:#8c959f}
+.gk .sel{border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;padding:5px 10px;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.gk .sel::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #1f2328}
+.gk .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(31,35,40,.15);border-radius:6px;background:#f6f8fa;padding:5px 14px;font-size:14.5px;font-weight:600;color:#1f2328;white-space:nowrap;align-self:flex-start}
+.gk .btn.pri{background:#1f883d;border-color:rgba(31,35,40,.15);color:#fff}
+.gk .btn.pur{background:#8250df;color:#fff}
+.gk .btn.dis{background:#94d3a2;color:#fff}
+.gk .btn.ic::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;margin-left:2px}
+.gk .rowf{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.gk .rowf.end{justify-content:flex-end}
+.gk .rad,.gk .chk{display:flex;flex-direction:column;gap:7px}
+.gk .rad>div,.gk .chk>div{display:flex;gap:9px;align-items:flex-start;font-size:15px;line-height:1.35}
+.gk .rad>div b,.gk .chk>div b{font-weight:600}
+.gk .rad>div>span,.gk .chk>div>span{display:flex;flex-direction:column;gap:1px;align-items:stretch}
+.gk .rad span span,.gk .chk span span{display:inline;align-items:normal;gap:0}
+.gk .rad>div small,.gk .chk>div small{font-size:12.5px;color:#59636e}
+.gk .rad>div>i{flex:none;width:16px;height:16px;border-radius:50%;border:1px solid #8c959f;margin-top:2px;background:#fff}
+.gk .rad>div>i.on{border:5px solid #0969da}
+.gk .chk>div>i{flex:none;width:16px;height:16px;border-radius:4px;border:1px solid #8c959f;margin-top:2px;background:#fff;position:relative}
+.gk .chk>div>i.on{background:#0969da;border-color:#0969da}
+.gk .chk>div>i.on::after{content:"✓";position:absolute;left:2px;top:-3px;color:#fff;font-size:12px;font-weight:800;font-style:normal}
+.gk .box{border:1px solid #d0d7de;border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.gk .box .bh{background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:7px 12px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.gk .box .bh .mono{font-weight:600}
+.gk .box .bc{padding:10px 12px;font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:7px}
+.gk .code{font-family:var(--mono);font-size:14px;line-height:1.55;white-space:pre-wrap;color:#1f2328}
+.gk .code .add{display:block;background:#dafbe1;margin:0 -12px;padding:0 12px}
+.gk .code .del{display:block;background:#ffebe9;margin:0 -12px;padding:0 12px}
+.gk .code .ctx{display:block;color:#59636e}
+.gk .code .num{display:inline-block;width:34px;color:#8c959f;text-align:right;margin-right:12px;user-select:none}
+.gk .pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 11px;font-size:13.5px;font-weight:600;color:#fff;background:#1f883d}
+.gk .pill.pur{background:#8250df}
+.gk .pill.gray{background:#59636e}
+.gk .pill.line{background:#fff;color:#1f2328;border:1px solid #d0d7de}
+.gk .cmt{border:1px solid #d0d7de;border-radius:6px;overflow:hidden}
+.gk .cmt .ch{background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:6px 12px;font-size:13.5px;color:#59636e;display:flex;gap:8px;align-items:center}
+.gk .cmt .ch b{color:#1f2328;font-weight:600}
+.gk .cmt .ch i{width:18px;height:18px;border-radius:50%;background:#9db7e8;display:inline-block}
+.gk .cmt .cb{padding:9px 12px;font-size:15px;line-height:1.45}
+.gk .menu{border:1px solid #d0d7de;border-radius:8px;background:#fff;box-shadow:0 8px 24px rgba(140,149,159,.2);display:flex;flex-direction:column;overflow:hidden;align-self:flex-start;min-width:260px}
+.gk .menu .mh{font-size:12.5px;font-weight:600;color:#59636e;padding:8px 12px;border-bottom:1px solid #d0d7de}
+.gk .menu>div{padding:7px 12px;font-size:14.5px;display:flex;gap:8px;align-items:center;border-top:1px solid #eaeef2}
+.gk .menu>div.on{background:#f6f8fa;font-weight:600}
+.gk .menu>div:first-child{border-top:0}
+.gk .side-b{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:#59636e}
+.gk .side-b b{display:flex;justify-content:space-between;color:#59636e;font-weight:600}
+.gk .side-b b::after{content:"⚙";font-size:12px}
+.gk .side-b span{color:#1f2328}
+.gk .flash{border:1px solid rgba(31,35,40,.15);border-radius:6px;background:#fff8c5;padding:8px 12px;font-size:14.5px;display:flex;align-items:center;gap:10px}
+.gk .gwarn{border:1px solid #d0d7de;border-left:4px solid #bf8700;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gk .gok{border:1px solid #d0d7de;border-left:4px solid #1f883d;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gk .gwarn b,.gk .gok b{font-weight:600}
+.gk .mono{font-family:var(--mono);font-size:.94em}
+.gk .nav{flex:none;background:#f6f8fa;border-bottom:1px solid #d0d7de;display:flex;align-items:center;gap:12px;padding:6px 14px;font-size:14px;color:#59636e}
+.gk .nav .plus{margin-left:auto;border:1px solid #d0d7de;border-radius:6px;padding:1px 8px;font-weight:700;color:#1f2328;background:#fff}
+.gk .nav .av{width:22px;height:22px;border-radius:50%;background:#9db7e8}
+.gk .settings{display:grid;grid-template-columns:190px 1fr;gap:16px;flex:1;min-height:0}
+.gk .settings .sn{display:flex;flex-direction:column;gap:2px;font-size:14px;color:#1f2328}
+.gk .settings .sn span{padding:5px 10px;border-radius:6px}
+.gk .settings .sn span.on{background:#eaeef2;font-weight:600;box-shadow:inset 3px 0 0 #fd8c73}
+.gk .settings .sn small{font-size:12px;color:#59636e;padding:8px 10px 2px;font-weight:600}
+.gk .settings .sc{display:flex;flex-direction:column;gap:10px;min-height:0}
+.gk .an{position:absolute;z-index:5;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;box-shadow:0 0 0 3px #fff;font-style:normal}
+.gk .hl{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.gk .vs{font-family:var(--body)}
+.gk .list{display:flex;flex-direction:column}
+.gk .list div{display:flex;align-items:center;gap:10px;padding:7px 12px;border-top:1px solid #d0d7de;font-size:14.5px}
+.gk .list div:first-child{border-top:0}
+.gk .list .av{width:20px;height:20px;border-radius:50%;background:#9db7e8}
+.gk .list .ml{margin-left:auto;color:#59636e;font-size:13px}
+/* gk 보강 · 실제 화면 대조 */
+.gk .stp{display:grid;grid-template-columns:26px 1fr;gap:0 12px}
+.gk .stp>i{width:26px;height:26px;border-radius:50%;background:#eaeef2;color:#59636e;font:600 13px/26px var(--body);text-align:center;font-style:normal;position:relative}
+.gk .stp>i::after{content:"";position:absolute;left:12px;top:28px;bottom:-14px;width:2px;background:#d0d7de}
+.gk .stp.last>i::after{display:none}
+.gk .stp>div{display:flex;flex-direction:column;gap:6px;padding:0 0 10px;min-width:0}
+.gk .stp h6{font-size:16px;line-height:26px}
+.gk .cfg{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.gk .cfg>span:first-child{display:flex;flex-direction:column;gap:0;min-width:0}
+.gk .tg{width:36px;height:20px;border-radius:999px;background:#d0d7de;position:relative;flex:none;display:inline-block}
+.gk .tg.on{background:#1f883d}
+.gk .tg::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.gk .tg.on::after{left:18px}
+.gk .btn.dng{color:#d1242f}
+.gk .btn.white{background:#fff}
+.gk .lnk{color:#0969da}
+.gk .cc{display:inline-block;background:#ddf4ff;color:#0969da;border-radius:6px;padding:0 6px;font-family:var(--mono);font-size:.9em;font-weight:500}
+.gk .gchk{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#1a7f37;color:#fff;font-size:11px;font-weight:800;font-style:normal;flex:none;vertical-align:-2px}
+.gk .gwc{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#818b98;color:#fff;font-size:17px;font-weight:800;font-style:normal;flex:none}
+.gk .ban{border:1px solid #d0d7de;border-radius:6px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.gk .ban>div{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+.gk .ban b{font-weight:600;font-size:16px}
+.gk .ico{display:inline-block;color:#59636e;font-style:normal;min-width:16px;text-align:center;font-weight:400}
+.gk .mdl{border:1px solid #d0d7de;border-radius:10px;background:#fff;box-shadow:0 8px 24px rgba(140,149,159,.25);display:flex;flex-direction:column;overflow:hidden}
+.gk .mdl .mh{font-size:15px;font-weight:600;color:#1f2328;padding:9px 12px;border-bottom:1px solid #d0d7de;display:flex;justify-content:space-between;align-items:center}
+.gk .mdl .mh i{font-style:normal;color:#59636e;font-weight:400}
+.gk .mdl .mb{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.gk .mdl .mf{border-top:1px solid #d0d7de;padding:8px 12px;display:flex;gap:8px;align-items:center;background:#f6f8fa}
+.gk .tbar{display:flex;gap:12px;align-items:center;font-size:13.5px;color:#59636e;flex-wrap:wrap}
+.gk .tbar b{color:#1f2328;font-weight:600}
+.gk .tbar .rr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.gk .ttab{display:inline-flex;border:1px solid #d0d7de;border-radius:6px;overflow:hidden}
+.gk .ttab span{padding:3px 10px;font-size:13px;font-weight:600;color:#59636e;background:#f6f8fa}
+.gk .ttab span.on{background:#fff;color:#1f2328}
+.gk .wtab{display:flex;gap:0;border-bottom:1px solid #d0d7de;background:#f6f8fa;font-size:13.5px;padding:4px 8px 0}
+.gk .wtab span{padding:5px 12px;color:#59636e}
+.gk .wtab span.on{background:#fff;color:#1f2328;font-weight:600;border:1px solid #d0d7de;border-bottom-color:#fff;border-radius:6px 6px 0 0;margin-bottom:-1px}
+.gk .pr-h{display:flex;flex-direction:column;gap:4px}
+.gk .pr-h h5{font-size:20px;font-weight:400;line-height:1.25}
+.gk .pr-h h5 span{color:#59636e}
+.gk .pr-h .sub{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gk .fbar{display:flex;gap:10px;align-items:center;font-size:13px;color:#59636e;font-weight:600}
+.gk .gtabs span i{font-style:normal;color:#59636e;font-weight:400}
+.gk .gtabs span{white-space:nowrap}
+.gk .stat{font-family:var(--mono);font-size:12.5px;font-weight:600;margin-left:auto;display:flex;align-items:center;gap:4px;color:#1a7f37}
+.gk .stat s{color:#d1242f;text-decoration:none}
+.gk .side-b small{font-size:12.5px;color:#59636e}
+.gk .side-b .req{color:#0969da;font-weight:600;margin-left:auto}
+.gk .settings .sn span.sub2{padding-left:26px;font-size:13.5px}
+/* VS Code · 앱 화면 모사 */
+.vsc{background:#1f1f1f;color:#ccc;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;font-family:var(--body);font-size:14.5px;min-height:0;position:relative}
+.vsc .vt{flex:none;background:#181818;border-bottom:1px solid #2b2b2b;padding:6px 12px;font-size:12.5px;color:#9d9d9d;display:flex;gap:14px}
+.vsc .vb{flex:1;display:grid;grid-template-columns:44px 1fr;min-height:0}
+.vsc .ab{background:#181818;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:10px}
+.vsc .ab i{width:22px;height:22px;border-radius:5px;background:#3c3c3c}
+.vsc .ab i.on{background:#fff}
+.vsc .vpane{padding:10px 14px;display:flex;flex-direction:column;gap:9px;min-height:0}
+.vsc .vpane h6{margin:0;font-size:11.5px;letter-spacing:.06em;color:#bbb;font-weight:700}
+.vsc .vbtn{background:#0078d4;color:#fff;border-radius:3px;padding:6px 12px;text-align:center;font-size:13.5px;font-weight:600}
+.vsc .vbtn.sec{background:#313131}
+.vsc .vin{background:#313131;border:1px solid #3c3c3c;border-radius:3px;padding:6px 10px;font-family:var(--mono);font-size:13px;color:#ccc;display:flex;flex-direction:column;gap:2px}
+.vsc .vin small{color:#9d9d9d;font-family:var(--body);font-size:12px}
+.vsc .vp{font-size:13px;color:#bbb;line-height:1.45}
+.vsc .an{position:absolute;z-index:5;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;box-shadow:0 0 0 3px #1f1f1f;font-style:normal}
+.an.in,.gk .an.in,.vsc .an.in,.app .an.in{position:static;display:inline-grid;place-items:center;vertical-align:middle;margin-right:6px;box-shadow:none;flex:none}
+.an.in{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;font-style:normal}
+.an.in.s,.gk .an.in.s,.vsc .an.in.s,.app .an.in.s{width:20px;height:20px;font-size:12px;line-height:20px;margin-right:5px}
+.gk .code .mkl{display:block;background:#f6f8fa;color:#8250df;font-weight:700;margin:0 -12px;padding:0 12px}
+.gk .code .cur{display:block;background:#fff8c5;margin:0 -12px;padding:0 12px}
+.gk .lnc{display:flex;align-items:center;gap:8px;font-size:14.5px;padding:4px 0}
+.gk .lnc .plus{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#0969da;color:#fff;font-size:13px;font-weight:800}
+.gk .kv{display:flex;flex-direction:column;gap:2px;font-size:14px;color:#59636e}
+.gk .kv b{color:#1f2328}
+.gk .an,.vsc .an,.an.in{background:#001871;color:#fff}
+.gk .hl{outline-color:#001871}
+.gk{font-size:15px}
+.gk .settings.nar{grid-template-columns:150px 1fr}
+figure.shot{margin:12px 0 2px;display:flex;flex-direction:column;gap:8px;max-width:760px}
+figure.shot .gk,figure.shot .vsc{width:100%}
+figure.shot figcaption{font-size:14px;line-height:1.55;color:var(--muted)}
+figure.shot figcaption b{color:var(--ink);font-weight:600}
+figure.shot figcaption .exq{vertical-align:1px}
+@media (max-width:640px){
+  .gk .settings,.gk .settings.nar{grid-template-columns:1fr}
+  .gk .list div{flex-wrap:wrap}
+  .gk .gtabs{flex-wrap:wrap}
+  .gk .settings .sn{flex-direction:row;flex-wrap:wrap}
+  .gk .settings .sn small{width:100%;padding:4px 10px 0}
+  .gk .tbar .rr{margin-left:0;flex-wrap:wrap}
+  figure.shot .two{grid-template-columns:1fr!important}
+  figure.shot .prgrid{grid-template-columns:1fr!important}
+  figure.shot .vsc .vpane{grid-template-columns:1fr!important}
+  figure.shot .vsc .vpane>div:last-child{min-height:120px}
+  figure.shot .cgrid{grid-template-columns:1fr!important}
+  figure.shot .cgrid>div:first-child{border-right:0!important;border-bottom:1px solid #d0d7de}
+  figure.shot .ban{flex-wrap:wrap}
+  figure.shot .ban>div{flex:1 1 200px}
+  figure.shot .ban>.btn{margin-left:auto}
+}
+/* ---------- 읽기 자료 보강 ---------- */
+.bar a.lab2{margin-left:8px}
+.summ{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0 6px}
+.summ>div{background:var(--bg);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:12px;padding:14px 16px}
+.summ>div b{display:block;font-size:17px;margin-bottom:4px}
+.summ>div p{font-size:15.5px;color:var(--ink2);line-height:1.6}
+.summ>div.cl{border-top-color:var(--cl)} .summ>div.gp{border-top-color:var(--gp)} .summ>div.ok{border-top-color:var(--ok)}
+.fig{margin:16px 0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px 10px}
+.fig svg{width:100%;height:auto;display:block;font-family:var(--body)}
+.fig .mo{font-family:var(--mono)}
+.fig figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.fig figcaption b{color:var(--ink2)}
+.fig .gdr{fill:none}
+.fig .gpo,.fig .gfd{opacity:1}
+.tree{font-family:var(--mono);font-size:14.5px;line-height:1.75;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0;white-space:pre;overflow-x:auto;color:var(--ink)}
+.tree i{font-style:normal;color:var(--muted)}
+.tree b{color:var(--accent)}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:10px 0;font-size:15.5px}
+.kv dt{font-weight:700;color:var(--ink)}
+.kv dd{margin:0;color:var(--ink2)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.cmp>div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15.5px}
+.cmp>div h4{font-size:16px;margin-bottom:6px}
+.cmp>div.bad{border-color:var(--no);background:var(--no-soft)}
+.cmp>div.good{border-color:var(--ok);background:var(--ok-soft)}
+.term{display:inline-block;font-weight:700;color:var(--accent)}
+.qa{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.qa li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:15.5px}
+.qa li b{color:var(--accent)}
+.gl{display:grid;grid-template-columns:1fr;gap:0}
+.gl div{display:grid;grid-template-columns:180px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.gl dt{font-weight:700} .gl dt small{display:block;font-weight:500;color:var(--muted);font-family:var(--mono);font-size:12.5px}
+.gl dd{margin:0;color:var(--ink2)}
+@media (max-width:640px){.kv{grid-template-columns:1fr}.cmp{grid-template-columns:1fr}.gl div{grid-template-columns:1fr;gap:2px}.summ{grid-template-columns:1fr}}
+.term-cl{color:var(--cl)} .term-gp{color:var(--gp)}
+.sec>h2 small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:4px}
+.ref{font-size:14px;color:var(--muted);margin-top:6px}
+.ref a{color:var(--accent)}
+
+.fig.narrow{max-width:620px}
+.fig.scroll{overflow-x:auto}
+.fig.scroll svg{min-width:1240px}
+.fig.scroll.md svg{min-width:1040px}
+.fig .deckgo{font-size:13.5px;margin-left:8px}
+.h3{font-size:19px;font-weight:800;margin-top:22px;letter-spacing:-.02em}
+.h3 small{font-size:13.5px;font-weight:600;color:var(--muted);margin-left:8px}
+.sec>p,.sec>ul.bul,.sec>ol.steps,.sec>.tip,.sec>.warn,.sec>.cpy,.sec>.twrap,.sec>.cmp,.sec>.kv,.sec>.tree,.sec>.g2,.sec>.tabs,.sec>.qa{margin-top:12px}
+.sec>.bul{padding-left:22px;gap:5px}
+.sec .lede{margin-top:10px}
+.k{font-weight:700;color:var(--ink)}
+.cmp>div ul{margin:6px 0 0;padding-left:18px}
+.cmp>div p{margin-top:4px}
+.summ ol,.summ ul{margin:6px 0 0;padding-left:20px;font-size:15px;color:var(--ink2)}
+.n5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+.n5>div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.55;color:var(--ink2)}
+.n5>div b{display:block;color:var(--ink);font-size:15.5px}
+.n5>div i{font-style:normal;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:800;font-size:13px;margin-bottom:6px}
+@media (max-width:900px){.n5{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.n5{grid-template-columns:1fr}}
+.cyc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.cyc>div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--ink2);line-height:1.55}
+.cyc>div b{display:block;color:var(--ink)}
+.cyc>div code{font-size:.9em}
+.cyc>div.side{border-color:var(--warn);background:var(--warn-soft)}
+.gl div:last-child{border-bottom:0}
+.gl dt code{font-size:.9em}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="wm" href="#top">웹프로그래밍개론 <b>10주차</b></a>
+    <span class="bar-t">팀 저장소와 기본 하네스 · 읽기 자료</span>
+    <span class="prog" aria-hidden="true"></span>
+    <a class="deck" href="week10show.html">수업 덱</a>
+    <a class="deck lab2" href="week10lab.html">실습 2 안내</a>
+  </div>
+</header>
+<div class="shell" id="top">
+<nav class="toc" aria-label="이 페이지 차례">
+  <b>차례</b>
+  <ol id="tocList">
+    <li><a href="#summary">한눈에 · 요약</a></li>
+    <li><a href="#p1">01 · 하네스란</a></li>
+    <li><a href="#p2">02 · 공통 파일 구조</a></li>
+    <li><a href="#lab1">실습 1 · 저장소와 세 문서</a></li>
+    <li><a href="#p3">03 · 일 시키는 법</a></li>
+    <li><a href="#p4">04 · Claude에서</a></li>
+    <li><a href="#p5">05 · ChatGPT에서</a></li>
+    <li><a href="#p6">06 · 두 도구 함께</a></li>
+    <li><a href="#p7">07 · 여럿이 함께</a></li>
+    <li><a href="#lab2">실습 2 · 팀 세팅과 첫 작업</a></li>
+    <li class="sep" aria-hidden="true"></li>
+    <li><a href="#stuck">막혔을 때</a></li>
+    <li><a href="#next">오늘 점검 · 다음 주까지</a></li>
+    <li><a href="#terms">용어 사전</a></li>
+    <li><a href="#sources">출처</a></li>
+  </ol>
+</nav>
+<main id="main">
+  <p class="eyebrow">웹프로그래밍개론 · 10주차 · 읽기 자료 (확장판)</p>
+  <h1>팀 저장소와 <em>기본 하네스</em></h1>
+  <p class="lede">AI에게 팀 프로젝트의 일을 맡기려면, 요청 문장 하나로는 모자랍니다. 무엇을 만드는지 · 지금 할 일이 무엇인지 · 어떤 규칙을 지키는지 · 끝났는지 무엇으로 아는지를 저장소의 파일로 함께 둬야 어느 팀원이 어느 AI 도구로 일해도 같은 기준으로 일합니다. 이 자료는 그 파일들(하네스)을 만드는 순서와 이유를 Claude · OpenAI · GitHub의 공식 문서 기준으로 정리한 것입니다. 수업 덱의 내용을 읽는 글로 풀고, 덱에 없던 용어 사전과 출처를 더했습니다.</p>
+  <p class="exnote"><span class="exq">예시 질문 · 밤 창밖</span>이 자료의 예시 저장소는 <code>night-windows</code>(잠이 안 오는 밤, 낯선 사람의 창밖을 넘겨 보고 내 창밖도 올리는 웹) · 파일 이름 · 줄 번호 · 팀원 번호는 우리 팀 것으로 바꿔 읽기</p>
+
+  <section class="sec" id="summary">
+    <h2>한눈에 · 요약</h2>
+    <p class="sub">이 부분만 읽어도 오늘 할 일이 보입니다 · 자세한 내용은 아래 01–07과 실습 안내로</p>
+    <div class="summ">
+      <div><b>오늘 쓰는 말 세 가지</b><p><span class="k">프롬프트</span> = AI에게 건네는 요청 문장 (한 번 묻고 한 번 받음) · <span class="k">에이전트</span> = 요청을 받아 파일을 열고 · 고치고 · 실행까지 하는 AI (Claude Code · Codex) · <span class="k">하네스</span> = 에이전트가 프로젝트 안에서 같은 기준으로 계속 일하도록 저장소에 함께 두는 것 (지시 파일 · 문서 · 확인 방법 · 권한)</p></div>
+      <div><b>에이전트 = 모델 + 하네스</b><p>모델(Claude · GPT)은 고를 수는 있고 바꿀 수는 없는 부분 · 하네스는 모델을 둘러싼 것으로 우리가 만드는 부분 → 같은 모델이라도 저장소에 파일 몇 개가 있고 없고로 결과가 달라짐</p></div>
+      <div><b>어느 도구든 같은 파일 구조</b><p><code>README.md</code>(사람이 먼저 읽음) · <code>AGENTS.md</code>(AI가 먼저 읽는 목차 · 공개 형식) · <code>CLAUDE.md</code>(Claude Code 연결 · 첫 줄 <code>@AGENTS.md</code>) · <code>docs/</code>의 세 문서 <code>requirements.md</code>(무엇을 만들까) · <code>tasks.md</code>(지금 무엇을 할까 · 한 줄 = PR 하나) · <code>checklist.md</code>(제대로 되었나)</p></div>
+      <div><b>일 시키는 법 · 네 칸</b><p>목표 · 어디를(파일) · 지킬 것 · 끝나는 조건. 하네스 파일이 있으면 어디를 = <code>tasks.md</code>의 줄 하나, 지킬 것 = <code>AGENTS.md</code>, 끝나는 조건 = <code>checklist.md</code>의 줄 번호 → 요청은 "목표 + 줄 번호"로 짧아짐 · 큰 일은 계획부터 · 막히면 에러 전체를 그대로 · 동작하는 순간마다 커밋 · 한 대화에는 한 가지 일</p></div>
+      <div class="cl"><b>Claude에서</b><p>앱 프로젝트(지침 + 지식 파일 + 대화 · 누구나) · Claude Code(저장소 폴더에서 파일을 직접 고치는 에이전트 · 유료 요금제) · 읽는 파일: <code>CLAUDE.md</code> · <code>.claude/</code> 아래 rules · skills · agents · settings.json · 오늘 꼭 필요한 것은 <code>CLAUDE.md</code> 한 줄 <code>@AGENTS.md</code></p></div>
+      <div class="gp"><b>ChatGPT에서</b><p>프로젝트(지침 + 소스 파일 + 대화 · 학교 계정으로 누구나) · Codex(저장소 폴더에서 파일을 직접 고치는 에이전트 · 학교 워크스페이스 설정에 따라) · 읽는 파일: <code>AGENTS.md</code>를 바로 · <code>.agents/skills/</code> · <code>.codex/config.toml</code> · rules · 오늘 꼭 필요한 것은 <code>AGENTS.md</code> 하나</p></div>
+      <div class="ok"><b>여럿이 함께 · 충돌 막기</b><p>한 사람 · 한 줄 · 한 브랜치 · 한 PR · 고칠 파일을 나누기 · <code>tasks.md</code>는 한 줄씩 · 줄 사이에 빈 줄 · 모두 같은 하네스 · main은 PR로만(브랜치 규칙) · 시작은 최신 main에서 · 끝은 브랜치 삭제 · 충돌이 나면 PR 화면의 <span class="ui">Resolve conflicts</span> · 복잡하면 내 컴퓨터에서 AI와</p></div>
+      <div><b>부탁과 강제 · 두 층</b><p>지시 파일은 부탁(AI가 읽고 따르려 하지만 놓칠 때가 있음) · 꼭 막을 것은 도구가 막게 설정(GitHub 브랜치 규칙 · 훅 · 권한 · 샌드박스 · push protection) · 오늘 켜는 강제는 두 개: GitHub 브랜치 규칙 · push 전에 묻기</p></div>
+    </div>
+    <div class="h3">오늘 끝날 때의 팀 저장소 <small>다섯 가지</small></div>
+    <div class="n5">
+      <div><i>1</i><b>팀 저장소 하나</b>팀원 모두 초대 · 모두 열어 봄</div>
+      <div><i>2</i><b>docs/ 세 문서</b>requirements · tasks · checklist (9주차 시트에서 옮김)</div>
+      <div><i>3</i><b>하네스 파일 · main 보호</b>AGENTS.md · CLAUDE.md · PR 템플릿 · .gitignore · main은 PR로만</div>
+      <div><i>4</i><b>팀원마다 AI가 만든 PR</b>각자 브랜치에서 · 서로 checklist로 리뷰 → main에 병합</div>
+      <div><i>5</i><b>저장소 링크 제출</b>제출 방법 · 마감은 eTL 안내</div>
+    </div>
+    <p class="tip"><b>어떻게 읽나</b> · 수업 전이면 이 요약과 02 · 03 · 07을 먼저 · 수업 뒤에는 자기 팀이 쓰는 도구 쪽(04 또는 05)을 자세히 · 실습은 <a href="week10lab.html">실습 2 안내</a>를 따라 하기 · 처음 보는 말은 <a href="#terms">용어 사전</a></p>
+  </section>
+  <section class="sec" id="p1">
+    <h2>01 · 하네스란<small>AI에게 일을 맡길 때 요청 문장과 함께 주는 것들</small></h2>
+    <p class="lede">OT에서 본 하네스 여섯 가지를 다시 보고, AI에게 오래 맡기면 생기는 문제와 AI를 만든 회사들이 공개한 방법을 봅니다.</p>
+
+    <div class="h3">오늘 쓰는 말 세 가지 · 프롬프트 · 에이전트 · 하네스</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>말</th><th>뜻</th><th>예</th></tr>
+      <tr><td>프롬프트<br><span class="mut sm">prompt</span></td><td>AI에게 건네는 요청 문장 · 한 번 묻고 한 번 받음 · 받은 코드를 옮기고 확인하는 일은 내 몫</td><td>대화창에 "카드 화면 만들어줘" → 코드 조각이 돌아옴</td></tr>
+      <tr><td>에이전트<br><span class="mut sm">agent</span></td><td>요청을 받아 파일을 열고 · 고치고 · 실행까지 하는 AI</td><td>Claude Code · Codex · 터미널에서 "카드 화면 만들어줘" → <code>index.html</code> · <code>style.css</code>를 고치고 <code>npx serve .</code>로 열어 봄</td></tr>
+      <tr><td>하네스<br><span class="mut sm">harness</span></td><td>에이전트가 프로젝트 안에서 같은 기준으로 계속 일하도록 저장소에 함께 두는 것 · 지시 파일 · 문서 · 확인 방법 · 권한</td><td><code>AGENTS.md</code> · <code>docs/requirements.md</code> · <code>docs/tasks.md</code> · <code>docs/checklist.md</code> · <code>.claude/</code> · <code>.codex/</code></td></tr>
+    </table></div>
+    <p class="tip"><b>한 줄로</b> · 한 번 건네면 프롬프트 · 그때그때 붙이면 컨텍스트 · 저장소에 두고 계속 쓰면 하네스</p>
+
+    <div class="h3">에이전트 = 모델 + 하네스</div>
+    <p>에이전트는 두 부분으로 되어 있습니다. <span class="k">모델</span>은 글을 읽고 쓰는 AI 자체(Claude · GPT)로, 고를 수는 있고 바꿀 수는 없는 부분입니다. <span class="k">하네스</span>는 모델을 둘러싼 것으로 우리가 만드는 부분입니다: 도구(파일 읽기 · 고치기 · 명령 실행) · 지시 파일 · 문서 · 스킬 · 확인 방법 · 권한 · 기록. 도구는 Claude Code · Codex가 이미 갖고 있으니, 오늘 만드는 것은 저장소에 두는 파일과 설정입니다. 같은 모델이라도 저장소에 파일 몇 개가 있고 없고로 결과가 달라집니다(아래 '없을 때 · 있을 때').</p>
+    <p class="ref">출처 · Addy Osmani와 Thoughtworks(Böckeler)의 정의를 수업 말로 옮김 → <a href="#sources">출처</a></p>
+
+    <div class="h3">하네스 여섯 가지와 담는 파일 <small>OT 복습</small></div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>여섯 가지</th><th>무엇</th><th>예 <span class="exq">예시 질문</span></th><th>담는 파일</th></tr>
+      <tr><td>목표 <span class="mut sm">Intent</span></td><td>무엇을 왜 만드나 · 어디까지가 알파인가</td><td>알파 = 카드 넘기기 · 사진 올리기</td><td><code>docs/requirements.md</code></td></tr>
+      <tr><td>자료 <span class="mut sm">Context</span></td><td>AI가 모르는 우리 팀의 배경 · 디자인 · 구조</td><td>색은 <code>--night</code> · <code>--glow</code> 변수만</td><td><code>AGENTS.md</code> · <code>docs/design.md</code> · <code>docs/architecture.md</code></td></tr>
+      <tr><td>할 일 <span class="mut sm">Tasks</span></td><td>지금 무엇을 하나 · 누가 맡았나</td><td>2번 미리 보기 · 팀원 2 · 진행 중</td><td><code>docs/tasks.md</code></td></tr>
+      <tr><td>안전장치 <span class="mut sm">Guardrails</span></td><td>하면 안 되는 일 · 묻고 해야 하는 일</td><td>새 패키지는 설치 전에 묻기</td><td><code>AGENTS.md</code>의 '하지 말 것' · 권한 · 훅 · 브랜치 보호</td></tr>
+      <tr><td>확인 <span class="mut sm">Verify</span></td><td>끝났는지 무엇으로 아나</td><td>360px에서 가로 스크롤 없음</td><td><code>docs/checklist.md</code> · PR 리뷰</td></tr>
+      <tr><td>기록 <span class="mut sm">Feedback</span></td><td>무엇이 바뀌었나 · 다음에 고칠 것</td><td>feat: 사진 미리 보기 (#2)</td><td>커밋 · PR · <code>tasks.md</code>의 상태</td></tr>
+    </table></div>
+    <p class="tip"><b>처음에는</b> · 세 문서 + <code>AGENTS.md</code> · 나머지는 필요할 때 더함 · <code>design.md</code>는 5주차에 각자 쓴 DESIGN.md를 팀용으로 합치면 됨</p>
+
+    <div class="h3">AI에게 오래 맡기면 생기는 일 네 가지</div>
+    <p>짧은 대화에서는 잘 안 보이는 문제들입니다. 예는 모두 웹 프로젝트에서 자주 생기는 장면이고, 화살표 뒤가 하네스에서 그 일을 맡는 파일입니다.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>생기는 일</th><th>예</th><th>왜</th><th>하네스에서</th></tr>
+      <tr><td>1 앞의 지시를 놓친다</td><td>처음에 "색은 design.md 변수만"이라고 했는데, 대화가 길어지자 <code>#7c3aed</code>를 새로 씀</td><td>대화가 길어질수록 앞부분은 AI가 덜 챙김 · 오래된 내용은 요약되기도 함</td><td><code>AGENTS.md</code> 규칙 → 대화를 새로 열어도 처음에 다시 읽음</td></tr>
+      <tr><td>2 어디까지 했는지 모른다</td><td>새 대화에서 이미 만든 사진 올리기를 처음부터 다시 만듦</td><td>새 대화는 앞 대화를 기억하지 못함 · 남은 것은 저장소의 파일뿐</td><td><code>tasks.md</code>의 상태 → 커밋 기록과 함께 읽으면 이어서 함</td></tr>
+      <tr><td>3 한 번에 다 하려다 무너진다</td><td>"앱 전체 만들어줘" → 파일 12개를 고치고 절반이 동작하지 않음</td><td>중간에 대화가 끊기면 반쯤 만든 기능이 기록 없이 남음</td><td><code>tasks.md</code> 한 줄 = PR 하나 → 작게 나눠서 하나씩 끝냄</td></tr>
+      <tr><td>4 확인 없이 다 됐다고 한다</td><td>"완성했습니다!" → 브라우저 콘솔에 빨간 오류</td><td>코드를 읽고 맞다고 판단함 · 화면을 열어 실제로 눌러 보지 않음</td><td><code>checklist.md</code> · 리뷰 → 끝났다는 기준을 미리 적어 둠</td></tr>
+    </table></div>
+
+    <div class="h3">AI를 만든 회사들이 직접 쓴 방법 <small>공개된 글 세 편</small></div>
+    <div class="cmp">
+      <div><h4>Anthropic · Effective harnesses for long-running agents</h4><p>세션 1이 기능 목록 · 진행 기록 · 실행 스크립트를 만들고 → 세션 2부터는 기록을 읽고 → 기능 하나 → 커밋 → 다음 세션도 같은 순서. 기록은 저장소의 파일에(대화창에는 남지 않음) · 다 됐다는 판단은 브라우저로 직접 확인한 뒤.</p></div>
+      <div><h4>Anthropic · Harness design for long-running application development</h4><p>계획 → 만들기 → 평가를 나누고, 평가는 따로(자기 평가는 후함) · 평가 쪽이 실제 화면을 눌러 보며 확인.</p></div>
+      <div><h4>OpenAI · Harness engineering</h4><p>사람은 방향을 정하고 에이전트가 실행 · 저장소 밖의 지식은 에이전트에게 보이지 않으니 회의에서 정한 것도 <code>docs/</code>에 · <code>AGENTS.md</code>는 약 100줄의 목차 · 규칙은 린터(규칙 위반을 자동으로 찾는 도구)와 테스트로.</p></div>
+      <div class="good"><h4>세 글의 공통점 → 오늘 하는 일</h4><ul><li>기록은 저장소의 파일로 → <code>docs/</code> 세 문서 · <code>tasks.md</code> 상태</li><li>한 번에 한 가지씩 끝내고 커밋 → <code>tasks.md</code> 한 줄 = PR 하나</li><li>만드는 쪽과 확인하는 쪽을 나눔 → 다른 팀원이 checklist로 리뷰</li></ul></div>
+    </div>
+
+    <div class="h3">같은 요청, 하네스가 없을 때와 있을 때 <small>설명용 예시</small></div>
+    <div class="cmp">
+      <div class="bad"><h4>하네스 없음 · 저장소에 코드만 있음</h4><p>"사진 올리기 기능 만들어줘" → 구조를 몰라 새 페이지 <code>upload.html</code>을 만들고 · <code>npm install dropzone</code>으로 새 라이브러리를 깔고 · 디자인에 없는 색 <code>#7c3aed</code>를 쓰고 · 확인 없이 "완성했습니다!"</p></div>
+      <div class="good"><h4>하네스 있음 · AGENTS.md · docs 세 문서</h4><p>같은 요청 → <code>AGENTS.md</code>와 <code>docs/tasks.md</code>를 읽고 · tasks.md 2번 줄 '사진 고르면 미리 보기'로 범위를 잡고 · 정해진 파일(<code>index.html</code> · <code>js/photo.js</code>)만 고치고 · checklist 3번 줄로 확인한 뒤 · 확인 못 한 것(휴대폰 카메라로 바로 찍기)까지 보고</p></div>
+    </div>
+    <p class="tip"><b>두 화면의 AI는 같습니다</b> · 저장소에 있는 파일만 다릅니다 · 오늘 수업이 끝나면 팀 저장소에서 오른쪽처럼 되게 하는 것이 목표</p>
+  </section>
+  <section class="sec" id="p2">
+    <h2>02 · 공통 파일 구조<small>어느 AI 도구를 써도 같은 구조 · 9주차 시트가 파일이 됩니다</small></h2>
+    <p class="lede">Claude를 쓰든 ChatGPT(Codex)를 쓰든 저장소의 기본 구조는 같습니다. 파일마다 무엇을 적는지, 9주차 시트의 어느 칸이 어느 파일로 가는지 봅니다. 도구별로 다른 것은 04 · 05에서.</p>
+
+    <div class="h3">팀 저장소의 기본 구조</div>
+<div class="tree">우리-팀-저장소/
+├── README.md                          <i>사람이 먼저 읽는 안내</i>
+├── AGENTS.md                          <i>AI가 먼저 읽는 안내 · 공통</i>
+├── CLAUDE.md                          <i>Claude Code 연결 · 첫 줄 @AGENTS.md</i>
+├── docs/
+│   ├── requirements.md                <i>무엇을 만들까? · 시트 ②⑤⑥⑧</i>
+│   ├── tasks.md                       <i>지금 무엇을 할까? · 시트 ⑨</i>
+│   ├── checklist.md                   <i>제대로 되었나? · 시트 ⑥⑧</i>
+│   ├── design.md                      <i>(나중에) 5주차 DESIGN.md를 팀용으로</i>
+│   └── architecture.md                <i>(나중에) 시트 ⑦</i>
+├── index.html · style.css · script.js <i>실제 웹</i>
+└── .github/pull_request_template.md   <i>PR 본문의 네 칸</i></div>
+    <p>꼭 필요한 것은 <code>README.md</code> · <code>AGENTS.md</code> · <code>docs/</code>의 세 문서입니다. <code>CLAUDE.md</code>는 팀에 Claude Code를 쓰는 사람이 있을 때, <code>design.md</code> · <code>architecture.md</code> · PR 템플릿은 시간이 되면 오늘, 아니면 다음 주. 폴더 이름 · 파일 이름은 영어 소문자와 하이픈으로.</p>
+
+    <div class="twrap"><table class="tbl">
+      <tr><th>파일</th><th>누가 읽나</th><th>무엇을 적나</th><th>언제 고치나</th><th>시트에서</th></tr>
+      <tr><td><code>README.md</code></td><td>팀원 · 리뷰어 · 방문자 (AI도 읽음)</td><td>저장소에 처음 들어온 사람이 읽는 안내 · 팀 이름 · 한 문장 · 실행 방법 · 공개 주소</td><td>실행 방법 · 주소가 바뀔 때</td><td>① 팀 이름 · ⑤ 한 문장</td></tr>
+      <tr><td><code>AGENTS.md</code></td><td>Codex는 자동으로 · Claude Code는 CLAUDE.md를 거쳐서 · 그 밖의 여러 AI 도구</td><td>AI가 일을 시작할 때 먼저 읽는 안내 · 목차 · 규칙</td><td>팀 규칙이 생기거나 바뀔 때</td><td>⑦ 기술 · 팀에서 정한 규칙</td></tr>
+      <tr><td><code>CLAUDE.md</code></td><td>Claude Code (대화를 시작할 때마다)</td><td>첫 줄 <code>@AGENTS.md</code> · Claude에만 필요한 지시 몇 줄</td><td>Claude에만 필요한 지시가 생길 때</td><td>—</td></tr>
+      <tr><td><code>docs/requirements.md</code></td><td>팀 전체 · AI</td><td>무엇을 왜 만드는지 · 알파 범위 · AI는 범위 밖 기능을 만들기 전에 멈춤</td><td>알파 범위가 바뀔 때 (팀이 함께)</td><td>② 질문 · ⑤ 한 문장 · ⑥ 사용 장면 · ⑧ 알파 범위</td></tr>
+      <tr><td><code>docs/tasks.md</code></td><td>맡은 사람 · AI</td><td>지금 할 일 · 누가 · 보여 줄 것 · 상태 · 한 줄 = PR 하나 · AI는 한 줄만 골라서 함</td><td>일을 시작하고 끝낼 때마다 · 맡은 사람</td><td>⑨ 누가 무엇을 · ⑩ 피드백에서 나온 일</td></tr>
+      <tr><td><code>docs/checklist.md</code></td><td>만든 사람 · 리뷰어 · AI</td><td>끝났다고 말하기 전에 확인할 줄 · 사용 장면 단계마다 · 공통 줄 · AI는 끝내기 전에 줄마다 확인하고 보고</td><td>기능을 더할 때 줄도 더함</td><td>⑥ 사용 장면 · ⑧ 알파 테스트</td></tr>
+      <tr><td><code>docs/design.md</code></td><td>화면을 만드는 사람 · AI</td><td>색 · 글꼴 · 간격을 CSS 변수로</td><td>디자인을 바꾸기로 했을 때</td><td>5주차 DESIGN.md를 팀용으로 합침</td></tr>
+      <tr><td><code>docs/architecture.md</code></td><td>코드를 고치는 사람 · AI</td><td>화면 · 데이터 · 파일이 어떻게 이어지나</td><td>파일 · 폴더 · 데이터 모양이 바뀔 때</td><td>⑦ 화면과 기술</td></tr>
+      <tr><td><code>index.html</code> · <code>style.css</code> · <code>script.js</code></td><td>브라우저</td><td>빌드 없이 바로 열리는 웹 · VS Code Live Server로 열기 (터미널이면 <code>npx serve .</code>) · 폴더를 나누면 <code>js/</code> · <code>data/</code> 같은 구조를 architecture.md와 AGENTS.md에 적기 · 공개 주소는 GitHub Pages (6주차)</td><td>—</td><td>—</td></tr>
+      <tr><td><code>.github/pull_request_template.md</code></td><td>GitHub</td><td>PR을 열면 본문에 미리 채워지는 네 칸 · 무엇을 · 왜(tasks 번호) · 확인한 것 · 확인 못 한 것</td><td>칸을 바꾸기로 했을 때</td><td>—</td></tr>
+    </table></div>
+
+    <div class="h3">처음의 세 문서 · requirements · tasks · checklist</div>
+    <p>OT에서 '처음에는 세 개의 문서만 있어도 충분'이라고 한 그 세 문서입니다. 사람과 AI가 같이 봅니다. 회의나 메신저에서 정한 것도 여기에 한 줄 · 대화방에만 있으면 AI는 모릅니다(OpenAI 글: 저장소 밖의 지식은 에이전트에게 보이지 않음).</p>
+    <div class="g2">
+      <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>docs/requirements.md · 무엇을 만들까?</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 요구 사항 — 밤 창밖
+
+## 질문 (시트 ②)
+밤에 잠이 안 오는 사람이 지금 이 시각 깨어 있는 낯선 사람의 창밖을
+한 장씩 넘기면, 자기 창밖도 찍어 올리고 싶어질까?
+
+## 한 문장 (시트 ⑤)
+잠이 안 오는 사람이 낯선 창밖을 넘기다가, 자기 창밖도 소리 한 단어와
+함께 올린다. 화면 위에는 지금 켜진 창의 수.
+
+## 사용 장면 (시트 ⑥)
+1 링크를 연다 → 켜진 창의 수와 창 하나
+2 ★ 낯선 창밖을 넘긴다 → 다른 도시의 창밖과 시각
+3 내 창밖을 찍어 올린다 → 내 창이 더해짐
+4 창을 닫는다 → 켜진 창의 수가 하나 줄어듦
+
+## 알파 범위 (시트 ⑧)
+꼭 넣을 것: 카드 화면 · 넘기기 · 사진 올리기 · 목록에 들어감 · 도시와 시각
+가짜로 둘 것: 다른 사람 사진 (미리 넣은 10장)
+하면 좋은 것: 소리 태그 · 켜진 창의 수 (가짜 숫자)
+나중에: 녹음 · 회원 가입 · 도시별 모아 보기
+정할 것: 사진 크기 제한</code></pre></div>
+      <div>
+        <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>docs/tasks.md · 지금 무엇을 할까?</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 할 일 (시트 ⑨)
+규칙: 한 줄 = PR 하나 · 줄 사이에 빈 줄 · 상태: 시작 전 · 진행 중 · 리뷰 중 · 완료
+
+- 1 · 카드 화면 HTML 한 장 · 팀원 1 · 보여 줄 것: 창 하나와 '다음' 버튼 · 진행 중
+
+- 2 · 사진 고르면 미리 보기 · 팀원 2 · 보여 줄 것: 고른 사진이 화면에 뜸 · 시작 전
+
+- 3 · 가짜 창 10장 (data/windows.json) · 팀원 3 · 보여 줄 것: 넘길 때마다 다른 창 · 시작 전
+
+- 4 · 도시와 시각 표시 · 팀원 3 · 보여 줄 것: 창 밑에 '리스본 · 02:14' · 시작 전
+
+- 5 · 소리 태그 입력 칸 · 팀원 4 · 보여 줄 것: 한 단어 입력 → 카드에 표시 · 시작 전
+
+- 6 · 팀 저장소 · AGENTS.md · 팀원 4 · 보여 줄 것: 저장소 링크 · 문서 네 개 · 완료
+
+## 아직 하지 않을 일
+녹음 · 회원 가입 · 도시별 모아 보기</code></pre></div>
+        <div class="cpy" style="margin-top:12px"><div class="cpy-h"><span><span class="exq">예시 질문</span>docs/checklist.md · 제대로 되었나?</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>## 사용 장면 (시트 ⑥)
+- [ ] 1 링크를 열면 켜진 창의 수와 창 하나가 보인다
+- [ ] 2 '다음'을 누르면 다른 창밖과 도시 · 시각이 보인다
+- [ ] 3 사진을 고르면 미리 보기가 뜬다
+- [ ] 3 '올리기'를 누르면 내 창이 목록 맨 앞에 보인다
+
+## 알파 테스트 (시트 ⑧)
+- [ ] 3명 중 2명 이상이 묻지 않고 자기 창밖을 올린다
+
+## 공통
+- [ ] 브라우저 콘솔에 빨간 오류가 없다
+- [ ] 360px 폭에서 가로 스크롤이 없다
+- [ ] 버튼은 button, 이미지에는 alt</code></pre></div>
+      </div>
+    </div>
+    <ul class="bul">
+      <li><span class="k">제목에 시트 번호</span> · '알파 범위 (시트 ⑧)'처럼 적으면 어디서 온 내용인지 보임 · 시트에 없는 내용은 AI가 지어내지 않게 '정할 것'으로 남김</li>
+      <li><span class="k">가짜로 둘 것</span> · AI가 서버 · 로그인부터 만들려 하면 이 줄을 가리킴</li>
+      <li><span class="k">tasks.md</span> · 일 하나 = 한 줄 = PR 하나 → "tasks.md 2번 줄을 해줘"라고 시킬 수 있음 · '보여 줄 것'이 끝나는 조건 · 줄 사이에 빈 줄을 두면 여러 사람이 각자 자기 줄의 상태를 바꿔도 충돌하지 않음(07) · 상태 바꾸기는 그 일의 PR에 같이</li>
+      <li><span class="k">checklist.md</span> · 줄 앞에 사용 장면 번호 · 눈으로 확인할 수 있게 숫자 · 상태로 씀 ("사진 기능이 잘 된다" → "jpg · png를 고르면 1초 안에 미리 보기가 뜬다") · 공통 줄은 모든 PR에 · 알파 테스트 줄은 사람이 확인하는 줄</li>
+    </ul>
+
+    <div class="h3">9주차 시트 칸 → 저장소 파일</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>시트 칸</th><th>가는 파일</th></tr>
+      <tr><td>① 팀 이름</td><td><code>README.md</code></td></tr>
+      <tr><td>② 우리의 질문</td><td><code>requirements.md</code></td></tr>
+      <tr><td>③ 개인 과제와 달라진 점</td><td>시트에 두기 · <code>README.md</code> (선택)</td></tr>
+      <tr><td>④ 팀원 아이디어</td><td>시트에 두기</td></tr>
+      <tr><td>⑤ 팀 아이디어</td><td><code>requirements.md</code> · <code>README.md</code></td></tr>
+      <tr><td>⑥ 사용 장면</td><td><code>requirements.md</code> · <code>checklist.md</code></td></tr>
+      <tr><td>⑦ 화면과 기술</td><td><code>architecture.md</code> · <code>AGENTS.md</code> (기술)</td></tr>
+      <tr><td>⑧ 알파 버전</td><td><code>requirements.md</code> (범위) · <code>checklist.md</code> (테스트)</td></tr>
+      <tr><td>⑨ 누가 무엇을</td><td><code>tasks.md</code></td></tr>
+      <tr><td>⑩ 피드백 기록</td><td><code>tasks.md</code> (할 일로)</td></tr>
+      <tr><td>5주차 각자의 DESIGN.md</td><td><code>design.md</code></td></tr>
+    </table></div>
+
+    <div class="h3">AGENTS.md · AI가 먼저 읽는 목차</div>
+    <div class="kv">
+      <dt>누가 읽나</dt><dd>Codex는 일을 시작할 때 자동으로 · Claude Code는 <code>CLAUDE.md</code>가 없으면 <code>AGENTS.md</code>를 읽고, <code>CLAUDE.md</code>가 있으면 <code>CLAUDE.md</code>만 읽음 → 그래서 <code>CLAUDE.md</code> 첫 줄에 <code>@AGENTS.md</code> · 그 밖의 여러 AI 코딩 도구가 같은 형식을 읽음 (공개 형식 · agents.md)</dd>
+      <dt>어떻게 쓰나</dt><dd>저장소 맨 위에 · 이름은 <code>AGENTS.md</code> · 짧게 (OpenAI는 약 100줄의 목차, Claude 문서는 CLAUDE.md 200줄 이하를 권함) · 자세한 내용은 <code>docs/</code> 문서로, 여기에는 경로만 · AI가 코드를 읽어도 알 수 없는 것만</dd>
+      <dt>들어갈 것 여섯 칸</dt><dd>한 줄 소개 · 먼저 읽을 문서 · 실행 방법 · 규칙 · 하지 말 것 · 끝낼 때 보고</dd>
+      <dt>넣을 것</dt><dd>코드만 봐서는 모르는 실행 방법 · 기본과 다른 팀 규칙 · 브랜치 · PR 약속 · 자주 틀리는 곳</dd>
+      <dt>뺄 것</dt><dd>코드를 읽으면 아는 것 · 누구나 아는 말("깔끔하게") · 자주 바뀌는 정보 · 긴 설명 · 파일마다 설명</dd>
+    </div>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>AGENTS.md · 팀 한 장 · 번호는 여섯 칸</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># AGENTS.md — 밤 창밖 (팀 프로젝트)
+
+## 한 줄 ①
+잠이 안 오는 사람이 낯선 창밖을 넘겨 보다가 자기 창밖도 올리는 웹.
+
+## 먼저 읽을 문서 ②
+- docs/requirements.md 무엇을 · 알파 범위
+- docs/tasks.md 이번 주 할 일 (한 줄 = PR 하나)
+- docs/checklist.md 끝내기 전 확인
+
+## 실행 ③
+- 빌드 없음. index.html을 VS Code Live Server로 연다 (터미널이면 npx serve .)
+
+## 규칙 ④
+- HTML · CSS · JavaScript만. 새 라이브러리 · 패키지는 먼저 묻는다.
+- 색 · 간격은 docs/design.md의 CSS 변수만 쓴다.
+- 요청한 파일만 고친다. 다른 파일이 필요하면 먼저 말한다.
+- 사용자 입력은 textContent로 넣는다. innerHTML은 쓰지 않는다.
+
+## 하지 말 것 ⑤
+- 파일 삭제 · 폴더 구조 변경 · git push --force · 키를 코드에 넣기
+
+## 끝낼 때 보고 ⑥
+1 바꾼 파일 2 바꾼 이유 3 확인한 것 (checklist 줄) 4 확인 못 한 것</code></pre></div>
+    <ul class="bul">
+      <li>① 한 줄 · 무엇을 만드는지 바로 알게 · ② 먼저 읽을 문서 · 자세한 내용은 <code>docs/</code>로, 경로만 · ③ 실행 · 어떻게 열고 확인하나</li>
+      <li>④ 규칙 · AI가 추측할 수 없는 우리 팀의 약속만 · ⑤ 하지 말 것 · 되돌리기 어려운 일 · ⑥ 끝낼 때 보고 · 무엇을 확인했는지 보이게 → PR 본문이 됨</li>
+      <li>20줄 안팎에서 시작해 필요할 때 더함 · 실습 2에서 팀마다 이 틀로 초안을 씀</li>
+    </ul>
+
+    <div class="h3">이름이 비슷한 세 파일 · 누가 읽나</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>파일</th><th>읽는 쪽</th><th>역할</th></tr>
+      <tr><td><code>README.md</code></td><td>사람</td><td>GitHub 저장소 첫 화면에 보이는 소개 · 팀 이름 · 한 문장 · 실행 방법 · AI도 읽지만 규칙은 여기 두지 않음</td></tr>
+      <tr><td><code>AGENTS.md</code></td><td>AI · 여러 도구</td><td>Codex를 비롯한 많은 도구가 먼저 읽는 공통 규칙 파일 (agents.md 공개 형식) · 규칙 · 먼저 읽을 문서 · 하지 말 것 · 함께 작업</td></tr>
+      <tr><td><code>CLAUDE.md</code></td><td>Claude Code</td><td>첫 줄 <code>@AGENTS.md</code> → AGENTS.md를 이어서 읽음 · 규칙은 AGENTS.md 한 곳에, 여기에는 가리키는 한 줄과 Claude 전용 줄만</td></tr>
+    </table></div>
+    <p class="tip"><b>팀원마다 다른 도구를 써도</b> · Codex는 AGENTS.md를 바로, Claude Code는 CLAUDE.md를 거쳐 같은 AGENTS.md를 읽음 → 규칙은 한 곳만 고치면 됨</p>
+
+    <div class="h3">남길 줄 · 고칠 줄 · 지울 줄 <small>이 줄을 지우면 AI가 실수할까?</small></div>
+    <p>기준은 Claude 공식 모범 사례입니다: 코드를 읽어서 알 수 없는 것만 남깁니다(확인 명령 · 헷갈리는 곳 · 저장소에 없는 결정 · 두 번 고쳐 준 것). OpenAI 문서도 짧고 정확한 AGENTS.md가 모호한 규칙이 많은 긴 파일보다 쓸모 있다고 합니다.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>줄</th><th>판정</th><th>이유 · 고친 줄</th></tr>
+      <tr><td>코드를 깔끔하게 짜줘</td><td><span class="tl no">고치기</span></td><td>확인할 수 있게 → "함수 하나는 한 가지 일만 · 파일 이름은 영어 소문자와 하이픈"</td></tr>
+      <tr><td>색 · 간격은 docs/design.md의 CSS 변수만 쓴다</td><td><span class="tl ok">남기기</span></td><td>확인할 수 있고, AI가 추측할 수 없는 우리 팀의 약속</td></tr>
+      <tr><td>열심히 테스트해줘</td><td><span class="tl no">고치기</span></td><td>"끝내기 전에 docs/checklist.md의 관련 줄을 하나씩 확인하고 결과를 적는다"</td></tr>
+      <tr><td>HTML은 웹페이지의 구조를 만드는 언어다</td><td><span class="tl gr">지우기</span></td><td>AI가 이미 아는 것 · 줄만 길어짐</td></tr>
+      <tr><td>새 라이브러리 · 패키지는 설치하기 전에 먼저 묻는다</td><td><span class="tl ok">남기기</span></td><td>되돌리기 번거로운 일 · 팀이 정할 일</td></tr>
+      <tr><td>사용자 입력은 textContent로 넣는다. innerHTML은 쓰지 않는다</td><td><span class="tl ok">남기기</span></td><td>보안 규칙 · 이유(스크립트 삽입 막기)를 함께 적으면 AI가 비슷한 경우에도 지킴</td></tr>
+    </table></div>
+
+    <div class="h3">규칙 한 줄을 더하는 때 · 같은 실수 두 번째</div>
+    <p>처음부터 규칙을 많이 쓰지 않습니다. 처음은 AGENTS.md 20줄(먼저 읽을 문서 · 실행 · 규칙 셋). 리뷰에서 같은 실수가 두 번 보이면 그때 한 줄을 더합니다(예: 소리 태그를 innerHTML로 → PR 리뷰 댓글로 고침 → 두 번째면 "사용자 입력은 textContent로 넣는다" 한 줄). 같은 설명을 세 번째 붙여 넣고 있으면 스킬로 옮깁니다(04 · 05). 두 회사 문서가 같은 말을 합니다: Claude 문서는 같은 규칙을 두 번 말하게 되면 CLAUDE.md에, OpenAI 모범 사례는 같은 실수가 반복되면 회고를 시키고 AGENTS.md를 고치라고 합니다.</p>
+    <div class="cpy"><div class="cpy-h"><span>그 한 줄도 AI에게 시킴 · 작업 담당 → 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>방금 innerHTML 실수가 두 번째야. AGENTS.md의 ## 규칙 구역에 "사용자 입력은 textContent로 넣는다. innerHTML은 쓰지 않는다."를 이유(스크립트 삽입 막기)와 함께 한 줄 더해줘. 다른 줄은 건드리지 마.</code></pre></div>
+    <p class="sm mut">더해진 줄을 사람이 읽고 고침 → 팀 저장소에는 PR로(07 '하네스를 바꿀 때도 PR') · 직접 써도 됨 (<code>/memory</code> · GitHub 웹) · 커밋 메시지 예: <code>docs: AGENTS.md 규칙 한 줄 (리뷰 #4 · #6)</code></p>
+
+    <div class="h3">앞에서 안내 · 뒤에서 확인 <small>guides · sensors</small></div>
+    <p>하네스에는 두 방향이 있습니다. <span class="k">앞에서 안내(guides)</span>는 일을 시작하기 전에 읽히는 것으로, AI가 읽고 따릅니다(지켜질 수도, 안 지켜질 수도): <code>AGENTS.md</code> · <code>docs/requirements.md</code> · <code>docs/tasks.md</code> · 스킬 · <code>CLAUDE.md</code>. <span class="k">뒤에서 확인(sensors)</span>은 일이 끝난 뒤 맞는지 · 끝났는지 결과를 보고 걸러 내는 것으로, 매번 같은 기준으로 봅니다: <code>docs/checklist.md</code> · PR 리뷰 · 브라우저로 열어 보기 · 훅 · 테스트 · 린터. 둘 다 있어야 돌아갑니다.</p>
+    <div class="cmp">
+      <div class="bad"><h4>안내만 있으면 · 틀려도 모름</h4><p>"완성했습니다" → 열어 보니 콘솔에 빨간 오류</p></div>
+      <div class="bad"><h4>확인만 있으면 · 매번 처음부터</h4><p>리뷰마다 같은 지적 · 같은 실수가 다음 대화에서 또</p></div>
+    </div>
+    <p class="tip"><b>바퀴</b> · 확인에서 걸린 것을 사람이 안내에 한 줄 더하면 같은 지적이 두 번 나오지 않음 · 위 '규칙 한 줄을 더하는 때'와 같은 이야기 · Thoughtworks(Böckeler)의 구분</p>
+
+    <div class="h3">자동으로 도는 확인 · 린터 · 훅 · pre-commit 훅</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>말</th><th>뜻</th><th>예</th><th>어디서</th></tr>
+      <tr><td>린터 <span class="mut sm">linter</span></td><td>코드를 읽고 규칙에 어긋난 곳을 찾아 주는 프로그램 · 실행하지 않고 글자만 봄 · 결과는 에디터의 빨간 밑줄 · 터미널의 오류 목록</td><td><code>'photo' is assigned a value but never used</code> → 안 쓰는 변수 한 줄 지우기</td><td>ESLint (JS) · HTMLHint (HTML) · Stylelint (CSS)</td></tr>
+      <tr><td>훅 <span class="mut sm">hook</span></td><td>정해진 순간에 자동으로 도는 명령 · "~하기 직전에 이것을 돌려라"를 설정 파일에 적어 둠 · 명령이 실패로 끝나면 그 동작을 멈춤</td><td>PreToolUse 훅 = AI가 도구(파일 고치기 · 명령 실행)를 쓰기 직전에 도는 훅 → <code>.env</code>를 고치려 하면 멈추고 이유를 알림</td><td>Git 훅(커밋 · push 직전) · Claude · Codex 훅(PreToolUse · PostToolUse)</td></tr>
+      <tr><td>pre-commit 훅 <span class="mut sm">Git hook</span></td><td>Git이 커밋을 만들기 직전에 돌리는 훅 · 보통 린터 · 테스트를 돌림 · 실패하면 커밋이 만들어지지 않음 → 고치고 다시 커밋</td><td><code>husky - pre-commit script failed (code 1)</code> → 린터 오류를 고친 뒤 다시 <code>git commit</code></td><td><code>.git/hooks/pre-commit</code> (내 컴퓨터) · husky (팀이 같이 쓸 때 · 저장소에)</td></tr>
+    </table></div>
+    <p><span class="k">언제 도나 · 순서대로</span> · 코드를 쓸 때(린터 · 에디터가 밑줄 · 저장할 때 정리) → AI가 도구를 쓰기 직전(PreToolUse 훅 · 막힌 파일이면 멈춤) → 커밋 직전(pre-commit 훅 · 린터 · 테스트 실패면 커밋 안 됨) → push · PR(GitHub 규칙 · 브랜치 보호 · push protection · 리뷰 승인). 오늘 직접 켜는 것은 GitHub 브랜치 규칙 하나 · 훅 · 린터 · pre-commit은 알아 두기(04 · 05의 '오늘은 알아 두기').</p>
+
+    <div class="h3">부탁과 강제 · 지시 파일은 부탁 · 꼭 막을 것은 설정으로</div>
+    <figure class="fig narrow"><svg viewBox="0 0 520 430" role="img" aria-label="부탁은 AI가 읽고 따르는 층 · 강제는 도구가 막는 층">
+          <defs><marker id="fcah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker><marker id="fcahm" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+          <g class="gfd"><rect x="150" y="8" width="220" height="46" rx="23" fill="var(--accent)"/><text x="260" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="var(--bg)">AI 에이전트</text></g>
+          <path class="gdr" d="M260 56 V96" pathLength="1" stroke="var(--accent)" stroke-width="4" marker-end="url(#fcah)"/>
+          <g class="gfd"><rect x="24" y="104" width="472" height="138" rx="14" fill="var(--canvas)" stroke="var(--muted)" stroke-width="2" stroke-dasharray="7 6"/><text x="44" y="136" font-size="20" font-weight="700" fill="var(--ink)">① 부탁 · 지시 파일</text><text x="44" y="162" font-size="15" fill="var(--muted)">AI가 읽고 따르려 함 · 긴 대화에서는 놓치기도</text>
+            <rect x="44" y="180" width="108" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="98" y="203" text-anchor="middle" font-size="15" class="mo" fill="var(--ink2)">AGENTS.md</text>
+            <rect x="162" y="180" width="108" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="216" y="203" text-anchor="middle" font-size="15" class="mo" fill="var(--ink2)">CLAUDE.md</text>
+            <rect x="280" y="180" width="76" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="318" y="203" text-anchor="middle" font-size="15" class="mo" fill="var(--ink2)">docs/</text>
+            <rect x="366" y="180" width="110" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="421" y="203" text-anchor="middle" font-size="15" fill="var(--ink2)">요청 문장</text></g>
+          <path class="gdr" d="M260 244 V286" pathLength="1" stroke="var(--muted)" stroke-width="4" stroke-dasharray="6 6" marker-end="url(#fcahm)"/>
+          <text class="gfd" x="276" y="270" font-size="14" fill="var(--muted)">가끔 그대로 통과</text>
+          <g class="gfd"><rect x="24" y="294" width="472" height="128" rx="14" fill="var(--no-soft)" stroke="var(--no)" stroke-width="3"/><text x="44" y="326" font-size="20" font-weight="700" fill="var(--ink)">② 강제 · 도구가 막음</text><text x="44" y="352" font-size="15" fill="var(--muted)">설정이 막음 · 놓칠 수 없음 · 사람이 바꾸기 전까지</text>
+            <rect x="44" y="370" width="100" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="94" y="393" text-anchor="middle" font-size="15" fill="var(--ink2)">GitHub 규칙</text>
+            <rect x="154" y="370" width="58" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="183" y="393" text-anchor="middle" font-size="15" fill="var(--ink2)">훅</text>
+            <rect x="222" y="370" width="122" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="283" y="393" text-anchor="middle" font-size="15" fill="var(--ink2)">샌드박스 · 권한</text>
+            <rect x="354" y="370" width="122" height="34" rx="8" fill="var(--bg)" stroke="var(--line)"/><text x="415" y="393" text-anchor="middle" font-size="15" fill="var(--ink2)">push protection</text></g>
+          <g class="gpo"><circle cx="260" cy="294" r="17" fill="var(--no)"/><text x="260" y="300" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">✕</text></g>
+        </svg><figcaption><b>두 층</b> · AI는 지시 파일(①)을 읽고 따르지만 긴 대화에서는 놓치기도 함(점선 · 가끔 그대로 통과) · 도구 설정(②)은 막음(✕) · 사람이 바꾸기 전까지 놓칠 수 없음 · <a class="deckgo" href="week10show.html#force">덱에서 보기</a></figcaption></figure>
+    <div class="twrap"><table class="tbl">
+      <tr><th>부탁 · 지시 파일에 적음</th><th>강제 · 도구가 막음</th></tr>
+      <tr><td>main에 바로 push하지 않는다</td><td>GitHub 브랜치 규칙 · main은 PR로만 (Settings → Rules)</td></tr>
+      <tr><td>.env 파일은 고치지 않는다</td><td>Claude PreToolUse 훅 · Codex 샌드박스 쓰기 범위</td></tr>
+      <tr><td>git push --force는 쓰지 않는다</td><td>Codex rules의 forbidden · Claude 권한 거부 목록</td></tr>
+      <tr><td>새 패키지는 먼저 묻는다</td><td>Codex rules의 prompt · Claude 권한 ask 목록</td></tr>
+      <tr><td>API 키를 코드에 넣지 않는다</td><td>GitHub push protection · 키가 든 커밋의 push를 막음</td></tr>
+      <tr><td>끝내기 전에 checklist를 확인한다</td><td>GitHub PR 템플릿 · 리뷰 승인이 있어야 병합</td></tr>
+    </table></div>
+    <p class="tip"><b>공식 문서</b> · Claude: CLAUDE.md는 맥락으로 읽힘 · 반드시 막을 동작은 PreToolUse 훅으로 · OpenAI: AGENTS.md로 규칙을 알리고 린터와 pre-commit 훅으로 강제 · 오늘 켜는 강제는 두 개 · GitHub 브랜치 규칙 · push 전에 묻기 (07)</p>
+  </section>
+  <section class="sec" id="lab1">
+    <h2>실습 1 · 팀 저장소와 세 문서<small>한 사람은 저장소를 만들고, 나머지는 시트를 문서로 옮깁니다</small></h2>
+    <div class="twrap"><table class="tbl">
+      <tr><th>순서</th><th>누가</th><th>무엇을</th></tr>
+      <tr><td>1</td><td>저장소 담당 (9주차 ⑨에서 정한 사람)</td><td>저장소 만들기 · 팀원 초대</td></tr>
+      <tr><td>2</td><td>모두</td><td>초대 수락 · 저장소 주소 열어 보기</td></tr>
+      <tr><td>3</td><td>문서 담당 2명</td><td><code>requirements.md</code> · <code>tasks.md</code> 초안 (AI에게 시트 칸을 주고)</td></tr>
+      <tr><td>4</td><td>확인 담당</td><td><code>checklist.md</code> 초안 (requirements의 사용 장면에서)</td></tr>
+      <tr><td>5</td><td>모두</td><td>초안을 같이 읽고 고친 뒤 <code>docs/</code>에 올리기 · 커밋</td></tr>
+    </table></div>
+    <p class="when"><span><b>끝나는 조건</b> · 팀원 모두 저장소에서 <code>docs/</code> 세 문서를 볼 수 있으면 실습 1 끝</span></p>
+    <ul class="bul">
+      <li><span class="k">AI는 어디서든</span> · ChatGPT 프로젝트 · Claude 프로젝트 · 아무 대화창 → 초안을 받아 GitHub에 붙여 넣기</li>
+      <li><span class="k">인원별 나누기 (4명 기준)</span> · 2명 → 한 사람은 저장소 → checklist, 다른 한 사람은 requirements · tasks · 3명 → 저장소 · 문서 · 확인 한 사람씩 (문서 담당이 두 초안을 다) · 5–6명 → 문서 담당을 둘씩 짝 · 한 사람이 쓰고 한 사람이 시트와 비교 · 개인 피드백으로 불려 가면 하던 일은 옆 사람에게</li>
+      <li><span class="k">하네스 파일은 실습 2에서</span> · AGENTS.md · CLAUDE.md · README · PR 템플릿 · .gitignore → 03 · 04 · 05 · 07을 본 뒤라야 넣을 내용이 정해짐</li>
+    </ul>
+
+    <div class="h3">저장소 만들기 <small>저장소 담당 · github.com/new</small></div>
+    <ol class="steps">
+      <li>github.com 오른쪽 위 <span class="ui">+</span> → <span class="ui">New repository</span></li>
+      <li>Repository name · 영어 소문자와 하이픈 · 띄어쓰기 없이 · 예: <code>night-windows</code> → 초록 ✓ is available · 이름이 이미 있다고 하면 뒤에 팀 번호 (예: <code>night-windows-3</code>)</li>
+      <li>Choose visibility → <span class="ui">Public</span> · Pages로 보여 주려면 Public이 쉬움 (6주차) · 비밀 · 개인정보는 넣지 않기</li>
+      <li><span class="ui">Add README</span> 켜기 (첫 커밋이 생겨 바로 파일을 만들 수 있음) · .gitignore · license는 그대로</li>
+      <li><span class="ui">Create repository</span> → 저장소 첫 화면이 열림 · 주소가 <code>github.com/내아이디/night-windows</code>이고 README.md 하나가 보이면 완료</li>
+    </ol>
+
+    <div class="h3">팀원 초대 <small>저장소 담당 → 모두 · Settings → Collaborators</small></div>
+    <ol class="steps">
+      <li>저장소 화면 위 탭 <span class="ui">⚙ Settings</span> (안 보이면 탭 줄 끝 ⋯ 안)</li>
+      <li>왼쪽 Access의 <span class="ui">Collaborators</span> (비밀번호를 다시 물을 수 있음) → <span class="ui">Add people</span></li>
+      <li>팀원 GitHub 아이디 입력 → 목록에서 이름 누르기 → <span class="ui">Add … to night-windows</span> → 팀원마다 반복</li>
+      <li>팀원 쪽 · 메일 또는 github.com/notifications에서 <span class="ui">Accept invitation</span> · 초대가 안 보이면 저장소 주소로 직접 들어가면 위에 수락 띠가 뜸 · 팀원이 저장소에서 <span class="ui">Add file</span> 버튼을 볼 수 있으면 완료</li>
+    </ol>
+
+    <div class="h3">시트 칸 → 문서 초안 <small>문서 담당 · 확인 담당 · [ ] 자리에 시트 칸 내용 붙여 넣기</small></div>
+    <div class="cpy"><div class="cpy-h"><span>requirements.md → AI 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 우리 팀 프로젝트 시트의 ② ⑤ ⑥ ⑧ 칸입니다. docs/requirements.md를 이 순서로 써 주세요: 질문 (시트 ②) · 한 문장 (시트 ⑤) · 사용 장면 (시트 ⑥) · 알파 범위 (시트 ⑧). 시트에 없는 내용은 비워 두고 '정할 것'이라고 적어 주세요.
+
+[시트 칸 내용 붙여 넣기]</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>tasks.md → 같은 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 우리 팀 시트의 ⑦ 화면과 기술 · ⑨ 누가 무엇을 칸입니다. docs/tasks.md를 써 주세요. 일 하나를 한 줄로: 번호 · 할 일 · 누가 · 보여 줄 것 · 상태(시작 전). 줄과 줄 사이에는 빈 줄을 하나 넣어 주세요. 한 줄은 PR 하나로 끝낼 수 있는 크기로 나누고, 시트에 없는 사람이나 일은 넣지 마세요.
+
+[시트 칸 내용 붙여 넣기]</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>checklist.md · 확인 담당 · requirements 초안을 받은 뒤 → AI 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래 requirements.md의 사용 장면과 알파 테스트를 보고 docs/checklist.md를 써 주세요. 사용 장면 단계마다 눈으로 확인할 수 있는 줄을 하나 이상 쓰고 줄 앞에 단계 번호를 붙여 주세요. 끝에 공통 줄을 넣어 주세요: 콘솔 오류 없음 · 360px 폭에서 가로 스크롤 없음 · 버튼은 button, 이미지에는 alt.
+
+[requirements.md 붙여 넣기]</code></pre></div>
+    <p class="warn"><b>AI 초안을 그대로 올리지 않기</b> · AI는 빈칸을 그럴듯하게 채우려 함 → 시트와 다른 곳 · 지어낸 곳을 팀이 고친 뒤 올림 · "시트에 없는 줄은 지우고 '정할 것'으로 바꿔줘" · 시트 칸은 캡처해 올려도 됨</p>
+
+    <div class="h3">GitHub 웹에서 파일 만들기 · 커밋 메시지 한 줄 <small>모두</small></div>
+    <ol class="steps">
+      <li>저장소 첫 화면 · 파일 목록 위 <span class="ui">Add file ▾</span> → <span class="ui">+ Create new file</span> (왼쪽 파일 나무의 + 도 같음)</li>
+      <li>이름 칸에 <code>docs/requirements.md</code> · 슬래시를 치면 docs 폴더가 경로에 생김</li>
+      <li>고친 초안 붙여 넣기 → <span class="ui">Preview</span>로 확인 → 오른쪽 위 <span class="ui">Commit changes...</span></li>
+      <li>Commit message 한 줄 · 예: <code>docs: requirements 초안 (시트 ②⑤⑥⑧)</code> · Extended description은 비워 둬도 됨</li>
+      <li><span class="ui">Commit directly to the main branch</span> · 오늘 문서 초안만 main에 바로 · 코드부터는 아래 선택지(브랜치 → PR · 버튼 이름이 Propose changes로 바뀜) → 실습 2</li>
+    </ol>
+    <div class="twrap"><table class="tbl">
+      <tr><th>앞말</th><th>뜻</th></tr>
+      <tr><td><code>docs:</code></td><td>문서</td></tr>
+      <tr><td><code>feat:</code></td><td>기능 추가</td></tr>
+      <tr><td><code>fix:</code></td><td>고침</td></tr>
+      <tr><td><code>chore:</code></td><td>설정 · 정리</td></tr>
+    </table></div>
+    <ul class="bul">
+      <li>파일이 docs 밖에 생겼으면 · 파일 → 연필(✎) → 이름 칸 앞에 <code>docs/</code></li>
+      <li>두 사람이 같은 파일을 고쳐 충돌 · 한 사람이 올린 뒤 다른 사람이 다시 열어 고치기</li>
+      <li>VS Code로 하는 팀 · clone → docs/ 폴더에 파일 → 커밋 · 동기화 (6주차)</li>
+    </ul>
+  </section>
+  <section class="sec" id="p3">
+    <h2>03 · 일 시키는 법<small>대화창(ChatGPT · Claude)에서도 · 에이전트에서도 같은 요청 방법</small></h2>
+    <p class="lede">Claude Code 모범 사례와 OpenAI Codex 모범 사례에 공통으로 나오는 것만 모았습니다. 02의 파일(AGENTS.md · tasks · checklist)이 있다는 전제이고, 그 덕에 요청이 짧아집니다. 도구별 버튼 · 명령은 04 · 05에서.</p>
+
+    <div class="h3">1 · 묻는 문장과 시키는 문장</div>
+    <p>같은 내용도 문장 끝에 따라 돌아오는 것이 다릅니다. "사진 미리 보기는 어떻게 만들어?"라고 물으면 설명과 코드 조각이 오고, 어느 파일에 넣을지 · 옮기고 확인하는 일은 내 몫입니다. "사진을 고르면 미리 보기가 뜨게 만들어줘."라고 시키면 에이전트가 <code>index.html</code>을 고치고 <code>js/photo.js</code>를 새로 만들어 열어 보고 확인한 결과를 돌려줍니다.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>묻는 문장</th><th>시키는 문장</th></tr>
+      <tr><td>이거 왜 안 돼?</td><td>콘솔 오류를 보고 원인을 찾아 고쳐줘.</td></tr>
+      <tr><td>카드 모서리 어떻게 둥글게 해?</td><td>카드 모서리를 design.md의 --radius로 바꿔줘.</td></tr>
+      <tr><td>README에 뭐 쓰면 돼?</td><td>README.md에 실행 방법을 세 줄로 써줘.</td></tr>
+    </table></div>
+    <p class="tip"><b>배우고 싶을 때</b> · 만들어줘 · 고쳐줘 · 바꿔줘 · 확인해줘로 끝내고, "만든 뒤에 바꾼 줄마다 이유를 설명해줘"를 같이 부탁</p>
+
+    <div class="h3">2 · 요청의 네 칸 · 목표 · 어디를 · 지킬 것 · 끝나는 조건</div>
+    <div class="cmp">
+      <div class="bad"><h4>막연한 요청</h4><p>사진 기능 좀 만들어줘</p><p class="sm mut">AI가 범위를 짐작하게 만듦 → 고칠 곳과 멈출 지점이 분명해야 혼자 끝냄</p></div>
+      <div class="good"><h4>네 칸을 채운 요청</h4><p><span class="k">목표</span> 사진을 고르면 화면에 미리 보기가 뜨게 해줘. <span class="k">어디를</span> index.html의 업로드 영역과 js/photo.js만. <span class="k">지킬 것</span> 다른 파일은 고치지 마. 새 라이브러리는 쓰지 마. <span class="k">끝나는 조건</span> jpg · png를 고르면 1초 안에 보이고, 다른 파일이면 안내 문구 · checklist 3번 줄.</p></div>
+    </div>
+    <p>OpenAI 모범 사례는 좋은 요청을 Goal · Context · Constraints · Done when 네 부분으로, Claude 모범 사례는 파일 · 제약 · 확인 방법을 구체적으로 쓰라고 합니다. 두 문서가 같은 네 칸을 말합니다.</p>
+    <p class="tip"><b>하네스 파일이 있으면</b> · 어디를 = <code>tasks.md</code>의 줄 하나(거기 적힌 파일) · 지킬 것 = <code>AGENTS.md</code>가 대신(매번 쓰지 않음) · 끝나는 조건 = <code>checklist.md</code>의 줄 번호 → 요청은 "목표 + 줄 번호"로 짧아짐 · 실습 2의 첫 요청이 이 모양</p>
+
+    <div class="h3">3 · AI가 스스로 확인할 방법을 주기</div>
+    <p>AI는 파일 · 저장소 · 에러를 알아서 읽습니다. 결과가 맞는지는 통과 · 실패로 답이 나오는 확인(테스트 · 빌드 결과 · 린터 · 캡처와 시안 비교)이 있어야 스스로 고리를 닫습니다. 없으면 '다 된 것처럼 보이면' 멈추고, 사람이 테스트 역할을 하게 됩니다.</p>
+    <div class="cmp">
+      <div class="bad"><h4>확인 방법 없이</h4><p>사진 미리 보기 만들어줘</p></div>
+      <div class="good"><h4>확인 방법을 함께</h4><p>사진 미리 보기를 만들고 docs/checklist.md 3번 줄을 직접 확인해줘. 브라우저 콘솔에 오류가 없는지도 보고, 확인한 방법을 적어줘.</p><p class="sm mut">받을 것 · 실행한 명령 · 확인한 줄 · 화면 캡처 → "다 됐다"는 말만으로는 모름</p></div>
+    </div>
+    <ul class="bul">
+      <li><span class="k">웹 프로젝트의 확인 방법</span> · checklist.md의 줄 번호 · 브라우저 콘솔에 빨간 오류가 없나 · 360px 폭으로 줄여 보기(개발자 도구의 기기 모드) · 화면 캡처를 손그림 · 시안과 비교</li>
+      <li><span class="k">AI가 화면을 볼 수 있으면 직접 보게</span> · Claude in Chrome 확장(Chrome 웹 스토어)을 Claude Code가 씀 → <code>claude --chrome</code> 또는 <code>/chrome</code> · VS Code는 <code>@browser</code> · 유료 플랜 필요 · <code>/verify</code>는 앱을 실행해 결과를 직접 봄 · 못 보는 환경이면 내가 열어 보고 콘솔 · 캡처를 붙여 넣기</li>
+      <li><span class="k">엄격함을 올리는 순서</span> · 요청 문장("테스트가 통과할 때까지") → Stop 훅(04) · 테스트 코드는 뒤 주차에서</li>
+    </ul>
+
+    <div class="h3">4 · 큰 일은 계획부터</div>
+    <p>파일 여러 개를 고치는 일 · 처음 해 보는 기능은 계획부터 받습니다. 오타 · 색 하나처럼 한 문장으로 설명되는 수정은 바로 시킵니다. OpenAI 모범 사례는 에이전트가 먼저 질문하게 하라고 합니다(인터뷰).</p>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>계획부터 · 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>/plan 소리 태그 기능을 넣고 싶어. 먼저 나에게 필요한 질문을 해줘.</code></pre></div>
+    <p class="sm mut">AI: 질문 두 가지 (태그는 한 단어만인가요? 카드 어디에 보이나요?) → 답하면 계획 네 단계(입력 칸 · 데이터 저장 · 카드 아래 표시(textContent) · checklist 줄 추가) → "이대로 진행할까요?"</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>도구</th><th>계획 모드</th></tr>
+      <tr><td>Claude Code</td><td><kbd>Shift</kbd> + <kbd>Tab</kbd> → ⏸ plan mode on · 또는 <code>/plan</code></td></tr>
+      <tr><td>Codex</td><td><code>/plan</code> · 계획 모드로 바꾸고 요청을 보냄</td></tr>
+      <tr><td>앱 대화창</td><td>"아직 고치지 말고 순서만 알려줘"</td></tr>
+    </table></div>
+
+    <div class="h3">5 · 막히면 증거 그대로 · 틀리면 멈추고 되돌리기</div>
+    <p><span class="k">막히면</span> · 에러는 요약 없이 전체를 붙여 넣습니다. 파일 이름 · 줄 번호(<code>photo.js:12:9</code>)가 들어 있어 원인을 바로 찾습니다. 상황 한 줄 + 에러 전체 + 부탁: "사진 고르기 버튼을 눌렀더니 아무 일도 일어나지 않아요. [콘솔의 빨간 글씨를 통째로 붙여 넣기] 원인을 찾아 고치고, 다시 확인한 방법을 알려줘." 에러를 숨기기만 한 수정(try로 감싸기만)은 받지 않고 "원인을 고쳐줘". 화면이 이상하면 캡처에 동그라미 하나. 콘솔 여는 법 · <kbd>F12</kbd> · <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> (Windows) · <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>J</kbd> (Mac).</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th></th><th>Claude Code</th><th>Codex</th><th>앱 대화창</th></tr>
+      <tr><td>멈추기 · 하는 중에 방향이 틀림</td><td><kbd>Esc</kbd></td><td><kbd>Esc</kbd></td><td>정지 버튼</td></tr>
+      <tr><td>되돌리기 · 이미 끝났는데 전으로</td><td><kbd>Esc</kbd> 두 번 · <code>/rewind</code> · 코드 · 대화 · 둘 다 중에서 고름</td><td><kbd>Esc</kbd> 두 번 · 이전 메시지를 고쳐 다시 · 파일은 Git으로 되돌리기</td><td>메시지를 고쳐 다시 보내기</td></tr>
+      <tr><td>새로 시작 · 같은 말을 세 번째 하고 있음</td><td><code>/clear</code></td><td><code>/new</code></td><td>새 대화</td></tr>
+    </table></div>
+    <p class="tip"><b>멈춘 뒤에는</b> · 어디가 다른지만 다시 말하기 · 처음부터 다시 설명하지 않음 · 두 번 고쳐 달라고 했는데도 틀리면 → 새 대화 + 배운 점을 넣은 더 구체적인 요청</p>
+
+    <div class="h3">6 · 동작하는 순간마다 커밋</div>
+    <p>Claude Code의 체크포인트는 Claude가 파일 편집 도구로 고친 내용만 되돌립니다. 터미널 명령(<code>rm</code> · <code>mv</code>)으로 바뀐 파일 · 내가 직접 고친 파일은 되돌리지 못합니다. Codex는 대화는 되돌릴 수 있고 파일은 Git으로 되돌립니다. 그래서 되돌리기의 기준은 Git 커밋이고, 동작하는 상태마다 하나씩 남깁니다. 커밋 메시지 앞머리는 <code>feat:</code> 기능을 더함 · <code>fix:</code> 고침 · <code>docs:</code> 문서 · <code>chore:</code> 설정 · 정리.</p>
+    <div class="cpy"><div class="cpy-h"><span>AI에게 커밋 시키기 · 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>지금까지 바뀐 내용을 확인하고 커밋해줘. 메시지는 무엇을 했는지 한 줄로, tasks.md 줄 번호를 붙여서.</code></pre></div>
+    <p class="sm mut">예 · <code>feat: 사진 고르면 미리 보기 (tasks 2)</code> · <code>fix: 미리 보기 이미지 크기</code> · 실습 2부터는 브랜치에서 작업 → 커밋 → PR</p>
+
+    <div class="h3">7 · 한 대화에는 한 가지 일</div>
+    <p>AI는 요청마다 대화 전체를 다시 읽습니다. 한 대화에 일 셋이 섞이면 지금 일의 요청마다 지난 두 일의 기록(결과 · 에러 · 고침)까지 읽어 답이 나빠지고 비용이 늡니다. 일마다 새 대화를 열면 <code>AGENTS.md</code> · <code>docs/</code> · 커밋을 다시 읽으니 같은 출발입니다. 지난 대화에서 남길 것은 파일과 커밋에 둡니다. 같은 문제를 이어 가는 중이면 같은 대화에서(지금까지의 흐름이 남음), 다른 일이면 새 대화. OpenAI 모범 사례: 일 하나에 대화 하나.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th></th><th>Claude Code</th><th>Codex</th><th>앱 대화창</th></tr>
+      <tr><td>같은 일 · 길어지면</td><td><code>/compact</code> · 남길 것을 적어서 요약</td><td><code>/compact</code> · 요약해서 이어 가기</td><td>같은 대화에서 계속</td></tr>
+      <tr><td>다른 일을 시작함</td><td><code>/clear</code></td><td><code>/new</code></td><td>프로젝트에서 새 대화</td></tr>
+      <tr><td>지난 대화를 다시 엶</td><td><code>/resume</code></td><td><code>/resume</code></td><td>왼쪽 목록에서 엶</td></tr>
+    </table></div>
+    <p class="tip"><b>새 대화를 열기 전에</b> · <code>tasks.md</code> 상태를 바꾸고 커밋 → 다음 대화가 거기서 이어 감</p>
+
+    <div class="h3">내 길 고르기 · (가) 에이전트 · (나) 대화창</div>
+    <div class="cmp">
+      <div><h4>(가) 에이전트를 쓸 수 있으면 · Claude Code · Codex</h4><p>저장소 폴더에서 AI가 파일을 직접 고치고 실행 · 커밋까지 · Claude Code는 유료 요금제 · Codex는 ChatGPT 계정(학교 계정은 보이는지 확인) → 04 · 05 중 내 도구 부분만 보면 됨</p></div>
+      <div><h4>(나) 쓸 수 없으면 · Claude · ChatGPT 프로젝트</h4><p>프로젝트에 AGENTS.md · docs 세 문서를 올리고 같은 요청 · 받은 코드를 GitHub 웹에서 브랜치에 커밋 → 04 · 05의 프로젝트 부분 + 실습 2의 (나) 갈래</p></div>
+    </div>
+    <p><span class="k">두 길로 나뉘는 기준 · 지금 앞에 있는 계정</span> · Claude Code는 유료 요금제 로그인 또는 API 키(무료 계정은 안 됨) · Codex는 모든 ChatGPT 플랜에 들어 있음 · 학교 워크스페이스는 관리자가 켜야 보임 · 무료 플랜은 한도가 작음 · 둘 다 안 되면 (나) 프로젝트 + GitHub 웹 · 결과물은 같음 · 되는 날 (가)로 옮기면 됨. 어느 쪽이든 하네스 파일 · tasks.md 한 줄 · PR · 리뷰는 같고, 팀 안에 두 길이 섞여도 됩니다(규칙은 같은 AGENTS.md).</p>
+  </section>
+  <section class="sec" id="p4">
+    <h2>04 · Claude에서<small>Anthropic 공식 문서 기준 · Claude 앱 프로젝트와 Claude Code</small></h2>
+    <p class="lede">Claude Code를 쓰는 팀원이 있는 팀은 자세히, 없는 팀은 <code>CLAUDE.md</code>와 <code>AGENTS.md</code>의 관계만 알아 두면 됩니다. 화면 이름 · 메뉴는 버전에 따라 바뀔 수 있으니 막히면 <a href="#sources">공식 문서</a>가 기준입니다.</p>
+
+    <div class="h3">Claude를 쓰는 두 곳 · 앱 프로젝트와 Claude Code</div>
+    <div class="cmp">
+      <div><h4><span class="tl cl">Claude 앱</span> 프로젝트 · 웹 · 데스크톱</h4><p>지침 + 지식 파일 + 대화 · 기획 · 문서 초안 · 코드 설명 · 파일은 내가 GitHub에 옮겨 올림 · 누구나 · 무료 계정도 프로젝트를 만들 수 있음</p><p class="sm mut">이럴 때 · "이 리뷰 댓글을 부드럽게 다듬어줘" · "소리 태그를 만들려면 무엇부터 배워야 해?"</p></div>
+      <div><h4><span class="tl cl">Claude Code</span> 터미널 · VS Code · 데스크톱 앱</h4><p>저장소 폴더에서 파일을 직접 고치는 에이전트 · <code>CLAUDE.md</code> · <code>.claude/</code> 폴더를 읽음 · 명령 실행 · 커밋까지 · 유료 요금제 필요 · 무료 플랜에는 포함되지 않음 (공식 설치 문서)</p><p class="sm mut">이럴 때 · "tasks.md 2번 줄을 해줘" → 파일 수정 · 브라우저 확인 · 커밋 · 팀에 Claude Code가 없으면 프로젝트에서 초안 → GitHub 웹에서 커밋</p></div>
+    </div>
+
+    <div class="h3">Claude 프로젝트 · 지침과 팀 문서</div>
+    <ol class="steps">
+      <li>왼쪽 <span class="ui">Projects</span> → 오른쪽 위 <span class="ui">+ New Project</span> · 이름은 팀 프로젝트 이름</li>
+      <li>오른쪽 Project knowledge의 <span class="ui">Set project instructions</span> → 짧은 규칙 (AGENTS.md를 붙여 넣어도 됨) · 예: 답은 한국어로 · 우리 팀 문서를 기준으로 · 문서에 없는 기능은 먼저 묻기 → <span class="ui">Save instructions</span></li>
+      <li>Project knowledge의 <span class="ui">+</span> → <code>AGENTS.md</code>와 docs 세 문서 올리기</li>
+    </ol>
+    <p class="tip"><b>대화끼리는 이어지지 않음</b> · 계속 쓸 것은 지식 파일에 (공식 도움말) · 문서가 바뀌면 지식 파일도 새로 올리기 · 기준은 저장소의 <code>docs/</code> · 프로젝트로 되는 일: 문서 초안 · 배울 순서 · 코드 설명 · 리뷰 댓글 다듬기 · Claude Code가 필요한 일: 파일을 직접 고치고 실행 · 커밋까지</p>
+
+    <div class="h3">Claude Code 시작 · 저장소 폴더에서 claude</div>
+    <div class="g2">
+      <div class="cpy"><div class="cpy-h"><span>macOS · Linux · WSL → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>Windows PowerShell → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></div>
+    </div>
+    <div class="cpy"><div class="cpy-h"><span>확인 · 시작 · 한 줄씩 → 터미널 (설치 뒤 터미널을 새로 열기)</span><button class="cp" type="button">복사</button></div><pre><code>claude --version    <i># 설치 확인 · 버전 숫자가 나오면 됨</i>
+cd night-windows    <i># 저장소 폴더로 이동 · clone한 팀 폴더 · 이름은 팀마다 다름</i>
+claude              <i># 시작 · 처음이면 브라우저가 열리고 로그인</i></code></pre></div>
+    <ul class="bul">
+      <li><span class="k">첫 요청</span> · "이 저장소에 무엇이 있는지 설명해줘. 아직 고치지는 마." → AGENTS.md · docs를 읽는지 봄</li>
+      <li><span class="k">터미널 여는 법</span> · macOS Spotlight(⌘ Space) → "터미널" · Windows 시작 → "PowerShell" · VS Code 메뉴 Terminal → New Terminal (저장소 폴더를 연 상태에서)</li>
+      <li><span class="k">command not found</span> · 설치 뒤 터미널을 새로 열기 · 데스크톱 앱은 터미널 없이 폴더를 골라 쓸 수도 있음</li>
+    </ul>
+
+    <div class="h3">Claude Code가 읽는 파일 지도</div>
+<div class="tree">~/.claude/CLAUDE.md                     <i>내 컴퓨터 전체 · 모든 프로젝트 · 나만</i>
+
+우리-팀-저장소/
+├── AGENTS.md                           <i>공통 규칙 · 팀</i>
+├── CLAUDE.md                           <i>@AGENTS.md + Claude 몇 줄 · 팀</i>
+├── CLAUDE.local.md                     <i>나만 · git에 올리지 않음 (.gitignore)</i>
+└── .claude/                            <i>공식 폴더 이름 · 직접 만들거나 Claude Code가 만듦</i>
+    ├── settings.json                   <i>권한 · 훅 · 팀</i>
+    ├── settings.local.json             <i>나만 · '다시 묻지 않기'를 고르면 Claude Code가 만듦</i>
+    ├── rules/css.md                    <i>CSS 파일을 고칠 때만 읽히는 규칙</i>
+    ├── skills/pr-report/SKILL.md       <i>다시 쓰는 절차</i>
+    └── agents/checklist-reviewer.md    <i>하위 에이전트</i></div>
+    <ul class="bul">
+      <li><span class="k">오늘 꼭 필요한 것</span> · <code>CLAUDE.md</code> 하나 · 첫 줄 <code>@AGENTS.md</code></li>
+      <li><span class="k">팀이 같이 쓰는 것</span> · <code>AGENTS.md</code> · <code>CLAUDE.md</code> · <code>.claude/</code> 아래 → git에 올림</li>
+      <li><span class="k">나만 쓰는 것 · 공식 문서의 고정 이름</span> · <code>~/.claude/CLAUDE.md</code>는 저장소 밖(내 컴퓨터 전체) · <code>CLAUDE.local.md</code>는 저장소 안 → <code>.gitignore</code>에 · 설치만으로는 아무 설정 파일도 생기지 않음</li>
+    </ul>
+
+    <div class="h3">CLAUDE.md가 여러 개일 때 · 전부 읽어 한 묶음</div>
+    <p>CLAUDE.md는 여러 곳(조직 정책 파일 · 내 홈 <code>~/.claude/CLAUDE.md</code> · 저장소 <code>CLAUDE.md</code> · <code>CLAUDE.local.md</code> · 하위 폴더)에 둘 수 있고, Claude Code는 시작할 때 찾은 파일을 전부 읽어 한 묶음으로 받습니다. 어느 파일도 다른 파일을 덮지 않습니다. 순서는 넓은 범위(내 컴퓨터) → 좁은 범위(이 프로젝트 · 나)이고, 지금 폴더에 가까운 파일이 뒤에 옵니다. 하위 폴더(<code>js/CLAUDE.md</code>)의 파일은 시작할 때는 읽지 않고, Claude가 그 폴더의 파일을 만질 때 그때 붙습니다.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>부딪치면?</th><th>제대로 읽혔나</th><th>길이</th></tr>
+      <tr><td>두 파일의 지시가 다르면 Claude가 아무 쪽이나 고를 수 있음 → 서로 맞게 정리 · <code>/doctor prompt-audit</code>가 어긋난 줄을 찾아 줌</td><td><code>/memory</code> · 읽은 파일 목록 · 열어서 고치기 · <code>/context</code>의 Memory files 목록</td><td>파일마다 200줄 이하 · 길면 지시를 덜 지킴</td></tr>
+    </table></div>
+
+    <div class="h3">/init이 쓴 초안 · 사람이 줄마다 넣을지 뺄지 정함</div>
+    <p><span class="k">① 입력</span> · Claude Code 안에서 <code>/init</code> 한 줄 → Claude가 저장소(<code>index.html</code> · <code>docs/</code> …)를 읽고 <code>CLAUDE.md</code> 초안을 씀 · 이미 있으면 덮어쓰지 않고 고칠 점을 제안. <span class="k">② 사람이 함</span> · 초안을 열어 줄마다 남기거나 지움 · 기준은 아래 표 · Claude에게 "이 줄 빼 줘"라고 해도 됨 · 긴 파일은 <code>/doctor</code>가 줄일 곳을 제안.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>넣을 것</th><th>뺄 것</th></tr>
+      <tr><td>Claude가 추측할 수 없는 명령</td><td>코드를 읽으면 알 수 있는 것</td></tr>
+      <tr><td>기본과 다른 코드 스타일 규칙</td><td>언어의 일반 규칙</td></tr>
+      <tr><td>테스트 · 확인 방법</td><td>자세한 API 문서 → 링크로</td></tr>
+      <tr><td>저장소 약속 · 브랜치 이름 · PR</td><td>자주 바뀌는 정보</td></tr>
+      <tr><td>코드에 없는 결정 · 이유 · 개발 환경의 특이점 · 흔히 빠지는 함정</td><td>긴 설명 · 튜토리얼 · 파일마다의 설명 · "깨끗한 코드를 써라" 같은 당연한 말</td></tr>
+    </table></div>
+    <p class="tip"><b>팀이 AGENTS.md를 이미 쓰면</b> · <code>/init</code> 대신 <code>CLAUDE.md</code>를 직접 두 줄로(아래) · 개인 과제 폴더처럼 AGENTS.md가 없으면 <code>/init</code>이 편함</p>
+
+    <div class="h3">CLAUDE.md 첫 줄에 @AGENTS.md</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>저장소에 있는 것</th><th>Claude가 읽는 것</th></tr>
+      <tr><td>AGENTS.md만</td><td>AGENTS.md · 대화 첫머리에 <code>no CLAUDE.md found; AGENTS.md loaded</code> 줄이 보임</td></tr>
+      <tr><td>AGENTS.md + CLAUDE.md</td><td>CLAUDE.md만</td></tr>
+      <tr><td>CLAUDE.md 안에 @AGENTS.md</td><td>CLAUDE.md + 불러온 AGENTS.md</td></tr>
+    </table></div>
+    <div class="cpy"><div class="cpy-h"><span>CLAUDE.md · 팀 · 규칙은 AGENTS.md 한 곳에 · 여기에는 Claude에만 필요한 줄</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>@AGENTS.md
+
+## Claude Code
+- 파일 3개 이상을 고치는 일은 계획 모드로 먼저.
+- 끝내기 전에 checklist-reviewer 하위 에이전트로 확인.</code></pre></div>
+    <p class="sm mut"><code>@경로</code> → 그 파일 내용을 불러옴 · 불러온 파일 안에서 또 불러오기는 네 번까지 · 어느 버전에서나 되는 방법 · 팀이 AGENTS.md를 쓰는데 내가 <code>CLAUDE.local.md</code>를 만들면 AGENTS.md를 바로 읽지 않게 되니 팀 CLAUDE.md의 @AGENTS.md로 해결</p>
+
+    <div class="h3">파일별 규칙 · .claude/rules/ <small>오늘은 알아 두기</small></div>
+    <div class="cpy"><div class="cpy-h"><span>.claude/rules/css.md · paths가 있으면 맞는 파일(.css)을 읽거나 고칠 때만 불러옴 · 없으면 CLAUDE.md처럼 항상</span><button class="cp" type="button">복사</button></div><pre><code>---
+paths:
+  - "**/*.css"
+---
+# CSS 규칙
+- 색 · 간격은 docs/design.md의 변수만 쓴다
+- !important를 쓰지 않는다
+- 화면 폭은 360px부터 확인한다</code></pre></div>
+    <p class="sm mut">언제 쓰나 · CLAUDE.md가 길어질 때 · 주제별로 나누고 싶을 때 (css.md · js.md · a11y.md) · Codex에서는 하위 폴더의 AGENTS.md가 비슷한 역할</p>
+
+    <div class="h3">스킬 · 다시 쓰는 절차를 파일로</div>
+    <p>스킬 = 폴더 하나 + <code>SKILL.md</code>(앞머리 name · description + 절차 본문). CLAUDE.md는 매번 읽히지만, 스킬은 설명만 늘 보이고 본문은 부를 때 읽힙니다 → 긴 절차도 평소 비용이 없습니다. 같은 설명 · 체크리스트 · 여러 단계를 자꾸 붙여 넣을 때, CLAUDE.md의 한 절이 절차로 길어졌을 때 스킬로 옮깁니다.</p>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>.claude/skills/pr-report/SKILL.md</span><button class="cp" type="button">복사</button></div><pre><code>---
+name: pr-report
+description: PR을 올리기 전에 checklist를 확인하고 PR 본문을 쓴다. 'PR 올려줘', '리뷰 요청'에 쓴다.
+---
+1. git diff로 바뀐 파일을 본다
+2. docs/checklist.md에서 관련 줄을 찾아 하나씩 확인한다
+3. PR 본문: 무엇을 · 왜 · 확인한 줄 · 확인 못 한 것
+4. 확인 못 한 줄이 있으면 PR을 올리지 말고 먼저 알린다</code></pre></div>
+    <ul class="bul">
+      <li><span class="k">name</span> · 부르는 이름 → <code>/pr-report</code> · 폴더 이름과 같게 · <span class="k">description</span> · 언제 쓰는지 → Claude가 이 설명을 보고 알아서 고름 · 요청에 나올 말을 넣기 · <span class="k">본문</span> · 부를 때만 읽힘 · 짧게 · 자세한 자료는 같은 폴더의 다른 파일로</li>
+      <li><span class="k">부르는 법 둘</span> · <code>/pr-report</code> 직접 · 설명에 맞는 요청("PR 올려줘")이면 Claude가 알아서 · 뒤에 말 붙이기 <code>/fix-issue 123</code></li>
+      <li><span class="k">부작용이 있는 일</span> · 배포 · 메시지 보내기 → <code>disable-model-invocation: true</code> · 내가 부를 때만</li>
+      <li><span class="k">위치</span> · 팀 <code>.claude/skills/</code> → git에 올림 · 나 <code>~/.claude/skills/</code> · 같은 형식(Agent Skills)을 Codex도 읽음</li>
+    </ul>
+    <p><span class="k">만들기 · 말로 시키고 사람이 확인</span> · Claude Code는 파일을 쓰는 에이전트이니 절차를 말로 설명하면 폴더와 SKILL.md를 씁니다: "PR 올리기 전에 docs/checklist.md를 확인하고 PR 본문을 쓰는 절차를 .claude/skills/pr-report/ 스킬로 만들어 줘. 'PR 올려줘', '리뷰 요청'에 쓰이게." → 사람이 읽고 고침 · 방금 대화에서 한 순서도 "스킬로 남겨 줘" · 폴더가 새로 생겼으면 <code>/reload-skills</code>. Claude Code가 먼저 제안하기도 합니다(<code>/doctor</code>는 CLAUDE.md에서 절차가 된 부분을 스킬로 옮기자고 제안). 써 보고 다듬기: <code>/pr-report</code>로 부르기 · "PR 올려줘"에도 걸리는지 보기 · 안 걸리면 description에 요청에 나올 말 넣기 · 너무 자주 걸리면 설명을 좁힘.</p>
+
+    <div class="h3">하위 에이전트 · 검토 담당 따로</div>
+    <p>하위 에이전트는 자기 대화창(컨텍스트)에서 일하고 결과 요약만 돌려줍니다 → 메인 대화가 덜 찹니다. Anthropic 글처럼 만든 쪽이 스스로 평가하면 후하게 주니 검토를 나눕니다. <code>tools</code>에 Read · Grep · Glob만 주면 고치지 못합니다.</p>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>.claude/agents/checklist-reviewer.md</span><button class="cp" type="button">복사</button></div><pre><code>---
+name: checklist-reviewer
+description: 바뀐 코드를 docs/checklist.md 기준으로 검토한다. 고치지 않고 결과만 보고한다.
+tools: Read, Grep, Glob
+---
+당신은 검토 담당입니다. 바뀐 파일을 읽고 checklist의 각 줄을 통과 · 실패 · 확인 못 함으로 나눠 보고하세요. 파일은 고치지 마세요.</code></pre></div>
+    <p class="sm mut">쓰기 · "checklist-reviewer로 방금 바꾼 코드를 검토해줘" → 통과 · 실패(예: 이미지에 alt 없음 · index.html:44) · 확인 못 함으로 보고 · 만들기 · <code>/agents</code> 또는 "checklist-reviewer 하위 에이전트를 만들어줘" · 폴더를 처음 만들었으면 Claude Code를 다시 시작</p>
+
+    <div class="h3">훅 · 꼭 막을 동작 <small>오늘은 알아 두기</small></div>
+    <p>훅은 정해진 순간에 Claude Code가 자동으로 실행하는 명령입니다. 설정 파일의 hooks 블록에 세 겹으로 적습니다: 언제(이벤트 · <code>PreToolUse</code>) → 어느 도구(matcher · <code>Edit|Write</code> · 비우면 전부) → 무엇을(command · 스크립트). 스크립트는 종료 코드로 답합니다: 0 통과 · 2 막고 이유(stderr)를 Claude에게 · 그 밖의 값은 경고만.</p>
+    <div class="g2">
+      <div class="cpy"><div class="cpy-h"><span>.claude/settings.json · hooks 블록</span><button class="cp" type="button">복사</button></div><pre><code>{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{ "type": "command",
+        "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh" }]
+    }]
+  }
+}</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>.claude/hooks/protect-files.sh · chmod +x</span><button class="cp" type="button">복사</button></div><pre><code>FILE=$(jq -r '.tool_input.file_path // empty')
+for p in ".env" "package-lock.json" ".git/"; do
+  if [[ "$FILE" == *"$p"* ]]; then
+    echo "막음: $FILE" &gt;&amp;2; exit 2
+  fi
+done
+exit 0</code></pre></div>
+    </div>
+    <ul class="bul">
+      <li><span class="k">시험</span> · <code>/hooks</code>로 목록 확인 · ".env에 주석 한 줄 넣어 줘" → 막힘 · 이유가 Claude에게 전달</li>
+      <li><span class="k">AI에게 시키기</span> · ".env · package-lock.json 수정을 막는 PreToolUse 훅을 만들어 줘" → 설정과 스크립트를 Claude가 씀 · 사람이 읽고 <code>/hooks</code>로 확인</li>
+      <li><span class="k">어디에 적나</span> · 팀 <code>.claude/settings.json</code> → git에 올림 · 나 <code>~/.claude/settings.json</code> · 이 프로젝트에서 나만 <code>.claude/settings.local.json</code> · 훅은 내 컴퓨터에서 내 권한으로 실행됨 → 남이 만든 훅은 읽어 보고 쓰기</li>
+    </ul>
+    <div class="twrap"><table class="tbl">
+      <tr><th>도는 순간</th><th>이벤트</th><th>예</th></tr>
+      <tr><td>세션 시작</td><td><code>SessionStart</code></td><td>환경 준비 · 최근 커밋 보여 주기</td></tr>
+      <tr><td>요청 보낼 때</td><td><code>UserPromptSubmit</code> (막을 수 있음)</td><td>Claude가 읽기 전 · 덧붙이거나 막기</td></tr>
+      <tr><td>도구 쓰기 직전</td><td><code>PreToolUse</code> (막을 수 있음)</td><td>.env 수정 · rm -rf 막기</td></tr>
+      <tr><td>도구 쓴 직후</td><td><code>PostToolUse</code></td><td>고친 파일을 prettier로 정리</td></tr>
+      <tr><td>답을 마칠 때</td><td><code>Stop</code> (막을 수 있음)</td><td>끝 조건 확인 · 테스트 통과 전엔 못 끝냄</td></tr>
+      <tr><td>세션 끝</td><td><code>SessionEnd</code></td><td>작업 기록 남기기</td></tr>
+      <tr><td>그 밖에</td><td><code>Notification</code> · <code>PermissionRequest</code> · <code>SubagentStop</code> · <code>PreCompact</code> · <code>FileChanged</code> …</td><td>전체 30여 가지 → 문서 Hooks reference</td></tr>
+    </table></div>
+    <p class="tip"><b>고르는 법</b> · 꼭 막아야 하면 PreToolUse · 끝 조건은 Stop · 고친 뒤 정리는 PostToolUse · 기다릴 때 알림은 Notification · 예외 없이 막을 것만 훅으로, 판단이 필요한 규칙은 CLAUDE.md에 · type은 command(쉘 명령 · 기본) 외에 prompt(Claude가 한 번 판단) · agent(하위 에이전트가 확인) · http(서버로 보냄)</p>
+
+    <div class="h3">권한 모드 · 묻지 않고 해도 되는 일 <small>오늘은 알아 두기</small></div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>모드</th><th>무엇</th><th>화면 아래 표시</th></tr>
+      <tr><td>manual</td><td>처음에 파일을 고치거나 명령을 실행하기 전에 매번 묻는다</td><td>⏸ manual mode on</td></tr>
+      <tr><td>accept edits</td><td>파일 수정과 흔한 파일 명령(mkdir · mv)은 묻지 않는다</td><td>⏵⏵ accept edits on</td></tr>
+      <tr><td>plan</td><td>읽고 계획만 쓴다 · 소스는 고치지 않는다</td><td>⏸ plan mode on</td></tr>
+      <tr><td>auto</td><td>뒤에서 안전 검사를 하며 거의 모두 실행 · 위험한 동작은 막음</td><td>⏵⏵ auto mode on</td></tr>
+    </table></div>
+    <ul class="bul">
+      <li><kbd>Shift</kbd> + <kbd>Tab</kbd>으로 차례로 바뀜 · 시작 모드는 버전 · 설정마다 다름 → 처음 열면 아래 표시부터 보기 · 수업에서는 manual이나 accept edits로 무엇을 하는지 보며 승인</li>
+      <li><code>/permissions</code> · 자주 쓰는 안전한 명령은 허용 목록에 · 예: 허용 <code>npx serve</code> · 묻기 <code>npm install</code> · 거부 <code>git push --force</code> · <code>.env</code> 읽기</li>
+      <li>모든 확인을 건너뛰는 모드는 격리된 환경에서만 (공식 문서)</li>
+    </ul>
+
+    <div class="h3">더하는 때와 더할 것 · 계단 하나씩</div>
+    <figure class="fig scroll"><svg viewBox="0 0 1400 540" role="img" aria-label="그 일이 생길 때 하나씩 더하는 계단">
+        <line x1="30" y1="516" x2="1370" y2="516" stroke="var(--line)" stroke-width="2"/><text x="1370" y="538" text-anchor="end" font-size="15" fill="var(--muted)">시간 → 그 일이 생겼을 때 하나씩</text>
+        <g class="gpo"><rect x="30" y="408" width="164" height="104" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/><text x="42" y="442" font-size="19" font-weight="700" fill="var(--ink)">오늘</text><text x="42" y="468" font-size="14" class="mo" fill="var(--accent)">CLAUDE.md 첫 줄</text><text x="42" y="490" font-size="14" fill="var(--muted)">@AGENTS.md</text></g>
+        <text class="gfd" x="36" y="374" font-size="15" fill="var(--ink2)"><tspan x="36" dy="0">팀 저장소를</tspan><tspan x="36" dy="18">만든 날</tspan></text>
+        <g class="gpo"><rect x="198" y="362" width="164" height="150" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="210" y="396" font-size="19" font-weight="700" fill="var(--ink)">규칙 한 줄</text><text x="210" y="422" font-size="14" class="mo" fill="var(--accent)">CLAUDE.md</text><text x="210" y="444" font-size="14" fill="var(--muted)">AGENTS.md도 같이</text></g>
+        <text class="gfd" x="204" y="328" font-size="15" fill="var(--ink2)"><tspan x="204" dy="0">같은 약속을</tspan><tspan x="204" dy="18">두 번 틀림</tspan></text>
+        <path class="gfd" d="M188 412 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="366" y="316" width="164" height="196" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="378" y="350" font-size="19" font-weight="700" fill="var(--ink)">스킬</text><text x="378" y="376" font-size="14" class="mo" fill="var(--accent)">.claude/skills/</text><text x="378" y="398" font-size="14" fill="var(--muted)">절차 파일</text></g>
+        <text class="gfd" x="372" y="264" font-size="15" fill="var(--ink2)"><tspan x="372" dy="0">같은 시작 요청을</tspan><tspan x="372" dy="18">또 침 · 같은 절차를</tspan><tspan x="372" dy="18">세 번째 붙여 넣음</tspan></text>
+        <path class="gfd" d="M356 366 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="534" y="270" width="164" height="242" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="546" y="304" font-size="19" font-weight="700" fill="var(--ink)">훅</text><text x="546" y="330" font-size="14" class="mo" fill="var(--accent)">settings.json</text><text x="546" y="352" font-size="14" fill="var(--muted)">hooks 블록</text></g>
+        <text class="gfd" x="540" y="236" font-size="15" fill="var(--ink2)"><tspan x="540" dy="0">매번 꼭</tspan><tspan x="540" dy="18">일어나야 함</tspan></text>
+        <path class="gfd" d="M524 320 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="702" y="224" width="164" height="288" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="714" y="258" font-size="19" font-weight="700" fill="var(--ink)">하위 에이전트</text><text x="714" y="284" font-size="14" class="mo" fill="var(--accent)">.claude/agents/</text><text x="714" y="306" font-size="14" fill="var(--muted)">검토 담당</text></g>
+        <text class="gfd" x="708" y="190" font-size="15" fill="var(--ink2)"><tspan x="708" dy="0">곁가지 일이</tspan><tspan x="708" dy="18">대화를 채움</tspan></text>
+        <path class="gfd" d="M692 274 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="870" y="178" width="164" height="334" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="882" y="212" font-size="19" font-weight="700" fill="var(--ink)">MCP · 외부 도구</text><text x="882" y="238" font-size="14" class="mo" fill="var(--accent)">피그마 · 이슈 관리</text><text x="882" y="260" font-size="14" fill="var(--muted)">연결</text></g>
+        <text class="gfd" x="876" y="144" font-size="15" fill="var(--ink2)"><tspan x="876" dy="0">브라우저에서 복사해</tspan><tspan x="876" dy="18">붙여 넣고 있음</tspan></text>
+        <path class="gfd" d="M860 228 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="1038" y="132" width="164" height="380" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="1050" y="166" font-size="19" font-weight="700" fill="var(--ink)">Chrome 확장</text><text x="1050" y="192" font-size="14" class="mo" fill="var(--accent)">claude --chrome</text><text x="1050" y="214" font-size="14" fill="var(--muted)">Claude in Chrome</text></g>
+        <text class="gfd" x="1044" y="98" font-size="15" fill="var(--ink2)"><tspan x="1044" dy="0">화면을 직접 눌러</tspan><tspan x="1044" dy="18">보고 확인해야 함</tspan></text>
+        <path class="gfd" d="M1028 182 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        <g class="gpo"><rect x="1206" y="86" width="164" height="426" rx="10" fill="var(--canvas)" stroke="var(--line)" stroke-width="2"/><text x="1218" y="120" font-size="19" font-weight="700" fill="var(--ink)">플러그인</text><text x="1218" y="146" font-size="14" class="mo" fill="var(--accent)">스킬 · 훅 묶음</text><text x="1218" y="168" font-size="14" fill="var(--muted)">다른 저장소에 설치</text></g>
+        <text class="gfd" x="1212" y="52" font-size="15" fill="var(--ink2)"><tspan x="1212" dy="0">두 번째 저장소에도</tspan><tspan x="1212" dy="18">같은 설정이 필요</tspan></text>
+        <path class="gfd" d="M1196 136 l10 -8 l-10 -8" fill="none" stroke="var(--muted)" stroke-width="2"/>
+        </svg><figcaption><b>처음부터 다 만들지 않음</b> · 그 일이 생겼을 때 하나씩 · 맨 아래 칸이 오늘(CLAUDE.md 첫 줄) · 위 글씨가 그 일이 생기는 때 · 칸 안이 더할 것 · 옆으로 밀어 보기 · <a class="deckgo" href="week10show.html#clgrow">덱에서 보기</a></figcaption></figure>
+    <div class="twrap"><table class="tbl">
+      <tr><th>이런 일이 생기면</th><th>더할 것</th></tr>
+      <tr><td>오늘</td><td><code>CLAUDE.md</code> 첫 줄 <code>@AGENTS.md</code></td></tr>
+      <tr><td>같은 규칙을 두 번 말하게 됨</td><td>규칙 한 줄 · <code>CLAUDE.md</code> (AGENTS.md도 같이)</td></tr>
+      <tr><td>같은 절차를 자꾸 붙여 넣음</td><td>스킬 · <code>.claude/skills/</code></td></tr>
+      <tr><td>예외 없이 막을 동작이 생김</td><td>훅 · <code>settings.json</code>의 hooks 블록</td></tr>
+      <tr><td>검토를 따로 맡기고 싶음</td><td>하위 에이전트 · <code>.claude/agents/</code></td></tr>
+      <tr><td>외부 도구가 필요함 (피그마 · 이슈 관리)</td><td>MCP · 외부 도구 연결</td></tr>
+      <tr><td>브라우저에서 직접 눌러 보고 확인해야 함</td><td>Chrome 확장 · <code>claude --chrome</code> · Claude in Chrome</td></tr>
+      <tr><td>다른 저장소에서도 같은 스킬 · 훅을 쓰고 싶음</td><td>플러그인 · 스킬 · 훅 묶음</td></tr>
+    </table></div>
+  </section>
+  <section class="sec" id="p5">
+    <h2>05 · ChatGPT에서<small>OpenAI 공식 문서 기준 · ChatGPT 프로젝트와 Codex</small></h2>
+    <p class="lede">학교 계정(ChatGPT Edu)은 모두에게 있으니 프로젝트는 누구나 씁니다. Codex는 학교 워크스페이스 설정에 따라 쓸 수 있는지가 다릅니다. 화면 이름 · 메뉴는 바뀔 수 있으니 막히면 <a href="#sources">공식 문서</a>가 기준입니다.</p>
+
+    <div class="h3">ChatGPT를 쓰는 두 곳 · 프로젝트와 Codex</div>
+    <div class="cmp">
+      <div><h4><span class="tl gp">ChatGPT</span> 프로젝트 · 웹 · 데스크톱 앱</h4><p>지침 + 소스(파일) + 대화 · 기획 · 문서 초안 · 코드 설명 · 지침은 프로젝트 안의 모든 대화에 적용 · 학교 계정으로 누구나</p><p class="sm mut">이럴 때 · "tasks.md에서 내 줄을 하루 크기로 나눠줘" · "이 오류 메시지가 무슨 뜻이야?"</p></div>
+      <div><h4><span class="tl gp">Codex</span> 데스크톱 앱 · CLI · IDE 확장</h4><p>저장소 폴더에서 파일을 직접 고치는 에이전트 · <code>AGENTS.md</code> · <code>.agents/skills</code> · <code>.codex/</code>를 읽음 · 명령 실행 · 검토(<code>/review</code>)까지 · 학교 계정에서 쓸 수 있는지는 학교 워크스페이스 설정에 따름</p><p class="sm mut">이럴 때 · "tasks.md 2번 줄을 해줘" → 파일 수정 · 실행 · /review로 검토 · 먼저 확인: 학교 계정 ChatGPT에서 Codex 메뉴가 보이나요?</p></div>
+    </div>
+    <p class="sm mut">요금제 페이지 기준 Codex는 모든 ChatGPT 플랜에 들어 있음(무료는 한도가 작고 단계적 배포) · 학교(Edu) 워크스페이스는 관리자가 켜야 보임</p>
+
+    <div class="h3">ChatGPT 프로젝트 · 파일 올리기와 폴더 연결</div>
+    <ol class="steps">
+      <li>왼쪽 <span class="ui">Projects</span>의 <span class="ui">New project</span> (또는 옆의 +) → 이름은 팀 프로젝트 이름 → <span class="ui">Create project</span></li>
+      <li><span class="ui">Add files</span> → <code>AGENTS.md</code>와 docs 세 문서 올리기 (웹은 내 컴퓨터 폴더를 직접 읽지 못함)</li>
+      <li><span class="ui">Add instructions</span>에 짧은 규칙 → Save · 이 프로젝트의 모든 대화에 적용 · 고칠 때는 <span class="ui">Instructions</span> (오른쪽 위 ⋯ → Project settings에도)</li>
+    </ol>
+    <ul class="bul">
+      <li><span class="k">데스크톱 앱</span> · 프로젝트 메뉴 → <span class="ui">Edit project</span> → <span class="ui">Add folder</span> → 주 폴더(<span class="ui">Make primary</span>)에서 새 대화 · Git 작업 · AGENTS.md · 스킬 · config.toml을 찾음</li>
+      <li><span class="k">공식 안내</span> · 계속 쓸 지침은 AGENTS.md나 저장소 문서에 → 다음 대화에서도 씀 · 문서가 바뀌면 파일을 다시 올리기</li>
+      <li>웹 프로젝트로 되는 일: 문서 초안 · 배울 순서 · 코드 설명 · 리뷰 댓글 다듬기 · Codex가 필요한 일(앱 · CLI): 파일을 직접 고치고 실행 · 커밋 · PR까지</li>
+    </ul>
+
+    <div class="h3">Codex 시작 · 저장소 폴더에서 codex</div>
+    <div class="g2">
+      <div class="cpy"><div class="cpy-h"><span>macOS · Linux → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>curl -fsSL https://chatgpt.com/codex/install.sh | sh</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>Windows PowerShell → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"</code></pre></div>
+    </div>
+    <p class="sm mut">npm · Homebrew로도 · <code>npm install -g @openai/codex</code> · <code>brew install --cask codex</code> · 어느 하나만 하면 됨</p>
+    <div class="cpy"><div class="cpy-h"><span>확인 · 시작 · 한 줄씩 → 터미널 (설치 뒤 터미널을 새로 열기)</span><button class="cp" type="button">복사</button></div><pre><code>codex --version     <i># 설치 확인 · 버전 숫자가 나오면 됨</i>
+cd night-windows    <i># 저장소 폴더로 이동 · clone한 팀 폴더 · 이름은 팀마다 다름</i>
+codex               <i># 시작 · 처음이면 Sign in with ChatGPT · 학교 계정 또는 개인 계정</i></code></pre></div>
+    <p class="sm mut">첫 요청 · "이 저장소에 무엇이 있는지 설명해줘. 아직 고치지는 마." → AGENTS.md를 읽는지 봄 · 데스크톱 앱에서는 프로젝트에 폴더를 연결하고 대화를 시작</p>
+
+    <div class="h3">Codex가 읽는 파일 지도</div>
+<div class="tree">~/.codex/AGENTS.md                      <i>내 컴퓨터 전체 · 모든 저장소 · 나만</i>
+~/.codex/config.toml                    <i>내 설정 · 승인 · 샌드박스</i>
+~/.agents/skills/                       <i>내 스킬</i>
+
+우리-팀-저장소/
+├── AGENTS.md                           <i>공통 규칙 · 팀 · 연결 파일 없이 바로 읽음</i>
+├── js/AGENTS.md                        <i>(선택) js 폴더에서 더할 규칙</i>
+├── .agents/skills/pr-report/SKILL.md   <i>다시 쓰는 절차</i>
+└── .codex/
+    ├── config.toml                     <i>(선택) 이 저장소 설정</i>
+    ├── rules/team.rules                <i>명령 허용 · 확인 · 금지</i>
+    └── hooks.json                      <i>(선택) 훅</i></div>
+    <ul class="bul">
+      <li><span class="k">오늘 꼭 필요한 것</span> · <code>AGENTS.md</code> 하나 · 연결 파일 없이 바로 읽음</li>
+      <li><span class="k">팀이 같이 쓰는 것</span> · <code>AGENTS.md</code> · <code>.agents/skills</code> · <code>.codex/</code> → git에 올림 · <span class="k">나만 쓰는 것</span> · <code>~/.codex/</code> · <code>~/.agents/skills</code> → 내 컴퓨터에만</li>
+      <li>저장소의 <code>.codex/</code> 설정 · rules는 그 저장소를 믿는다고(trusted) 정했을 때만 적용</li>
+    </ul>
+
+    <div class="h3">AGENTS.md를 읽는 순서 · 가까운 쪽 우선</div>
+    <ol class="steps">
+      <li><code>~/.codex/AGENTS.md</code> · 나 · 모든 저장소 (<code>AGENTS.override.md</code>가 있으면 그것)</li>
+      <li><code>./AGENTS.md</code> · 저장소 맨 위 · 팀</li>
+      <li><code>./js/AGENTS.md</code> · 지금 작업하는 폴더까지 · 폴더마다 하나</li>
+    </ol>
+    <p>이어 붙여 읽고, 가까운 폴더의 파일이 나중에 읽혀 우선합니다. 합쳐서 기본 32KiB까지. 일을 시작할 때 한 번 읽으니 AGENTS.md를 고친 뒤에는 새로 시작합니다. <code>AGENTS.override.md</code>는 그 폴더의 AGENTS.md 대신 읽히는 파일로, 잠깐 바꿔 볼 때 씁니다. Claude와 다른 점: Codex 문서는 가까운 쪽이 우선이라고 적고, Claude 문서는 부딪치면 아무 쪽이나 고를 수 있다고 적습니다.</p>
+    <div class="cpy"><div class="cpy-h"><span>지금 읽힌 지시 확인 (공식 문서의 예) → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>codex --ask-for-approval never "Summarize the current instructions."</code></pre></div>
+
+    <div class="h3">/init이 쓴 AGENTS.md 틀 · 폴더에 있는 것만 보고 씀</div>
+    <p><span class="k">① 입력</span> · Codex 안에서 <code>/init</code> 한 줄(설치는 위 'Codex 시작') → 폴더 구조 · 설정 파일(<code>index.html</code> · <code>css/</code> · <code>js/</code> · <code>docs/</code> · <code>README.md</code>)과 <code>git log</code>의 커밋 메시지 관례를 보고 구조 · 실행 방법 · 커밋 관례를 담은 AGENTS.md 틀(200~400단어)을 만듦 · 이미 있으면 덮어쓰지 않음. <span class="k">② 사람이 함</span> · 틀에 빠진 줄을 채움 · 기준은 OpenAI 모범 사례 다섯.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>넣을 것 · OpenAI 모범 사례 다섯</th><th>/init이 무엇을 보고 쓰나</th></tr>
+      <tr><td>1 저장소 구조 · 무엇이 어디에</td><td>폴더와 파일 배치</td></tr>
+      <tr><td>2 실행 · 빌드 · 테스트 · 린트 명령</td><td>package.json 같은 설정 파일 · README</td></tr>
+      <tr><td>3 코드 약속 · 이름 · 스타일</td><td>코드의 들여쓰기 · 이름 · 린터 설정 · 커밋 기록</td></tr>
+      <tr><td>4 하지 말 것 · 제약</td><td><span class="tl no">사람이 적음</span> 폴더에 없음</td></tr>
+      <tr><td>5 '끝'의 기준과 확인 방법</td><td><span class="tl no">사람이 적음</span> 폴더에 없음</td></tr>
+    </table></div>
+    <p class="tip"><b>만드는 것은 AGENTS.md 한 파일</b> · 하네스의 나머지(스킬 · 규칙 · 훅)는 설치 없이 저절로 생기지 않음 · 실습 2에서 Codex에게 시켜 만듦 · Claude Code의 /init과 같은 흐름 · 공식 문서: 짧고 정확한 AGENTS.md가 모호한 규칙이 많은 긴 파일보다 쓸모 있음 · 같은 실수가 반복되면 "무엇이 잘못됐는지 돌아보고 AGENTS.md에 반영해줘"</p>
+
+    <div class="h3">/plan과 /review · 슬래시 명령</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>명령</th><th>하는 일 (공식 문서)</th></tr>
+      <tr><td><code>/plan</code></td><td>계획 모드로 바꾸고 요청을 보냄 · "/plan 소리 태그. 먼저 나에게 필요한 질문을 해줘."</td></tr>
+      <tr><td><code>/review</code></td><td>작업 중인 변경을 Codex가 검토 · PR 올리기 전에 · 찾은 것(예: 파일 형식 검사 없이 미리 보기 → txt도 열림 · img에 alt 없음)을 고칠지는 내가 정함</td></tr>
+      <tr><td><code>/diff</code></td><td>바뀐 내용 보기 · Git이 아직 모르는 파일까지</td></tr>
+      <tr><td><code>/permissions</code></td><td>묻지 않고 해도 되는 일 정하기</td></tr>
+      <tr><td><code>/compact</code></td><td>대화를 요약해 공간 비우기</td></tr>
+      <tr><td><code>/new</code></td><td>새 대화</td></tr>
+    </table></div>
+    <p class="sm mut">슬래시(/)로 시작하는 말 · 도구에게 내리는 명령 · AI에게 하는 요청과 다름 · Claude Code도 같은 방식 (<code>/init</code> · <code>/memory</code> · <code>/permissions</code>)</p>
+
+    <div class="h3">Codex 스킬 · 같은 SKILL.md</div>
+    <p>폴더 하나에 <code>SKILL.md</code> · 선택으로 scripts/ · references/ · assets/. Codex는 이름과 설명만 먼저 읽고 쓸 때 전체를 불러옵니다 → 설명이 언제 쓰는지 정합니다. 부르는 법: <code>$pr-report</code> · 또는 <code>/skills</code>에서 고르기 · 설명에 맞는 요청이면 알아서. 만들기: <code>$skill-creator</code>에게 "PR 본문 쓰는 스킬을 만들어줘"(무엇을 · 언제 쓰는지 물어보고 씀). 위치: 팀 <code>.agents/skills/</code> · 나 <code>~/.agents/skills/</code> · Claude와 같은 형식이라 같은 파일을 <code>.claude/skills</code>와 <code>.agents/skills</code>에 둡니다.</p>
+
+    <div class="h3">샌드박스와 승인 · 어디까지 · 언제 묻나 <small>오늘은 알아 두기</small></div>
+    <p>샌드박스 = 무엇에 손댈 수 있나(파일 · 네트워크), 승인 = 언제 멈추고 묻나.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>단계</th><th>무엇</th><th>설정</th></tr>
+      <tr><td>읽기만</td><td>파일을 읽기만 · 고치거나 실행하려면 묻는다</td><td><code>sandbox_mode = "read-only"</code></td></tr>
+      <tr><td>작업 폴더 쓰기 <span class="tl ok">권장</span></td><td>저장소 폴더 안에서는 고치고 실행 · 폴더 밖 · 네트워크는 묻는다</td><td><code>"workspace-write"</code> + <code>"on-request"</code></td></tr>
+      <tr><td>전체 접근</td><td>어디든 고치고 네트워크까지 · 묻지 않는다 → 위험</td><td><code>sandbox_mode = "danger-full-access"</code></td></tr>
+    </table></div>
+    <div class="cpy"><div class="cpy-h"><span>.codex/config.toml · 이 저장소만 (내 컴퓨터 전체는 ~/.codex/config.toml)</span><button class="cp" type="button">복사</button></div><pre><code>sandbox_mode = "workspace-write"
+approval_policy = "on-request"</code></pre></div>
+    <p class="sm mut">데스크톱 앱 · 입력창 아래 권한 메뉴 · Ask for approval로 시작(공식 권장) · Approve for me · Full access · 기본으로 네트워크 꺼짐 · 작업 폴더 쓰기여도 .git · .agents · .codex는 읽기만 · CLI는 <code>/permissions</code>로 바꾸고 <code>/status</code>로 지금 설정 보기</p>
+
+    <div class="h3">rules · 위험한 명령 막기 · 훅 <small>오늘은 알아 두기 · 실험 기능</small></div>
+    <div class="cpy"><div class="cpy-h"><span>.codex/rules/team.rules</span><button class="cp" type="button">복사</button></div><pre><code>prefix_rule(
+  pattern = ["git", "push", "--force"],
+  decision = "forbidden",
+  justification = "main 기록을 지우지 않는다",
+)
+prefix_rule(
+  pattern = ["npm", "install"],
+  decision = "prompt",
+  justification = "새 패키지는 팀에 먼저 묻는다",
+)</code></pre></div>
+    <ul class="bul">
+      <li><span class="k">decision 세 가지</span> · allow 묻지 않고 · prompt 물어보고 · forbidden 막기</li>
+      <li><span class="k">접두어가 같아야 걸림</span> · <code>git push origin main --force</code>는 위 줄에 걸리지 않음 → GitHub 브랜치 보호도 같이</li>
+      <li><span class="k">미리 시험</span> · <code>codex execpolicy check --pretty --rules .codex/rules/team.rules -- git push --force</code></li>
+      <li><span class="k">훅</span> · <code>.codex/hooks.json</code> · PreToolUse · PostToolUse · Stop 같은 순간에 명령 실행 · <code>/hooks</code>에서 믿을지 정함</li>
+    </ul>
+
+    <div class="h3">무엇부터 더하나 · AGENTS.md부터, 필요할 때 하나씩</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>순서</th><th>무엇</th><th>언제 · 예</th></tr>
+      <tr><td>1</td><td><code>AGENTS.md</code></td><td>저장소 약속을 알림 · 린터와 pre-commit 훅으로 강제 · 예: 사용자 입력은 textContent로 · 한 줄</td></tr>
+      <tr><td>2</td><td>스킬</td><td>반복하는 절차 · 다른 저장소와 나누려면 플러그인 · 예: pr-report</td></tr>
+      <tr><td>3</td><td>MCP</td><td>외부 시스템(이슈 관리 · 디자인 도구 · 문서)이 필요할 때 · 예: GitHub 이슈 · 피그마 시안 읽기</td></tr>
+      <tr><td>4</td><td>하위 에이전트</td><td>탐색 · 테스트처럼 시끄럽거나 전문적인 일을 맡길 때 · 예: checklist 확인만 맡는 리뷰어</td></tr>
+    </table></div>
+    <p class="tip"><b>그리고 계속</b> · Codex를 고쳐 줄 때마다 AGENTS.md에 한 줄 · 반복되는 리뷰 의견도 규칙으로 (공식 문서) · Claude 쪽의 '더하는 때와 더할 것'과 같은 생각</p>
+
+    <div class="h3">OpenAI 하네스 엔지니어링 → 우리 팀 크기로</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>글의 요점</th><th>우리 팀에서</th></tr>
+      <tr><td>사람은 방향을 정하고, 에이전트가 실행함</td><td>무엇을 · 끝나는 조건은 사람이 <code>tasks.md</code>에</td></tr>
+      <tr><td>저장소 밖의 지식은 에이전트에게 보이지 않음</td><td>회의 · 메신저에서 정한 것도 <code>docs/</code>에 한 줄</td></tr>
+      <tr><td>AGENTS.md는 약 100줄의 목차 · 자세한 것은 docs/</td><td>AGENTS.md는 20~40줄 · 세 문서를 가리킴</td></tr>
+      <tr><td>계획도 저장소의 파일로</td><td>큰 기능은 <code>docs/plans/소리-태그.md</code>처럼 계획을 먼저</td></tr>
+      <tr><td>규칙은 린터로 강제 · 오류 메시지에 고치는 법까지</td><td>뒤 주차에서 (12주차 하네스 특강과 이어짐)</td></tr>
+      <tr><td>문서가 코드와 맞는지 정리하는 에이전트</td><td>주마다 한 번 · "docs가 지금 코드와 맞는지 확인해줘"</td></tr>
+    </table></div>
+  </section>
+  <section class="sec" id="p6">
+    <h2>06 · 두 도구 함께<small>같은 생각 · 다른 이름 · 한 저장소에서 같이 쓰기</small></h2>
+    <div class="twrap"><table class="tbl">
+      <tr><th></th><th><span class="tl cl">Claude Code</span></th><th><span class="tl gp">Codex</span></th></tr>
+      <tr><td>지시 파일</td><td><code>CLAUDE.md</code> · 첫 줄 <code>@AGENTS.md</code></td><td><code>AGENTS.md</code></td></tr>
+      <tr><td>처음 만들기</td><td><code>/init</code></td><td><code>/init</code></td></tr>
+      <tr><td>내 컴퓨터 전체</td><td><code>~/.claude/CLAUDE.md</code></td><td><code>~/.codex/AGENTS.md</code></td></tr>
+      <tr><td>폴더 · 파일별</td><td>하위 폴더 CLAUDE.md · <code>.claude/rules/</code> (paths)</td><td>하위 폴더 AGENTS.md · <code>AGENTS.override.md</code></td></tr>
+      <tr><td>지시가 부딪치면</td><td>아무 쪽이나 고를 수 있음 → 정리</td><td>가까운 폴더 쪽이 우선</td></tr>
+      <tr><td>스킬</td><td><code>.claude/skills/이름/SKILL.md</code> · <code>/이름</code></td><td><code>.agents/skills/이름/SKILL.md</code> · <code>$이름</code></td></tr>
+      <tr><td>하위 에이전트</td><td><code>.claude/agents/이름.md</code></td><td>하위 에이전트 · <code>/agents</code></td></tr>
+      <tr><td>계획 · 검토</td><td>계획 모드 (Shift + Tab) · 검토용 하위 에이전트</td><td><code>/plan</code> · <code>/review</code></td></tr>
+      <tr><td>안전장치</td><td>권한 모드 · <code>/permissions</code> · 훅</td><td>샌드박스와 승인 · <code>/permissions</code> · rules · 훅</td></tr>
+      <tr><td>설정 파일</td><td><code>.claude/settings.json</code></td><td><code>.codex/config.toml</code></td></tr>
+      <tr><td>앱 프로젝트</td><td>Claude 프로젝트 · 지침 + 지식</td><td>ChatGPT 프로젝트 · 지침 + 소스 · 폴더 연결</td></tr>
+    </table></div>
+
+    <div class="h3">한 저장소 · 두 도구</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>팀원</th><th>할 일</th></tr>
+      <tr><td>Codex를 쓰는 팀원</td><td><code>AGENTS.md</code>를 바로 읽음 · 따로 만들 것 없음</td></tr>
+      <tr><td>Claude Code를 쓰는 팀원</td><td><code>CLAUDE.md</code>를 한 번 만들기 · 첫 줄 <code>@AGENTS.md</code></td></tr>
+      <tr><td>앱 프로젝트만 쓰는 팀원</td><td>Claude 프로젝트는 지식 파일로, ChatGPT 프로젝트는 소스로 <code>docs/</code>를 올림 (데스크톱은 폴더 연결) · 바뀌면 다시 올리기</td></tr>
+      <tr><td>스킬</td><td>같은 <code>SKILL.md</code>를 <code>.claude/skills/</code>와 <code>.agents/skills/</code> 두 폴더에 복사 (Claude Code는 .agents/ 폴더를 읽지 않음)</td></tr>
+    </table></div>
+    <p class="tip"><b>규칙을 바꿀 때는</b> · <code>AGENTS.md</code>만 고침 · <code>CLAUDE.md</code>는 불러오기와 Claude 전용 줄만</p>
+  </section>
+  <section class="sec" id="p7">
+    <h2>07 · 여럿이 함께<small>팀원마다 AI를 돌려도 작업이 부딪치지 않게 · GitHub · Claude · OpenAI 문서에서</small></h2>
+    <p class="lede">팀원 여러 명이 각자 AI를 돌릴 때 서로의 작업이 부딪치지 않게 하는 방법입니다. GitHub 문서(충돌 · GitHub flow · 브랜치 규칙) · Claude Code 문서(worktree · 공유 파일 · 권한) · OpenAI Codex 문서(worktree · 모범 사례)에서 가져왔고, 실습 2에서 그대로 해 봅니다.</p>
+
+    <div class="h3">먼저 · 3–4주차에 배운 Git 용어 다섯</div>
+    <figure class="fig"><svg viewBox="0 0 880 512" role="img" aria-label="저장소 · clone · 브랜치 · PR · main 그림">
+        <defs>
+          <marker id="gfah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>
+          <marker id="gfahg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ok)"/></marker>
+          <marker id="gfahm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>
+        </defs>
+        <!-- ① GitHub 저장소 -->
+        <g class="gfd">
+          <rect x="6" y="6" width="868" height="300" rx="18" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+          <circle cx="36" cy="38" r="14" fill="var(--accent)"/><text x="36" y="43" text-anchor="middle" font-size="15" font-weight="700" fill="var(--bg)">1</text>
+          <text x="58" y="45" font-size="22" font-weight="700" fill="var(--ink)">GitHub · 저장소</text>
+          <text x="250" y="45" font-size="17" class="mo" fill="var(--muted)">github.com/팀/night-windows</text>
+        </g>
+        <!-- main -->
+        <path class="gdr" d="M70 236 H846" pathLength="1" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"/>
+        <text class="gfd" x="70" y="270" font-size="18" font-weight="700" class="mo" fill="var(--accent)">main</text>
+        <circle class="gpo" cx="125" cy="236" r="11" fill="var(--bg)" stroke="var(--accent)" stroke-width="5"/>
+        <circle class="gpo" cx="205" cy="236" r="11" fill="var(--bg)" stroke="var(--accent)" stroke-width="5"/>
+        <!-- ② clone · 내 컴퓨터 -->
+        <g class="gfd">
+          <rect x="6" y="372" width="868" height="134" rx="18" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+          <circle cx="36" cy="404" r="14" fill="var(--accent)"/><text x="36" y="409" text-anchor="middle" font-size="15" font-weight="700" fill="var(--bg)">2</text>
+          <text x="58" y="411" font-size="22" font-weight="700" fill="var(--ink)">내 컴퓨터 · clone</text>
+          <text x="250" y="411" font-size="17" class="mo" fill="var(--muted)">night-windows/ · 내 복사본</text>
+          <rect x="28" y="424" width="824" height="70" rx="12" fill="var(--canvas)"/>
+          <text x="46" y="452" font-size="18" fill="var(--ink2)">저장소를 내려받은 복사본 · AI(Claude Code · Codex)도 이 폴더를 읽고 고침</text>
+          <text x="46" y="480" font-size="18" fill="var(--ink2)">브랜치에서 고치고 커밋 → push로 올림 → GitHub에서 PR</text>
+        </g>
+        <g class="gfd">
+          <path d="M430 308 V364" stroke="var(--accent)" stroke-width="3" marker-end="url(#gfah)"/>
+          <text x="444" y="344" font-size="17" fill="var(--muted)">clone · 한 번 내려받기</text>
+        </g>
+        <!-- ③ 브랜치 -->
+        <path class="gdr" d="M205 236 C255 236 255 150 305 150 H560" pathLength="1" stroke="var(--ok)" stroke-width="6" stroke-linecap="round"/>
+        <g class="gfd">
+          <circle cx="318" cy="121" r="13" fill="var(--ok)"/><text x="318" y="126" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">3</text>
+          <text x="338" y="127" font-size="18" font-weight="700" fill="var(--ok)">브랜치</text>
+          <text x="404" y="127" font-size="17" class="mo" font-weight="600" fill="var(--ok)">feat/photo-preview</text>
+        </g>
+        <circle class="gpo" cx="385" cy="150" r="11" fill="var(--bg)" stroke="var(--ok)" stroke-width="5"/>
+        <circle class="gpo" cx="470" cy="150" r="11" fill="var(--bg)" stroke="var(--ok)" stroke-width="5"/>
+        <g class="gfd">
+          <text x="385" y="186" text-anchor="middle" font-size="16" fill="var(--muted)">커밋</text>
+          <text x="470" y="186" text-anchor="middle" font-size="16" fill="var(--muted)">커밋</text>
+          <path d="M640 370 V314" stroke="var(--ok)" stroke-width="3" marker-end="url(#gfahg)"/>
+          <text x="654" y="344" font-size="17" fill="var(--muted)">push · 브랜치의 커밋 올리기</text>
+        </g>
+        <!-- ④ PR -->
+        <g transform="translate(566 8)"><g class="gpo">
+          <rect width="300" height="98" rx="12" fill="var(--canvas)" stroke="var(--line)" stroke-width="1.5"/>
+          <circle cx="26" cy="28" r="13" fill="var(--accent)"/><text x="26" y="33" text-anchor="middle" font-size="14" font-weight="700" fill="var(--bg)">4</text>
+          <text x="46" y="34" font-size="20" font-weight="700" fill="var(--ink)">PR · pull request</text>
+          <text x="16" y="60" font-size="16" class="mo" fill="var(--muted)">feat/photo-preview → main</text>
+          <rect x="16" y="70" width="112" height="22" rx="11" fill="var(--ok)"/><text x="72" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">리뷰 → 병합</text>
+          <text x="140" y="86" font-size="16" fill="var(--ink2)">합쳐 달라는 요청</text>
+        </g></g>
+        <path class="gfd" d="M716 108 L668 222" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#gfahm)"/>
+        <!-- ⑤ 병합 → main -->
+        <path class="gdr" d="M560 150 C610 150 610 236 660 236" pathLength="1" stroke="var(--ok)" stroke-width="6" stroke-linecap="round"/>
+        <circle class="gpo" cx="660" cy="236" r="13" fill="var(--accent)" stroke="var(--accent)" stroke-width="5"/>
+        <g class="gfd">
+          <circle cx="596" cy="272" r="13" fill="var(--accent)"/><text x="596" y="277" text-anchor="middle" font-size="14" font-weight="700" fill="var(--bg)">5</text>
+          <text x="616" y="278" font-size="18" font-weight="700" fill="var(--accent)">병합 → main이 바뀜 · PR로만</text>
+        </g>
+      </svg><figcaption><b>저장소에서 main까지</b> · ① 저장소 ② clone ③ 브랜치(초록 줄과 커밋 둘) ④ PR(카드) ⑤ 병합 → main이 바뀜 · <a class="deckgo" href="week10show.html#gitwords">덱에서 보기 (순서대로 그려짐)</a></figcaption></figure>
+    <div class="n5">
+      <div><i>1</i><b>저장소 <span class="mut">repository</span></b>GitHub에 있는 팀 폴더 · 파일과 모든 기록 · 팀에 하나</div>
+      <div><i>2</i><b>clone <span class="mut">내려받기</span></b>저장소를 내 컴퓨터에 복사 · 사람마다 한 번 · AI도 이 폴더를 읽음</div>
+      <div><i>3</i><b>브랜치 <span class="mut">branch</span></b>main과 떨어져 고치는 작업 줄기 · 할 일 한 줄 = 브랜치 하나 · 커밋이 쌓임</div>
+      <div><i>4</i><b>PR <span class="mut">pull request</span></b>내 브랜치를 main에 합쳐 달라는 요청 · 리뷰는 여기서 · 브랜치마다 하나</div>
+      <div><i>5</i><b>main <span class="mut">기준 브랜치</span></b>모두의 기준 · PR을 병합해야만 바뀜 · 병합 뒤 브랜치 삭제</div>
+    </div>
+    <p class="sm mut">실습 2도 이 순서 · 브랜치 → 커밋 → push → PR → 리뷰 → 병합 · GitHub 문서(Hello World · GitHub flow · About branches · About pull requests) 기준</p>
+
+    <div class="h3">충돌이 생기는 곳 · 같은 줄</div>
+    <div class="cmp">
+      <div class="good"><h4>Git이 알아서 합침 · 다른 줄 · 다른 파일</h4><p>팀원 1이 style.css 3번 줄, 팀원 2가 6번 줄 → 병합 결과에 둘 다 들어감 · 사람이 할 일 없음</p></div>
+      <div class="bad"><h4>충돌 · 같은 파일의 같은 줄을 서로 다르게</h4><p>둘 다 style.css 3번 줄을 다르게 → Git이 고르지 못함 → 먼저 병합된 쪽은 그대로, 나중 PR에 충돌 표시 · 사람이 고름 · 고친 파일을 남이 지워도 충돌</p></div>
+    </div>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>충돌 표시 · 나중 PR의 파일에 이렇게 남음 · style.css</span></div><pre><code>.window-card button {
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; feat/photo-preview
+  width: 360px;   <i>/* 팀원 2 · 내 브랜치 */</i>
+=======
+  width: 100%;    <i>/* 팀원 1 · 먼저 병합된 main */</i>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; main
+}</code></pre></div>
+    <p class="sm mut">위는 내 브랜치 · 아래는 main · 사람이 남길 줄을 고르고 표시 세 줄을 지움 · GitHub 문서 Merge conflicts</p>
+    <p><span class="k">AI와 함께면 더 자주 · 네 가지</span></p>
+    <ol class="steps">
+      <li><span class="k">파일 전체를 다시 씀</span> · "style.css 정리해줘" → 들여쓰기 · 순서가 모두 바뀜 → 다른 PR과 전부 충돌</li>
+      <li><span class="k">공통 파일에 몰림</span> · 모두 style.css 끝에 새 규칙을 붙임 · index.html 메뉴를 동시에 고침</li>
+      <li><span class="k">오래된 main에서 시작</span> · 어제 받은 main에서 브랜치 → 오늘 병합된 코드와 부딪침</li>
+      <li><span class="k">한 폴더에서 AI 둘</span> · 같은 폴더의 대화 두 개가 같은 파일을 동시에 고침 · Codex 문서의 흔한 실수</li>
+    </ol>
+    <p class="sm mut">줄이는 방법 · 서로 다른 줄을 고치게 나누고 · 자주 합치기 · 아래에서 하나씩</p>
+
+    <div class="h3">이럴 때 충돌이 날까?</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>상황</th><th>판정</th><th>왜</th></tr>
+      <tr><td>팀원 1은 index.html, 팀원 2는 style.css를 고침</td><td><span class="tl ok">안 남</span></td><td>다른 파일 → Git이 알아서 합침</td></tr>
+      <tr><td>둘 다 style.css 21번 줄을 서로 다르게 고침</td><td><span class="tl no">남</span></td><td>같은 줄 → 나중 PR에서 사람이 골라 합침</td></tr>
+      <tr><td>tasks.md 표에서 붙어 있는 1번 줄 · 2번 줄의 상태를 각자 바꿈</td><td><span class="tl no">남</span></td><td>붙어 있는 줄도 충돌 · 줄 사이에 빈 줄이 있으면 안 남</td></tr>
+      <tr><td>AI가 style.css 전체 들여쓰기를 바꿈 · 다른 팀원은 그 파일 한 줄을 고침</td><td><span class="tl no">남</span></td><td>파일의 거의 모든 줄이 바뀜 → 정리만 하는 변경은 따로 PR</td></tr>
+      <tr><td>팀원 1은 old.html을 지우고, 팀원 2는 old.html을 고침</td><td><span class="tl no">남</span></td><td>고침과 지움 · 웹에서 못 풀어 내 컴퓨터에서 해결</td></tr>
+      <tr><td>어제 main에서 만든 브랜치 · 오늘 다른 사람 PR이 다른 파일로 먼저 병합</td><td><span class="tl ok">안 남</span></td><td>대신 PR이 뒤처짐 → PR 화면의 Update branch로 최신 main 받기</td></tr>
+    </table></div>
+
+    <div class="h3">한 사람 · 한 줄 · 한 브랜치 · 한 PR</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>누가</th><th>tasks.md 줄</th><th>브랜치</th><th>AI 대화</th><th>PR</th></tr>
+      <tr><td>팀원 1</td><td>1 · 카드 화면 HTML</td><td><code>feat/card-screen</code></td><td>대화 1 · 이 줄만</td><td>#1 → 병합 → 브랜치 삭제</td></tr>
+      <tr><td>팀원 2</td><td>2 · 사진 미리 보기</td><td><code>feat/photo-preview</code></td><td>대화 2 · 이 줄만</td><td>#2 → 병합 → 브랜치 삭제</td></tr>
+      <tr><td>팀원 3</td><td>3 · 가짜 창 10장</td><td><code>feat/fake-windows</code></td><td>대화 3 · 이 줄만</td><td>#3 → 리뷰 중</td></tr>
+    </table></div>
+    <ul class="bul">
+      <li><span class="k">GitHub flow</span> · 서로 관계없는 변경마다 브랜치를 따로 · 커밋 하나 = 떼어 놓아도 완결된 변경 하나 · 병합한 뒤 브랜치 삭제</li>
+      <li><span class="k">Codex 모범 사례</span> · 대화 하나 = 하나로 묶이는 일 · 프로젝트 전체를 대화 하나로 하면 흔한 실수</li>
+      <li><span class="k">Claude Code 모범 사례</span> · 따로 하는 일은 각자의 작업 공간에서 → 고친 내용이 부딪치지 않게 · PR은 작게 · 하루 안에 리뷰와 병합까지</li>
+    </ul>
+
+    <div class="h3">고칠 파일 나누기</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>파일 · 구역</th><th>맡은 사람</th><th>다른 사람이 고칠 때</th></tr>
+      <tr><td><code>index.html</code> 화면 뼈대 · 메뉴</td><td>팀원 1</td><td>맡은 사람에게 먼저 말하기</td></tr>
+      <tr><td><code>style.css</code> 위 · <code>:root</code> 변수</td><td>팀원 4 · design.md</td><td>변수 추가는 작은 PR 따로</td></tr>
+      <tr><td><code>style.css</code> 아래 · 화면별 구역</td><td>그 화면을 맡은 사람</td><td>구역 주석 <code>/* 카드 화면 */</code> 안에서만</td></tr>
+      <tr><td><code>js/photo.js</code> · <code>js/cards.js</code> · 기능마다 파일 하나</td><td>기능마다 한 사람</td><td>기능이 늘면 파일을 하나 더</td></tr>
+      <tr><td><code>docs/tasks.md</code></td><td>각자 자기 줄</td><td>각자 · 새 줄 추가는 토의 때 한 사람</td></tr>
+      <tr><td><code>AGENTS.md</code> · <code>docs/requirements.md</code></td><td>팀 전체</td><td>PR로만 · 리뷰 한 명 이상</td></tr>
+    </table></div>
+    <div class="cpy"><div class="cpy-h"><span>AI 요청에 붙이는 두 문장 → 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>고칠 파일: [js/photo.js, style.css의 '사진 미리 보기' 구역]. 이 밖의 파일을 고쳐야 하면 멈추고 먼저 알려줘. 파일 전체를 다시 쓰거나 들여쓰기 · 따옴표만 바꾸는 정리는 하지 마.</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span>style.css · 구역 주석</span></div><pre><code>:root { --bg: #0f1424; ... }          <i>/* 팀원 4 */</i>
+<i>/* ===== 카드 화면 · 팀원 1 ===== */</i>
+.window-card { ... }
+<i>/* ===== 사진 미리 보기 · 팀원 2 ===== */</i>
+.photo-preview { ... }</code></pre></div>
+    <p class="sm mut">한 파일에 몰지 않기 · 기능마다 파일을 나누면 같은 줄을 만날 일이 줄어듦</p>
+
+    <div class="h3">tasks.md는 한 줄씩 · 줄 사이에 빈 줄</div>
+    <div class="cmp">
+      <div class="bad"><h4>충돌 · 표 · 붙어 있는 두 줄을 PR 두 개가 각자</h4><p><code>| 1 | 카드 화면 HTML | 팀원 1 | 완료 (#1) |</code> ← PR #1<br><code>| 2 | 사진 미리 보기 | 팀원 2 | 리뷰 중 |</code> ← PR #2</p><p class="sm mut">PR #2를 병합하려 하면 · <code>CONFLICT (content): Merge conflict in docs/tasks.md</code></p></div>
+      <div class="good"><h4>자동으로 합쳐짐 · 한 줄씩 · 줄 사이에 빈 줄</h4><p><code>- 1 · 카드 화면 HTML · 팀원 1 · 보여 줄 것: … · 완료 (#1)</code><br><br><code>- 2 · 사진 미리 보기 · 팀원 2 · 보여 줄 것: … · 리뷰 중</code></p></div>
+    </div>
+    <p class="tip"><b>내 줄의 상태는 내 PR 안에서 바꾸기</b> · 새 줄 추가 · 순서 바꾸기 · 번호 다시 매기기는 조별 토의 때 한 사람이 PR 하나로 (두 사람이 파일 끝에 새 줄을 동시에 더하면 충돌)</p>
+
+    <div class="h3">모두 같은 하네스 · 팀 · 나 · 비밀</div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>어디에</th><th>무엇</th></tr>
+      <tr><td>팀 · git에 올림 · 모두 같은 내용을 읽음</td><td><code>AGENTS.md</code> · <code>docs/</code> · <code>CLAUDE.md</code>(→ @AGENTS.md) · <code>.claude/settings.json</code> · skills · agents · <code>.agents/skills</code> · <code>.codex/config.toml</code> · rules · <code>.github/pull_request_template.md</code> · 프로젝트를 쓰는 사람은 같은 파일을 올림 · 바뀌면 다시 올리기</td></tr>
+      <tr><td>나 · 내 컴퓨터에만</td><td><code>~/.claude/CLAUDE.md</code> · <code>~/.codex/AGENTS.md</code> · <code>~/.codex/config.toml</code> · <code>CLAUDE.local.md</code> · <code>.claude/settings.local.json</code></td></tr>
+      <tr><td>어디에도 올리지 않음 · 비밀</td><td><code>.env</code> · API 키 · 토큰 · 비밀번호 → <code>.gitignore</code>에 먼저 적고 시작 · 올렸다면 키를 새로 발급</td></tr>
+    </table></div>
+    <div class="cpy"><div class="cpy-h"><span>.gitignore · 하네스와 함께 처음에</span><button class="cp" type="button">복사</button></div><pre><code># 나만 쓰는 파일
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/worktrees/
+# 비밀
+.env
+# 운영체제가 만드는 파일
+.DS_Store
+Thumbs.db</code></pre></div>
+    <ul class="bul">
+      <li>개인 지시가 팀 규칙과 부딪치면 · 예: 내 파일에 "끝나면 main에 push" → 지우기 · 대화창의 요청이 가장 앞섬 · "그냥 main에 올려" 같은 요청은 하지 않기 (agents.md FAQ)</li>
+      <li>Claude Code · <code>CLAUDE.local.md</code>를 만들면 AGENTS.md를 바로 읽지 않음 → 팀 CLAUDE.md의 @AGENTS.md로 해결</li>
+    </ul>
+
+    <div class="h3">하네스를 바꿀 때도 PR · 그다음 새 대화</div>
+    <ol class="steps">
+      <li>AI가 같은 실수를 두 번 → 막을 한 줄을 정함 (Codex 모범 사례)</li>
+      <li>브랜치 <code>docs/agents-photo-folder</code> → AGENTS.md 한 줄 → PR</li>
+      <li>팀원 한 명 이상 리뷰 · 다른 사람 작업과 부딪치는 규칙인지</li>
+      <li>병합 → 팀 채팅에 "AGENTS.md 바뀜 · pull 하세요"</li>
+      <li>모두 main을 pull → 하던 대화는 끝내고 새 대화 (Codex는 일을 시작할 때 한 번 읽음 · Claude Code는 세션을 시작할 때 읽음 · <code>/memory</code>)</li>
+      <li>확인 질문 · "AGENTS.md에서 사진 파일을 두는 곳이 어디야?"</li>
+    </ol>
+    <p class="tip"><b>하네스 PR에는 코드를 섞지 않기</b> · 한 번에 한두 줄 · 예: <code>- 사진 파일은 data/photos/에만 둔다 (같은 실수 두 번 · #7 #8)</code></p>
+
+    <div class="h3">main 보호 · PR로만 <small>저장소 담당이 한 번 · Settings → Rulesets</small></div>
+    <ol class="steps">
+      <li>저장소 <span class="ui">Settings</span> → 왼쪽 <span class="ui">Rulesets</span> → <span class="ui">New ruleset</span> → <span class="ui">New branch ruleset</span> · 이름 적기 (예: main 보호)</li>
+      <li>Enforcement status → <span class="ui">Active</span> (처음에는 Disabled) · Bypass list는 비워 둠</li>
+      <li>Target branches → <span class="ui">Add a target</span> → <span class="ui">Include default branch</span></li>
+      <li>Branch protections · <span class="ui">Require a pull request before merging</span> 체크 + Required approvals 1 · Restrict deletions · Block force pushes는 켜져 있음 → 맨 아래 <span class="ui">Create</span></li>
+      <li>Settings 첫 화면 Pull Requests → <span class="ui">Always suggest updating pull request branches</span> 체크 → PR이 main보다 뒤처지면 Update branch 버튼이 보임</li>
+    </ol>
+    <p class="sm mut">Public 저장소는 무료 계정에서도 됨 · Private은 유료 요금제 · 언제: 실습 1 문서를 main에 올린 다음</p>
+    <div class="g2">
+      <div class="cpy"><div class="cpy-h"><span><span class="tl cl">Claude</span> .claude/settings.json → 파일</span><button class="cp" type="button">복사</button></div><pre><code>{ "permissions": { "ask": ["Bash(git push *)"] } }</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span><span class="tl gp">Codex</span> .codex/rules/team.rules → 파일</span><button class="cp" type="button">복사</button></div><pre><code>prefix_rule(pattern = ["git", "push"], decision = "prompt", justification = "push 전 확인")</code></pre></div>
+    </div>
+    <p class="sm mut">AI 쪽에도 한 번 더 · push 하기 전에 항상 묻게 · Codex는 프로젝트를 신뢰(trust)해야 이 파일을 읽음</p>
+
+    <div class="h3">하루 작업 순서 · 시작은 최신 main에서 · 끝은 브랜치 삭제 · 다시 1부터</div>
+    <p>팀원 각자가 매번 하는 순서입니다. 1번(main을 최신으로)과 4번(새 대화)이 충돌을 가장 많이 줄입니다. 터미널 명령은 AI에게 그대로 부탁해도 됩니다: "main을 최신으로 받고 feat/photo-preview 브랜치를 만들어줘".</p>
+    <div class="cyc">
+      <div><b>1 · main을 최신으로</b><code>git switch main</code> · <code>git pull</code><br><span class="mut">VS Code · Source Control ⋯ → Pull</span></div>
+      <div><b>2 · 내 줄 고르기</b>docs/tasks.md에서 내 이름 · 시작 전인 줄 하나 · 고칠 파일이 겹치는지 말로 확인</div>
+      <div><b>3 · 브랜치</b><code>git switch -c feat/photo-preview</code><br><span class="mut">VS Code · 상태 표시줄의 브랜치 이름 → Create new branch…</span></div>
+      <div><b>4 · AI는 새 대화로</b>AGENTS.md를 다시 읽게 · 줄 번호 · 고칠 파일 · checklist 줄도 함께</div>
+      <div><b>5 · 확인 → 커밋</b><code>git add .</code> · <code>git commit -m "feat: … (tasks 2)"</code><br><span class="mut">VS Code · Source Control · 메시지 → Commit</span></div>
+      <div><b>6 · push → PR</b><code>git push -u origin feat/photo-preview</code><br><span class="mut">VS Code · Publish Branch → Compare &amp; pull request</span></div>
+      <div><b>7 · 리뷰 → 병합 → 브랜치 삭제</b>Approve → Merge → Delete branch · 다음 일은 1부터</div>
+      <div class="side"><b>8 · 남이 먼저 병합했으면</b>PR 화면 <span class="ui">Update branch</span> · 터미널 <code>git merge main</code> · 충돌이 나면 <span class="ui">Resolve conflicts</span> (아래)</div>
+    </div>
+    <figure class="fig scroll"><svg viewBox="0 0 1400 600" role="img" aria-label="하루 작업 순서 · 일곱 단계가 고리로 이어짐"><defs><marker id="cyah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+        <path class="gdr" d="M103 276 A600 230 0 0 1 279 136" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M377 106 A600 230 0 0 1 772 72" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M894 82 A600 230 0 0 1 1210 179" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M1265 222 A600 230 0 0 1 1265 378" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M1210 421 A600 230 0 0 1 894 518" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M772 528 A600 230 0 0 1 377 494" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <path class="gdr" d="M279 464 A600 230 0 0 1 103 324" pathLength="1" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#cyah)"/>
+        <g class="gpo"><circle cx="100" cy="300" r="26" fill="var(--accent)"/><text x="100" y="308" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">1</text></g>
+        <g class="gfd"><text x="140" y="292" text-anchor="start" font-size="21" font-weight="700" fill="var(--ink)">main을 최신으로</text><text x="140" y="320" text-anchor="start" font-size="16" class="mo" fill="var(--ink2)">git switch main · git pull</text><text x="140" y="344" text-anchor="start" font-size="15" fill="var(--muted)">VS Code · Source Control ⋯ → Pull</text></g>
+        <g class="gpo"><circle cx="326" cy="120" r="26" fill="var(--accent)"/><text x="326" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">2</text></g>
+        <g class="gfd"><text x="366" y="134" text-anchor="start" font-size="21" font-weight="700" fill="var(--ink)">내 줄 고르기</text><text x="366" y="162" text-anchor="start" font-size="16" fill="var(--ink2)">docs/tasks.md에서 내 이름 · 시작 전인 줄 하나</text><text x="366" y="186" text-anchor="start" font-size="15" fill="var(--muted)">고칠 파일이 겹치는지 말로 확인</text></g>
+        <g class="gpo"><circle cx="834" cy="76" r="26" fill="var(--accent)"/><text x="834" y="84" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">3</text></g>
+        <g class="gfd"><text x="834" y="124" text-anchor="middle" font-size="21" font-weight="700" fill="var(--ink)">브랜치</text><text x="834" y="152" text-anchor="middle" font-size="16" class="mo" fill="var(--ink2)">git switch -c feat/photo-preview</text><text x="834" y="176" text-anchor="middle" font-size="15" fill="var(--muted)">VS Code · 상태 표시줄의 브랜치 이름 → Create new branch…</text></g>
+        <g class="gpo"><circle cx="1241" cy="200" r="26" fill="var(--accent)"/><text x="1241" y="208" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">4</text></g>
+        <g class="gfd"><text x="1201" y="192" text-anchor="end" font-size="21" font-weight="700" fill="var(--ink)">AI는 새 대화로</text><text x="1201" y="220" text-anchor="end" font-size="16" fill="var(--ink2)">AGENTS.md를 다시 읽게 · 줄 번호 · 고칠 파일</text><text x="1201" y="244" text-anchor="end" font-size="15" fill="var(--muted)">checklist 줄도 함께</text></g>
+        <g class="gpo"><circle cx="1241" cy="400" r="26" fill="var(--accent)"/><text x="1241" y="408" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">5</text></g>
+        <g class="gfd"><text x="1201" y="300" text-anchor="end" font-size="21" font-weight="700" fill="var(--ink)">확인 → 커밋</text><text x="1201" y="328" text-anchor="end" font-size="16" class="mo" fill="var(--ink2)">git add . · git commit -m &quot;feat: … (tasks 2)&quot;</text><text x="1201" y="352" text-anchor="end" font-size="15" fill="var(--muted)">VS Code · Source Control · 메시지 → Commit</text></g>
+        <g class="gpo"><circle cx="834" cy="524" r="26" fill="var(--accent)"/><text x="834" y="532" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">6</text></g>
+        <g class="gfd"><text x="834" y="400" text-anchor="middle" font-size="21" font-weight="700" fill="var(--ink)">push → PR</text><text x="834" y="428" text-anchor="middle" font-size="16" class="mo" fill="var(--ink2)">git push -u origin feat/photo-preview</text><text x="834" y="452" text-anchor="middle" font-size="15" fill="var(--muted)">VS Code · Publish Branch → Compare &amp; pull request</text></g>
+        <g class="gpo"><circle cx="326" cy="480" r="26" fill="var(--accent)"/><text x="326" y="488" text-anchor="middle" font-size="22" font-weight="700" fill="var(--bg)">7</text></g>
+        <g class="gfd"><text x="270" y="412" text-anchor="start" font-size="21" font-weight="700" fill="var(--ink)">리뷰 → 병합 → 브랜치 삭제</text><text x="270" y="440" text-anchor="start" font-size="16" fill="var(--ink2)">Approve → Merge → Delete branch · 다음 일은 1부터</text></g>
+        <g class="gfd"><rect x="505" y="190" width="390" height="116" rx="14" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="2"/><circle cx="535" cy="219" r="16" fill="var(--warn)"/><text x="535" y="225" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">8</text><text x="560" y="226" font-size="19" font-weight="700" fill="var(--ink)">남이 먼저 병합했으면</text><text x="525" y="256" font-size="16" fill="var(--ink2)">PR 화면 <tspan font-weight="700">Update branch</tspan> · 터미널 <tspan class="mo">git merge main</tspan></text><text x="525" y="284" font-size="16" fill="var(--ink2)">충돌이 나면 <tspan font-weight="700">Resolve conflicts</tspan> · 다음 장</text></g>
+        </svg><figcaption><b>일곱 단계가 고리 하나</b> · 7 다음은 다시 1 · 가운데 8은 남이 먼저 병합했을 때만 거치는 옆길 · 옆으로 밀어 보기 · <a class="deckgo" href="week10show.html#daily">덱에서 보기</a></figcaption></figure>
+
+    <div class="h3">한 컴퓨터에서 AI 여럿 · worktree <small>오늘은 알아 두기</small></div>
+    <p>한 사람이 AI 대화 두 개를 동시에 돌릴 때 씁니다. worktree = 같은 저장소의 두 번째 작업 폴더 · 브랜치는 따로 · 기록은 같이. Codex 문서의 흔한 실수: worktree 없이 같은 파일에서 작업 여러 개를 동시에. 주의: 같은 브랜치는 한 곳에서만 · <code>.env</code>처럼 gitignore된 파일은 따라오지 않음 → <code>.worktreeinclude</code>.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>도구</th><th>방법</th></tr>
+      <tr><td>Claude Code 터미널</td><td><code>claude -w photo</code> → <code>.claude/worktrees/photo/</code>에 만듦 · 끝낼 때 worktree를 남길지 지울지 물어봄 · 데스크톱 앱은 입력창 아래 Worktree를 켜고 시작</td></tr>
+      <tr><td>Codex 앱</td><td>입력창 아래 Worktree → 시작 브랜치 고르기 · Hand off로 Local ↔ Worktree · Create branch here → 커밋 · push · PR</td></tr>
+      <tr><td>Git으로 직접 · 어느 도구든</td><td><code>git worktree add ../nw-sound -b feat/sound-tag</code> · <code>git worktree list</code> · <code>git worktree remove ../nw-sound</code></td></tr>
+    </table></div>
+    <p class="sm mut">처음에는 · AI 대화 하나 · 일 하나로 충분</p>
+
+    <div class="h3">충돌 풀기 · PR 화면에서 <small>간단한 줄 충돌</small></div>
+    <ol class="steps">
+      <li>PR 아래쪽 회색 띠의 <span class="ui">Resolve conflicts</span> 누르기 (This branch has conflicts that must be resolved)</li>
+      <li>편집기에서 표시 세 줄 사이 두 쪽 읽기 · 위는 내 브랜치 · 아래는 main</li>
+      <li>남길 내용으로 고치기 · 한쪽 · 다른 쪽 · 둘을 합친 새 줄 → <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 지우기 · 예: 두 쪽의 목적을 함께 → <code>width: 100%; max-width: 360px;</code></li>
+      <li>오른쪽 위 <span class="ui">Mark as resolved</span> → 왼쪽 파일 이름에 초록 ✓</li>
+      <li><span class="ui">Commit merge</span> → 다시 확인 → 리뷰 → 병합</li>
+    </ol>
+    <p class="warn"><b>웹에서는 간단한 줄 충돌만</b> · 파일을 지운 충돌 같은 나머지는 내 컴퓨터에서 (GitHub 문서) · 버튼이 회색이면 아래 · 어느 쪽을 남길지 모르면 그 줄을 쓴 팀원을 불러 같이 봄</p>
+
+    <div class="h3">복잡한 충돌 · 내 컴퓨터에서 AI와</div>
+    <div class="cpy"><div class="cpy-h"><span>main을 내 브랜치에 합치기 → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>git switch main
+git pull
+git switch feat/photo-preview
+git merge main</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>충돌이 나면 AI에게 → 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>git merge main에서 충돌이 났어. 충돌 표시가 있는 파일마다 양쪽이 무엇을 하려 했는지 먼저 설명해줘. 그다음 두 목적을 함께 살려 합치고, 한쪽을 버려야 하면 멈추고 물어봐. 끝나면 충돌 표시가 남았는지 찾고, checklist [3]번 줄로 확인할 방법을 알려줘.</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>확인한 뒤 → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>git add .
+git commit -m "merge: main 반영 · style.css 충돌 해결"
+git push</code></pre></div>
+    <p class="warn"><b>하지 않을 것</b> · <code>git push --force</code> · 모르는 채 <code>git reset --hard</code> → 합치기 전으로 돌아가려면 <code>git merge --abort</code></p>
+
+    <div class="h3">AGENTS.md의 '함께 작업' 구역</div>
+    <div class="cpy"><div class="cpy-h"><span>AGENTS.md · 함께 작업 · 우리 파일 이름으로 바꿔도 됨</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>## 함께 작업
+- 일을 시작하기 전에 main을 최신으로 받고, 새 브랜치에서 한다.
+- main에 직접 push하지 않는다. 병합은 PR로만 한다.
+- docs/tasks.md에서 맡은 번호의 일만 한다. 상태는 내 줄만 바꾼다.
+- 고칠 파일 밖을 바꿔야 하면 멈추고 먼저 묻는다.
+- 파일 전체 다시 쓰기 · 들여쓰기나 따옴표만 바꾸는 정리 · 파일 이름 바꾸기 · 폴더 옮기기는 하지 않는다.
+- 공통 파일(style.css의 :root 변수 · index.html의 메뉴 · AGENTS.md)은 작은 PR로 따로 바꾼다.
+- 충돌이 나면 양쪽이 무엇을 하려 했는지 설명하고, 남길 쪽을 사람에게 묻는다.
+- 끝나면 바꾼 파일 · 확인한 것 · 확인 못 한 것을 보고한다.</code></pre></div>
+    <p class="sm mut">줄마다 막는 것 · 최신 main · 새 브랜치 → 오래된 main에서 시작 · PR로만 → 리뷰 없이 main이 바뀜 · 맡은 번호 · 내 줄 → 남의 일 · tasks.md 충돌 · 밖이면 묻기 → 남의 파일을 고침 · 전체 다시 쓰기 X → 파일 전체 충돌 · 공통 파일은 따로 → 공통 파일에 몰림 · 문장은 부탁 · 꼭 막을 것은 GitHub 규칙 · Claude ask · Codex rules로 (02 부탁과 강제)</p>
+  </section>
+  <section class="sec" id="lab2">
+    <h2>실습 2 · 팀 세팅과 첫 작업<small>팀원 모두 같은 하네스로 · 각자 브랜치에서 AI에게 한 줄씩</small></h2>
+    <p class="lede">단계별 화면과 체크는 <a href="week10lab.html">실습 2 안내</a>에 있습니다. 여기서는 순서와 그대로 쓰는 프롬프트만 모았습니다.</p>
+    <div class="twrap"><table class="tbl">
+      <tr><th>순서</th><th>누가</th><th>무엇을</th></tr>
+      <tr><td>1</td><td>저장소 담당</td><td>시트 → 하네스 파일 · 팀이 같이 읽고 고침 → main에 커밋 (main에 바로 올리는 것은 이번이 마지막)</td></tr>
+      <tr><td>2</td><td>저장소 담당</td><td>main 보호 규칙 켜기 (07)</td></tr>
+      <tr><td>3</td><td>모두</td><td>내 컴퓨터로 clone · AI가 AGENTS.md를 읽는지 확인</td></tr>
+      <tr><td>4</td><td>작업 담당 2명 이상</td><td>각자 다른 줄 → 브랜치 → AI에게</td></tr>
+      <tr><td>5</td><td>리뷰 담당</td><td>checklist 줄로 확인 → 승인 → 병합 · 먼저 끝난 것부터</td></tr>
+      <tr><td>6</td><td>모두 (선택)</td><td>충돌 연습 → 조별 토의</td></tr>
+    </table></div>
+    <ul class="bul">
+      <li><span class="k">나누기 예</span> · 2명 → 둘 다 작업 담당 · 서로 바꿔 리뷰 (저장소 담당도 작업) · 3명 → 작업 3 · 돌아가며 리뷰 (A→B→C→A) · 4명 → 작업 2 · 리뷰 2 → 서로 바꿔 리뷰 · 6명 → 작업 3 · 리뷰 3 · 한 사람은 tasks.md 정리</li>
+      <li><span class="k">두 갈래</span> · (가) 에이전트가 있으면 저장소 폴더에서 직접 · (나) 없으면 대화창에 AGENTS.md · tasks 줄 · 지금 파일을 붙여 넣고 같은 요청 → 받은 코드를 GitHub 웹에서 브랜치에 커밋 · 어느 쪽이든 PR · 리뷰 · 병합은 같음</li>
+    </ul>
+
+    <div class="h3">1단계 · 시트에서 하네스 파일을 한 번에 <small>저장소 담당 · 모두 같이 읽기</small></div>
+    <div class="cpy"><div class="cpy-h"><span>시트 → 하네스 (대화창도 같은 요청) → 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>docs/의 세 문서와 아래 9주차 팀 시트 ①–⑩을 근거로 하네스 파일을 만들어줘. 먼저 파일마다 넣을 내용을 계획으로 보여 주고, 내가 좋다고 하면 만들어.
+
+1. AGENTS.md (100줄 이하): 한 줄 소개 · 먼저 읽을 문서 · 실행 방법 · 규칙(시트 ⑦) · 함께 작업 · 하지 말 것 · 끝낼 때 보고
+2. CLAUDE.md: 첫 줄 @AGENTS.md
+3. README.md: 팀 이름(①) · 한 문장(⑤) · 실행 방법
+4. .github/pull_request_template.md: 무엇을 · 왜(tasks 번호) · 확인한 것 · 확인 못 한 것
+5. .gitignore: CLAUDE.local.md · .claude/settings.local.json · .claude/worktrees/ · .env · .DS_Store
+
+함께 작업 구역에는 아래 줄을 그대로 넣어줘. 시트에 없는 내용은 비워 두고 '정할 것'이라고 적고, 끝나면 '정할 것' 목록을 보여줘.
+
+[07 '함께 작업' 붙여 넣기]
+[시트 ①–⑩ 붙여 넣기]</code></pre></div>
+    <ol class="steps">
+      <li>먼저 읽을 문서 · 세 문서 경로가 맞나</li>
+      <li>실행 방법 · 한 사람이 그대로 따라 해 봄</li>
+      <li>규칙 · 팀이 정한 것만 · '정할 것' 채우기</li>
+      <li>함께 작업 · 우리 파일 이름으로 · 공통 파일은 누구</li>
+      <li>.gitignore에 CLAUDE.local.md · .env</li>
+      <li>커밋 → main · 바로 올리는 것은 이번이 마지막</li>
+    </ol>
+    <p class="sm mut">대화창이면 · 파일마다 코드 블록으로 받아 GitHub 웹 Add file로 하나씩 · 파일별 프롬프트는 실습 2 안내에</p>
+
+    <div class="h3">3단계 · 모두 clone · 하네스 확인</div>
+    <div class="cpy"><div class="cpy-h"><span>같은 일을 터미널로 (VS Code는 Source Control → Clone Repository → 주소 붙여 넣기)</span><button class="cp" type="button">복사</button></div><pre><code>git clone https://github.com/내아이디/night-windows.git
+cd night-windows</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>처음 커밋 전에 한 번 · 커밋 작성자 → 터미널</span><button class="cp" type="button">복사</button></div><pre><code>git config --global user.name "내 이름"
+git config --global user.email "GitHub에 등록한 메일"</code></pre></div>
+    <div class="twrap"><table class="tbl">
+      <tr><th>도구</th><th>AI가 하네스를 읽었나</th></tr>
+      <tr><td><span class="tl gp">Codex</span> 새 대화</td><td>"지금 적용된 지시를 요약하고, 어느 파일에서 읽었는지 알려줘."</td></tr>
+      <tr><td><span class="tl cl">Claude Code</span></td><td><code>/memory</code> → 목록에 CLAUDE.md · 그 안에서 불러온 AGENTS.md</td></tr>
+      <tr><td>대화창만</td><td>프로젝트에 AGENTS.md · docs 세 문서 올리기 → "우리 팀 함께 작업 규칙을 말해줘"</td></tr>
+    </table></div>
+    <p class="when"><span><b>3단계 끝</b> · 팀원 모두의 AI가 함께 작업 규칙을 말하면 · 엉뚱한 규칙을 말하면 main을 pull했는지 · 저장소 폴더에서 열었는지 · 새 대화인지</span></p>
+
+    <div class="h3">4단계 · 브랜치에서 첫 작업 <small>작업 담당 둘 이상이 동시에 · 서로 다른 줄 · 서로 다른 파일</small></div>
+    <div class="cpy"><div class="cpy-h"><span>최신 main에서 브랜치 (AI에게 부탁해도 됨) → 터미널 · GitHub 웹은 파일 목록 위 브랜치 메뉴 → 이름 입력 → Create branch</span><button class="cp" type="button">복사</button></div><pre><code>git switch main
+git pull
+git switch -c feat/card-screen</code></pre></div>
+    <div class="cpy"><div class="cpy-h"><span>첫 작업 요청 · [ ]만 바꾸기 → 에이전트 대화창</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>AGENTS.md를 먼저 읽어줘. docs/tasks.md의 [1]번 줄을 해줘. 고칠 파일: [index.html, style.css의 '카드 화면' 구역]. 이 밖의 파일을 고쳐야 하면 멈추고 먼저 알려줘. 끝나는 조건: docs/checklist.md [1]번 줄. 끝나면 바꾼 파일 · 확인한 것 · 확인 못 한 것을 알려줘.</code></pre></div>
+    <p class="sm mut">끝나면 브라우저로 checklist 줄 확인 → "브라우저로 확인했어. 커밋하고 push해줘." → <code>git push -u origin feat/card-screen</code> → 저장소 화면에 <span class="ui">Compare &amp; pull request</span> · 브랜치 이름은 영어 소문자와 하이픈 · <code>feat/</code> 같은 앞말 · AI의 마지막 보고를 PR 본문에 그대로</p>
+
+    <div class="h3">5단계 · PR 만들기 → 리뷰 → 병합</div>
+    <ol class="steps">
+      <li>push 뒤 저장소 화면 위 노란 띠의 <span class="ui">Compare &amp; pull request</span> (안 보이면 Pull requests 탭 → New pull request → compare에서 내 브랜치)</li>
+      <li>제목은 커밋 메시지와 같게 (<code>feat: 카드 화면 HTML 한 장 (tasks 1)</code>) · 본문 네 칸(무엇을 · 왜(tasks 번호) · 확인한 것 · 확인 못 한 것)은 템플릿이 미리 채워 줌 → AI의 마지막 보고를 붙여 넣기</li>
+      <li>오른쪽 <span class="ui">Reviewers ⚙</span> → 팀원 한 명 → <span class="ui">Create pull request</span> → 리뷰 담당에게 알리기 · 내 줄의 상태 '완료'는 이 PR에 같이 (tasks.md에서 내 줄만 고쳐 커밋)</li>
+      <li>리뷰 담당 · <span class="ui">Files changed</span> 탭 · checklist 줄은 브랜치를 내려받아 직접 열어 봄 · 고칠 줄에 마우스를 올리면 나오는 파란 + → 댓글(줄 번호 · 어디서 · 무엇이 · 예: "checklist 1번 확인함 · 크롬 · 360px에서 '다음' 버튼이 잘려요 → max-width: 100%") → <span class="ui">Start a review</span> → 오른쪽 위 <span class="ui">Review changes</span> → <span class="ui">Approve</span> 또는 <span class="ui">Request changes</span> → <span class="ui">Submit review</span> · 자기 PR은 자기가 승인할 수 없음</li>
+      <li>고칠 것은 작업 담당이 같은 브랜치에 커밋 → PR에 더해짐 → Conversation 탭 아래 <span class="ui">Merge pull request</span> → <span class="ui">Confirm merge</span> → <span class="ui">Delete branch</span> · main이 바뀌었으면 먼저 <span class="ui">Update branch</span></li>
+    </ol>
+    <p class="sm mut">리뷰어도 AI를 써도 됨 · Codex <code>/review</code> · Claude checklist-reviewer · 그래도 checklist 줄은 사람이 열어 봄</p>
+
+    <div class="h3">6단계 · 충돌 연습 (선택) · 일부러 한 번</div>
+    <ol class="steps">
+      <li>A · B 각자 브랜치 <code>practice/a</code> · <code>practice/b</code> (웹 브랜치 메뉴로도)</li>
+      <li>둘 다 README.md의 한 줄 소개를 서로 다르게 고침 → 커밋 → PR 두 개</li>
+      <li>리뷰 담당이 A의 PR을 먼저 병합</li>
+      <li>B의 PR · <span class="ui">Resolve conflicts</span> → 두 문장을 합친 한 줄 → 표시 세 줄 지우기</li>
+      <li><span class="ui">Mark as resolved</span> → <span class="ui">Commit merge</span> → 리뷰 → 병합 → 브랜치 둘 삭제 · main의 README에 합친 한 줄 · 충돌 표시 없음 → 끝</li>
+    </ol>
+
+    <div class="h3">조별 토의 · 개인 피드백</div>
+    <ol class="steps">
+      <li>오늘 만든 저장소 · 문서를 같이 열어 보기</li>
+      <li>9주차 ⑨ 분담 다시 보기 → tasks.md에 이름과 상태</li>
+      <li>11주차 알파까지 남은 일 → tasks.md 줄로 · 한 줄 = PR 하나 · 새 줄은 한 사람이 PR 하나로</li>
+      <li>막힌 것 · 물어볼 것 한 줄씩 → 시트 ⑩ 또는 tasks.md의 '## 물어볼 것'</li>
+    </ol>
+    <p class="sm mut">개인 피드백은 실습 시간에 한 사람씩 · 준비: 개인 과제 화면 · 묻고 싶은 것 한 줄 · 받은 피드백은 수정 계획에 한 줄 (예: "첫 화면에서 무엇을 누를지 모르겠다" → 첫 화면에 안내 문장 한 줄)</p>
+  </section>
+  <section class="sec" id="stuck">
+    <h2>막혔을 때 · 자주 보는 문제<small>표에 없는 문제는 03의 '막히면 증거 그대로' · 상황 한 줄 + 에러 전체 + 고치고 확인해줘</small></h2>
+    <div class="twrap"><table class="tbl err">
+      <tr><th>이렇게 되면</th><th>이렇게</th></tr>
+      <tr><td>command not found: claude · codex</td><td class="ko">설치 뒤 터미널을 새로 열기 · <code>--version</code>으로 확인</td></tr>
+      <tr><td class="ko">Claude Code 로그인에서 막힘</td><td class="ko">유료 요금제가 필요 · 오늘은 프로젝트 또는 다른 도구로 · (나) 갈래</td></tr>
+      <tr><td class="ko">학교 계정에 Codex가 보이지 않음</td><td class="ko">ChatGPT 프로젝트에서 초안 → GitHub 웹에서 커밋 · (나) 갈래</td></tr>
+      <tr><td class="ko">AI가 AGENTS.md 규칙을 안 지킴</td><td class="ko">Codex 새로 시작 · Claude <code>/memory</code>로 읽혔는지 · CLAUDE.md 첫 줄 @AGENTS.md</td></tr>
+      <tr><td>! [rejected] … (fetch first)</td><td class="ko">먼저 <code>git pull</code> · 충돌이 나면 4주차 연습처럼 해결</td></tr>
+      <tr><td class="ko">초대 수락 버튼이 안 보임</td><td class="ko">저장소 주소로 직접 · github.com/notifications</td></tr>
+      <tr><td class="ko">Pages 주소가 404</td><td class="ko">Settings → Pages에서 main 저장 · 잠시 뒤 새로 고침 · 첫 파일 이름은 index.html</td></tr>
+      <tr><td class="ko">AI가 시트에 없는 기능을 넣음</td><td class="ko">"requirements.md 알파 범위 밖이면 지우고 알려줘"</td></tr>
+      <tr><td>This branch has conflicts that must be resolved</td><td class="ko">PR 아래 Resolve conflicts (07) · 버튼이 회색이면 내 컴퓨터에서 <code>git merge main</code></td></tr>
+      <tr><td>push declined due to repository rule violations</td><td class="ko">main 보호가 켜진 것 · 브랜치를 만들어 push → PR</td></tr>
+      <tr><td class="ko">내 PR에 Approve가 안 눌림</td><td class="ko">자기 PR은 자기가 승인할 수 없음 · 다른 팀원이 리뷰</td></tr>
+      <tr><td class="ko">AI가 다른 사람 파일을 고침</td><td class="ko">그 파일만 되돌리기 · VS Code Discard Changes 또는 <code>git restore 파일</code> → 요청에 고칠 파일 다시</td></tr>
+      <tr><td class="ko">팀원 AI가 바뀐 규칙을 모름</td><td class="ko">main을 pull → 새 대화 → "AGENTS.md를 다시 읽고 요약해줘"</td></tr>
+      <tr><td class="ko">Update branch 버튼이 없음</td><td class="ko">Settings → Pull Requests의 Always suggest updating 켜기 · 충돌이 있으면 Resolve conflicts부터</td></tr>
+      <tr><td>'feat/a' is already used by worktree</td><td class="ko">같은 브랜치는 한 곳에서만 · 그 worktree에서 이어서 하거나 다른 브랜치 이름</td></tr>
+    </table></div>
+  </section>
+  <section class="sec" id="next">
+    <h2>오늘 점검 · 다음 주까지</h2>
+    <div class="h3">오늘 점검 <small>팀마다 하나씩</small></div>
+    <ul class="bul">
+      <li>팀 저장소 · 팀원 모두 초대 · 모두 파일을 열 수 있음</li>
+      <li><code>docs/</code> 세 문서 · 하네스 파일 (AGENTS.md · CLAUDE.md · PR 템플릿 · .gitignore)</li>
+      <li>main 보호 규칙 · Require a pull request · 승인 1명</li>
+      <li>팀원 모두 clone · 하네스 확인 · AI가 함께 작업 규칙을 말함</li>
+      <li>AI가 만든 PR 둘 이상 · 서로 리뷰 → 병합 (또는 열려 있음)</li>
+      <li>tasks.md에 11주차까지 할 일과 이름 한 줄씩 · 줄 사이에 빈 줄</li>
+      <li>(선택) 충돌 연습 · PR 화면에서 Resolve conflicts</li>
+      <li>저장소 링크 제출 · 제출 방법은 eTL 안내</li>
+    </ul>
+    <p class="tip"><b>못 끝낸 일은</b> · 내 브랜치에 커밋 · PR은 열어 둠 · 다음 주 초에 병합</p>
+
+    <div class="h3">다음 주까지</div>
+    <div class="cmp">
+      <div><h4>팀 · 11주차 · 알파 (수직 프로토타입)</h4><ul><li>사용 장면을 처음부터 끝까지 한 번 지나가는 가장 작은 버전</li><li>tasks.md 한 줄 = PR 하나씩 · 리뷰 후 병합</li><li>알파 테스트는 11주차 뒤 · 13주차 베타 시연 전까지 · checklist.md의 알파 테스트 줄(시트 ⑧)이 그대로 테스트 질문이 됨</li><li>테스트용 주소 · Settings → Pages → Deploy from a branch · main (6주차) · PR을 병합할 때마다 사이트가 바뀜</li></ul></div>
+      <div><h4>개인 · 개인 과제</h4><ul><li>11주차 제출 · 수정 · 업데이트 버전은 15주차까지 더 낼 수 있음</li><li>AI 사용량 한도를 생각해 미리</li><li>마감 시각 · 제출 방법은 eTL 안내</li></ul></div>
+      <div><h4>이후 · 12 · 13주차</h4><ul><li>12주차 · 하네스 특강 (현업 개발팀)</li><li>13주차 · 베타 시연</li><li>오늘 만든 하네스를 그대로 이어서 씀</li></ul></div>
+    </div>
+  </section>
+  <section class="sec" id="terms">
+    <h2>용어 사전<small>이 자료와 덱에 나온 말 · 처음 보는 말이 나오면 여기로</small></h2>
+    <div class="h3">하네스 · AI</div>
+    <dl class="gl">
+      <div><dt>프롬프트<small>prompt</small></dt><dd>AI에게 건네는 요청 문장 · 한 번 묻고 한 번 받음</dd></div>
+      <div><dt>컨텍스트<small>context</small></dt><dd>요청과 함께 AI에게 보이는 것 전부 · 대화 기록 · 붙여 넣은 파일 · 읽힌 지시 파일 · AI는 요청마다 이 전부를 다시 읽음</dd></div>
+      <div><dt>에이전트<small>agent</small></dt><dd>요청을 받아 파일을 열고 · 고치고 · 실행까지 하는 AI · Claude Code · Codex</dd></div>
+      <div><dt>모델<small>model</small></dt><dd>글을 읽고 쓰는 AI 자체 · Claude · GPT · 고를 수는 있고 바꿀 수는 없는 부분</dd></div>
+      <div><dt>하네스<small>harness</small></dt><dd>에이전트가 프로젝트 안에서 같은 기준으로 계속 일하도록 저장소에 함께 두는 것 · 지시 파일 · 문서 · 확인 방법 · 권한</dd></div>
+      <div><dt>안내 · 확인<small>guides · sensors</small></dt><dd>앞에서 안내 = 시작 전에 읽히는 것(AGENTS.md · docs · 스킬) · 뒤에서 확인 = 끝난 뒤 맞는지 보는 것(checklist · 리뷰 · 훅 · 테스트 · 린터)</dd></div>
+      <div><dt>부탁 · 강제</dt><dd>부탁 = 지시 파일에 적어 AI가 따르려 하는 것 · 강제 = 도구 설정이 막는 것(브랜치 규칙 · 훅 · 권한 · 샌드박스)</dd></div>
+      <div><dt>토큰<small>token</small></dt><dd>AI가 글을 세는 단위 · 대략 글자 · 단어 조각 · 요금제의 사용량 한도가 이것으로 정해짐 · 대화가 길수록 요청마다 더 많이 씀</dd></div>
+      <div><dt>슬래시 명령<small>/init · /plan …</small></dt><dd>슬래시(/)로 시작하는 말 · 도구에게 내리는 명령 · AI에게 하는 요청과 다름 · Claude Code · Codex 모두</dd></div>
+      <div><dt>체크포인트<small>checkpoint</small></dt><dd>Claude Code가 파일 편집 도구로 고친 내용을 되돌릴 수 있게 남기는 기록 · 터미널 명령으로 바뀐 파일 · 내가 직접 고친 파일은 되돌리지 못함 → 기준은 Git 커밋</dd></div>
+      <div><dt>계획 모드<small>plan mode</small></dt><dd>읽고 계획만 쓰는 모드 · Claude Code는 Shift + Tab 또는 /plan · Codex는 /plan</dd></div>
+      <div><dt>스킬<small>skill · SKILL.md</small></dt><dd>다시 쓰는 절차를 적은 파일 · 폴더 하나 + SKILL.md · Claude는 .claude/skills/ · Codex는 .agents/skills/ · 같은 형식</dd></div>
+      <div><dt>하위 에이전트<small>subagent</small></dt><dd>자기 대화창에서 일하고 결과 요약만 돌려주는 보조 에이전트 · 예: checklist-reviewer (읽기만 · 고치지 않음)</dd></div>
+      <div><dt>훅<small>hook</small></dt><dd>정해진 순간에 자동으로 도는 명령 · 실패로 끝나면 그 동작을 멈춤 · Git 훅(pre-commit) · 에이전트 훅(PreToolUse · PostToolUse · Stop)</dd></div>
+      <div><dt>MCP</dt><dd>외부 도구(피그마 · 이슈 관리 · 문서)를 에이전트에 연결하는 방법 · 이 수업에서는 이름만</dd></div>
+      <div><dt>플러그인<small>plugin</small></dt><dd>스킬 · 훅 등을 묶어 다른 저장소에도 설치하는 방법 · 이 수업에서는 이름만</dd></div>
+      <div><dt>권한 모드<small>permission mode</small></dt><dd>Claude Code가 묻지 않고 해도 되는 일의 범위 · manual · accept edits · plan · auto · 화면 아래 표시로 지금 모드를 앎</dd></div>
+      <div><dt>샌드박스 · 승인<small>sandbox · approval</small></dt><dd>Codex에서 샌드박스 = 무엇에 손댈 수 있나(파일 · 네트워크) · 승인 = 언제 멈추고 묻나 · 권장은 작업 폴더 쓰기 + 필요할 때 묻기</dd></div>
+      <div><dt>rules<small>.codex/rules</small></dt><dd>Codex에서 명령을 허용 · 확인 · 금지로 정하는 파일 · 접두어가 같아야 걸림 · 실험 기능</dd></div>
+      <div><dt>린터<small>linter</small></dt><dd>코드를 실행하지 않고 읽어서 규칙 위반을 찾는 프로그램 · ESLint · HTMLHint · Stylelint</dd></div>
+      <div><dt>pre-commit 훅</dt><dd>Git이 커밋을 만들기 직전에 돌리는 훅 · 린터 · 테스트가 실패하면 커밋이 만들어지지 않음</dd></div>
+      <div><dt>worktree</dt><dd>같은 저장소의 두 번째 작업 폴더 · 브랜치는 따로 · 기록은 같이 · 한 컴퓨터에서 AI 대화 둘을 동시에 돌릴 때</dd></div>
+    </dl>
+    <div class="h3">파일 이름 · 폴더 이름</div>
+    <dl class="gl">
+      <div><dt><code>README.md</code></dt><dd>사람이 먼저 읽는 안내 · GitHub 저장소 첫 화면에 보임 · 팀 이름 · 한 문장 · 실행 방법</dd></div>
+      <div><dt><code>AGENTS.md</code></dt><dd>AI가 먼저 읽는 안내 · 목차 · 공개 형식(agents.md) · Codex는 바로, Claude Code는 CLAUDE.md를 거쳐 읽음</dd></div>
+      <div><dt><code>CLAUDE.md</code></dt><dd>Claude Code가 대화를 시작할 때마다 읽는 파일 · 첫 줄 @AGENTS.md · Claude 전용 줄 · 여러 곳에 둘 수 있고 전부 읽어 한 묶음</dd></div>
+      <div><dt><code>CLAUDE.local.md</code></dt><dd>저장소 안에서 나만 쓰는 Claude 파일 · .gitignore에 · 공식 문서의 고정 이름</dd></div>
+      <div><dt><code>.claude/</code></dt><dd>Claude Code의 공식 폴더 · settings.json(권한 · 훅) · rules/ · skills/ · agents/ · settings.local.json(나만)</dd></div>
+      <div><dt><code>.codex/</code> · <code>.agents/</code></dt><dd>Codex의 저장소 설정 폴더(config.toml · rules/ · hooks.json) · 스킬 폴더(.agents/skills/) · 내 컴퓨터 전체는 ~/.codex/ · ~/.agents/</dd></div>
+      <div><dt><code>docs/requirements.md</code></dt><dd>무엇을 왜 만드는지 · 알파 범위 · 시트 ②⑤⑥⑧</dd></div>
+      <div><dt><code>docs/tasks.md</code></dt><dd>지금 할 일 · 누가 · 보여 줄 것 · 상태 · 한 줄 = PR 하나 · 줄 사이에 빈 줄 · 시트 ⑨</dd></div>
+      <div><dt><code>docs/checklist.md</code></dt><dd>끝났다고 말하기 전에 확인할 줄 · 사용 장면 번호 · 공통 줄 · 알파 테스트 줄 · 시트 ⑥⑧</dd></div>
+      <div><dt><code>docs/design.md</code> · <code>docs/architecture.md</code></dt><dd>색 · 글꼴 · 간격의 CSS 변수 · 화면 · 데이터 · 파일의 연결 · 나중에</dd></div>
+      <div><dt><code>.github/pull_request_template.md</code></dt><dd>PR을 열면 본문에 미리 채워지는 틀 · 무엇을 · 왜(tasks 번호) · 확인한 것 · 확인 못 한 것</dd></div>
+      <div><dt><code>.gitignore</code></dt><dd>git에 올리지 않을 파일 목록 · CLAUDE.local.md · .claude/settings.local.json · .env · .DS_Store</dd></div>
+      <div><dt><code>.env</code></dt><dd>API 키 · 비밀번호 같은 비밀을 두는 파일 · 어디에도 올리지 않음 · 올렸다면 키를 새로 발급</dd></div>
+    </dl>
+    <div class="h3">Git · GitHub</div>
+    <dl class="gl">
+      <div><dt>저장소<small>repository</small></dt><dd>프로젝트 폴더 하나와 그 모든 기록 · GitHub에 있는 것이 팀의 원본 · 팀에 하나</dd></div>
+      <div><dt>clone</dt><dd>GitHub의 저장소를 내 컴퓨터로 복사 · 사람마다 한 번 · AI도 이 폴더를 읽고 고침</dd></div>
+      <div><dt>main<small>기준 브랜치</small></dt><dd>모두의 기준 브랜치 · PR을 병합해야만 바뀜 · main 보호 규칙을 켜면 직접 push가 막힘</dd></div>
+      <div><dt>브랜치<small>branch</small></dt><dd>main과 떨어져 고치는 작업 줄기 · 할 일 한 줄 = 브랜치 하나 · 이름은 영어 소문자와 하이픈 · feat/ 같은 앞말</dd></div>
+      <div><dt>커밋<small>commit</small></dt><dd>바뀐 내용을 메시지와 함께 기록 · 동작하는 순간마다 하나 · 앞말 feat: · fix: · docs: · chore:</dd></div>
+      <div><dt>push · pull</dt><dd>push = 내 커밋을 GitHub로 올리기 · pull = GitHub의 새 커밋을 내 컴퓨터로 받기 · 일을 시작하기 전에 main을 pull</dd></div>
+      <div><dt>PR<small>pull request</small></dt><dd>내 브랜치를 main에 합쳐 달라는 요청 · 리뷰는 여기서 · 브랜치마다 하나 · 본문은 템플릿의 네 칸</dd></div>
+      <div><dt>리뷰<small>review</small></dt><dd>다른 팀원이 PR의 변경을 checklist 줄로 확인하고 Approve 또는 Request changes · 자기 PR은 자기가 승인할 수 없음</dd></div>
+      <div><dt>병합<small>merge</small></dt><dd>브랜치의 변경을 main에 합치기 · 리뷰 승인 뒤에 · Merge pull request → Confirm merge → Delete branch</dd></div>
+      <div><dt>충돌<small>conflict</small></dt><dd>두 사람이 같은 파일의 같은 줄을 서로 다르게 고쳐 Git이 혼자 못 합침 → 나중 PR에 충돌 표시 · 사람이 고름</dd></div>
+      <div><dt>Update branch</dt><dd>PR이 main보다 뒤처졌을 때 최신 main을 내 브랜치에 받는 PR 화면의 버튼 · Settings → Pull Requests의 Always suggest updating을 켜야 늘 보임</dd></div>
+      <div><dt>룰셋 · 브랜치 보호<small>ruleset</small></dt><dd>GitHub 설정으로 main을 PR로만 바꾸게 하는 규칙 · Require a pull request before merging · Required approvals 1 · Block force pushes</dd></div>
+      <div><dt>push protection</dt><dd>API 키 같은 비밀이 든 커밋의 push를 GitHub가 막는 기능</dd></div>
+      <div><dt>GitHub Pages</dt><dd>저장소의 main 브랜치를 그대로 웹 주소로 공개하는 기능 (6주차) · Settings → Pages · 병합할 때마다 사이트가 바뀜 · 알파 테스트용 주소</dd></div>
+      <div><dt>Live Server · <code>npx serve .</code></dt><dd>빌드 없는 웹을 브라우저로 열어 보는 두 방법 · VS Code 확장 · 터미널 명령</dd></div>
+    </dl>
+  </section>
+  <section class="sec" id="sources">
+    <h2>출처 · 참고한 공식 문서<small>도구의 화면 · 명령 · 요금제는 자주 바뀜 → 이 자료와 다르면 공식 문서가 기준</small></h2>
+    <div class="src">
+      <div><h3>Anthropic · Claude</h3><ul>
+        <li><a href="https://code.claude.com/docs/ko/memory" target="_blank" rel="noopener">CLAUDE.md · AGENTS.md · rules<small>code.claude.com/docs/ko/memory</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/best-practices" target="_blank" rel="noopener">Claude Code 모범 사례<small>code.claude.com/docs/ko/best-practices</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/features-overview" target="_blank" rel="noopener">기능 개요 · 하나씩 더하기<small>code.claude.com/docs/ko/features-overview</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/skills" target="_blank" rel="noopener">스킬<small>code.claude.com/docs/ko/skills</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/sub-agents" target="_blank" rel="noopener">하위 에이전트<small>code.claude.com/docs/ko/sub-agents</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/hooks-guide" target="_blank" rel="noopener">훅<small>code.claude.com/docs/ko/hooks-guide</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/permission-modes" target="_blank" rel="noopener">권한 모드<small>code.claude.com/docs/ko/permission-modes</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/permissions" target="_blank" rel="noopener">권한 규칙 (ask · deny)<small>code.claude.com/docs/ko/permissions</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/claude-directory" target="_blank" rel="noopener">.claude 폴더 · 팀과 공유하는 파일 · 개인 파일<small>code.claude.com/docs/ko/claude-directory</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/worktrees" target="_blank" rel="noopener">worktree로 병렬 세션 실행<small>code.claude.com/docs/ko/worktrees</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/setup" target="_blank" rel="noopener">설치<small>code.claude.com/docs/ko/setup</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/chrome" target="_blank" rel="noopener">Chrome 연결 · 화면 확인<small>code.claude.com/docs/ko/chrome</small></a></li>
+        <li><a href="https://support.claude.com/en/articles/9519177" target="_blank" rel="noopener">Claude 프로젝트<small>support.claude.com/en/articles/9519177</small></a></li>
+        <li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener">Effective harnesses for long-running agents<small>anthropic.com</small></a></li>
+        <li><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener">Harness design for long-running application development<small>anthropic.com</small></a></li>
+      </ul></div>
+      <div><h3>OpenAI · ChatGPT · Codex</h3><ul>
+        <li><a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md" target="_blank" rel="noopener">AGENTS.md<small>learn.chatgpt.com/docs/agent-configuration/agents-md</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/learn/best-practices" target="_blank" rel="noopener">Codex 모범 사례 · 흔한 실수<small>learn.chatgpt.com/docs/learn/best-practices</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/customization/overview" target="_blank" rel="noopener">사용자 지정 · 무엇부터 더하나<small>learn.chatgpt.com/docs/customization/overview</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noopener">스킬<small>learn.chatgpt.com/docs/build-skills</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/agent-approvals-security" target="_blank" rel="noopener">승인과 보안<small>learn.chatgpt.com/docs/agent-approvals-security</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/agent-configuration/rules" target="_blank" rel="noopener">rules<small>learn.chatgpt.com/docs/agent-configuration/rules</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/cli/slash-commands" target="_blank" rel="noopener">슬래시 명령 (/init · /plan · /review)<small>learn.chatgpt.com/docs/cli/slash-commands</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/codex/cli" target="_blank" rel="noopener">Codex CLI 설치<small>learn.chatgpt.com/docs/codex/cli</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/environments/git-worktrees" target="_blank" rel="noopener">Codex · Worktrees<small>learn.chatgpt.com/docs/environments/git-worktrees</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/projects" target="_blank" rel="noopener">ChatGPT 프로젝트<small>learn.chatgpt.com/docs/projects</small></a></li>
+        <li><a href="https://openai.com/index/harness-engineering" target="_blank" rel="noopener">Harness engineering<small>openai.com/index/harness-engineering</small></a></li>
+        <li><a href="https://agents.md" target="_blank" rel="noopener">AGENTS.md 공개 형식 · FAQ<small>agents.md</small></a></li>
+      </ul></div>
+      <div><h3>GitHub · Git · VS Code</h3><ul>
+        <li><a href="https://docs.github.com/en/get-started/start-your-journey/hello-world" target="_blank" rel="noopener">Hello World · 브랜치 · PR 첫 연습<small>docs.github.com · hello-world</small></a></li>
+        <li><a href="https://docs.github.com/en/get-started/using-github/github-flow" target="_blank" rel="noopener">GitHub flow<small>docs.github.com · github-flow</small></a></li>
+        <li><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository" target="_blank" rel="noopener">팀원 초대 · Inviting collaborators<small>docs.github.com · inviting-collaborators-to-a-personal-repository</small></a></li>
+        <li><a href="https://docs.github.com/en/repositories/working-with-files/managing-files/creating-new-files" target="_blank" rel="noopener">웹에서 파일 만들기 · Creating new files<small>docs.github.com · creating-new-files</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request" target="_blank" rel="noopener">PR 만들기 · Creating a pull request<small>docs.github.com · creating-a-pull-request</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request" target="_blank" rel="noopener">PR 리뷰 · Reviewing proposed changes<small>docs.github.com · reviewing-proposed-changes-in-a-pull-request</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request" target="_blank" rel="noopener">PR 병합 · Merging a pull request<small>docs.github.com · merging-a-pull-request</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/reference/merge-conflicts" target="_blank" rel="noopener">충돌이 생기는 경우 · Merge conflicts<small>docs.github.com · merge-conflicts</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github" target="_blank" rel="noopener">웹에서 충돌 풀기<small>docs.github.com · resolving-a-merge-conflict-on-github</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/keeping-your-pull-request-in-sync-with-the-base-branch" target="_blank" rel="noopener">Update branch · PR을 최신으로<small>docs.github.com · keeping-your-pull-request-in-sync</small></a></li>
+        <li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository" target="_blank" rel="noopener">main 보호 · Creating rulesets<small>docs.github.com · creating-rulesets-for-a-repository</small></a></li>
+        <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener">GitHub Pages 만들기<small>docs.github.com · creating-a-github-pages-site</small></a></li>
+        <li><a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup" target="_blank" rel="noopener">Git 처음 설정 · user.name · user.email<small>git-scm.com · First-Time Git Setup</small></a></li>
+        <li><a href="https://code.visualstudio.com/docs/sourcecontrol/overview" target="_blank" rel="noopener">VS Code · Source Control<small>code.visualstudio.com/docs/sourcecontrol</small></a></li>
+      </ul></div>
+      <div><h3>영상 · 글 · 하네스 엔지니어링</h3><ul>
+        <li><a href="https://www.youtube.com/watch?v=am_oeAoUhew" target="_blank" rel="noopener">Dan Lopopolo · Harness Engineering 강연 · 같은 리뷰 지적을 두 번 받지 않기<small>youtube.com/watch?v=am_oeAoUhew</small></a></li>
+        <li><a href="https://www.youtube.com/watch?v=zYerCzIexCg" target="_blank" rel="noopener">Bouchard · 프롬프트 → 컨텍스트 → 하네스<small>youtube.com/watch?v=zYerCzIexCg</small></a></li>
+        <li><a href="https://www.thoughtworks.com/insights/podcasts" target="_blank" rel="noopener">Thoughtworks 팟캐스트 · What is harness engineering?<small>thoughtworks.com/insights/podcasts</small></a></li>
+        <li><a href="https://martinfowler.com/articles/harness-engineering.html" target="_blank" rel="noopener">Böckeler · Harness engineering · 앞에서 안내 · 뒤에서 확인<small>martinfowler.com/articles/harness-engineering.html</small></a></li>
+        <li><a href="https://addyosmani.com/blog/agent-harness-engineering" target="_blank" rel="noopener">Addy Osmani · 에이전트 = 모델 + 하네스<small>addyosmani.com/blog/agent-harness-engineering</small></a></li>
+        <li><a href="https://byline.network/2026/04/harness-engineering" target="_blank" rel="noopener">바이라인네트워크 · 하네스 엔지니어링이란 (우리말)<small>byline.network/2026/04/harness-engineering</small></a></li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+</div>
+<footer>웹프로그래밍개론 · 10주차 읽기 자료 · 화면이 다르면 공식 문서가 기준</footer>
+<script>
+(()=>{
+  document.querySelectorAll('.cp').forEach(b=>b.addEventListener('click',()=>{
+    const pre=b.closest('.cpy').querySelector('pre'); const t=pre.innerText.replace(/\n{3,}/g,'\n\n');
+    const done=()=>{b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500)};
+    const fallback=()=>{try{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();done()}catch(e){}};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done,fallback); else fallback();
+  }));
+  const links=[...document.querySelectorAll('#tocList a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const mark=()=>{let cur=secs[0]; secs.forEach(s=>{if(s.getBoundingClientRect().top-90<=0) cur=s}); links.forEach(a=>a.classList.toggle('on',cur&&a.getAttribute('href')==='#'+cur.id))};
+  document.addEventListener('scroll',mark,{passive:true}); mark();
+  document.querySelectorAll('.tabs').forEach(tb=>{const bs=[...tb.querySelectorAll('.tr button')],ps=[...tb.querySelectorAll('.pane')];const pick=v=>{bs.forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v));ps.forEach(p=>p.hidden=p.dataset.v!==v)};bs.forEach(b=>b.addEventListener('click',()=>pick(b.dataset.v)));pick(bs[0].dataset.v)});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10주차 실습 2 · 팀 세팅과 첫 작업 · 단계별 안내</title>
+<meta name="description" content="웹프로그래밍개론 10주차 실습 2 안내. 9주차 팀 시트로 하네스 파일을 만들고, main을 보호하고, 팀원 모두 저장소를 내 컴퓨터로 가져와 각자 브랜치에서 AI에게 tasks.md 한 줄씩 맡긴 뒤 PR로 리뷰하고 합칩니다. 처음 코딩하는 사람도 따라 할 수 있게 단계마다 화면 이름 · 명령 · AI 요청을 적었습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#ffffff;--canvas:#f4f4f1;--surface:#e9e9e4;--ink:#1a1a1a;--ink2:#3d3d3a;--muted:#62625d;--line:#e3e3de;--strong:#cbcbc4;
+  --accent:#001871;--accent-strong:#00114F;--accent-soft:#E3E7F4;--accent-line:#A9B9F2;--hl:rgba(169,185,242,.55);
+  --cl:#A8532E;--cl-soft:#F6E9E2;--gp:#0E7A62;--gp-soft:#E1F1EC;
+  --ok:#1E7A4C;--ok-soft:#E3F1E8;--no:#B3261E;--no-soft:#F8E4E1;--warn:#855400;--warn-soft:#F4EBD8;
+  --term:#1d1f21;--term-ink:#e6e6e2;
+  --body:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono","Pretendard Variable",monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#181917;--canvas:#20211e;--surface:#111210;--ink:#ecebe6;--ink2:#d4d3cd;--muted:#a9a8a1;--line:#30312d;--strong:#4b4c46;
+    --accent:#A9B9F2;--accent-strong:#C6D1F7;--accent-soft:#1B2347;--accent-line:#3d4c8a;--hl:rgba(169,185,242,.26);
+    --cl:#EBA685;--cl-soft:#3a251b;--gp:#74D3B6;--gp-soft:#13332a;
+    --ok:#83D6A8;--ok-soft:#15301f;--no:#F3A399;--no-soft:#3b1b18;--warn:#E6C27E;--warn-soft:#352910;
+    --term:#0c0d0c;--term-ink:#e6e6e2;
+    color-scheme:dark;
+  }
+}
+html{background:var(--canvas);scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.72;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+b,strong{font-weight:700}
+code,kbd,pre{font-family:var(--mono)}
+code{font-size:.9em;background:var(--canvas);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.ui{display:inline-block;font-weight:700;font-size:.92em;line-height:1.35;padding:0 7px;border:1px solid var(--strong);border-radius:6px;background:var(--bg)}
+kbd{display:inline-block;font-size:.85em;font-weight:600;padding:0 7px;border:1px solid var(--strong);border-bottom-width:2px;border-radius:5px;background:var(--bg);white-space:nowrap}
+.mut{color:var(--muted)}
+.sm{font-size:15px;line-height:1.6}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:6px 12px;border-radius:6px;z-index:50}
+.skip:focus{left:12px}
+
+/* 윗줄 */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1260px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.wm{font-weight:700;font-size:16px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink);text-decoration:none}
+.wm b{color:var(--accent)}
+.bar-t{flex:1;min-width:0;font-size:15px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
+.prog i{display:block;width:120px;height:7px;border-radius:9px;background:var(--surface);overflow:hidden}
+.prog i>s{display:block;height:100%;width:0;background:var(--accent);border-radius:9px;transition:width .25s}
+.bar a.deck{font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--strong);border-radius:999px;padding:3px 12px;color:var(--ink);white-space:nowrap;background:var(--bg)}
+
+/* 틀 */
+.shell{max-width:1260px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:28px 0 20px}
+.toc b{display:block;font-size:13px;color:var(--muted);margin:0 0 8px 10px}
+.toc ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px}
+.toc a{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:7px;font-size:14.5px;line-height:1.45;color:var(--ink2);text-decoration:none}
+.toc a:hover{background:var(--bg)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.toc a span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.toc a.full span{color:var(--ok);font-weight:700}
+.toc .sep{height:1px;background:var(--line);margin:8px 10px}
+main{min-width:0;padding-top:30px}
+
+/* 첫머리 */
+.eyebrow{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:6px}
+h1{font-size:40px;line-height:1.22;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+h1 em,h2 em{font-style:normal;background:linear-gradient(transparent 62%,var(--hl) 62%)}
+.lede{margin-top:12px;font-size:19.5px;line-height:1.65;color:var(--ink2);max-width:880px}
+.how{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.how div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.55;color:var(--ink2)}
+.how div b{display:block;font-size:15.5px;color:var(--ink);margin-bottom:2px}
+
+/* 고르기 */
+.ctrl{margin-top:22px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.ctrl .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ctrl .lab{width:86px;flex:none;font-size:14.5px;font-weight:700;color:var(--muted)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--strong);background:var(--bg);border-radius:999px;padding:4px 14px;font-size:15px;font-weight:600;line-height:1.5}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.ctrl .tools{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.ctrl .tools button{border:1px solid var(--line);background:var(--canvas);border-radius:8px;padding:3px 12px;font-size:14px;font-weight:600;color:var(--ink2)}
+.ctrl .note{font-size:14px;color:var(--muted)}
+
+/* 큰 제목 */
+.sec{margin-top:52px}
+.sec>h2{font-size:28px;line-height:1.3;letter-spacing:-.03em;font-weight:800}
+.sec>.sub{margin-top:6px;color:var(--muted);font-size:16px}
+
+/* 말 */
+.terms{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.terms div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.terms dt{font-weight:800;font-size:16.5px}
+.terms dt small{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--muted);margin-left:6px}
+.terms dd{margin:2px 0 0;font-size:15px;line-height:1.55;color:var(--ink2)}
+
+/* 흐름 */
+.flow{margin-top:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.flow a{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:10px 11px 12px;text-decoration:none;color:var(--ink)}
+.flow a.opt{border-top-color:var(--strong)}
+.flow a .n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent)}
+.flow a .t{font-size:15px;font-weight:700;line-height:1.35}
+.flow a .w{font-size:12.5px;font-weight:700;color:var(--muted);margin-top:auto}
+.exnote{margin-top:12px;font-size:15px;color:var(--muted)}
+.exq{display:inline-block;font-size:13px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:999px;padding:1px 10px;vertical-align:1px;margin-right:4px}
+
+/* 역할 태그 */
+.tl{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:1px 10px;border-radius:999px;white-space:nowrap;line-height:1.6}
+.tl.both{background:var(--accent-soft);color:var(--accent)}
+.tl.gr{background:var(--canvas);color:var(--muted);border:1px solid var(--line)}
+.tl.cl{background:var(--cl-soft);color:var(--cl)}
+.tl.gp{background:var(--gp-soft);color:var(--gp)}
+.tl.ok{background:var(--ok-soft);color:var(--ok)}
+.tl.no{background:var(--no-soft);color:var(--no)}
+
+/* 단계 */
+.step{margin-top:18px;background:var(--bg);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.step>summary{list-style:none;display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer}
+.step>summary::-webkit-details-marker{display:none}
+.step>summary .no{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-size:20px;font-weight:800}
+.step>summary .tt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.step>summary h3{font-size:22px;line-height:1.35;letter-spacing:-.025em;font-weight:800}
+.step>summary .who{display:flex;gap:6px;flex-wrap:wrap}
+.step>summary .cnt{flex:none;font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.step>summary .cnt.full{color:var(--ok)}
+.step>summary .chev{flex:none;width:12px;height:12px;border-right:2.5px solid var(--muted);border-bottom:2.5px solid var(--muted);transform:rotate(45deg);margin:0 4px 6px 4px;transition:transform .2s}
+.step[open]>summary .chev{transform:rotate(-135deg);margin-bottom:-4px}
+.step>summary .oth{display:none;font-size:13px;font-weight:700;color:var(--muted)}
+.step.other>summary .oth{display:inline}
+.step.other>summary .no{background:var(--strong)}
+.step.opt>summary .no{background:var(--canvas);color:var(--accent);border:2px solid var(--accent)}
+.sbody{padding:0 22px 22px 82px;display:flex;flex-direction:column;gap:14px}
+.goal{font-size:16.5px;color:var(--ink2);background:var(--canvas);border-radius:10px;padding:9px 14px}
+.goal b{color:var(--accent);margin-right:8px}
+.sbody h4{font-size:17.5px;font-weight:800;margin-top:6px}
+.sbody h4 .tl{margin-left:6px;vertical-align:2px}
+
+/* 할 일 목록 */
+.do{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:d}
+.do>li{counter-increment:d;display:flex;flex-direction:column;gap:10px;padding-left:0}
+.ck{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.ck input{flex:none;appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:3px 0 0;border:2px solid var(--strong);border-radius:6px;background:var(--bg);display:grid;place-items:center;cursor:pointer}
+.ck input:checked{background:var(--ok);border-color:var(--ok)}
+.ck input:checked::after{content:"";width:6px;height:11px;border:solid var(--bg);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ck>span{flex:1;min-width:0}
+.ck>span::before{content:counter(d) " · ";font-weight:800;color:var(--accent)}
+.ck input:checked+span{color:var(--muted)}
+.do>li>.more{margin-left:34px;display:flex;flex-direction:column;gap:10px}
+.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.steps li::marker{font-weight:700;color:var(--accent)}
+.bul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.bul li::marker{color:var(--accent)}
+
+/* 상자 */
+.when{display:flex;gap:12px;align-items:flex-start;background:var(--ok-soft);border-radius:12px;padding:12px 16px;font-size:16.5px}
+.when::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--ok);color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:14px;margin-top:2px}
+.when b{color:var(--ok)}
+.tip{border-left:4px solid var(--accent);background:var(--canvas);border-radius:0 10px 10px 0;padding:9px 14px;font-size:16px;color:var(--ink2)}
+.tip b:first-child{color:var(--ink)}
+.warn{border-left:4px solid var(--no);background:var(--no-soft);border-radius:0 10px 10px 0;padding:9px 14px;font-size:16px;color:var(--ink)}
+.warn b:first-child{color:var(--no)}
+
+/* 복사 상자 */
+.cpy{border:1px solid var(--line);border-radius:12px;background:var(--canvas);overflow:hidden}
+.cpy-h{display:flex;align-items:center;gap:10px;padding:7px 10px 7px 14px;border-bottom:1px solid var(--line);font-size:14px;font-weight:700;color:var(--muted)}
+.cpy-h>span{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cp{flex:none;border:1px solid var(--strong);background:var(--bg);border-radius:999px;padding:2px 14px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.cp.done{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+.cpy pre{margin:0;padding:12px 16px;overflow:auto;font-size:14.5px;line-height:1.65;color:var(--ink);white-space:pre}
+.cpy pre code{background:none;border:0;padding:0;font-size:inherit}
+.cpy pre.ko{white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.7}
+.cpy pre.ko code{font-family:var(--body)}
+.cpy pre i{font-style:normal;color:var(--muted)}
+
+/* 탭 */
+.tabs{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tabs>.tr{display:flex;flex-wrap:wrap;gap:0;background:var(--canvas);border-bottom:1px solid var(--line)}
+.tabs>.tr button{border:0;background:none;padding:9px 16px;font-size:15px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs>.tr button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);background:var(--bg)}
+.tabs>.pane{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.tabs>.pane[hidden]{display:none}
+
+/* 표 */
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55}
+.tbl th{text-align:left;font-size:13.5px;color:var(--muted);font-weight:700;padding:6px 10px;border-bottom:2px solid var(--strong)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:700}
+.tbl code{font-size:.86em}
+.tbl.err td:first-child{font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--no)}
+.tbl.err td.ko{font-family:var(--body);font-size:15px;color:var(--ink)}
+.twrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+
+/* 늘 쓰는 것 */
+.card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.card>h3{font-size:21px;font-weight:800;letter-spacing:-.02em}
+.card>h3 small{font-size:14px;font-weight:700;color:var(--muted);margin-left:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g2>*,.sbody>*,.more>*,.pane>*,.card>*{min-width:0}
+.mark{font-family:var(--mono);font-size:14px;line-height:1.6;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:10px 14px;white-space:pre;overflow:auto}
+.mark .mk{color:var(--no);font-weight:700}
+.mark .ou{display:block;background:var(--accent-soft);margin:0 -14px;padding:0 14px}
+.mark .th{display:block;background:var(--warn-soft);margin:0 -14px;padding:0 14px}
+
+/* 점검 */
+.final{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.final .ck{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.final .ck>span::before{content:none}
+.final .ck small{display:block;color:var(--muted);font-size:14px}
+
+/* 출처 */
+.src{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.src>div{min-width:0}
+.src h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.src ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.src a{display:block;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;line-height:1.45}
+.src a small{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.src a:hover{border-color:var(--accent)}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+
+@media (max-width:1100px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .toc{display:none}
+  .flow{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .bar-in{padding:8px 14px;gap:10px}
+  .bar-t,.prog i{display:none}
+  .shell{padding:0 14px 60px}
+  h1{font-size:30px}
+  .lede{font-size:17px}
+  .how,.terms,.final,.src,.g2{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .ctrl .lab{width:auto}
+  .ctrl .tools{margin-left:0}
+  .step>summary{padding:14px 14px;gap:12px}
+  .step>summary .no{width:36px;height:36px;font-size:17px}
+  .step>summary h3{font-size:19px}
+  .sbody{padding:0 14px 18px 14px}
+  .do>li>.more{margin-left:0}
+  .twrap{padding:4px 12px}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:auto!important}
+  .tbl tr:first-child{display:none}
+  .tbl tr{padding:9px 0;border-bottom:1px solid var(--line)}
+  .tbl tr:last-child{border-bottom:0}
+  .tbl td{border:0;padding:1px 0}
+  .tbl code{white-space:normal;word-break:break-all}
+  .tbl td.na{display:none}
+}
+@media print{
+  .bar,.toc,.ctrl,.skip,.cp{display:none!important}
+  .shell{display:block;padding:0}
+  body,html{background:#fff}
+  .tabs>.pane[hidden]{display:flex!important}
+  .step,.card{break-inside:avoid-page}
+}
+
+/* ---------- 화면 모사 (덱과 같은 부품) ---------- */
+/* ---------- GitHub 화면 모사 (gk) ---------- */
+.gk{position:relative;font-family:var(--body);font-size:16px;color:#1f2328;background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.gk .gtop{flex:none;display:flex;align-items:center;gap:12px;background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:8px 14px;font-size:15px;color:#59636e}
+.gk .gtop b{color:#1f2328;font-weight:600}
+.gk .gtop .crumb{display:flex;align-items:center;gap:6px}
+.gk .gtop .crumb i{width:16px;height:16px;border-radius:50%;background:#d0d7de;display:inline-block}
+.gk .gtabs{flex:none;display:flex;gap:4px;padding:0 10px;border-bottom:1px solid #d0d7de;background:#f6f8fa;font-size:14.5px}
+.gk .gtabs span{padding:9px 10px 8px;color:#59636e;border-bottom:2px solid transparent;display:flex;align-items:center;gap:6px}
+.gk .gtabs span.on{color:#1f2328;font-weight:600;border-bottom-color:#fd8c73}
+.gk .gtabs span em{font-style:normal;background:#eff1f3;border-radius:999px;font-size:12px;padding:1px 7px;color:#59636e}
+.gk .body{flex:1;min-height:0;padding:14px 18px;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.gk .body.side{display:grid;grid-template-columns:1fr 200px;gap:14px}
+.gk h5{margin:0;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.gk h6{margin:0;font-size:15px;font-weight:600;color:#1f2328}
+.gk .sub{font-size:14px;color:#59636e;line-height:1.4}
+.gk .lbl{font-size:14px;font-weight:600}
+.gk .hint{font-size:12.5px;color:#59636e;line-height:1.35}
+.gk .inp{border:1px solid #d0d7de;border-radius:6px;background:#fff;padding:6px 10px;font-family:var(--mono);font-size:15px;line-height:1.3;color:#1f2328;display:flex;align-items:center;gap:8px;min-height:34px}
+.gk .inp.ko{font-family:var(--body)}
+.gk .inp.on{border-color:#0969da;box-shadow:0 0 0 3px rgba(9,105,218,.3)}
+.gk .inp.ph{color:#8c959f}
+.gk .sel{border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;padding:5px 10px;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.gk .sel::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #1f2328}
+.gk .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(31,35,40,.15);border-radius:6px;background:#f6f8fa;padding:5px 14px;font-size:14.5px;font-weight:600;color:#1f2328;white-space:nowrap;align-self:flex-start}
+.gk .btn.pri{background:#1f883d;border-color:rgba(31,35,40,.15);color:#fff}
+.gk .btn.pur{background:#8250df;color:#fff}
+.gk .btn.dis{background:#94d3a2;color:#fff}
+.gk .btn.ic::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;margin-left:2px}
+.gk .rowf{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.gk .rowf.end{justify-content:flex-end}
+.gk .rad,.gk .chk{display:flex;flex-direction:column;gap:7px}
+.gk .rad>div,.gk .chk>div{display:flex;gap:9px;align-items:flex-start;font-size:15px;line-height:1.35}
+.gk .rad>div b,.gk .chk>div b{font-weight:600}
+.gk .rad>div>span,.gk .chk>div>span{display:flex;flex-direction:column;gap:1px;align-items:stretch}
+.gk .rad span span,.gk .chk span span{display:inline;align-items:normal;gap:0}
+.gk .rad>div small,.gk .chk>div small{font-size:12.5px;color:#59636e}
+.gk .rad>div>i{flex:none;width:16px;height:16px;border-radius:50%;border:1px solid #8c959f;margin-top:2px;background:#fff}
+.gk .rad>div>i.on{border:5px solid #0969da}
+.gk .chk>div>i{flex:none;width:16px;height:16px;border-radius:4px;border:1px solid #8c959f;margin-top:2px;background:#fff;position:relative}
+.gk .chk>div>i.on{background:#0969da;border-color:#0969da}
+.gk .chk>div>i.on::after{content:"✓";position:absolute;left:2px;top:-3px;color:#fff;font-size:12px;font-weight:800;font-style:normal}
+.gk .box{border:1px solid #d0d7de;border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.gk .box .bh{background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:7px 12px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.gk .box .bh .mono{font-weight:600}
+.gk .box .bc{padding:10px 12px;font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:7px}
+.gk .code{font-family:var(--mono);font-size:14px;line-height:1.55;white-space:pre-wrap;color:#1f2328}
+.gk .code .add{display:block;background:#dafbe1;margin:0 -12px;padding:0 12px}
+.gk .code .del{display:block;background:#ffebe9;margin:0 -12px;padding:0 12px}
+.gk .code .ctx{display:block;color:#59636e}
+.gk .code .num{display:inline-block;width:34px;color:#8c959f;text-align:right;margin-right:12px;user-select:none}
+.gk .pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 11px;font-size:13.5px;font-weight:600;color:#fff;background:#1f883d}
+.gk .pill.pur{background:#8250df}
+.gk .pill.gray{background:#59636e}
+.gk .pill.line{background:#fff;color:#1f2328;border:1px solid #d0d7de}
+.gk .cmt{border:1px solid #d0d7de;border-radius:6px;overflow:hidden}
+.gk .cmt .ch{background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:6px 12px;font-size:13.5px;color:#59636e;display:flex;gap:8px;align-items:center}
+.gk .cmt .ch b{color:#1f2328;font-weight:600}
+.gk .cmt .ch i{width:18px;height:18px;border-radius:50%;background:#9db7e8;display:inline-block}
+.gk .cmt .cb{padding:9px 12px;font-size:15px;line-height:1.45}
+.gk .menu{border:1px solid #d0d7de;border-radius:8px;background:#fff;box-shadow:0 8px 24px rgba(140,149,159,.2);display:flex;flex-direction:column;overflow:hidden;align-self:flex-start;min-width:260px}
+.gk .menu .mh{font-size:12.5px;font-weight:600;color:#59636e;padding:8px 12px;border-bottom:1px solid #d0d7de}
+.gk .menu>div{padding:7px 12px;font-size:14.5px;display:flex;gap:8px;align-items:center;border-top:1px solid #eaeef2}
+.gk .menu>div.on{background:#f6f8fa;font-weight:600}
+.gk .menu>div:first-child{border-top:0}
+.gk .side-b{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:#59636e}
+.gk .side-b b{display:flex;justify-content:space-between;color:#59636e;font-weight:600}
+.gk .side-b b::after{content:"⚙";font-size:12px}
+.gk .side-b span{color:#1f2328}
+.gk .flash{border:1px solid rgba(31,35,40,.15);border-radius:6px;background:#fff8c5;padding:8px 12px;font-size:14.5px;display:flex;align-items:center;gap:10px}
+.gk .gwarn{border:1px solid #d0d7de;border-left:4px solid #bf8700;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gk .gok{border:1px solid #d0d7de;border-left:4px solid #1f883d;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gk .gwarn b,.gk .gok b{font-weight:600}
+.gk .mono{font-family:var(--mono);font-size:.94em}
+.gk .nav{flex:none;background:#f6f8fa;border-bottom:1px solid #d0d7de;display:flex;align-items:center;gap:12px;padding:6px 14px;font-size:14px;color:#59636e}
+.gk .nav .plus{margin-left:auto;border:1px solid #d0d7de;border-radius:6px;padding:1px 8px;font-weight:700;color:#1f2328;background:#fff}
+.gk .nav .av{width:22px;height:22px;border-radius:50%;background:#9db7e8}
+.gk .settings{display:grid;grid-template-columns:190px 1fr;gap:16px;flex:1;min-height:0}
+.gk .settings .sn{display:flex;flex-direction:column;gap:2px;font-size:14px;color:#1f2328}
+.gk .settings .sn span{padding:5px 10px;border-radius:6px}
+.gk .settings .sn span.on{background:#eaeef2;font-weight:600;box-shadow:inset 3px 0 0 #fd8c73}
+.gk .settings .sn small{font-size:12px;color:#59636e;padding:8px 10px 2px;font-weight:600}
+.gk .settings .sc{display:flex;flex-direction:column;gap:10px;min-height:0}
+.gk .an{position:absolute;z-index:5;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;box-shadow:0 0 0 3px #fff;font-style:normal}
+.gk .hl{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.gk .vs{font-family:var(--body)}
+.gk .list{display:flex;flex-direction:column}
+.gk .list div{display:flex;align-items:center;gap:10px;padding:7px 12px;border-top:1px solid #d0d7de;font-size:14.5px}
+.gk .list div:first-child{border-top:0}
+.gk .list .av{width:20px;height:20px;border-radius:50%;background:#9db7e8}
+.gk .list .ml{margin-left:auto;color:#59636e;font-size:13px}
+/* gk 보강 · 실제 화면 대조 */
+.gk .stp{display:grid;grid-template-columns:26px 1fr;gap:0 12px}
+.gk .stp>i{width:26px;height:26px;border-radius:50%;background:#eaeef2;color:#59636e;font:600 13px/26px var(--body);text-align:center;font-style:normal;position:relative}
+.gk .stp>i::after{content:"";position:absolute;left:12px;top:28px;bottom:-14px;width:2px;background:#d0d7de}
+.gk .stp.last>i::after{display:none}
+.gk .stp>div{display:flex;flex-direction:column;gap:6px;padding:0 0 10px;min-width:0}
+.gk .stp h6{font-size:16px;line-height:26px}
+.gk .cfg{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.gk .cfg>span:first-child{display:flex;flex-direction:column;gap:0;min-width:0}
+.gk .tg{width:36px;height:20px;border-radius:999px;background:#d0d7de;position:relative;flex:none;display:inline-block}
+.gk .tg.on{background:#1f883d}
+.gk .tg::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.gk .tg.on::after{left:18px}
+.gk .btn.dng{color:#d1242f}
+.gk .btn.white{background:#fff}
+.gk .lnk{color:#0969da}
+.gk .cc{display:inline-block;background:#ddf4ff;color:#0969da;border-radius:6px;padding:0 6px;font-family:var(--mono);font-size:.9em;font-weight:500}
+.gk .gchk{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#1a7f37;color:#fff;font-size:11px;font-weight:800;font-style:normal;flex:none;vertical-align:-2px}
+.gk .gwc{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#818b98;color:#fff;font-size:17px;font-weight:800;font-style:normal;flex:none}
+.gk .ban{border:1px solid #d0d7de;border-radius:6px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.gk .ban>div{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+.gk .ban b{font-weight:600;font-size:16px}
+.gk .ico{display:inline-block;color:#59636e;font-style:normal;min-width:16px;text-align:center;font-weight:400}
+.gk .mdl{border:1px solid #d0d7de;border-radius:10px;background:#fff;box-shadow:0 8px 24px rgba(140,149,159,.25);display:flex;flex-direction:column;overflow:hidden}
+.gk .mdl .mh{font-size:15px;font-weight:600;color:#1f2328;padding:9px 12px;border-bottom:1px solid #d0d7de;display:flex;justify-content:space-between;align-items:center}
+.gk .mdl .mh i{font-style:normal;color:#59636e;font-weight:400}
+.gk .mdl .mb{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.gk .mdl .mf{border-top:1px solid #d0d7de;padding:8px 12px;display:flex;gap:8px;align-items:center;background:#f6f8fa}
+.gk .tbar{display:flex;gap:12px;align-items:center;font-size:13.5px;color:#59636e;flex-wrap:wrap}
+.gk .tbar b{color:#1f2328;font-weight:600}
+.gk .tbar .rr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.gk .ttab{display:inline-flex;border:1px solid #d0d7de;border-radius:6px;overflow:hidden}
+.gk .ttab span{padding:3px 10px;font-size:13px;font-weight:600;color:#59636e;background:#f6f8fa}
+.gk .ttab span.on{background:#fff;color:#1f2328}
+.gk .wtab{display:flex;gap:0;border-bottom:1px solid #d0d7de;background:#f6f8fa;font-size:13.5px;padding:4px 8px 0}
+.gk .wtab span{padding:5px 12px;color:#59636e}
+.gk .wtab span.on{background:#fff;color:#1f2328;font-weight:600;border:1px solid #d0d7de;border-bottom-color:#fff;border-radius:6px 6px 0 0;margin-bottom:-1px}
+.gk .pr-h{display:flex;flex-direction:column;gap:4px}
+.gk .pr-h h5{font-size:20px;font-weight:400;line-height:1.25}
+.gk .pr-h h5 span{color:#59636e}
+.gk .pr-h .sub{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gk .fbar{display:flex;gap:10px;align-items:center;font-size:13px;color:#59636e;font-weight:600}
+.gk .gtabs span i{font-style:normal;color:#59636e;font-weight:400}
+.gk .gtabs span{white-space:nowrap}
+.gk .stat{font-family:var(--mono);font-size:12.5px;font-weight:600;margin-left:auto;display:flex;align-items:center;gap:4px;color:#1a7f37}
+.gk .stat s{color:#d1242f;text-decoration:none}
+.gk .side-b small{font-size:12.5px;color:#59636e}
+.gk .side-b .req{color:#0969da;font-weight:600;margin-left:auto}
+.gk .settings .sn span.sub2{padding-left:26px;font-size:13.5px}
+/* VS Code · 앱 화면 모사 */
+.vsc{background:#1f1f1f;color:#ccc;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;font-family:var(--body);font-size:14.5px;min-height:0;position:relative}
+.vsc .vt{flex:none;background:#181818;border-bottom:1px solid #2b2b2b;padding:6px 12px;font-size:12.5px;color:#9d9d9d;display:flex;gap:14px}
+.vsc .vb{flex:1;display:grid;grid-template-columns:44px 1fr;min-height:0}
+.vsc .ab{background:#181818;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:10px}
+.vsc .ab i{width:22px;height:22px;border-radius:5px;background:#3c3c3c}
+.vsc .ab i.on{background:#fff}
+.vsc .vpane{padding:10px 14px;display:flex;flex-direction:column;gap:9px;min-height:0}
+.vsc .vpane h6{margin:0;font-size:11.5px;letter-spacing:.06em;color:#bbb;font-weight:700}
+.vsc .vbtn{background:#0078d4;color:#fff;border-radius:3px;padding:6px 12px;text-align:center;font-size:13.5px;font-weight:600}
+.vsc .vbtn.sec{background:#313131}
+.vsc .vin{background:#313131;border:1px solid #3c3c3c;border-radius:3px;padding:6px 10px;font-family:var(--mono);font-size:13px;color:#ccc;display:flex;flex-direction:column;gap:2px}
+.vsc .vin small{color:#9d9d9d;font-family:var(--body);font-size:12px}
+.vsc .vp{font-size:13px;color:#bbb;line-height:1.45}
+.vsc .an{position:absolute;z-index:5;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;box-shadow:0 0 0 3px #1f1f1f;font-style:normal}
+.an.in,.gk .an.in,.vsc .an.in,.app .an.in{position:static;display:inline-grid;place-items:center;vertical-align:middle;margin-right:6px;box-shadow:none;flex:none}
+.an.in{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:700 14px/26px var(--body);text-align:center;font-style:normal}
+.an.in.s,.gk .an.in.s,.vsc .an.in.s,.app .an.in.s{width:20px;height:20px;font-size:12px;line-height:20px;margin-right:5px}
+.gk .code .mkl{display:block;background:#f6f8fa;color:#8250df;font-weight:700;margin:0 -12px;padding:0 12px}
+.gk .code .cur{display:block;background:#fff8c5;margin:0 -12px;padding:0 12px}
+.gk .lnc{display:flex;align-items:center;gap:8px;font-size:14.5px;padding:4px 0}
+.gk .lnc .plus{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#0969da;color:#fff;font-size:13px;font-weight:800}
+.gk .kv{display:flex;flex-direction:column;gap:2px;font-size:14px;color:#59636e}
+.gk .kv b{color:#1f2328}
+.gk .an,.vsc .an,.an.in{background:#001871;color:#fff}
+.gk .hl{outline-color:#001871}
+.gk{font-size:15px}
+.gk .settings.nar{grid-template-columns:150px 1fr}
+figure.shot{margin:12px 0 2px;display:flex;flex-direction:column;gap:8px;max-width:760px}
+figure.shot .gk,figure.shot .vsc{width:100%}
+figure.shot figcaption{font-size:14px;line-height:1.55;color:var(--muted)}
+figure.shot figcaption b{color:var(--ink);font-weight:600}
+figure.shot figcaption .exq{vertical-align:1px}
+@media (max-width:640px){
+  .gk .settings,.gk .settings.nar{grid-template-columns:1fr}
+  .gk .list div{flex-wrap:wrap}
+  .gk .gtabs{flex-wrap:wrap}
+  .gk .settings .sn{flex-direction:row;flex-wrap:wrap}
+  .gk .settings .sn small{width:100%;padding:4px 10px 0}
+  .gk .tbar .rr{margin-left:0;flex-wrap:wrap}
+  figure.shot .two{grid-template-columns:1fr!important}
+  figure.shot .prgrid{grid-template-columns:1fr!important}
+  figure.shot .vsc .vpane{grid-template-columns:1fr!important}
+  figure.shot .vsc .vpane>div:last-child{min-height:120px}
+  figure.shot .cgrid{grid-template-columns:1fr!important}
+  figure.shot .cgrid>div:first-child{border-right:0!important;border-bottom:1px solid #d0d7de}
+  figure.shot .ban{flex-wrap:wrap}
+  figure.shot .ban>div{flex:1 1 200px}
+  figure.shot .ban>.btn{margin-left:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="wm" href="#top">웹프로그래밍개론 <b>10주차</b></a>
+    <span class="bar-t">실습 2 · 팀 세팅과 첫 작업 · 단계별 안내</span>
+    <span class="prog" aria-live="polite"><span id="progTxt">체크 0 / 0</span><i aria-hidden="true"><s id="progBar"></s></i></span>
+    <a class="deck" href="week10show.html#p2">수업 덱</a>
+  </div>
+</header>
+
+<div class="shell" id="top">
+<nav class="toc" aria-label="이 페이지 차례">
+  <b>차례</b>
+  <ol id="tocList">
+    <li><a href="#words">먼저 알아 둘 말</a></li>
+    <li><a href="#s0">0 · 준비 · 역할 <span data-tc="s0"></span></a></li>
+    <li><a href="#s1">1 · 시트 → 하네스 파일 <span data-tc="s1"></span></a></li>
+    <li><a href="#s2">2 · main 보호 <span data-tc="s2"></span></a></li>
+    <li><a href="#s3">3 · 모두 내 컴퓨터로 <span data-tc="s3"></span></a></li>
+    <li><a href="#s4">4 · 브랜치에서 첫 작업 <span data-tc="s4"></span></a></li>
+    <li><a href="#s5">5 · PR · 리뷰 · 병합 <span data-tc="s5"></span></a></li>
+    <li><a href="#s6">6 · 충돌 연습 (선택) <span data-tc="s6"></span></a></li>
+    <li class="sep" aria-hidden="true"></li>
+    <li><a href="#daily">다음 작업부터 · 매번</a></li>
+    <li><a href="#trouble">막히면</a></li>
+    <li><a href="#check">오늘 점검 <span data-tc="fin"></span></a></li>
+    <li><a href="#files">부록 · 복사해 쓰는 파일</a></li>
+    <li><a href="#sources">출처</a></li>
+  </ol>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">// 실습 2 · 팀 세팅과 첫 작업</p>
+  <h1>하네스는 한 사람이 만들고 · <em>작업은 각자 브랜치에서 동시에</em></h1>
+  <p class="lede">저장소 담당이 9주차 팀 시트로 하네스 파일을 만들고 main을 보호합니다. 그다음 팀원 모두 저장소를 내 컴퓨터로 가져와, 각자 브랜치에서 AI에게 <code>docs/tasks.md</code> 한 줄씩 맡기고 PR로 리뷰해 합칩니다. 위에서부터 순서대로 따라 하면 됩니다.</p>
+  <div class="how">
+    <div><b>고르기</b>내 역할 · AI 도구 · 컴퓨터를 고르면 맞는 설명이 먼저 열림</div>
+    <div><b>복사</b>회색 상자의 복사 버튼 → AI 대화창이나 터미널에 그대로 붙여 넣기</div>
+    <div><b>체크</b>끝낸 칸을 체크 → 이 브라우저에 저장 · 위쪽 막대에 진행</div>
+    <div><b>막히면</b>아래 <a href="#trouble">막히면</a> 표 → 그래도 안 되면 손 들고 묻기</div>
+  </div>
+
+  <div class="ctrl" role="group" aria-label="보기 고르기">
+    <div class="row"><span class="lab" id="lRole">내 역할</span>
+      <div class="seg" data-set="role" role="group" aria-labelledby="lRole">
+        <button type="button" data-v="all" aria-pressed="true">모두 보기</button>
+        <button type="button" data-v="repo" aria-pressed="false">저장소 담당</button>
+        <button type="button" data-v="work" aria-pressed="false">작업 담당</button>
+        <button type="button" data-v="review" aria-pressed="false">리뷰 담당</button>
+      </div></div>
+    <div class="row"><span class="lab" id="lTool">AI 도구</span>
+      <div class="seg" data-set="tool" role="group" aria-labelledby="lTool">
+        <button type="button" data-v="agent" aria-pressed="true">(가) 에이전트 · Codex · Claude Code</button>
+        <button type="button" data-v="chat" aria-pressed="false">(나) 대화창 · ChatGPT · Claude</button>
+      </div></div>
+    <div class="row"><span class="lab" id="lOs">내 컴퓨터</span>
+      <div class="seg" data-set="os" role="group" aria-labelledby="lOs">
+        <button type="button" data-v="win" aria-pressed="true">Windows</button>
+        <button type="button" data-v="mac" aria-pressed="false">Mac</button>
+      </div>
+      <div class="tools"><button type="button" id="openAll">단계 모두 펼치기</button><button type="button" id="clearChecks">체크 지우기</button></div></div>
+    <p class="note">(가) 에이전트 = 저장소 폴더에서 파일을 직접 고치는 AI (Codex 앱 · Codex CLI · Claude Code) · (나) 대화창 = 코드를 받아 내가 GitHub 웹에 붙여 넣는 AI</p>
+  </div>
+
+  <section class="sec" id="words">
+    <h2>먼저 알아 둘 말</h2>
+    <p class="sub">처음 보는 말이 나오면 여기로 돌아오기</p>
+    <dl class="terms">
+      <div><dt>저장소<small>repository</small></dt><dd>프로젝트 폴더 하나와 그 모든 기록 · GitHub에 있는 것이 팀의 원본</dd></div>
+      <div><dt>clone</dt><dd>GitHub의 저장소를 내 컴퓨터로 복사 · 처음 한 번</dd></div>
+      <div><dt>브랜치<small>branch</small></dt><dd>작업용 갈래 · <code>main</code>은 팀의 본선 · 각자 일은 <code>feat/…</code> 브랜치에서</dd></div>
+      <div><dt>커밋<small>commit</small></dt><dd>바뀐 내용을 메시지와 함께 기록 · 한 번에 한 가지</dd></div>
+      <div><dt>push · pull</dt><dd>push = 내 커밋을 GitHub로 올리기 · pull = GitHub의 새 커밋을 내 컴퓨터로 받기</dd></div>
+      <div><dt>PR<small>pull request</small></dt><dd>"내 브랜치를 main에 합쳐 주세요" 요청 · 팀원이 읽고 리뷰하는 자리</dd></div>
+      <div><dt>병합<small>merge</small></dt><dd>브랜치의 변경을 main에 합치기 · 리뷰 승인 뒤에</dd></div>
+      <div><dt>충돌<small>conflict</small></dt><dd>두 사람이 같은 줄을 서로 다르게 고쳐 Git이 혼자 못 합침 → 사람이 고름</dd></div>
+      <div><dt>하네스</dt><dd>AI가 읽고 일하는 우리 팀 규칙 파일 · <code>AGENTS.md</code> · <code>CLAUDE.md</code> · <code>docs/</code></dd></div>
+    </dl>
+  </section>
+
+  <section class="sec" id="flow">
+    <h2>순서 한눈에</h2>
+    <div class="flow">
+      <a href="#s0"><span class="n">0</span><span class="t">준비 · 역할 나누기</span><span class="w">모두</span></a>
+      <a href="#s1"><span class="n">1</span><span class="t">시트 → 하네스 파일</span><span class="w">저장소 담당 · 모두 읽기</span></a>
+      <a href="#s2"><span class="n">2</span><span class="t">main 보호</span><span class="w">저장소 담당</span></a>
+      <a href="#s3"><span class="n">3</span><span class="t">모두 내 컴퓨터로 · 하네스 확인</span><span class="w">모두</span></a>
+      <a href="#s4"><span class="n">4</span><span class="t">각자 브랜치에서 첫 작업</span><span class="w">작업 담당 둘 이상</span></a>
+      <a href="#s5"><span class="n">5</span><span class="t">PR → 리뷰 → 병합</span><span class="w">작업 · 리뷰 담당</span></a>
+      <a href="#s6" class="opt"><span class="n">6</span><span class="t">충돌 연습 → 조별 토의</span><span class="w">선택 · 두 사람</span></a>
+    </div>
+    <p class="exnote"><span class="exq">예시 질문 · 밤 창밖</span>이 페이지의 예시 저장소는 <code>night-windows</code> · 주소 · 파일 이름 · 줄 번호는 우리 팀 것으로 바꿔 쓰기</p>
+  </section>
+
+  <!-- 0 -->
+  <details class="step" id="s0" data-for="all" open>
+    <summary><span class="no">0</span><span class="tt"><h3>준비 · 역할 나누기</h3><span class="who"><span class="tl gr">모두</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s0"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>내 컴퓨터에서 Git과 VS Code가 열리고 · 팀에서 누가 무엇을 맡을지 정해져 있음</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s0-1"><span>GitHub에 로그인 · 내 아이디(오른쪽 위 프로필의 username)를 팀 채팅에 올리기</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-2"><span>VS Code 설치 · <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> · 이미 있으면 건너뛰기</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-3"><span>VS Code에서 터미널 열기 · 메뉴 <span class="ui">보기(View)</span> → <span class="ui">터미널(Terminal)</span> → 아래쪽에 창이 열림 · 이 페이지의 명령은 모두 여기에 붙여 넣기</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-4"><span>Git이 있는지 확인 · 터미널에 <code>git --version</code></span></label>
+          <div class="more">
+            <div class="tabs" data-kind="os">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="win">Windows</button><button type="button" role="tab" data-v="mac">Mac</button></div>
+              <div class="pane" data-v="win" role="tabpanel">
+                <ol class="steps"><li><code>git --version</code> → 'git'을 찾을 수 없다고 나오면 설치</li><li><a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com</a> → Windows용 설치 파일 → 고르는 칸은 기본값 그대로 <span class="ui">Next</span></li><li>VS Code를 껐다 켜고 다시 <code>git --version</code></li></ol>
+              </div>
+              <div class="pane" data-v="mac" role="tabpanel" hidden>
+                <ol class="steps"><li><code>git --version</code> → 개발자 도구를 설치하라는 창이 뜨면 <span class="ui">설치</span></li><li>설치가 끝나면 터미널을 새로 열고 다시 <code>git --version</code></li></ol>
+              </div>
+            </div>
+            <p class="tip"><b>통과</b> · <code>git version 2.…</code>처럼 숫자가 나옴</p>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-5"><span>처음 한 번 · 커밋에 남을 이름과 메일 등록</span></label>
+          <div class="more"><div class="cpy"><div class="cpy-h"><span>터미널 · 따옴표 안만 바꾸기</span><button class="cp" type="button">복사</button></div><pre><code>git config --global user.name "내 이름"
+git config --global user.email "GitHub에 등록한 메일"</code></pre></div></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-6"><span>AI 도구 열어 두기 · (가) Codex 앱 · Codex CLI · Claude Code 중 하나 · (나) ChatGPT 또는 Claude 대화창</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-7"><span>9주차 팀 시트 열어 두기 · 1단계에서 칸 내용을 복사함</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s0-8"><span>역할 정하기 · 한 사람이 둘을 맡아도 됨</span></label>
+          <div class="more"><div class="twrap"><table class="tbl">
+            <tr><th style="width:22%">역할</th><th style="width:20%">몇 명</th><th>하는 단계</th></tr>
+            <tr><td>저장소 담당</td><td>1명</td><td>1 하네스 파일 · 2 main 보호 · 끝나면 작업이나 리뷰도</td></tr>
+            <tr><td>작업 담당</td><td>2명 이상</td><td>4 각자 브랜치에서 첫 작업 · tasks.md의 서로 다른 줄 · 서로 다른 파일</td></tr>
+            <tr><td>리뷰 담당</td><td>작업 담당과 다른 사람</td><td>5 checklist 줄로 확인 → 승인 → 병합 · 작업 담당끼리 서로 바꿔 리뷰해도 됨</td></tr>
+          </table></div>
+          <p class="tip"><b>나누기 예</b> · 2명 → 둘 다 작업 · 서로 바꿔 리뷰 (저장소 담당도 작업) · 3명 → 작업 3 · 돌아가며 리뷰 · 4명 → 작업 2 · 리뷰 2 → 서로 바꿔 리뷰 · 6명 → 작업 3 · 리뷰 3 · 한 사람은 tasks.md 정리</p>
+          <p class="tip"><b>피드백으로 불려 가면</b> · 하던 일을 내 브랜치에 커밋 → 옆 사람에게 어디까지 했는지 한 줄</p></div></li>
+      </ol>
+      <p class="warn"><b>실습 1을 못 끝냈으면</b> · 팀 저장소와 <code>docs/</code> 세 문서부터 → <a href="week10show.html#p1steps">덱의 실습 1</a></p>
+      <p class="when"><span><b>끝나면</b> · <code>git --version</code>이 나오고 · 저장소 담당 · 작업 담당 · 리뷰 담당이 정해짐</span></p>
+    </div>
+  </details>
+
+  <!-- 1 -->
+  <details class="step" id="s1" data-for="repo" open>
+    <summary><span class="no">1</span><span class="tt"><h3>시트 → 하네스 파일</h3><span class="who"><span class="tl both">저장소 담당</span><span class="tl gr">모두 같이 읽기</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s1"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>main에 하네스 파일 다섯 개가 있고 · 팀이 같이 읽고 고쳤음</p>
+      <div class="twrap"><table class="tbl">
+        <tr><th style="width:34%">파일</th><th>하는 일</th><th style="width:20%">시트에서</th></tr>
+        <tr><td><code>AGENTS.md</code></td><td>AI가 먼저 읽는 안내 · 100줄 이하 · Codex를 비롯해 여러 AI가 읽음</td><td>⑦ 규칙</td></tr>
+        <tr><td><code>CLAUDE.md</code></td><td>Claude Code용 · 첫 줄 <code>@AGENTS.md</code> → 같은 안내를 읽음</td><td class="na">—</td></tr>
+        <tr><td><code>README.md</code></td><td>사람이 먼저 읽는 안내 · 무엇을 만드나 · 여는 방법</td><td>① 팀 이름 · ⑤ 한 문장</td></tr>
+        <tr><td><code>.github/pull_request_template.md</code></td><td>PR을 만들 때 본문에 자동으로 채워지는 칸 네 개</td><td class="na">—</td></tr>
+        <tr><td><code>.gitignore</code></td><td>git에 올리지 않을 파일 · 개인 설정 · 비밀</td><td class="na">—</td></tr>
+      </table></div>
+      <p class="tip"><b>CLAUDE.md가 따로 있는 이유</b> · 두 파일이 다 있으면 Claude Code는 CLAUDE.md만 읽음 → 첫 줄 <code>@AGENTS.md</code>로 AGENTS.md를 불러오게 (Claude Code 문서)</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s1-1"><span>'함께 작업' 구역 복사해 두기 · 덱 07의 마지막 장과 같은 내용</span></label>
+          <div class="more"><div class="cpy"><div class="cpy-h"><span>AGENTS.md · 함께 작업 · 우리 파일 이름으로 바꿔도 됨</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>## 함께 작업
+- 일을 시작하기 전에 main을 최신으로 받고, 새 브랜치에서 한다.
+- main에 직접 push하지 않는다. 병합은 PR로만 한다.
+- docs/tasks.md에서 맡은 번호의 일만 한다. 상태는 내 줄만 바꾼다.
+- 고칠 파일 밖을 바꿔야 하면 멈추고 먼저 묻는다.
+- 파일 전체 다시 쓰기 · 들여쓰기나 따옴표만 바꾸는 정리 · 파일 이름 바꾸기 · 폴더 옮기기는 하지 않는다.
+- 공통 파일(style.css의 :root 변수 · index.html의 메뉴 · AGENTS.md)은 작은 PR로 따로 바꾼다.
+- 충돌이 나면 양쪽이 무엇을 하려 했는지 설명하고, 남길 쪽을 사람에게 묻는다.
+- 끝나면 바꾼 파일 · 확인한 것 · 확인 못 한 것을 보고한다.</code></pre></div></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s1-2"><span>9주차 팀 시트의 ①–⑩ 내용 복사해 두기 · 글을 복사하거나 칸을 캡처</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s1-3"><span>AI에게 하네스 파일 요청 · 아래 상자의 [ ] 두 곳에 1 · 2를 붙여 넣기</span></label>
+          <div class="more">
+            <div class="cpy"><div class="cpy-h"><span>시트 → 하네스 · 에이전트와 대화창 모두 같은 요청</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>docs/의 세 문서와 아래 9주차 팀 시트 ①–⑩을 근거로 하네스 파일을 만들어줘. 먼저 파일마다 넣을 내용을 계획으로 보여 주고, 내가 좋다고 하면 만들어.
+1. AGENTS.md (100줄 이하): 한 줄 소개 · 먼저 읽을 문서 · 실행 방법 · 규칙(시트 ⑦) · 함께 작업 · 하지 말 것 · 끝낼 때 보고
+2. CLAUDE.md: 첫 줄 @AGENTS.md
+3. README.md: 팀 이름(①) · 한 문장(⑤) · 실행 방법
+4. .github/pull_request_template.md: 무엇을 · 왜(tasks 번호) · 확인한 것 · 확인 못 한 것
+5. .gitignore: CLAUDE.local.md · .claude/settings.local.json · .claude/worktrees/ · .env · .DS_Store
+함께 작업 구역에는 아래 줄을 그대로 넣어줘. 시트에 없는 내용은 비워 두고 '정할 것'이라고 적고, 끝나면 '정할 것' 목록을 보여줘.
+[함께 작업 구역 붙여 넣기]
+[시트 ①–⑩ 붙여 넣기]</code></pre></div>
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <ol class="steps">
+                  <li>저장소를 먼저 내 컴퓨터로 · <a href="#s3">3단계</a>의 가져오기를 저장소 담당이 먼저</li>
+                  <li>저장소 폴더에서 AI 새 대화 → 위 요청 붙여 넣기</li>
+                  <li>AI가 계획을 보여 주면 팀이 화면을 같이 읽기 → 고칠 점 말하기 → "좋아, 만들어줘"</li>
+                  <li>VS Code 왼쪽 <span class="ui">Source Control</span>에서 바뀐 파일을 하나씩 눌러 보기 · 초록 줄 = 더한 줄</li>
+                </ol>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <ol class="steps">
+                  <li>새 대화에 <code>docs/</code> 세 문서의 내용을 먼저 붙여 넣기</li>
+                  <li>위 요청 끝에 한 줄 더 · "파일마다 코드 블록 하나로 줘"</li>
+                  <li>GitHub 저장소 → <span class="ui">Add file</span> → <span class="ui">Create new file</span> → 이름 칸에 파일 이름 → 내용 붙여 넣기</li>
+                  <li><span class="ui">Commit changes…</span> → <span class="ui">Commit directly to the main branch</span> → <span class="ui">Commit changes</span></li>
+                  <li>다섯 파일 반복 · 폴더가 있는 이름은 슬래시까지 · <code>.github/pull_request_template.md</code></li>
+                </ol>
+              </div>
+            </div>
+            <details class="tip"><summary><b>한 번에 하기 어려우면</b> · 파일마다 따로 받기 (눌러서 열기)</summary>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+                <div class="cpy"><div class="cpy-h"><span>AGENTS.md만</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>docs/의 세 문서와 아래 9주차 팀 시트를 근거로 AGENTS.md를 100줄 이하로 써줘. 구역은 이 순서로: 한 줄 소개 · 먼저 읽을 문서(docs/requirements.md · docs/tasks.md · docs/checklist.md) · 실행 방법 · 규칙(시트 ⑦) · 함께 작업 · 하지 말 것 · 끝낼 때 보고. 함께 작업 구역에는 아래 줄을 그대로 넣어줘. 시트에 없는 내용은 비워 두고 '정할 것'이라고 적어줘.
+[함께 작업 구역 붙여 넣기]
+[시트 ①–⑩ 붙여 넣기]</code></pre></div>
+                <div class="cpy"><div class="cpy-h"><span>README.md만</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래 9주차 팀 시트로 README.md를 써줘. 구역: 팀 이름(①) · 한 문장(⑤) · 무엇을 만드나(사용 장면 세 줄) · 열어 보는 방법(index.html을 브라우저로 열기) · 팀 규칙은 AGENTS.md · 할 일은 docs/tasks.md. 시트에 없는 내용은 '정할 것'이라고 적어줘.
+[시트 ①–⑩ 붙여 넣기]</code></pre></div>
+                <p class="sm mut">CLAUDE.md · PR 템플릿 · .gitignore는 AI 없이 <a href="#files">부록</a>의 내용을 그대로 붙여 넣으면 됨</p>
+              </div>
+            </details>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s1-4"><span>팀이 같이 읽고 고치기 · 화면 하나를 같이 보며</span></label>
+          <div class="more">
+            <ol class="steps">
+              <li>먼저 읽을 문서 · 세 문서의 경로가 맞나</li>
+              <li>실행 방법 · 한 사람이 적힌 그대로 따라 해 봄</li>
+              <li>규칙 · 팀이 정한 것만 남았나 · '정할 것' 채우기</li>
+              <li>함께 작업 · 우리 파일 이름으로 · 공통 파일은 누가 맡나</li>
+              <li><code>.gitignore</code>에 <code>CLAUDE.local.md</code> · <code>.env</code>가 있나</li>
+            </ol>
+            <div class="cpy"><div class="cpy-h"><span>AI에게 한 번 더 읽히기 · 고치기 전에</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>AGENTS.md를 이 저장소를 처음 보는 팀원의 AI라고 생각하고 읽어줘. 헷갈리는 줄 · 서로 부딪치는 규칙 · 시트에 없는데 들어간 내용 · '정할 것'으로 남은 줄을 줄 번호와 함께 알려줘. 아직 고치지는 마.</code></pre></div>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s1-5"><span>커밋 → main · 바로 올리는 것은 이번이 마지막 (2단계부터 PR로만)</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <div class="cpy"><div class="cpy-h"><span>터미널 · 또는 AI에게 "커밋하고 push해줘"</span><button class="cp" type="button">복사</button></div><pre><code>git add .
+git commit -m "docs: 하네스 파일 (AGENTS.md · CLAUDE.md · README · PR 템플릿 · .gitignore)"
+git push</code></pre></div>
+                <p class="sm mut">VS Code · <span class="ui">Source Control</span> → 메시지 칸 → <span class="ui">Commit</span> → <span class="ui">Sync Changes</span></p>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <p>3번에서 파일마다 <span class="ui">Commit changes</span>를 했으면 이미 끝 · 고친 파일은 연필 버튼으로 열어 다시 커밋</p>
+              </div>
+            </div>
+          </div></li>
+      </ol>
+      <p class="when"><span><b>끝나면</b> · GitHub 저장소 첫 화면에 다섯 파일이 보이고 · 아래쪽에 README 내용이 보임</span></p>
+    </div>
+  </details>
+
+  <!-- 2 -->
+  <details class="step" id="s2" data-for="repo" open>
+    <summary><span class="no">2</span><span class="tt"><h3>main 보호 · PR로만 들어오게</h3><span class="who"><span class="tl both">저장소 담당</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s2"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>main에는 리뷰를 거친 PR로만 들어감 · 직접 push · 강제 push · 삭제가 막힘</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s2-1"><span>팀원 초대 확인 · 실습 1에서 했으면 건너뛰기</span></label>
+          <div class="more"><ol class="steps"><li>저장소 화면 위 탭 <span class="ui">⚙ Settings</span> (안 보이면 탭 줄 끝 ⋯ 안)</li><li>왼쪽 Access의 <span class="ui">Collaborators</span> (비밀번호를 다시 물을 수 있음)</li><li><span class="ui">Add people</span></li><li>팀원 GitHub 아이디 입력 → 목록에서 이름 누르기 · 아이디는 시트 ⑨ 또는 팀 채팅에서</li><li><span class="ui">Add … to 저장소 이름</span> → 팀원마다 반복 · 팀원은 메일 또는 github.com/notifications의 초대를 <span class="ui">Accept invitation</span></li></ol><figure class="shot"><div class="gk"><div class="gtop"><span class="crumb"><i></i><b>내아이디 / night-windows</b><span class="pill line" style="font-size:11.5px;padding:0 7px">Public</span></span></div><div class="gtabs" style="font-size:13.5px;gap:0"><span><i>&lt;&gt;</i>Code</span><span><i>⊙</i>Issues</span><span><i>⑂</i>Pull requests</span><span><i>▷</i>Actions</span><span><i>⊘</i>Security</span><span><i>↗</i>Insights</span><span class="on"><i class="an in s">1</i><i>⚙</i>Settings</span></div><div class="body" style="padding:12px 16px"><div class="settings nar"><div class="sn"><span>General</span><small>Access</small><span class="on"><i class="an in s">2</i>Collaborators</span><span>Moderation options</span><small>Code, planning, and automation</small><span>Branches</span><span>Tags</span><span>Rulesets</span><span>Pages</span></div><div class="sc" style="gap:8px"><div class="rowf" style="justify-content:space-between;flex-wrap:nowrap"><h6 style="font-size:17px">Manage access</h6><span class="btn pri hl" style="padding:3px 10px"><i class="an in s">3</i>Add people</span></div><div class="box"><div class="list"><div><span class="av"></span><b>내아이디</b><span class="ml">Owner</span></div><div><span class="av" style="background:#e2c46a"></span><b>teammate-2</b><span class="pill line" style="font-size:12px;padding:1px 8px">Pending Invite</span><span class="ml">Write ▾</span></div></div></div><div class="mdl"><div class="mh">Add a collaborator to night-windows<i>✕</i></div><div class="mb" style="gap:6px"><span class="inp on" style="min-height:30px;font-size:14px"><i class="an in s">4</i>teammate-3</span><div class="menu" style="box-shadow:none;align-self:stretch;min-width:0"><div class="on"><span style="width:18px;height:18px;border-radius:50%;background:#9db7e8;display:inline-block"></span>teammate-3 <span class="sub">· 팀원 3</span></div></div><span class="btn pri" style="justify-content:center;align-self:stretch"><i class="an in s">5</i>Add teammate-3 to night-windows</span></div></div></div></div></div></div><figcaption><span class="exq">화면 모사</span> · github.com · 번호는 위 순서 · 팀원이 저장소에서 <b>Add file</b> 버튼을 볼 수 있으면 완료</figcaption></figure></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s2-2"><span>규칙 만들기 · 저장소 <span class="ui">Settings</span> → 왼쪽 <span class="ui">Rulesets</span> → <span class="ui">New ruleset</span> → <span class="ui">New branch ruleset</span></span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s2-3"><span>칸 채우기</span></label>
+          <div class="more"><div class="twrap"><table class="tbl">
+            <tr><th style="width:36%">칸</th><th>이렇게</th></tr>
+            <tr><td>Ruleset name</td><td><code>main 보호</code></td></tr>
+            <tr><td>Enforcement status</td><td><span class="ui">Disabled</span> → <span class="ui">Active</span></td></tr>
+            <tr><td>Target branches</td><td><span class="ui">Add a target</span> → <span class="ui">Include default branch</span></td></tr>
+            <tr><td>Restrict deletions</td><td>체크 · 기본으로 켜져 있음</td></tr>
+            <tr><td>Require a pull request before merging</td><td>체크 → Required approvals <code>1</code></td></tr>
+            <tr><td>Block force pushes</td><td>체크 · 기본으로 켜져 있음</td></tr>
+          </table></div>
+          <figure class="shot"><div class="gk"><div class="gtop"><span class="crumb"><i></i><b>우리팀 / night-windows</b></span><span style="margin-left:auto;display:flex;align-items:center;gap:4px"><i class="an in s">1</i><i class="ico">⚙</i>Settings</span></div><div class="body" style="padding:12px 16px"><div class="settings nar"><div class="sn"><span>General</span><small>Access</small><span>Collaborators</span><small>Code, planning, and automation</small><span>Branches</span><span>Tags</span><span class="on"><i class="an in s">2</i>Rulesets</span><span class="sub2 on">Rulesets</span><span class="sub2">Rule insights</span><span>Actions</span><span>Pages</span></div><div class="sc" style="gap:7px"><h6 style="font-size:17px">New branch ruleset</h6><div class="lbl">Ruleset name</div><div class="inp ko on" style="min-height:30px">main 보호</div><div class="rowf" style="gap:8px"><span class="lbl">Enforcement status</span><span class="sel"><i class="an in s">3</i>▶ Active</span><span class="hint">처음에는 ⏭ Disabled</span></div><div class="rowf" style="justify-content:space-between;flex-wrap:nowrap"><span class="lbl">Bypass list <span class="hint" style="font-weight:400">· 비워 둠</span></span><span class="btn" style="padding:2px 8px;font-size:13px">+ Add bypass</span></div><div class="rowf" style="justify-content:space-between;flex-wrap:nowrap"><span class="lbl">Target branches</span><span class="sel"><i class="an in s">4</i>Add a target</span></div><div class="box"><div class="list"><div><i class="ico">⑂</i><b>Default branch</b><span class="ml">Include</span></div></div></div><div class="lbl">Branch protections</div><div class="chk" style="gap:5px"><div><i class="on"></i><span><b>Restrict deletions</b></span></div><div><i class="on"></i><span><b><i class="an in s">5</i>Require a pull request before merging</b><small>Required approvals · 1 ▾</small></span></div><div><i class="on"></i><span><b>Block force pushes</b></span></div></div><div class="rowf end"><span class="btn pri hl"><i class="an in s">6</i>Create</span></div></div></div></div></div><figcaption><span class="exq">화면 모사</span> · ① <b>Settings</b> ② 왼쪽 <b>Rulesets</b> → New ruleset → New branch ruleset · 이름 ③ Enforcement status <b>Active</b> ④ <b>Add a target → Include default branch</b> ⑤ Branch protections에서 <b>Require a pull request before merging</b> + Required approvals 1 · 나머지 둘은 켜져 있음 ⑥ 맨 아래 <b>Create</b></figcaption></figure>
+          <p class="sm mut">맨 아래 <span class="ui">Create</span></p></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s2-4"><span>PR이 뒤처지면 버튼이 늘 보이게 · <span class="ui">Settings</span> 첫 화면의 Pull Requests 구역 → <span class="ui">Always suggest updating pull request branches</span> 체크</span></label>
+          <div class="more"><p class="sm mut">켜 두면 다른 PR이 먼저 병합됐을 때 PR 화면에 <span class="ui">Update branch</span>가 보임 · 켜지 않으면 최신 브랜치를 요구하는 규칙이 있을 때만 보임 (GitHub 문서)</p></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s2-5"><span>(선택) AI 쪽에도 push 전에 묻게 · 넣는 방법은 1단계 커밋에 같이 넣거나, 보호를 켠 뒤 첫 PR로</span></label>
+          <div class="more"><div class="g2">
+            <div class="cpy"><div class="cpy-h"><span><span class="tl cl">Claude Code</span> .claude/settings.json</span><button class="cp" type="button">복사</button></div><pre><code>{
+  "permissions": {
+    "ask": ["Bash(git push *)"]
+  }
+}</code></pre></div>
+            <div class="cpy"><div class="cpy-h"><span><span class="tl gp">Codex</span> .codex/rules/team.rules</span><button class="cp" type="button">복사</button></div><pre><code>prefix_rule(
+  pattern = ["git", "push"],
+  decision = "prompt",
+  justification = "push 전 확인",
+)</code></pre></div>
+          </div>
+          <p class="sm mut">Codex는 프로젝트를 신뢰(trust)해야 저장소의 <code>.codex/rules/</code>를 읽음 · 둘 다 문장 부탁보다 강한 장치</p></div></li>
+      </ol>
+      <p class="tip"><b>Public 저장소</b>는 무료 계정에서도 됨 · Private 저장소는 유료 요금제에서만 (GitHub 문서) → Private이면 AGENTS.md의 함께 작업 규칙 + AI 쪽 규칙 + 서로 확인으로 대신</p>
+      <p class="when"><span><b>끝나면</b> · <span class="ui">Settings</span> → <span class="ui">Rulesets</span> 목록에 <code>main 보호</code> · Active · 그 뒤로 main에 바로 push하면 <code>push declined due to repository rule violations</code> → 정상</span></p>
+    </div>
+  </details>
+
+  <!-- 3 -->
+  <details class="step" id="s3" data-for="all" open>
+    <summary><span class="no">3</span><span class="tt"><h3>모두 내 컴퓨터로 · 하네스 확인</h3><span class="who"><span class="tl gr">모두</span><span class="tl both">저장소 담당은 1단계 전에</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s3"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>팀원 모두의 컴퓨터에 저장소 폴더가 있고 · 각자의 AI가 '함께 작업' 규칙을 말함</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s3-1"><span>초대 수락 · GitHub에서 온 메일의 초대 → 수락 · 메일이 없으면 저장소 주소로 직접 들어가 보기</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s3-2"><span>저장소 주소 복사 · 저장소 첫 화면의 <span class="ui">Code</span> 버튼 → <span class="ui">HTTPS</span> → 복사 아이콘</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s3-3"><span>가져오기(clone) · 아래 셋 중 하나만</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="via">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="code">VS Code</button><button type="button" role="tab" data-v="term">터미널</button><button type="button" role="tab" data-v="app">앱</button></div>
+              <div class="pane" data-v="code" role="tabpanel">
+                <ol class="steps"><li>VS Code 새 창 (<span class="ui">File</span> → <span class="ui">New Window</span>)</li><li>왼쪽 <span class="ui">Source Control</span> → <span class="ui">Clone Repository</span></li><li>주소 붙여 넣기 → Enter → 저장할 폴더 고르기 (예: 문서)</li><li>다 받으면 열겠냐고 물음 → <span class="ui">Open</span></li></ol>
+                <figure class="shot"><div class="vsc"><div class="vt"><span>Visual Studio Code</span><span>File · Edit · Selection · View · Go · Run · Terminal · Help</span></div><div class="vb"><div class="ab"><i></i><i></i><i class="on"></i><i></i><i></i></div><div class="vpane" style="display:grid;grid-template-columns:250px 1fr;padding:0;gap:0"><div style="padding:10px 14px;display:flex;flex-direction:column;gap:9px;border-right:1px solid #2b2b2b"><h6><i class="an in s">1</i>SOURCE CONTROL</h6><p class="vp">In order to use Git features, you can open a folder containing a Git repository or clone from a URL.</p><div class="vbtn">Open Folder</div><div class="vbtn" style="outline:3px solid #001871;outline-offset:2px"><i class="an in s">2</i>Clone Repository</div><p class="vp" style="font-size:12px">To learn more about how to use Git and source control in VS Code <span style="color:#4daafc">read our docs</span>.</p></div><div style="position:relative;min-width:0"><div class="vin" style="position:absolute;left:14px;right:14px;top:8px;box-shadow:0 8px 24px rgba(0,0,0,.5);border-color:#0078d4"><small><i class="an in s">3</i>Provide repository URL or pick a repository source.</small>https://github.com/우리팀/night-windows.git<small style="border-top:1px solid #3c3c3c;margin-top:4px;padding-top:4px">⊙ Clone from GitHub</small></div></div></div></div></div><figcaption><span class="exq">화면 모사</span> · VS Code · ① 왼쪽 <b>Source Control</b> 아이콘 ② <b>Clone Repository</b> ③ 위 입력 칸에 주소 붙여 넣기 → Enter → 저장할 폴더 고르기</figcaption></figure>
+              </div>
+              <div class="pane" data-v="term" role="tabpanel" hidden>
+                <div class="cpy"><div class="cpy-h"><span>터미널 · 주소는 우리 팀 것으로</span><button class="cp" type="button">복사</button></div><pre><code>cd ~/Documents
+git clone https://github.com/우리팀/night-windows.git
+cd night-windows</code></pre></div>
+                <p class="sm mut">그다음 VS Code에서 <span class="ui">File</span> → <span class="ui">Open Folder</span> → <code>night-windows</code></p>
+              </div>
+              <div class="pane" data-v="app" role="tabpanel" hidden>
+                <p>앱은 가져온 폴더를 여는 곳 · clone은 VS Code나 터미널로 먼저</p>
+                <ul class="bul"><li><span class="tl gp">Codex 앱</span> 폴더 열기 → <code>night-windows</code></li><li><span class="tl cl">Claude 데스크톱</span> <span class="ui">Code</span> 탭 → 입력창 아래 <span class="ui">Project folder</span> → <code>night-windows</code></li></ul>
+              </div>
+            </div>
+            <p class="tip"><b>로그인 창이 뜨면</b> · 브라우저에서 GitHub 승인 · 터미널이 Username이나 Password를 물으면 <kbd>Ctrl</kbd>+<kbd>C</kbd>로 멈추고 VS Code의 <span class="ui">Source Control</span> 버튼으로 (VS Code가 로그인 창을 띄움)</p>
+            <p class="sm mut">(나) 대화창 갈래도 가져와 두면 좋음 · VS Code로 파일을 열어 보고, 리뷰할 때 브라우저로 확인 · 안 되면 웹만으로도 진행</p>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s3-4"><span>최신 main 받기 · 1단계가 끝난 뒤 가져왔으면 건너뛰기</span></label>
+          <div class="more"><div class="cpy"><div class="cpy-h"><span>터미널 · VS Code는 Source Control의 ⋯ → Pull</span><button class="cp" type="button">복사</button></div><pre><code>git switch main
+git pull</code></pre></div></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s3-5"><span>AI가 하네스를 읽는지 확인 · 저장소 폴더에서 새 대화</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <div class="cpy"><div class="cpy-h"><span><span class="tl gp">Codex</span> 새 대화에서</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>지금 적용된 지시를 요약하고, 어느 파일에서 읽었는지 알려줘.</code></pre></div>
+                <p><span class="tl cl">Claude Code</span> <code>/memory</code> → 목록에 <code>CLAUDE.md</code>와 그 안에서 불러온 <code>AGENTS.md</code> → 그다음 "우리 팀 함께 작업 규칙을 말해줘"</p>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <ol class="steps"><li>ChatGPT 또는 Claude에서 프로젝트 만들기 (팀 이름)</li><li>프로젝트 파일 칸에 <code>AGENTS.md</code> · <code>docs/</code> 세 문서 올리기</li><li>프로젝트 안 새 대화 · "우리 팀 함께 작업 규칙을 말해줘"</li></ol>
+                <p class="sm mut">AGENTS.md가 바뀌면 프로젝트 파일도 새로 올리기</p>
+              </div>
+            </div>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s3-6"><span>(선택) 나만 쓰는 지시는 개인 파일에 · git에 올리지 않음</span></label>
+          <div class="more"><ul class="bul"><li><span class="tl cl">Claude Code</span> 저장소의 <code>CLAUDE.local.md</code> · <code>.gitignore</code>에 있는지 확인</li><li><span class="tl gp">Codex</span> <code>~/.codex/AGENTS.md</code> · 내 컴퓨터의 모든 프로젝트에 적용</li><li>팀 규칙과 부딪치는 내용은 쓰지 않기 · 예: "끝나면 main에 push"</li></ul></div></li>
+      </ol>
+      <p class="warn"><b>엉뚱한 규칙을 말하면</b> · main을 pull했는지 · 저장소 폴더에서 열었는지 · 새 대화인지 확인</p>
+      <p class="when"><span><b>끝나면</b> · 팀원 모두의 AI가 '함께 작업' 규칙을 말함</span></p>
+    </div>
+  </details>
+
+  <!-- 4 -->
+  <details class="step" id="s4" data-for="work" open>
+    <summary><span class="no">4</span><span class="tt"><h3>각자 브랜치에서 첫 작업</h3><span class="who"><span class="tl both">작업 담당 둘 이상 · 동시에</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s4"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>내 브랜치에 tasks.md 한 줄의 결과가 커밋되어 GitHub에 올라감</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s4-1"><span>내 줄 고르기 · <code>docs/tasks.md</code>에서 내 이름 · 시작 전인 줄 하나 → 다른 작업 담당과 고칠 파일이 겹치지 않는지 말로 확인</span></label>
+          <div class="more"><p class="tip"><b>같은 시간에</b> · 예: 팀원 1은 1번 줄(index.html · 카드 화면 구역) · 팀원 2는 2번 줄(js/photo.js · 사진 미리 보기 구역) → 서로 다른 파일 · 서로 다른 구역</p></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s4-2"><span>최신 main에서 내 브랜치 만들기</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <div class="cpy"><div class="cpy-h"><span>터미널 · 이름만 바꾸기</span><button class="cp" type="button">복사</button></div><pre><code>git switch main
+git pull
+git switch -c feat/card-screen</code></pre></div>
+                <p class="sm mut">VS Code · 아래 상태 표시줄의 브랜치 이름 → <span class="ui">Create new branch…</span> · AI에게 "main을 최신으로 받고 feat/card-screen 브랜치를 만들어줘"도 됨</p>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <ol class="steps"><li>GitHub 저장소 첫 화면 · 파일 목록 위 브랜치 메뉴 <span class="ui">⑂ main ▾</span></li><li>Find or create a branch... 칸에 이름 입력</li><li><span class="ui">Create branch: 이름 from ‘main’</span></li><li>브랜치 메뉴에 내 브랜치 이름이 보이는지 확인</li></ol><figure class="shot"><div class="gk"><div class="gtop"><span class="crumb"><i></i><b>우리팀 / night-windows</b></span></div><div class="body" style="padding:10px 14px;gap:8px"><div class="rowf" style="gap:10px;flex-wrap:nowrap"><span class="sel"><i class="an in s">1</i>⑂ main</span><span class="sub" style="font-size:13px;white-space:nowrap">⑂ <b>1</b> Branch · ◇ <b>0</b> Tags</span><span class="sub" style="margin-left:auto;font-size:13px">파일 목록 위</span></div><div class="mdl" style="align-self:stretch;max-width:430px"><div class="mh" style="font-size:14px;padding:7px 10px">Switch branches/tags<i>✕</i></div><div class="mb" style="padding:8px 10px;gap:6px"><span class="inp on" style="min-height:28px;font-size:14px"><i class="an in s">2</i>feat/card-screen</span><div class="wtab" style="margin:0 -10px;padding:0 10px"><span class="on">Branches</span><span>Tags</span></div><div class="rowf" style="gap:8px;padding:2px 2px;font-size:14.5px;flex-wrap:nowrap"><i class="ico">⑂</i><span><i class="an in s">3</i><b>Create branch: feat/card-screen</b> <span class="sub">from ‘main’</span></span></div><div class="lnk" style="text-align:center;font-size:14px;padding:5px 0 0;border-top:1px solid #d0d7de;margin:0 -10px">View all branches</div></div></div></div></div><figcaption><span class="exq">화면 모사</span> · github.com · ① 브랜치 메뉴 ② 이름 ③ <b>Create branch: … from ‘main’</b></figcaption></figure>
+              </div>
+            </div>
+            <p class="sm mut">이름 · 영어 소문자와 하이픈 · 앞말 <code>feat/</code> 기능 · <code>fix/</code> 고침 · <code>docs/</code> 문서 · 예 <code>feat/photo-preview</code></p>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s4-3"><span>AI에게 맡기기 · [ ]만 바꾸기 · 고칠 파일을 정해 주는 문장이 충돌을 줄임</span></label>
+          <div class="more">
+            <div class="cpy"><div class="cpy-h"><span>첫 작업 요청</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>AGENTS.md를 먼저 읽어줘. docs/tasks.md의 [1]번 줄을 해줘. 고칠 파일: [index.html, style.css의 '카드 화면' 구역]. 이 밖의 파일을 고쳐야 하면 멈추고 먼저 알려줘. 끝나는 조건: docs/checklist.md [1]번 줄. 끝나면 바꾼 파일 · 확인한 것 · 확인 못 한 것을 알려줘.</code></pre></div>
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel"><p>저장소 폴더 · 내 브랜치인지 확인 (VS Code 아래 상태 표시줄) → 새 대화 → 위 요청</p></div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <p>위 요청 아래에 붙여 넣을 것 · AGENTS.md 전체 · tasks.md 내 줄 · checklist.md 그 줄 · 지금 파일 내용(고칠 파일 전체)</p>
+                <div class="cpy"><div class="cpy-h"><span>요청 끝에 한 줄 더</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>바꾼 파일은 파일마다 전체 내용을 코드 블록 하나로 줘. 파일 이름도 같이 적어줘.</code></pre></div>
+              </div>
+            </div>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s4-4"><span>내가 확인 · <code>index.html</code>을 브라우저로 열어 checklist 줄대로 해 보기</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="os">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="win">Windows</button><button type="button" role="tab" data-v="mac">Mac</button></div>
+              <div class="pane" data-v="win" role="tabpanel"><p>Chrome 개발자 도구 <kbd>F12</kbd> · 360px 폭 보기 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> · 콘솔 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd></p></div>
+              <div class="pane" data-v="mac" role="tabpanel" hidden><p>Chrome 개발자 도구 <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>I</kbd> · 360px 폭 보기 <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> · 콘솔 <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>J</kbd></p></div>
+            </div>
+            <div class="cpy"><div class="cpy-h"><span>안 되면 · 증거를 그대로</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>[상황 한 줄 · 예: 사진 고르기 버튼을 눌렀더니 아무 일도 일어나지 않아요.]
+[콘솔의 빨간 글씨를 통째로 붙여 넣기]
+원인을 찾아 고치고, 다시 확인한 방법을 알려줘.</code></pre></div>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s4-5"><span>tasks.md의 내 줄만 상태 바꾸기 → <code>완료</code> · 이 PR에 같이 넣음 (다른 줄은 손대지 않기)</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s4-6"><span>커밋 → push</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 에이전트</button><button type="button" role="tab" data-v="chat">(나) 대화창</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <div class="cpy"><div class="cpy-h"><span>터미널 · 메시지와 브랜치 이름만 바꾸기</span><button class="cp" type="button">복사</button></div><pre><code>git add .
+git commit -m "feat: 카드 화면 HTML 한 장 (tasks 1)"
+git push -u origin feat/card-screen</code></pre></div>
+                <p class="sm mut">VS Code · <span class="ui">Source Control</span> → 메시지 → <span class="ui">Commit</span> → <span class="ui">Publish Branch</span></p>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <ol class="steps"><li>GitHub 브랜치 메뉴에서 <b>내 브랜치</b>로 바꾸기 · 꼭 확인</li><li>고칠 파일 열기 → 연필 버튼(Edit) → 전체를 받은 코드로 바꾸기</li><li><span class="ui">Commit changes…</span> → <span class="ui">Commit directly to the feat/… branch</span> → <span class="ui">Commit changes</span></li><li>새 파일은 <span class="ui">Add file</span> → <span class="ui">Create new file</span> · 여러 개면 <span class="ui">Upload files</span></li></ol>
+              </div>
+            </div>
+          </div></li>
+      </ol>
+      <p class="when"><span><b>끝나면</b> · GitHub 저장소 화면 위쪽에 <span class="ui">Compare &amp; pull request</span> 버튼 → <a href="#s5">5단계</a></span></p>
+    </div>
+  </details>
+
+  <!-- 5 -->
+  <details class="step" id="s5" data-for="work review" open>
+    <summary><span class="no">5</span><span class="tt"><h3>PR → 리뷰 → 병합</h3><span class="who"><span class="tl both">작업 담당</span><span class="tl both">리뷰 담당</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s5"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>리뷰를 거친 PR이 main에 병합되고 · 다 쓴 브랜치는 지워짐</p>
+      <h4>작업 담당 · PR 열기</h4>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s5-1"><span><span class="ui">Compare &amp; pull request</span> · 버튼이 없으면 <span class="ui">Pull requests</span> → <span class="ui">New pull request</span> → base <code>main</code> ← compare 내 브랜치</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-2"><span>제목은 커밋 메시지처럼 · 본문은 템플릿 네 칸 → AI의 마지막 보고를 붙여 넣으면 됨</span></label>
+          <div class="more"><div class="cpy"><div class="cpy-h"><span><span class="exq">예시 질문</span> PR 본문</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>## 무엇을
+창 카드 하나와 '다음' 버튼
+## 왜 (tasks.md 몇 번 줄)
+tasks.md 1번 줄
+## 확인한 것 (checklist 줄)
+checklist 1번 줄 · 색은 design.md 변수만 · Chrome 360px
+## 확인 못 한 것
+커진 창의 수</code></pre></div></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-3"><span>오른쪽 <span class="ui">Reviewers</span>에 리뷰 담당 → <span class="ui">Create pull request</span></span></label></li>
+      </ol>
+      <figure class="shot"><div class="gk"><div class="gtop"><span class="crumb"><i></i><b>우리팀 / night-windows</b></span></div><div class="body" style="gap:8px"><div class="flash"><span style="flex:1"><i class="ico" style="color:#9a6700">⑂</i> <b>feat/card-screen</b> had recent pushes less than a minute ago</span><span class="btn pri hl" style="padding:3px 10px"><i class="an in s">1</i>Compare &amp; pull request</span></div><div><h6 style="font-size:17px">Open a pull request</h6><div class="sub" style="font-size:13px">Create a new pull request by comparing changes across two branches.</div></div><div class="rowf" style="gap:8px"><span class="sel">base: main</span><span class="sub">◂</span><span class="sel">compare: feat/card-screen</span><span class="hint" style="color:#1a7f37;font-weight:600"><i class="gchk">✓</i> Able to merge.</span><span class="hint">These branches can be automatically merged.</span></div><div class="prgrid" style="display:grid;grid-template-columns:1fr 200px;gap:12px"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><div class="inp ko on" style="min-height:30px;font-size:14.5px"><i class="an in s">2</i>feat: 카드 화면 HTML 한 장 (tasks 1)</div><div class="box"><div class="wtab"><span class="on">Write</span><span>Preview</span></div><div class="bc"><div class="code" style="font-size:13.5px;line-height:1.5;font-family:var(--body)"><b>## 무엇을</b> 창 카드 하나와 '다음' 버튼
+<b>## 왜</b> tasks.md 1번 줄
+<b>## 확인한 것</b> checklist 1번 줄 · 색은 design.md 변수만
+<b>## 확인 못 한 것</b> 켜진 창의 수</div></div></div><div class="rowf end"><span class="btn pri hl ic"><i class="an in s">4</i>Create pull request</span></div></div><div class="side-b"><b><i class="an in s">3</i>Reviewers</b><small>Suggestions</small><span style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:18px;border-radius:50%;background:#9db7e8;display:inline-block"></span>teammate-2<span class="req">Request</span></span><b>Assignees</b><span>No one</span><b>Labels</b><span>None yet</span></div></div></div></div><figcaption><span class="exq">화면 모사</span> · github.com · ① push 뒤 저장소 화면 위 노란 띠의 <b>Compare &amp; pull request</b> ② 제목은 커밋 메시지와 같게 · 본문 네 칸은 템플릿이 미리 채워 줌 ③ 오른쪽 <b>Reviewers</b> ⚙ → 팀원 (만든 뒤에는 Suggestions 옆 Request) ④ <b>Create pull request</b></figcaption></figure>
+      <h4>리뷰 담당 · 확인하고 승인</h4>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s5-4"><span><span class="ui">Files changed</span>에서 바뀐 줄 읽기 · 고칠 파일 밖이 바뀌었나</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-5"><span>checklist 줄을 직접 열어 확인 · 둘 중 하나</span></label>
+          <div class="more">
+            <div class="tabs" data-kind="tool">
+              <div class="tr" role="tablist"><button type="button" role="tab" data-v="agent">(가) 내 컴퓨터</button><button type="button" role="tab" data-v="chat">(나) 웹만</button></div>
+              <div class="pane" data-v="agent" role="tabpanel">
+                <div class="cpy"><div class="cpy-h"><span>터미널 · 리뷰할 브랜치로</span><button class="cp" type="button">복사</button></div><pre><code>git fetch
+git switch feat/card-screen</code></pre></div>
+                <p>index.html을 브라우저로 열어 checklist 줄 확인 → 끝나면 <code>git switch main</code>으로 돌아오기</p>
+              </div>
+              <div class="pane" data-v="chat" role="tabpanel" hidden>
+                <ol class="steps"><li>저장소 브랜치 메뉴에서 그 브랜치 고르기</li><li><span class="ui">Code</span> → <span class="ui">Download ZIP</span> → 압축 풀기 → <code>index.html</code> 열기</li></ol>
+              </div>
+            </div>
+            <p class="tip"><b>리뷰하며 고치지 않기</b> · 고칠 것은 댓글로 → 작업 담당이 고침 · 같은 브랜치를 둘이 고치면 충돌</p>
+          </div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-6"><span>고칠 것은 줄에 댓글 · 줄 번호 옆 파란 댓글 아이콘 → 쓰기 → <span class="ui">Start a review</span></span></label>
+          <div class="more"><ul class="bul"><li>"checklist 1번 확인함 · Chrome · 360px"</li><li>"3번 줄 · 사진 고른 뒤 미리 보기가 안 뜸 → 콘솔 오류 붙임"</li></ul></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-7"><span><span class="ui">Review changes</span> → <span class="ui">Approve</span> 또는 <span class="ui">Request changes</span> → <span class="ui">Submit review</span></span></label></li>
+      </ol>
+      <figure class="shot"><div class="gk"><div class="body" style="gap:6px;padding:10px 14px"><div class="pr-h"><h5 style="font-size:18px">feat: 카드 화면 HTML 한 장 (tasks 1) <span>#3</span></h5><div class="sub"><span class="pill" style="padding:2px 9px;font-size:12.5px">⑂ Open</span><b>내아이디</b> wants to merge 1 commit into <span class="cc">main</span> from <span class="cc">feat/card-screen</span></div></div><div class="gtabs" style="margin:0 -14px;padding:0 14px;font-size:13.5px"><span><i>💬</i>Conversation <em>0</em></span><span><i>⊶</i>Commits <em>1</em></span><span><i>☑</i>Checks <em>0</em></span><span class="on"><i class="an in s">1</i>Files changed <em>2</em></span><div class="stat">+21 <s>−0</s> ■■■■■</div></div><div class="tbar"><b>Changes from all commits ▾</b><b>File filter ▾</b><b>Conversations ▾</b><b>⚙ ▾</b><span class="rr"><span>0 / 2 files viewed</span><span class="btn" style="padding:2px 8px;font-size:13px">Review in codespace</span><span class="btn pri ic hl" style="padding:3px 10px;font-size:13.5px"><i class="an in s">3</i>Review changes</span></span></div><div class="box"><div class="bh" style="padding:4px 10px;font-size:13px"><span>⌄ <span class="mono">style.css</span></span><span class="sub" style="margin-left:auto;font-size:12.5px">☐ Viewed</span></div><div class="bc" style="gap:0;padding:6px 12px"><div class="code" style="font-size:13px;line-height:1.5"><span class="ctx"><span class="num">20</span>  .window-card { … }</span><span class="add"><span class="num">21</span>+ .window-card button { width: 420px; }  <span class="plus" style="display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#0969da;color:#fff;font-size:13px;font-weight:800;margin-left:8px;vertical-align:middle">+</span><i class="an in s" style="margin-left:6px">2</i></span></div><div class="cmt" style="margin-top:6px"><div class="cb" style="font-size:14px">checklist 1번 확인함 · 크롬 · 360px에서 '다음' 버튼이 잘려요 → <span class="mono">max-width: 100%</span></div><div class="rowf end" style="padding:0 10px 8px;gap:8px"><span class="btn" style="padding:3px 10px;font-size:13px">Cancel</span><span class="btn" style="padding:3px 10px;font-size:13px">Comment</span><span class="btn pri" style="padding:3px 10px;font-size:13px">Start a review</span></div></div></div></div><div class="two" style="display:grid;grid-template-columns:1.15fr 1fr;gap:10px;align-items:start"><div class="mdl"><div class="mh" style="font-size:14px;padding:7px 10px">Finish your review<i>⤢ &nbsp;✕</i></div><div class="mb" style="padding:8px 10px;gap:6px"><div class="inp ko ph" style="min-height:30px;font-size:13px">Leave a comment</div><div class="rad" style="gap:4px"><div><i></i><span><b>Comment</b><small>Submit general feedback without explicit approval.</small></span></div><div><i class="on"></i><span><b><i class="an in s">4</i>Approve</b><small>Submit feedback and approve merging these changes. · checklist 줄을 확인했을 때만</small></span></div><div><i></i><span><b>Request changes</b><small>Submit feedback suggesting changes.</small></span></div></div><div class="sub" style="font-size:13px">› Pending comments <em style="font-style:normal;background:#eff1f3;border-radius:999px;padding:0 6px;font-size:12px">1</em></div></div><div class="mf"><span class="btn white dng" style="padding:3px 10px;font-size:13px">Discard review</span><span class="rowf" style="margin-left:auto;gap:6px"><span class="btn white" style="padding:3px 10px;font-size:13px">Cancel</span><span class="btn pri" style="padding:3px 10px;font-size:13px"><i class="an in s">5</i>Submit review</span></span></div></div><div class="gok"><b><i class="gchk">✓</i> This branch has no conflicts with the base branch</b><span class="sub">Merging can be performed automatically.</span><span class="rowf" style="gap:4px"><span class="btn pri hl"><i class="an in s">6</i>Merge pull request</span><span class="btn pri ic" style="padding:5px 6px"></span></span><span class="sub">→ <b>Confirm merge</b> → <b>Delete branch</b></span></div></div></div></div><figcaption><span class="exq">화면 모사</span> · github.com · ① <b>Files changed</b> 탭 ② 줄에 마우스를 올리면 나오는 파란 <b>+</b> → 댓글 → <b>Start a review</b> ③ 오른쪽 위 <b>Review changes</b> ④ <b>Approve</b> 또는 Request changes ⑤ <b>Submit review</b> ⑥ 승인된 뒤 작업 담당이 Conversation 탭 아래 <b>Merge pull request</b> → Confirm merge → Delete branch</figcaption></figure>
+      <h4>작업 담당 · 고치고 병합</h4>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s5-8"><span>고칠 것이 있으면 같은 브랜치에 커밋 → push → PR에 저절로 더해짐</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-9"><span>승인되면 <span class="ui">Merge pull request</span> → <span class="ui">Confirm merge</span> → <span class="ui">Delete branch</span></span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s5-10"><span>팀 채팅에 "#번호 병합" 한 줄 → 모두 main을 pull</span></label></li>
+      </ol>
+      <p class="tip"><b>자기 PR은 자기가 승인할 수 없음</b> (GitHub) · 리뷰어가 AI 리뷰(Codex <code>/review</code> 등)를 같이 써도 checklist 줄은 사람이 직접 열어 봄</p>
+      <p class="tip"><b>두 번째 PR부터</b> · 다른 PR이 먼저 병합되어 내 PR이 뒤처지면 <span class="ui">Update branch</span> → 다시 확인 → 병합 · 옆 화살표 메뉴의 Update with rebase는 고르지 않기</p>
+      <p class="when"><span><b>끝나면</b> · PR이 보라색 <b>Merged</b> · main의 tasks.md에서 내 줄이 <code>완료</code></span></p>
+    </div>
+  </details>
+
+  <!-- 6 -->
+  <details class="step opt" id="s6" data-for="all" open>
+    <summary><span class="no">6</span><span class="tt"><h3>(선택) 충돌을 일부러 한 번 · 그다음 조별 토의</h3><span class="who"><span class="tl gr">두 사람 · 선택</span><span class="oth">· 다른 역할의 단계 · 눌러서 펼치기</span></span></span><span class="cnt" data-sc="s6"></span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="sbody">
+      <p class="goal"><b>목표</b>일부러 낸 충돌을 PR 화면에서 풀어 봄 · 실제 작업 파일은 건드리지 않음</p>
+      <ol class="do">
+        <li><label class="ck"><input type="checkbox" data-k="s6-1"><span>A · B가 각자 브랜치 <code>practice/a</code> · <code>practice/b</code> (웹 브랜치 메뉴로도 됨)</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s6-2"><span>둘 다 README.md의 <b>한 줄 소개</b>를 서로 다르게 고침 → 커밋 → PR 두 개</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s6-3"><span>리뷰 담당이 A의 PR을 먼저 병합</span></label></li>
+        <li><label class="ck"><input type="checkbox" data-k="s6-4"><span>B의 PR · <span class="ui">Resolve conflicts</span> → 두 문장을 합친 한 줄로 고치기 → 표시 세 줄 지우기</span></label>
+          <div class="more"><div class="mark"><span class="mk">&lt;&lt;&lt;&lt;&lt;&lt;&lt; practice/b</span>
+<span class="ou">밤에 깨어 있는 사람끼리 창밖 사진을 나누는 웹</span><span class="mk">=======</span>
+<span class="th">잠이 안 오는 밤, 낯선 사람의 창밖을 넘겨 보는 웹</span><span class="mk">&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</span></div>
+          <p class="sm mut">위 = 내 브랜치 · 아래 = main · <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 세 줄을 모두 지워야 끝</p><figure class="shot"><div class="gk"><div class="body" style="gap:8px;padding:10px 14px"><div class="pr-h"><h5 style="font-size:17px">docs: README 한 줄 소개 (B) <span>#4</span></h5><div class="sub"><span class="pill" style="padding:2px 9px;font-size:12.5px">⑂ Open</span><b>teammate-2</b> wants to merge 1 commit into <span class="cc">main</span> from <span class="cc">practice/b</span></div></div><div class="gtabs" style="margin:0 -14px;padding:0 14px;font-size:13.5px"><span class="on"><i>💬</i>Conversation</span><span><i>⊶</i>Commits <em>1</em></span><span><i>☑</i>Checks <em>0</em></span><span><i>±</i>Files changed <em>1</em></span></div><div class="ban"><i class="gwc">!</i><div><b>This branch has conflicts that must be resolved</b><span class="sub">Use the <span class="lnk">web editor</span> or the <span class="lnk">command line</span> to resolve conflicts.</span><span style="font-weight:600;margin-top:2px">Conflicting files</span><span class="mono" style="font-size:13.5px">README.md</span></div><span class="btn white hl" style="align-self:flex-start"><i class="an in s">1</i>Resolve conflicts</span></div><div class="box"><div class="bh" style="font-weight:400;font-size:13.5px;gap:8px;flex-wrap:wrap"><span><b>Resolving conflicts</b> between <span class="cc">practice/b</span> and <span class="cc">main</span> and committing changes → <span class="cc">practice/b</span></span><span class="btn pri" style="margin-left:auto;padding:3px 10px;font-size:13.5px"><i class="an in s">4</i>Commit merge</span></div><div class="cgrid" style="display:grid;grid-template-columns:150px 1fr"><div style="border-right:1px solid #d0d7de;font-size:13px"><div style="padding:6px 10px;border-bottom:1px solid #d0d7de;font-weight:600;color:#59636e">1 conflicting file</div><div style="padding:8px 10px;display:flex;align-items:center;gap:8px">README.md<i class="gchk" style="margin-left:auto">✓</i></div></div><div style="min-width:0"><div class="fbar" style="padding:5px 10px;border-bottom:1px solid #d0d7de;background:#f6f8fa;flex-wrap:wrap"><span class="mono">README.md</span><span style="color:#d1242f">1 conflict</span><span>Prev ︿</span><span>Next ﹀</span><span>⚙ ▾</span><span class="btn white" style="margin-left:auto;padding:2px 8px;font-size:13px"><i class="an in s">3</i>Mark as resolved</span></div><div class="bc" style="padding:8px 12px"><div class="code" style="font-size:13.5px;line-height:1.5"><span class="num">1</span># 밤 창밖
+<span class="mkl"><span class="num">2</span><i class="an in s">2</i>&lt;&lt;&lt;&lt;&lt;&lt;&lt; practice/b</span><span class="num">3</span>밤에 깨어 있는 사람끼리 창밖 사진을 나누는 웹   <span class="ctx" style="display:inline">← 내 브랜치 (B)</span>
+<span class="mkl"><span class="num">4</span>=======</span><span class="num">5</span>잠이 안 오는 밤, 낯선 사람의 창밖을 넘겨 보는 웹   <span class="ctx" style="display:inline">← main (A · 먼저 병합)</span>
+<span class="mkl"><span class="num">6</span>&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</span></div></div></div></div></div></div></div><figcaption><span class="exq">화면 모사</span> · github.com · ① PR 아래쪽 회색 띠의 <b>Resolve conflicts</b> ② 편집기에서 표시 세 줄 사이 두 쪽 읽기 · 위는 내 브랜치 · 아래는 main → 합친 한 줄로 고치고 표시 세 줄 지우기 ③ 오른쪽 위 <b>Mark as resolved</b> → 왼쪽 파일 이름에 초록 ✓ ④ <b>Commit merge</b></figcaption></figure></div></li>
+        <li><label class="ck"><input type="checkbox" data-k="s6-5"><span><span class="ui">Mark as resolved</span> → <span class="ui">Commit merge</span> → 리뷰 → 병합 → 연습 브랜치 둘 삭제</span></label></li>
+      </ol>
+      <p class="when"><span><b>끝나면</b> · main의 README에 합친 한 줄 · 충돌 표시 없음</span></p>
+      <h4>조별 토의</h4>
+      <ol class="steps">
+        <li>오늘 만든 저장소 · 문서를 같이 열어 보기</li>
+        <li>9주차 ⑨ 분담 다시 보기 → tasks.md에 이름과 상태</li>
+        <li>11주차 알파까지 남은 일 → tasks.md 줄로 · 한 줄 = PR 하나 · 새 줄은 한 사람이 PR 하나로</li>
+        <li>막힌 것 · 물어볼 것 한 줄씩 → 시트 ⑩ 또는 tasks.md</li>
+      </ol>
+    </div>
+  </details>
+
+  <!-- 늘 쓰는 것 -->
+  <section class="sec" id="daily">
+    <h2>다음 작업부터 · 매번</h2>
+    <p class="sub">오늘 한 번 해 본 순서를 다음 줄부터 그대로</p>
+    <div class="card">
+      <h3>하루 순서<small>팀원 각자</small></h3>
+      <div class="twrap"><table class="tbl">
+        <tr><th style="width:22%">순서</th><th style="width:40%">터미널 · AI에게 부탁해도 됨</th><th>VS Code · GitHub 웹</th></tr>
+        <tr><td>1 main을 최신으로</td><td><code>git switch main</code> · <code>git pull</code></td><td>Source Control <span class="ui">⋯</span> → <span class="ui">Pull</span></td></tr>
+        <tr><td>2 내 줄 고르기</td><td colspan="2">docs/tasks.md에서 내 이름 · 시작 전인 줄 하나 · 고칠 파일이 겹치는지 말로 확인</td></tr>
+        <tr><td>3 브랜치</td><td><code>git switch -c feat/photo-preview</code></td><td>상태 표시줄 브랜치 이름 → <span class="ui">Create new branch…</span></td></tr>
+        <tr><td>4 AI는 새 대화로</td><td colspan="2">AGENTS.md를 다시 읽게 · 줄 번호 · 고칠 파일 · checklist 줄</td></tr>
+        <tr><td>5 확인 → 커밋</td><td><code>git add .</code> · <code>git commit -m "feat: … (tasks 2)"</code></td><td>메시지 → <span class="ui">Commit</span></td></tr>
+        <tr><td>6 push → PR</td><td><code>git push -u origin feat/photo-preview</code></td><td><span class="ui">Publish Branch</span> → <span class="ui">Compare &amp; pull request</span></td></tr>
+        <tr><td>7 리뷰 → 병합</td><td colspan="2">Approve → Merge → <span class="ui">Delete branch</span> → 다음 일은 1부터</td></tr>
+        <tr><td>8 남이 먼저 병합</td><td><code>git merge main</code> (내 브랜치에서)</td><td>PR 화면 <span class="ui">Update branch</span></td></tr>
+      </table></div>
+      <p class="tip"><b>PR은 작게</b> · 하루 안에 리뷰와 병합까지 · 오래 열어 둘수록 충돌할 시간이 길어짐</p>
+    </div>
+
+    <div class="card" id="conflict">
+      <h3>충돌이 나면<small>PR에 This branch has conflicts that must be resolved</small></h3>
+      <div class="g2">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h4>간단한 줄 충돌 · GitHub 웹에서</h4>
+          <ol class="steps"><li>PR 아래쪽 <span class="ui">Resolve conflicts</span></li><li>표시 세 줄 사이 두 쪽 읽기 · 위는 내 브랜치 · 아래는 main</li><li>남길 내용으로 고치기 · 한쪽 · 다른 쪽 · 둘을 합친 새 줄</li><li>표시 세 줄 지우기 → <span class="ui">Mark as resolved</span> → <span class="ui">Commit merge</span></li><li>다시 확인 → 리뷰 → 병합</li></ol>
+          <p class="tip"><b>웹에서는</b> 간단한 줄 충돌만 · 파일을 지운 충돌 같은 나머지는 내 컴퓨터에서 (GitHub 문서)</p>
+          <p class="tip"><b>어느 쪽을 남길지 모르면</b> · 그 줄을 쓴 팀원을 불러 같이 보기</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h4>복잡한 충돌 · 내 컴퓨터에서 AI와</h4>
+          <div class="cpy"><div class="cpy-h"><span>main을 내 브랜치에 합치기</span><button class="cp" type="button">복사</button></div><pre><code>git switch main
+git pull
+git switch feat/photo-preview
+git merge main</code></pre></div>
+          <div class="cpy"><div class="cpy-h"><span>충돌이 나면 AI에게</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>git merge main에서 충돌이 났어. 충돌 표시가 있는 파일마다 양쪽이 무엇을 하려 했는지 먼저 설명해줘. 그다음 두 목적을 함께 살려 합치고, 한쪽을 버려야 하면 멈추고 물어봐. 끝나면 충돌 표시가 남았는지 찾고, checklist [3]번 줄로 확인할 방법을 알려줘.</code></pre></div>
+          <div class="cpy"><div class="cpy-h"><span>확인한 뒤</span><button class="cp" type="button">복사</button></div><pre><code>git add .
+git commit -m "merge: main 반영 · style.css 충돌 해결"
+git push</code></pre></div>
+        </div>
+      </div>
+      <p class="warn"><b>하지 않을 것</b> · <code>git push --force</code> · 모르는 채 <code>git reset --hard</code> → 합치기 전으로 돌아가려면 <code>git merge --abort</code></p>
+    </div>
+
+    <div class="card" id="hchange">
+      <h3>하네스를 바꿀 때<small>AI가 같은 실수를 두 번 하면</small></h3>
+      <ol class="steps">
+        <li>막을 한 줄을 정함 · 예: "사진 파일은 data/photos/에만 둔다"</li>
+        <li>브랜치 <code>docs/agents-photo-folder</code> → AGENTS.md에 한 줄 → PR · 코드는 섞지 않기</li>
+        <li>팀원 한 명 이상 리뷰 · 다른 사람 작업과 부딪치는 규칙인지</li>
+        <li>병합 → 팀 채팅에 "AGENTS.md 바뀜 · pull 하세요"</li>
+        <li>모두 main을 pull → 하던 AI 대화는 끝내고 새 대화 · (나) 대화창은 프로젝트 파일을 새로 올리기</li>
+        <li>확인 질문 · "AGENTS.md에서 사진 파일을 두는 곳이 어디야?"</li>
+      </ol>
+      <p class="tip"><span class="tl gp">Codex</span> 일을 시작할 때 한 번 읽음 · <span class="tl cl">Claude Code</span> 세션을 시작할 때 읽음 → 바뀐 규칙은 새 대화부터</p>
+    </div>
+
+    <div class="card" id="worktree">
+      <h3>더 나아가기 · 한 컴퓨터에서 AI 여럿<small>처음에는 AI 대화 하나 · 일 하나로 충분</small></h3>
+      <p>한 폴더에서 AI 대화 두 개가 같은 파일을 동시에 고치면 서로 덮어씀 (Codex 문서의 흔한 실수) → 일마다 따로 작업 폴더(worktree)를 씀</p>
+      <ul class="bul">
+        <li><span class="tl cl">Claude Code</span> <code>claude -w photo</code> → <code>.claude/worktrees/photo/</code>에 따로 만들어 시작 · <code>.claude/worktrees/</code>는 .gitignore에</li>
+        <li><span class="tl gp">Codex 앱</span> 입력창 아래 <span class="ui">Worktree</span>를 고르고 시작</li>
+        <li>Git으로 직접 · <code>git worktree add ../nw-sound -b feat/sound-tag</code> · 다 쓰면 <code>git worktree remove ../nw-sound</code></li>
+      </ul>
+      <p class="sm mut">같은 브랜치는 한 곳에서만 열 수 있음 · <code>.env</code>처럼 gitignore된 파일은 새 작업 폴더로 따라오지 않음</p>
+    </div>
+  </section>
+
+  <!-- 막히면 -->
+  <section class="sec" id="trouble">
+    <h2>막히면</h2>
+    <p class="sub">왼쪽에서 내 화면에 나온 글자를 찾기 · 없으면 맨 아래 방법으로 AI에게</p>
+    <div class="twrap" style="margin-top:14px"><table class="tbl err">
+      <tr><th style="width:40%">이렇게 되면</th><th>이렇게</th></tr>
+      <tr><td>'git' is not recognized · command not found: git</td><td>0단계의 Git 설치 → VS Code를 껐다 켜기</td></tr>
+      <tr><td>Author identity unknown · Please tell me who you are</td><td>0단계의 <code>git config</code> 두 줄 → 다시 커밋</td></tr>
+      <tr><td>Repository not found · 403 · Permission denied</td><td>초대를 수락했는지 · 저장소 주소 철자 · 로그인한 계정</td></tr>
+      <tr><td>fatal: not a git repository</td><td>저장소 폴더 밖에서 실행함 → <code>cd night-windows</code> · VS Code는 그 폴더를 열기</td></tr>
+      <tr><td class="ko">터미널이 Username · Password를 물음</td><td><kbd>Ctrl</kbd>+<kbd>C</kbd> → VS Code의 Source Control 버튼으로 push (로그인 창이 뜸)</td></tr>
+      <tr><td>! [rejected] … (fetch first)</td><td>GitHub에 내가 없는 커밋이 있음 → <code>git pull</code> 먼저 → 다시 push</td></tr>
+      <tr><td>push declined due to repository rule violations</td><td>main 보호가 잘 켜진 것 → 브랜치를 만들어 그 브랜치로 push → PR</td></tr>
+      <tr><td>Your local changes … would be overwritten</td><td>고친 것을 먼저 커밋 (<code>git add .</code> · <code>git commit</code>) → 다시</td></tr>
+      <tr><td>This branch has conflicts that must be resolved</td><td>위의 <a href="#conflict">충돌이 나면</a> · <span class="ui">Resolve conflicts</span>가 회색이면 내 컴퓨터에서</td></tr>
+      <tr><td class="ko">내 PR에 Approve가 안 눌림</td><td>자기 PR은 자기가 승인할 수 없음 → 다른 팀원이 리뷰</td></tr>
+      <tr><td class="ko">Update branch 버튼이 없음</td><td>2단계 4번 설정 · 충돌이 있으면 Resolve conflicts부터 · 쓰기 권한(초대 수락)</td></tr>
+      <tr><td class="ko">AI가 다른 사람 파일을 고침</td><td>그 파일만 되돌리기 · VS Code <span class="ui">Discard Changes</span> 또는 <code>git restore 파일</code> → 요청에 고칠 파일을 다시</td></tr>
+      <tr><td class="ko">AI가 AGENTS.md 규칙을 안 지킴</td><td><span class="tl gp">Codex</span> 새 대화 · <span class="tl cl">Claude</span> <code>/memory</code>로 읽혔는지 · CLAUDE.md 첫 줄 <code>@AGENTS.md</code></td></tr>
+      <tr><td class="ko">팀원 AI가 바뀐 규칙을 모름</td><td>main을 pull → 새 대화 → "AGENTS.md를 다시 읽고 요약해줘"</td></tr>
+      <tr><td>'feat/a' is already used by worktree</td><td>같은 브랜치는 한 곳에서만 · 그 worktree에서 이어서 하거나 다른 브랜치 이름</td></tr>
+      <tr><td class="ko">학교 계정에 Codex가 안 보임 · Claude Code 로그인이 막힘</td><td>오늘은 (나) 대화창 갈래로 · 계정 문제는 수업 뒤에</td></tr>
+    </table></div>
+    <div class="cpy" style="margin-top:14px"><div class="cpy-h"><span>표에 없으면 · AI에게 증거를 그대로</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>[하려던 일 한 줄 · 예: feat/photo-preview 브랜치를 push하려고 했어.]
+[터미널이나 화면의 메시지를 통째로 붙여 넣기]
+원인을 먼저 설명하고, 무엇을 할지 알려준 다음 같이 해줘. 파일을 지우거나 기록을 되돌리는 명령은 실행하기 전에 물어봐.</code></pre></div>
+  </section>
+
+  <!-- 점검 -->
+  <section class="sec" id="check">
+    <h2>오늘 점검</h2>
+    <p class="sub">팀마다 하나씩 · 못 끝낸 일은 내 브랜치에 커밋하고 PR은 열어 둠</p>
+    <div class="final">
+      <label class="ck"><input type="checkbox" data-k="fin-1"><span>팀 저장소 · 팀원 모두 초대<small>모두 파일을 열 수 있음</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-2"><span>docs/ 세 문서 · 하네스 파일<small>AGENTS.md · CLAUDE.md · PR 템플릿 · .gitignore</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-3"><span>main 보호 규칙<small>Require a pull request · 승인 1명</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-4"><span>팀원 모두 clone · 하네스 확인<small>AI가 함께 작업 규칙을 말함</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-5"><span>AI가 만든 PR 둘 이상<small>서로 리뷰 → 병합 (또는 열려 있음)</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-6"><span>tasks.md에 11주차까지 할 일과 이름<small>한 줄씩 · 줄 사이에 빈 줄</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-7"><span>(선택) 충돌 연습<small>PR 화면에서 Resolve conflicts</small></span></label>
+      <label class="ck"><input type="checkbox" data-k="fin-8"><span>저장소 링크 제출<small>제출 방법은 eTL 안내</small></span></label>
+    </div>
+  </section>
+
+  <!-- 부록 -->
+  <section class="sec" id="files">
+    <h2>부록 · 복사해 쓰는 파일</h2>
+    <p class="sub">우리 팀에 맞게 고쳐 쓰기 · 파일 이름은 상자 위에 적힌 그대로</p>
+    <div class="g2" style="margin-top:14px">
+      <div class="cpy"><div class="cpy-h"><span>CLAUDE.md</span><button class="cp" type="button">복사</button></div><pre><code>@AGENTS.md</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>.github/pull_request_template.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>## 무엇을
+
+## 왜 (tasks.md 몇 번 줄)
+
+## 확인한 것 (checklist 줄 · 브라우저 · 폭)
+
+## 확인 못 한 것</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>.gitignore</span><button class="cp" type="button">복사</button></div><pre><code><i># 나만 쓰는 파일</i>
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/worktrees/
+
+<i># 비밀 · 키 · 토큰</i>
+.env
+
+<i># 운영체제가 만드는 파일</i>
+.DS_Store
+Thumbs.db</code></pre></div>
+      <div class="cpy"><div class="cpy-h"><span>docs/tasks.md 형식 · <span class="exq">예시 질문</span></span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 할 일 (시트 ⑨)
+규칙: 한 줄 = PR 하나 · 줄 사이에 빈 줄 · 상태: 시작 전 · 진행 중 · 리뷰 중 · 완료
+
+- 1 · 카드 화면 HTML 한 장 · 팀원 1 · 보여 줄 것: 창 하나와 '다음' 버튼 · 진행 중
+
+- 2 · 사진 고르면 미리 보기 · 팀원 2 · 보여 줄 것: 고른 사진이 화면에 뜸 · 시작 전
+
+- 3 · 가짜 창 10장 (data/windows.json) · 팀원 3 · 보여 줄 것: 넘길 때마다 다른 창 · 시작 전
+
+## 아직 하지 않을 일
+녹음 · 회원 가입 · 도시별 모아 보기</code></pre></div>
+    </div>
+    <p class="tip" style="margin-top:14px"><b>tasks.md가 한 줄씩인 이유</b> · 표에서 붙어 있는 두 줄을 두 사람이 각자 바꾸면 충돌 · 줄 사이에 빈 줄이 있으면 Git이 알아서 합침 · 새 줄 추가와 순서 바꾸기는 조별 토의 때 한 사람이 PR 하나로</p>
+    <p class="sm mut" style="margin-top:8px">AGENTS.md의 함께 작업 구역은 <a href="#s1">1단계</a> · AI 쪽 push 규칙(.claude/settings.json · .codex/rules/team.rules)은 <a href="#s2">2단계</a></p>
+  </section>
+
+  <!-- 출처 -->
+  <section class="sec" id="sources">
+    <h2>출처 · 화면이 다르면 공식 문서가 기준</h2>
+    <div class="src">
+      <div><h3>GitHub · Git · VS Code</h3><ul>
+        <li><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository" target="_blank" rel="noopener">팀원 초대 · Inviting collaborators<small>docs.github.com · inviting-collaborators-to-a-personal-repository</small></a></li>
+        <li><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository" target="_blank" rel="noopener">저장소 가져오기 · Cloning a repository<small>docs.github.com · cloning-a-repository</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository" target="_blank" rel="noopener">브랜치 만들고 지우기<small>docs.github.com · creating-and-deleting-branches</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request" target="_blank" rel="noopener">PR 리뷰 · Reviewing proposed changes<small>docs.github.com · reviewing-proposed-changes-in-a-pull-request</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request" target="_blank" rel="noopener">PR 병합 · Merging a pull request<small>docs.github.com · merging-a-pull-request</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/reference/merge-conflicts" target="_blank" rel="noopener">충돌이 생기는 경우 · Merge conflicts<small>docs.github.com · merge-conflicts</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github" target="_blank" rel="noopener">웹에서 충돌 풀기<small>docs.github.com · resolving-a-merge-conflict-on-github</small></a></li>
+        <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/keeping-your-pull-request-in-sync-with-the-base-branch" target="_blank" rel="noopener">Update branch · PR을 최신으로<small>docs.github.com · keeping-your-pull-request-in-sync</small></a></li>
+        <li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-suggestions-to-update-pull-request-branches" target="_blank" rel="noopener">Always suggest updating pull request branches<small>docs.github.com · managing-suggestions-to-update-pull-request-branches</small></a></li>
+        <li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository" target="_blank" rel="noopener">main 보호 · Creating rulesets<small>docs.github.com · creating-rulesets-for-a-repository</small></a></li>
+        <li><a href="https://docs.github.com/en/get-started/using-github/github-flow" target="_blank" rel="noopener">GitHub flow<small>docs.github.com · github-flow</small></a></li>
+        <li><a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup" target="_blank" rel="noopener">Git 처음 설정 · user.name · user.email<small>git-scm.com · First-Time Git Setup</small></a></li>
+        <li><a href="https://code.visualstudio.com/docs/sourcecontrol/overview" target="_blank" rel="noopener">VS Code · Source Control<small>code.visualstudio.com/docs/sourcecontrol</small></a></li>
+      </ul></div>
+      <div><h3>Claude · OpenAI</h3><ul>
+        <li><a href="https://code.claude.com/docs/ko/memory" target="_blank" rel="noopener">CLAUDE.md · AGENTS.md를 읽는 방식<small>code.claude.com/docs/ko/memory</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/claude-directory" target="_blank" rel="noopener">.claude 폴더 · 팀과 공유하는 파일 · 개인 파일<small>code.claude.com/docs/ko/claude-directory</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/permissions" target="_blank" rel="noopener">권한 규칙 (ask · deny)<small>code.claude.com/docs/ko/permissions</small></a></li>
+        <li><a href="https://code.claude.com/docs/ko/worktrees" target="_blank" rel="noopener">worktree로 병렬 세션<small>code.claude.com/docs/ko/worktrees</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md" target="_blank" rel="noopener">Codex · AGENTS.md<small>learn.chatgpt.com/docs/agent-configuration/agents-md</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/agent-configuration/rules" target="_blank" rel="noopener">Codex · rules (prefix_rule)<small>learn.chatgpt.com/docs/agent-configuration/rules</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/environments/git-worktrees" target="_blank" rel="noopener">Codex · Worktrees<small>learn.chatgpt.com/docs/environments/git-worktrees</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/learn/best-practices" target="_blank" rel="noopener">Codex 모범 사례 · 흔한 실수<small>learn.chatgpt.com/docs/learn/best-practices</small></a></li>
+        <li><a href="https://learn.chatgpt.com/docs/third-party/github" target="_blank" rel="noopener">Codex로 GitHub PR 리뷰<small>learn.chatgpt.com/docs/third-party/github</small></a></li>
+        <li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md 형식<small>agents.md</small></a></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <footer>웹프로그래밍개론 · 10주차 실습 2 안내 · 기준: Claude · OpenAI · GitHub · Git · VS Code 공식 문서 · 버튼 이름이 다르면 공식 문서의 최신 화면을 따름 · <a href="week10show.html">수업 덱</a></footer>
+</main>
+</div>
+
+<script>
+(()=>{
+  const KEY='w10lab-v1';
+  let st={role:'all',tool:'agent',os:'win',checks:{}};
+  let ls=null; try{ls=window.localStorage; ls.getItem(KEY)}catch(e){ls=null}
+  let saved=null; try{saved=ls?JSON.parse(ls.getItem(KEY)||'null'):null}catch(e){}
+  if(saved&&typeof saved==='object') st=Object.assign(st,saved,{checks:Object.assign({},saved.checks||{})});
+  else if(/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent||'')) st.os='mac';
+  const save=()=>{try{ls&&ls.setItem(KEY,JSON.stringify(st))}catch(e){}};
+
+  // 체크
+  const boxes=[...document.querySelectorAll('input[type=checkbox][data-k]')];
+  const count=()=>{
+    const done=boxes.filter(b=>b.checked).length;
+    document.getElementById('progTxt').textContent='체크 '+done+' / '+boxes.length;
+    document.getElementById('progBar').style.width=(boxes.length?done/boxes.length*100:0)+'%';
+    const groups={};
+    boxes.forEach(b=>{const g=b.dataset.k.split('-')[0]; (groups[g]=groups[g]||[0,0]); groups[g][1]++; if(b.checked) groups[g][0]++});
+    Object.entries(groups).forEach(([g,[d,n]])=>{
+      document.querySelectorAll('[data-sc="'+g+'"],[data-tc="'+g+'"]').forEach(el=>{el.textContent=d+' / '+n; el.classList.toggle('full',d===n)});
+      document.querySelectorAll('[data-tc="'+g+'"]').forEach(el=>el.closest('a').classList.toggle('full',d===n));
+    });
+  };
+  boxes.forEach(b=>{b.checked=!!st.checks[b.dataset.k]; b.addEventListener('change',()=>{ if(b.checked) st.checks[b.dataset.k]=1; else delete st.checks[b.dataset.k]; save(); count(); })});
+  document.getElementById('clearChecks').addEventListener('click',()=>{boxes.forEach(b=>b.checked=false); st.checks={}; save(); count();});
+  count();
+
+  // 탭 (도구 · 컴퓨터는 페이지 전체가 같이 바뀜)
+  const setTabs=(group,v)=>{
+    const btns=[...group.querySelectorAll(':scope>.tr>button')], panes=[...group.querySelectorAll(':scope>.pane')];
+    if(!btns.some(b=>b.dataset.v===v)) v=btns[0].dataset.v;
+    btns.forEach(b=>{const on=b.dataset.v===v; b.setAttribute('aria-selected',String(on)); b.tabIndex=on?0:-1});
+    panes.forEach(p=>p.hidden=p.dataset.v!==v);
+  };
+  const applyKind=kind=>document.querySelectorAll('.tabs[data-kind="'+kind+'"]').forEach(g=>setTabs(g,st[kind]));
+  document.querySelectorAll('.tabs').forEach((g,i)=>{
+    const kind=g.dataset.kind, btns=[...g.querySelectorAll(':scope>.tr>button')], panes=[...g.querySelectorAll(':scope>.pane')];
+    btns.forEach((b,j)=>{const id='tb'+i+'-'+j; b.id=id; const p=panes.find(x=>x.dataset.v===b.dataset.v); if(p){p.setAttribute('aria-labelledby',id); p.id='tp'+i+'-'+j; b.setAttribute('aria-controls',p.id)}
+      b.addEventListener('click',()=>{ if(kind==='tool'||kind==='os'){st[kind]=b.dataset.v; save(); applyKind(kind); syncSeg(kind)} else setTabs(g,b.dataset.v) });
+      b.addEventListener('keydown',e=>{ if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return; e.preventDefault(); const k=(j+(e.key==='ArrowRight'?1:-1)+btns.length)%btns.length; btns[k].click(); btns[k].focus(); });
+    });
+    if(kind==='tool'||kind==='os') setTabs(g,st[kind]); else setTabs(g,btns[0].dataset.v);
+  });
+
+  // 고르기 버튼
+  const syncSeg=set=>document.querySelectorAll('.seg[data-set="'+set+'"] button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===st[set])));
+  const steps=[...document.querySelectorAll('details.step')];
+  const applyRole=()=>{
+    steps.forEach(s=>{const f=(s.dataset.for||'all').split(' '); const mine=st.role==='all'||f.includes('all')||f.includes(st.role); s.classList.toggle('other',!mine); s.open=mine;});
+  };
+  document.querySelectorAll('.seg').forEach(seg=>{
+    const set=seg.dataset.set;
+    seg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{st[set]=b.dataset.v; save(); syncSeg(set); if(set==='role') applyRole(); else applyKind(set);}));
+    syncSeg(set);
+  });
+  applyRole();
+  document.getElementById('openAll').addEventListener('click',()=>steps.forEach(s=>s.open=true));
+
+  // 복사 (file:// 에서도 되도록)
+  document.querySelectorAll('.cp').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    const t=b.closest('.cpy').querySelector('pre').innerText.replace(/\n$/,'');
+    const done=()=>{b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1600)};
+    const fallback=()=>{try{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();done()}catch(err){}};
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(done,fallback)} else fallback();
+  }));
+
+  // 차례에서 지금 위치
+  const links=[...document.querySelectorAll('#tocList a')];
+  const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{ if(e.isIntersecting){const id='#'+e.target.id; links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id));}})},{rootMargin:'-20% 0px -70% 0px'});
+    targets.forEach(t=>io.observe(t));
+  }
+  // 주소의 #으로 들어오면 그 단계를 펼침
+  const openHash=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1))); if(el&&el.tagName==='DETAILS') el.open=true; const d=el&&el.closest('details.step'); if(d) d.open=true;};
+  addEventListener('hashchange',openHash); openHash();
+  document.querySelectorAll('a[href^="#s"]').forEach(a=>a.addEventListener('click',()=>{const d=document.querySelector(a.getAttribute('href')); if(d&&d.tagName==='DETAILS') d.open=true;}));
+  addEventListener('beforeprint',()=>steps.forEach(s=>s.open=true));
+})();
+</script>
+</body>
+</html>
