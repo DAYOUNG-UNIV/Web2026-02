@@ -1,0 +1,12 @@
+/* bridge-show.css — addendum to bridge.css for the *show decks only:
+   canvas and stage in design-system colours, no gradients, DS bars. Link after bridge.css. */
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready{background:#E9E9E4}
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .course-deck{background:var(--paper)}
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .topbar{background:var(--surface);border-bottom:1px solid var(--line)}
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .show-controls{background:var(--surface);border-color:var(--line)}
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-deck{background:var(--paper)}
+:where(html[data-course-ui~="book-presenter"]) .show-mode{background:#E9E9E4}
+:where(html[data-course-ui~="lesson"]) .mode-show{background:#E9E9E4}
+html:where([data-course-ui~="book-presenter"]).show-mode{background:#E9E9E4}
+:where(html[data-course-ui~="book-presenter"]) body.show-mode{background:#E9E9E4}
+:where(html[data-course-ui~="book-presenter"]) body.show-mode .show-deck{background:var(--paper)}

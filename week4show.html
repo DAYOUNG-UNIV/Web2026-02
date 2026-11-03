@@ -1,4 +1,7 @@
-<!doctype html><html lang="ko" data-course-view="show" data-course-ui="lesson learning visuals history syntax"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; frame-src 'self' about: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>4주차 · CSS 레이아웃과 JavaScript 기초 · Show</title><link rel="stylesheet" href="assets/css/course-design.css">
+<!doctype html><html lang="ko" data-course-view="show" data-course-ui="lesson learning visuals history syntax"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; frame-src 'self' about: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>4주차 · CSS 레이아웃과 JavaScript 기초 · Show</title><link rel="stylesheet" href="assets/css/course-design.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="ds/bridge.css" data-ds-bridge>
+<link rel="stylesheet" href="ds/bridge-show.css" data-ds-bridge-show>
 <script data-course-syntax-dependency="assets/vendor/prism/prism-course.min.js">
 /* PrismJS 1.30.0 | MIT license | See LICENSE. Self-hosted core, markup, CSS, clike, JavaScript. */
 window.Prism = { manual: true };
@@ -3241,10 +3244,10 @@ for(const f of frames){
  // Authored teaching markup only. The iframe permits same-origin measurement,
  // but no script execution, forms, navigation, or network content.
  f.srcdoc=`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
- *{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;font:15px/1.5 system-ui,sans-serif;color:#173c35;background:white}
+ *{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;font:15px/1.5 system-ui,sans-serif;color:#00114F;background:white}
  .intro{height:160px;padding:20px 14px;background:#f1f3f5}.intro span{display:block;margin-top:10px;font-size:13px;color:#4b625b}
- .chapter{height:440px;border:2px solid #1b6e68;background:#f7faf9}
- .bar{position:${kind};top:12px;left:0;right:0;height:44px;padding:8px 12px;background:#c9e8dd;border:2px solid #1b6e68;z-index:1;font-weight:700}
+ .chapter{height:440px;border:2px solid #001871;background:#f7faf9}
+ .bar{position:${kind};top:12px;left:0;right:0;height:44px;padding:8px 12px;background:#c9e8dd;border:2px solid #001871;z-index:1;font-weight:700}
  main{padding:0 12px}main p{margin:14px 0;padding:10px 0;border-bottom:1px solid #dbe5df}
  footer{height:430px;padding:22px 14px;background:#f5eaf0;border-top:3px dashed #9d2a62}footer span{display:block;margin-top:12px}
  </style></head><body><div class="intro">앞의 내용<span>↓ 아래에 메뉴 영역이 있습니다.</span></div><section class="chapter"><header class="bar">메뉴 안내</header><main>${Array.from({length:6},(_,i)=>'<p>메뉴 '+(i+1)+' · 선택 안내</p>').join('')}</main></section><footer><strong>메뉴 영역 끝</strong><span>다른 내용이 이어집니다.</span></footer></body></html>`;
@@ -3477,7 +3480,7 @@ q('#loop-next').addEventListener('click',()=>{at=Math.min(at+1,stages.length-1);
       panel.querySelectorAll('[data-box-result]').forEach(output => { output.textContent = '비교 화면 갱신 중…'; });
       frames.forEach((frame, i) => {
         // srcdoc always uses standards mode; use a document URL for quirks mode.
-        const documentText = (i ? '' : '<!doctype html>') + '<html lang="ko"><meta charset="utf-8"><title>문서 모드와 CSS 길이</title><style>body{margin:10px;font:14px/1.5 system-ui;color:#173c35}.wrap{max-width:350px;border-bottom:1px dashed #63877c;padding-bottom:15px}.sample{width:'+value+';padding:20px;border:5px solid #1b6e68;background:#dcece7;height:35px}span{white-space:nowrap;font-size:12px}</style><body><div class="wrap"><div class="sample"><span>width: '+value+'</span></div></div><script>parent.postMessage({type: "course-history-box", value: "'+value+'", width: Math.round(document.querySelector(".sample").getBoundingClientRect().width), parent: Math.round(document.querySelector(".wrap").getBoundingClientRect().width), mode: document.compatMode}, "*");</scr'+'ipt></body></html>';
+        const documentText = (i ? '' : '<!doctype html>') + '<html lang="ko"><meta charset="utf-8"><title>문서 모드와 CSS 길이</title><style>body{margin:10px;font:14px/1.5 system-ui;color:#00114F}.wrap{max-width:350px;border-bottom:1px dashed #63877c;padding-bottom:15px}.sample{width:'+value+';padding:20px;border:5px solid #001871;background:#dcece7;height:35px}span{white-space:nowrap;font-size:12px}</style><body><div class="wrap"><div class="sample"><span>width: '+value+'</span></div></div><script>parent.postMessage({type: "course-history-box", value: "'+value+'", width: Math.round(document.querySelector(".sample").getBoundingClientRect().width), parent: Math.round(document.querySelector(".wrap").getBoundingClientRect().width), mode: document.compatMode}, "*");</scr'+'ipt></body></html>';
         if (frame.dataset.documentUrl) URL.revokeObjectURL(frame.dataset.documentUrl);
         frame.dataset.documentUrl = URL.createObjectURL(new Blob([documentText], {type:'text/html;charset=utf-8'}));
         frame.src = frame.dataset.documentUrl;
