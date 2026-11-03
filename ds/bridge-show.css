@@ -1,12 +1,120 @@
-/* bridge-show.css — addendum to bridge.css for the *show decks only:
-   canvas and stage in design-system colours, no gradients, DS bars. Link after bridge.css. */
-:where(html[data-course-ui~="classic"]) .mode-show.is-ready{background:#E9E9E4}
-:where(html[data-course-ui~="classic"]) .mode-show.is-ready .course-deck{background:var(--paper)}
-:where(html[data-course-ui~="classic"]) .mode-show.is-ready .topbar{background:var(--surface);border-bottom:1px solid var(--line)}
-:where(html[data-course-ui~="classic"]) .mode-show.is-ready .show-controls{background:var(--surface);border-color:var(--line)}
-:where(html[data-course-ui~="book-presenter"]) .show-mode .show-deck{background:var(--paper)}
-:where(html[data-course-ui~="book-presenter"]) .show-mode{background:#E9E9E4}
-:where(html[data-course-ui~="lesson"]) .mode-show{background:#E9E9E4}
-html:where([data-course-ui~="book-presenter"]).show-mode{background:#E9E9E4}
-:where(html[data-course-ui~="book-presenter"]) body.show-mode{background:#E9E9E4}
-:where(html[data-course-ui~="book-presenter"]) body.show-mode .show-deck{background:var(--paper)}
+/* ==========================================================================
+   bridge-show.css — addendum to bridge.css for the *show decks (week2_show,
+   week3show, week4show, week5show, week9show). Link it after bridge.css.
+   Goal: the week-10 deck look — white 1600×900 stage on a warm canvas, one
+   top line with the course name, a thin control bar with pill buttons,
+   Pretendard, SNU Blue accent, 52px titles with a 20px accent eyebrow,
+   marker-style highlight. Layout and example widgets stay as they are.
+   ========================================================================== */
+:root{--canvas:#E9E9E4;--stage:#FFFFFF;--hl:rgba(169,185,242,.55);--strong:#CBCBC4;--muted:#66625A;--ink2:#3B3934}
+
+/* 1 · canvas and stage ---------------------------------------------------- */
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready{background:var(--canvas)}
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .course-deck{background:var(--stage);border-radius:8px;box-shadow:0 30px 70px -36px rgba(20,20,18,.45)}
+:where(html[data-course-ui~="lesson"]) .mode-show{background:var(--canvas)}
+:where(html[data-course-ui~="lesson"]) .mode-show .course-deck{background:var(--stage);border-radius:8px;box-shadow:0 30px 70px -36px rgba(20,20,18,.45)}
+html:where([data-course-ui~="book-presenter"]).show-mode,
+:where(html[data-course-ui~="book-presenter"]) body.show-mode{background:var(--canvas)}
+:where(html[data-course-ui~="book-presenter"]) body.show-mode .show-deck{background:var(--stage);border-radius:8px;box-shadow:0 30px 70px -36px rgba(20,20,18,.45)}
+
+/* 2 · top line (week-10 .top) --------------------------------------------- */
+/* classic (week 3) */
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .topbar{position:absolute;top:0;left:80px;right:80px;height:74px;background:transparent;border-bottom:1px solid var(--line)}
+:where(html[data-course-ui~="classic"]) .mode-show .top-inner{max-width:none;min-height:0;height:100%;padding:0 0 13px;margin:0;display:flex;flex-wrap:nowrap;align-items:flex-end;gap:16px}
+:where(html[data-course-ui~="classic"]) .mode-show .brand{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
+:where(html[data-course-ui~="classic"]) .mode-show .top-inner label.small{display:none}
+:where(html[data-course-ui~="classic"]) .mode-show .top-inner select{flex:0 1 auto;margin-left:auto;max-width:620px;min-width:0;font:500 15px/1.3 var(--sans);color:var(--ink2);border:1px solid var(--strong);border-radius:999px;background:var(--stage);padding:5px 12px}
+:where(html[data-course-ui~="classic"]) .mode-show .top-links{display:flex;gap:8px;align-items:center}
+:where(html[data-course-ui~="classic"]) .mode-show .top-links a{font:600 14px/1.3 var(--sans);color:var(--muted);text-decoration:none}
+:where(html[data-course-ui~="classic"]) .mode-show .top-links a.button{border:1px solid var(--strong);border-radius:999px;padding:6px 12px;background:var(--stage);color:var(--ink)}
+:where(html[data-course-ui~="classic"]) .mode-show .top-links a.button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* lesson (weeks 4 · 5) */
+:where(html[data-course-ui~="lesson"]) .mode-show .topbar{height:74px;margin:0 80px;background:transparent;border-bottom:1px solid var(--line);box-shadow:none}
+:where(html[data-course-ui~="lesson"]) .mode-show .top-inner{height:100%;padding:0 0 13px;margin:0;display:flex;align-items:flex-end;gap:16px}
+:where(html[data-course-ui~="lesson"]) .mode-show .brand{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
+:where(html[data-course-ui~="lesson"]) .mode-show .reading-nav-field{flex:0 1 auto;margin-left:auto;min-width:0}
+:where(html[data-course-ui~="lesson"]) .mode-show .reading-nav-field label{display:none}
+:where(html[data-course-ui~="lesson"]) .mode-show #chapter-select{width:auto;max-width:620px;font:500 15px/1.3 var(--sans);color:var(--ink2);border:1px solid var(--strong);border-radius:999px;background:var(--stage);padding:5px 12px}
+:where(html[data-course-ui~="lesson"]) .mode-show .top-links{display:flex;gap:8px;align-items:center}
+:where(html[data-course-ui~="lesson"]) .mode-show .top-links a,
+:where(html[data-course-ui~="lesson"]) .mode-show .mode-link{font:600 14px/1.3 var(--sans);color:var(--muted);text-decoration:none}
+:where(html[data-course-ui~="lesson"]) .mode-show .top-links a.button,
+:where(html[data-course-ui~="lesson"]) .mode-show .topbar #fullscreen{border:1px solid var(--strong);border-radius:999px;padding:6px 12px;background:var(--stage);color:var(--ink);font:600 14px/1.3 var(--sans);cursor:pointer}
+:where(html[data-course-ui~="lesson"]) .mode-show .top-links a.button:hover,
+:where(html[data-course-ui~="lesson"]) .mode-show .topbar #fullscreen:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* book-presenter (week 2) */
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-toolbar{top:0;left:80px;right:80px;height:74px;padding:0 0 13px;align-items:flex-end;gap:8px;background:transparent;border-bottom:1px solid var(--line)}
+:where(html[data-course-ui~="book-presenter"]) .show-toolbar .show-brand{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+:where(html[data-course-ui~="book-presenter"]) .show-toolbar .show-brand span{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--accent);margin-left:6px}
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-toolbar .show-ui-btn{font:600 13.5px/1.25 var(--sans);background:var(--stage);border:1px solid var(--strong);padding:0 12px;min-height:30px;height:30px;color:var(--ink);border-radius:999px}
+.brand b,.show-brand b{color:var(--accent)}
+
+/* 3 · control bar (week-10 #ctl) ----------------------------------------- */
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .show-controls,
+:where(html[data-course-ui~="lesson"]) .mode-show .show-controls,
+:where(html[data-course-ui~="lesson"]) .mode-show .deck-controls,
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-bottom{position:absolute;left:0;right:0;bottom:0;top:auto;height:52px;padding:0 14px;display:flex;align-items:center;justify-content:flex-start;gap:8px;background:var(--stage);border-top:1px solid var(--line);font:14px/1.3 var(--sans);color:var(--muted);box-shadow:none}
+:where(html[data-course-ui~="classic"]) .mode-show .show-controls button,
+:where(html[data-course-ui~="lesson"]) .mode-show .show-controls button,
+:where(html[data-course-ui~="lesson"]) .mode-show .deck-controls button,
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-bottom .show-ui-btn{font:600 14px/1.25 var(--sans);border:1px solid var(--strong);background:var(--stage);color:var(--ink);border-radius:999px;height:34px;min-height:0;min-width:0;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+:where(html[data-course-ui~="classic"]) .mode-show .show-controls button:hover,
+:where(html[data-course-ui~="lesson"]) .mode-show .show-controls button:hover,
+:where(html[data-course-ui~="lesson"]) .mode-show .deck-controls button:hover,
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-bottom .show-ui-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+:where(html[data-course-ui~="book-presenter"]) .show-bottom .show-ui-btn:last-child{background:var(--stage);border-color:var(--strong);color:var(--ink)}
+:where(html[data-course-ui~="classic"]) .mode-show .show-controls output,
+:where(html[data-course-ui~="lesson"]) .mode-show #show-count,
+:where(html[data-course-ui~="book-presenter"]) .show-bottom #show-count{font:500 14px/1.3 var(--mono);color:var(--muted);min-width:80px;text-align:center}
+:where(html[data-course-ui~="classic"]) .mode-show .show-controls .small,
+:where(html[data-course-ui~="lesson"]) .mode-show .show-controls span,
+:where(html[data-course-ui~="book-presenter"]) .show-bottom .show-shortcuts{font-size:13px;color:var(--muted);margin-left:auto;margin-right:0}
+:where(html[data-course-ui~="book-presenter"]) .show-bottom .show-shortcuts{order:9}
+:where(html[data-course-ui~="book-presenter"]) .show-progress{bottom:52px;height:3px;background:var(--accent)}
+
+/* 4 · slide box, titles, text sizes (week-10 metrics) --------------------- */
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .course-deck{font-size:18px}
+:where(html[data-course-ui~="classic"]) .mode-show.is-ready .slide{padding:30px 80px 20px!important}
+:where(html[data-course-ui~="classic"]) .mode-show .slide>p,:where(html[data-course-ui~="classic"]) .mode-show .card p,:where(html[data-course-ui~="classic"]) .mode-show .slide>ul{font-size:20px}
+:where(html[data-course-ui~="classic"]) .mode-show .lesson-heading{border-bottom:0;padding-bottom:0;margin-bottom:22px}
+:where(html[data-course-ui~="classic"]) .mode-show .eyebrow{font:600 20px/1.3 var(--sans);letter-spacing:0;color:var(--accent);margin:0 0 10px!important}
+:where(html[data-course-ui~="classic"]) .mode-show .lesson-heading h1,
+:where(html[data-course-ui~="classic"]) .mode-show .lesson-heading h2{font:700 52px/1.16 var(--sans);letter-spacing:-.035em;font-kerning:normal;color:var(--ink);margin:0;text-wrap:balance}
+:where(html[data-course-ui~="lesson"]) .mode-show{font-size:21px}
+:where(html[data-course-ui~="lesson"]) .mode-show .slide{padding:26px 80px 20px}
+:where(html[data-course-ui~="lesson"]) .mode-show .eyebrow{font:600 20px/1.3 var(--sans);letter-spacing:0;color:var(--accent);margin:0 0 10px}
+:where(html[data-course-ui~="lesson"]) .mode-show .lesson-heading h1,
+:where(html[data-course-ui~="lesson"]) .mode-show .lesson-heading h2{font:700 52px/1.16 var(--sans);letter-spacing:-.035em;color:var(--ink);margin:0 0 4px;text-wrap:balance}
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-deck{font-size:18px}
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-slide{inset:74px 0 52px;padding:30px 80px 20px}
+:where(html[data-course-ui~="book-presenter"]) .show-slide .show-heading .eyebrow{font:600 20px/1.3 var(--sans);letter-spacing:0;color:var(--accent);margin:0 0 10px}
+:where(html[data-course-ui~="book-presenter"]) .show-slide .show-heading h1,
+:where(html[data-course-ui~="book-presenter"]) .show-slide .show-heading h2{font:700 52px/1.16 var(--sans);letter-spacing:-.035em;color:var(--ink);margin:0}
+:where(html[data-course-ui~="book-presenter"]) .show-slide.is-cover h1{font-size:72px!important;line-height:1.1;letter-spacing:-.045em;color:var(--ink)}
+:where(html[data-course-ui~="book-presenter"]) .show-slide.is-cover .eyebrow{font-size:22px!important;font-weight:600;color:var(--muted)}
+:where(html[data-course-ui~="book-presenter"]) .show-slide.is-cover .qlead{font-size:29px!important;font-weight:600;letter-spacing:-.02em;color:var(--ink2)}
+
+/* 5 · highlight (week-10 .hl) -------------------------------------------- */
+.mode-show .lesson-heading em,.mode-show .slide mark,.mode-show .slide em,
+body.show-mode .show-slide em,body.show-mode .show-slide mark,
+.slide .hlm{font-style:normal;background:linear-gradient(transparent 60%,var(--hl) 60%);padding:0 .04em;color:inherit}
+
+/* 6 · week 9 (own engine) ------------------------------------------------- */
+#steps{padding:0 80px;background:var(--stage);border-bottom:1px solid var(--line)}
+#steps button.on i{background:var(--accent);border-color:var(--accent)}
+#steps button.on{color:var(--accent)}
+#hud{height:52px;padding:0 14px;background:var(--stage);border-top:1px solid var(--line);font-size:14px;gap:8px;color:var(--muted)}
+#hud .l b{font-weight:700;font-size:15px;color:var(--ink)}
+#hud .hb{border:1px solid var(--strong);background:var(--stage);color:var(--ink);border-radius:999px;height:34px;padding:0 14px;font:600 14px/1.25 var(--font)}
+#hud .hb kbd{font-size:11px;color:var(--muted)}
+#hud .hb:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+#hud .hb:hover kbd{color:#fff}
+#hud #pg{font:500 14px/1.3 var(--mono,ui-monospace,monospace);color:var(--muted)}
+#bar{background:var(--accent);height:3px}
+.slide{bottom:52px}
+.slide.cover .k{color:var(--muted);font-size:22px;font-weight:600}
+h2{font-size:2.7rem}
+mark{background:linear-gradient(transparent 60%,var(--hl) 60%);color:inherit;padding:0 .04em}
+/* scroll containers are focused by the deck script: no ring */
+:where(html[data-course-ui~="book-presenter"]) .show-mode .show-content:focus{outline:0}
+:where(html[data-course-ui~="classic"]) .mode-show .slide:focus,:where(html[data-course-ui~="lesson"]) .mode-show .slide:focus{outline:0}
