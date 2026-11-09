@@ -2021,7 +2021,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 #askai .file.xreq .bd{font-size:19.5px;line-height:1.62}
 #askai .xmdt{font-size:18px}
 #askai .xmdt td{padding:9px 10px}
-#askai .xmdt td:first-child{font-family:var(--mono)}
+#askai .xmdt td:first-child{font-weight:700;white-space:nowrap}
 #askai .card p{font-size:20px}
 /* 대비 직접 재기 */
 .xcc{background:var(--canvas);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
@@ -2157,6 +2157,161 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 .xrounds>span{font-size:20px}
 .xcmp .xhb{gap:12px}
 
+/* 검수 · 진행 그림 · 카드 소팅 · 트리 테스트 · 트렁크 테스트 · 자동 검사 도구 */
+.zst{display:flex;flex-direction:column;gap:12px;min-height:0;min-width:0}
+.zsb{display:flex;gap:8px;flex:none}
+.zsb button{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--strong);background:var(--bg);border-radius:10px;padding:9px 12px;font:inherit;font-size:19px;font-weight:700;color:var(--ink2);cursor:pointer;letter-spacing:-.01em;white-space:nowrap;line-height:1.2}
+.zsb button b{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--canvas);color:var(--muted);font-size:15px;flex:none}
+.zsb button span{font-size:15.5px;font-weight:600;color:var(--muted)}
+.zsb button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.zsb button[aria-pressed="true"] b{background:var(--accent);color:#fff}
+.zsb button[aria-pressed="true"] span{color:inherit}
+.zsb button.ok[aria-pressed="true"],.zsb button.ok2[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.zsb button.no[aria-pressed="true"]{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+
+/* 카드 소팅 */
+.zcst{position:relative;flex:1;min-height:0;background:var(--canvas);border-radius:12px;overflow:hidden}
+.zcc{position:absolute;left:0;top:0;width:250px;padding:10px 16px;background:#fff;border:1.5px solid var(--strong);border-radius:8px;box-shadow:0 2px 5px rgba(20,20,18,.10);font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.35;color:var(--ink);transform:translate(var(--x0),var(--y0)) rotate(var(--r0));transition:transform .7s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s}
+.zcs:not([data-k="1"]) .zcc{transform:translate(var(--x1),var(--y1)) rotate(var(--r1))}
+.zcl{position:absolute;left:0;top:0;padding:8px 18px;background:#FFF0B3;border-radius:4px;box-shadow:0 2px 4px rgba(20,20,18,.14);font-size:21px;font-weight:800;color:#5A4500;letter-spacing:-.02em;opacity:0;transform:translate(var(--x),calc(var(--y) - 10px)) rotate(var(--r));transition:opacity .35s,transform .35s}
+.zcs[data-k="3"] .zcl,.zcs[data-k="4"] .zcl{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r))}
+.zcap{position:absolute;left:24px;right:24px;bottom:16px;margin:0;font-size:18.5px;font-weight:600;color:var(--muted)}
+.zcap span{display:none}
+.zcs[data-k="1"] .zcap span[data-k="1"],.zcs[data-k="2"] .zcap span[data-k="2"],.zcs[data-k="3"] .zcap span[data-k="3"]{display:inline}
+.zcm{position:absolute;left:20px;right:20px;bottom:16px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;pointer-events:none}
+.zcs[data-k="4"] .zcm{opacity:1;transform:none}
+.zcm h5{margin:0;font-size:18px;font-weight:700;color:var(--ink2);letter-spacing:-.01em}
+.zcm small{font-size:16px;font-weight:600;color:var(--muted)}
+.zpr{display:grid;grid-template-columns:290px auto auto;justify-content:start;align-items:center;gap:16px 26px}
+.zpc{justify-self:start;font-size:17.5px;font-weight:700;padding:5px 12px;border-radius:8px;background:#fff;white-space:nowrap}
+.zpc.a{border:2px solid var(--accent);color:var(--accent)}
+.zpc.b{border:2px dashed var(--warn);color:var(--warn)}
+.zpp{display:flex;gap:5px}
+.zpp i{position:relative;width:16px;height:27px;flex:none;--c:#D7D7D0}
+.zpp i::before{content:"";position:absolute;left:3px;top:0;width:10px;height:10px;border-radius:50%;background:var(--c)}
+.zpp i::after{content:"";position:absolute;left:0;top:12px;width:16px;height:15px;border-radius:8px 8px 3px 3px;background:var(--c)}
+.zpp i.on{--c:var(--accent)}
+.zpp.b i.on{--c:var(--warn)}
+.zpr>b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
+.zcs[data-k="4"] .zcc.pa{border:2px solid var(--accent);box-shadow:0 0 0 3px var(--accent-line)}
+.zcs[data-k="4"] .zcc.pb{border:2px dashed var(--warn)}
+.zcsr{gap:12px}
+.zcsr .card{padding:14px 20px 16px}
+.zcsr .card h4{font-size:22px;margin-bottom:4px}
+.zcsr .card p{font-size:19px;line-height:1.45}
+.zbins{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 8px}
+.zbins span{display:flex;flex-direction:column;gap:6px;border:1.5px dashed var(--strong);border-radius:6px;padding:6px 6px 8px;font-size:14.5px;font-weight:700;color:var(--ink2);text-align:center;background:#fff;white-space:nowrap}
+.zbins span::after{content:"";height:8px;margin:0 4px 13px;border-radius:2px;background:#C9C9C2;box-shadow:0 13px 0 #C9C9C2}
+.xhb.card.zfew{gap:7px;padding:14px 20px 16px;justify-content:flex-start}
+.xhb.card.zfew h4{font-size:20px;margin:0 0 2px}
+.xhb.card.zfew .xrw{grid-template-columns:52px 1fr;gap:10px}
+.xhb.card.zfew .xrw>small{font-size:16.5px}
+.xhb.card.zfew .xtr{height:22px;margin-right:62px}
+.xhb.card.zfew .xv{font-size:18px}
+
+/* 트리 테스트 */
+.ztt .zsb button{flex-direction:column;gap:1px;padding:6px 10px}
+.ztq{display:flex;align-items:baseline;gap:14px;background:var(--bg);border:1.5px solid var(--accent);border-radius:10px;padding:9px 16px;flex:none}
+.ztq .k{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);flex:none}
+.ztq p{margin:0;font-size:20px;font-weight:700;color:var(--ink);line-height:1.4}
+.ztr{flex:1;min-height:0;background:var(--canvas);border-radius:12px;padding:8px 14px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.zr{position:relative;display:flex;align-items:center;gap:10px;min-height:29px;padding-left:calc(var(--l) * 30px + 42px);border-radius:7px;font-size:18.5px;font-weight:600;color:var(--ink2);transition:background .25s,color .25s}
+.zr.l0{--l:0;font-weight:800;color:var(--ink)}.zr.l1{--l:1}.zr.l2{--l:2}.zr.l3{--l:3}
+.zr::before{content:"";position:absolute;left:7px;top:50%;width:25px;height:25px;margin-top:-12.5px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;color:#fff;background:var(--accent);opacity:0}
+.zr::after{margin-left:auto;margin-right:10px;font-size:15.5px;font-weight:800}
+.zr em{font-style:normal;font-size:13.5px;font-weight:700;color:var(--muted);border:1px dashed #BDBDB5;border-radius:5px;padding:1px 7px}
+.ztt[data-k="a"] .zr[data-a]::before{content:attr(data-a);opacity:1}
+.ztt[data-k="b"] .zr[data-b]::before{content:attr(data-b);opacity:1}
+.ztt[data-k="c"] .zr[data-c]::before{content:attr(data-c);opacity:1}
+.ztt[data-k="a"] .zr[data-a],.ztt[data-k="b"] .zr[data-b],.ztt[data-k="c"] .zr[data-c]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.ztt[data-k="a"] .zr[data-ae="ok"],.ztt[data-k="b"] .zr[data-be="ok"]{background:var(--ok-soft);color:var(--ok)}
+.ztt[data-k="a"] .zr[data-ae="ok"]::before,.ztt[data-k="b"] .zr[data-be="ok"]::before{background:var(--ok)}
+.ztt[data-k="a"] .zr[data-ae="ok"]::after,.ztt[data-k="b"] .zr[data-be="ok"]::after{content:"✓ 여기서 찾겠어요";color:var(--ok)}
+.ztt[data-k="c"] .zr[data-ce="no"]{background:var(--no-soft);color:var(--no)}
+.ztt[data-k="c"] .zr[data-ce="no"]::before{background:var(--no)}
+.ztt[data-k="c"] .zr[data-ce="no"]::after{content:"✕ 여기서 찾겠어요";color:var(--no)}
+.ztt[data-k="b"] .zr[data-bb="back"]{background:var(--warn-soft);color:var(--warn)}
+.ztt[data-k="b"] .zr[data-bb="back"]::before{background:var(--warn)}
+.ztt[data-k="b"] .zr[data-bb="back"]::after{content:"↩ 되돌아감";color:var(--warn)}
+.ztres{gap:12px}
+.ztres .card{padding:14px 20px 16px}
+.zsq{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:10px 0 10px}
+.zsq i{aspect-ratio:1;border-radius:5px;background:#D7D7D0}
+.zsq i.d1{background:var(--ok)}.zsq i.d2{background:#8CC3A5}
+.zlg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:16.5px;font-weight:600;color:var(--ink2)}
+.zlg span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:#D7D7D0}
+.zlg .d1::before{background:var(--ok)}.zlg .d2::before{background:#8CC3A5}
+.zlg b{color:var(--ink)}
+.zsum{margin:10px 0 0;font-size:19px;color:var(--ink2)}
+.zsum b{font-size:22px;color:var(--ink);letter-spacing:-.02em}
+.xhb.card.zfc{gap:8px;padding:14px 20px 16px;justify-content:flex-start}
+.xhb.card.zfc .xrw{grid-template-columns:92px 1fr;gap:10px}
+.xhb.card.zfc .xrw>small{font-size:17px}
+.xhb.card.zfc .xtr{height:24px;margin-right:64px}
+.xhb.card.zfc .xv{font-size:18px}
+
+/* 트렁크 테스트 */
+.ztk3{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;margin-top:14px;flex:none}
+.ztk3>div{display:flex;align-items:center;gap:14px;background:var(--canvas);border-radius:12px;padding:10px 16px}
+.ztk3 svg{width:104px;height:61px;flex:none}
+.ztk3 p{margin:0;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ztk3 p b{font-size:20px;letter-spacing:-.02em;color:var(--ink);line-height:1.3}
+.ztk3 p small{font-size:16px;font-weight:600;color:var(--muted)}
+.ztk3>i{font-style:normal;font-size:26px;color:var(--muted);text-align:center}
+.ztkw{min-height:0;display:flex;align-items:center;justify-content:center}
+.ztkw svg{width:100%;height:100%;max-height:100%}
+.zrg ellipse{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-dasharray:8 5}
+.zbd circle{fill:var(--accent)}
+.zbd text{fill:#fff;font-size:14px;font-weight:800;text-anchor:middle;font-family:var(--body)}
+.ztkq{gap:6px}
+.ztkq>div{padding:7px 14px;font-size:20px;align-items:center}
+.ztkq>div span{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:10px}
+.ztkq small{display:inline;margin:0;font-size:16px}
+.ztkr>div{position:relative;padding-right:54px}
+.ztkr>div::after{position:absolute;right:14px;top:50%;width:28px;height:28px;margin-top:-14px;border-radius:50%;display:grid;place-items:center;font-size:16px;font-weight:900;color:#fff}
+.slide[data-v="no"] .ztkr>div[data-no="ok"]::after,.slide[data-v="yes"] .ztkr>div[data-yes="ok"]::after{content:"✓";background:var(--ok)}
+.slide[data-v="no"] .ztkr>div[data-no="no"]::after,.slide[data-v="yes"] .ztkr>div[data-yes="no"]::after{content:"✕";background:var(--no)}
+.slide[data-v="no"] .ztkr>div[data-no="no"]{background:var(--no-soft)}
+.ztkr small[data-v]{display:none}
+.slide[data-v="no"] .ztkr small[data-v="no"],.slide[data-v="yes"] .ztkr small[data-v="yes"]{display:block}
+
+/* 자동 검사 도구 */
+.ztl{margin-top:16px;flex:1;min-height:0;align-items:stretch}
+.ztl .card{display:flex;flex-direction:column;gap:9px;padding:16px 20px}
+.ztl .card h4{font-size:27px;margin:0;letter-spacing:-.02em}
+.ztm{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;height:150px;display:flex;gap:14px;align-items:center;min-height:0;flex:none}
+.zgau{position:relative;width:98px;height:98px;flex:none;border-radius:50%;background:conic-gradient(#F2A33A var(--v),#F7E6C8 0);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.zgau::before{content:"";position:absolute;inset:9px;border-radius:50%;background:#fff}
+.zgau b{position:relative;font-size:30px;font-weight:800;color:#A85400;line-height:1}
+.zgau small{position:relative;font-size:12.5px;font-weight:700;color:var(--muted);margin-top:3px}
+.zlh ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:15.5px;line-height:1.3;color:var(--ink2);font-weight:600;min-width:0}
+.zlh li{display:flex;gap:7px;align-items:baseline}
+.zlh li::before{content:"";flex:none;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid var(--no);transform:translateY(-1px)}
+.zax{flex-direction:column;align-items:stretch;justify-content:center;gap:9px}
+.zax>div{display:flex;align-items:center;gap:9px;font-size:15.5px;color:var(--ink2);font-weight:600;white-space:nowrap}
+.zax>div b{margin-left:auto;font-family:var(--mono);font-size:15px;color:var(--ink)}
+.zim{font-family:var(--mono);font-size:12.5px;font-weight:800;border-radius:5px;padding:3px 0;color:#fff;flex:none;width:78px;text-align:center}
+.zim.c{background:#7F1717}.zim.s{background:var(--no)}.zim.m{background:#9A5B00}
+.zwv{flex-direction:column;align-items:stretch;gap:8px}
+.zwp{position:relative;flex:1;min-height:0;border-radius:6px;border:1px solid var(--line);background:repeating-linear-gradient(180deg,#F1F1EC 0 9px,#fff 9px 20px)}
+.zwp i{position:absolute;width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font-style:normal;font-size:13.5px;font-weight:900;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);line-height:1}
+.zwp i.e{background:#C8102E}.zwp i.w{background:#E5B000;color:#3A2E00}.zwp i.f{background:#2E7D32}.zwp i.h{background:#1F5FBF;font-size:10.5px;width:28px}
+.zwp i.ct{background:linear-gradient(90deg,#111 50%,#fff 50%);border:2.5px solid #C8102E}
+.zws{display:flex;gap:12px;font-size:15px;font-weight:700;color:var(--ink2);flex:none}
+.zws span{display:flex;align-items:center;gap:6px}
+.zws span::before{content:"";width:12px;height:12px;border-radius:3px;background:#C8102E}
+.zws .w::before{background:#E5B000}
+.zws .ct::before{background:linear-gradient(90deg,#111 50%,#fff 50%);box-shadow:0 0 0 1.5px #C8102E}
+.zts{margin:0;padding-left:24px;display:flex;flex-direction:column;gap:4px;font-size:19.5px;line-height:1.4;color:var(--ink2)}
+.zts li::marker{font-weight:800;color:var(--accent)}
+.ztl .ztn{margin:auto 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:19px;font-weight:700;color:var(--ink2)}
+#tools .split .card{padding:14px 22px 16px}
+#tools .split .card p{font-size:20px}
+
+/* KWCAG 항목은 이름으로 */
+.xkc{font-family:var(--body);font-size:15px}
+@media (prefers-reduced-motion:reduce){.zcc,.zcl,.zcm,.zr{transition:none}}
+
 </style>
 </head>
 <body>
@@ -2165,7 +2320,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   <header class="top"><span class="wm">웹프로그래밍개론 <b>요약 · 정보 구조 · UX · 접근성</b></span><span id="partName"></span><span id="pageNo"></span></header>
   <div class="deck" id="deck">
 
-<section class="slide" id="cover" data-part="시작" data-title="표지" data-note="강의 목표 4(반응형 레이아웃 · 정보 구조 · 웹 접근성 · 사용자 경험을 고려한 설계와 구현)를 채우는 요약판 덱. 3–4주차에서 폼의 레이블 · 포커스 · 대비와 반응형 배치를 다뤘다면, 이 덱은 그 앞과 뒤: 화면을 그리기 전에 내용을 묶는 일(정보 구조 · 흐름)과 만든 뒤 점검하는 일(휴리스틱 · 반응형 · KWCAG · 사용성 테스트). 표지의 두 화면은 같은 기능 · 다른 설계. 왼쪽은 숨긴 메뉴 · 아이콘만 있는 버튼 · 흐린 글자(대비 2.1:1) · div로 만든 버튼, 오른쪽은 보이는 탭 · 글자가 있는 버튼 · 대비 10.9:1 · button 요소. 예시 서비스는 9 · 10주차의 '밤 창밖'. 조작: 방향키 · Space로 넘기기, T 목차, N 메모, F 전체 화면.">
+<section class="slide" id="cover" data-part="시작" data-title="표지" data-note="알파 테스트에서 팀끼리 서로 피드백할 기준을 세우는 덱. 강의 목표 4(반응형 레이아웃 · 정보 구조 · 웹 접근성 · 사용자 경험을 고려한 설계와 구현)를 채우는 요약판 덱. 3–4주차에서 폼의 레이블 · 포커스 · 대비와 반응형 배치를 다뤘다면, 이 덱은 그 앞과 뒤: 화면을 그리기 전에 내용을 묶는 일(정보 구조 · 흐름)과 만든 뒤 점검하는 일(휴리스틱 · 반응형 · KWCAG · 사용성 테스트). 표지의 두 화면은 같은 기능 · 다른 설계. 왼쪽은 숨긴 메뉴 · 아이콘만 있는 버튼 · 흐린 글자(대비 2.1:1) · div로 만든 버튼, 오른쪽은 보이는 탭 · 글자가 있는 버튼 · 대비 10.9:1 · button 요소. 예시 서비스는 9 · 10주차의 '밤 창밖'. 조작: 방향키 · Space로 넘기기, T 목차, N 메모, F 전체 화면.">
   <p class="kick a" style="--d:.1s">웹프로그래밍개론 · <b>요약판</b></p>
   <h1 class="a" style="--d:.2s">정보 구조 · UX · 접근성</h1>
   <p class="sub a" style="--d:.3s">화면 구조 설계와 사용성 · 접근성 점검</p>
@@ -2195,14 +2350,14 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 <section class="slide" id="map" data-title="목차" data-note="정보 구조 · 내비게이션과 흐름은 화면을 그리기 전(내용 묶기 · 이름 · 메뉴 · 흐름). 사용성 원칙은 화면을 보는 기준(휴리스틱 · 심각도). 반응형 점검 · 접근성 점검은 만든 뒤 점검(반응형 · KWCAG 2.2). 사용성 테스트는 사람에게 직접 써 보게 하는 단계. '우리 서비스에 적용'은 팀 프로젝트에 그대로 쓰는 점검표와 AI 사용법. 상자를 누르면 그 부분으로 바로 감. 마지막에 실습 · 정리 · 참고 문서.">
   <h2 class="a" style="--d:.2s">목차</h2>
   <div class="h4g a" style="--d:.3s;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr">
-    <button class="jmp" data-go="div1"><h3>정보 구조</h3><p>내용 목록 · 분류 기준 · 사이트맵 · 이름 · 카드 소팅</p></button>
-    <button class="jmp" data-go="div2"><h3>내비게이션과 흐름</h3><p>메뉴 종류 · 현재 위치 · 숨긴 메뉴 · 사용자 흐름 · 와이어프레임</p></button>
+    <button class="jmp" data-go="div1"><h3>정보 구조</h3><p>내용 목록 · 분류 기준 · 사이트맵 · 이름 · 카드 소팅 · 트리 테스트</p></button>
+    <button class="jmp" data-go="div2"><h3>내비게이션과 흐름</h3><p>메뉴 종류 · 트렁크 테스트 · 숨긴 메뉴 · 사용자 흐름 · 와이어프레임</p></button>
     <button class="jmp" data-go="div3"><h3>사용성 원칙</h3><p>휴리스틱 · 상태 · 되돌리기 · 오류 문구 · 심각도</p></button>
     <button class="jmp" data-go="div4"><h3>반응형 점검</h3><p>내용 기준점 · 320px · 200% · 터치 영역 · 사용자 설정</p></button>
-    <button class="jmp" data-go="div5"><h3>접근성 점검</h3><p>KWCAG 2.2 · 자동 검사 · 키보드 · 스크린 리더 · 대체 텍스트</p></button>
+    <button class="jmp" data-go="div5"><h3>접근성 점검</h3><p>KWCAG 2.2 · 자동 검사 도구 · 키보드 · 스크린 리더 · 대체 텍스트</p></button>
     <button class="jmp" data-go="div6"><h3>사용성 테스트</h3><p>참가자 수 · 과업 · 소리 내어 생각하기 · 고칠 순서</p></button>
     <button class="jmp" data-go="div7"><h3>우리 서비스에 적용</h3><p>팀 점검표 · AI 1차 점검 · 대비 확인 · 전후 비교</p></button>
-    <button class="jmp" data-go="practice"><h3>실습 · 정리</h3><p>다른 팀 화면 15분 점검 · 정리 · 참고 문서</p></button>
+    <button class="jmp" data-go="practice"><h3>실습 · 정리</h3><p>팀 내 15분 점검 · 정리 · 참고 문서</p></button>
   </div>
 </section>
 
@@ -2214,7 +2369,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       <div style="--k:0"><i class="n">1</i><span>내용을 묶고 이름 붙여 사이트맵으로 정리<small>내용 목록 · 분류 기준 · 카드 소팅 · 트리 테스트</small></span></div>
       <div style="--k:1"><i class="n">2</i><span>내비게이션과 사용자 흐름으로 화면 순서 설계<small>현재 위치 표시 · 흐름도 · 와이어프레임</small></span></div>
       <div style="--k:2"><i class="n">3</i><span>휴리스틱으로 화면 점검 · 심각도 매기기<small>상태 보이기 · 되돌리기 · 오류 문구</small></span></div>
-      <div style="--k:3"><i class="n">4</i><span>반응형 · 접근성을 정해진 순서로 점검 · 기록<small>320px · 200% · 키보드 · 스크린 리더 · 대비 · KWCAG 번호</small></span></div>
+      <div style="--k:3"><i class="n">4</i><span>반응형 · 접근성을 정해진 순서로 점검 · 기록<small>320px · 200% · 키보드 · 스크린 리더 · 대비 · KWCAG 항목</small></span></div>
       <div style="--k:4"><i class="n">5</i><span>사용성 테스트로 고칠 순서 정하기<small>과업 시나리오 · 관찰 기록 · 빈도 × 심각도</small></span></div>
     </div>
     <div class="col a" style="--d:.5s">
@@ -2224,6 +2379,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       <div class="card flat"><span class="k">요약판 · HTTP와 외부 API</span><h4>데이터 화면의 상태</h4><p>로딩 · 성공 · 빈 결과 · 오류</p></div>
     </div>
   </div>
+  <p class="msg a" style="--d:.7s">알파 테스트에서 <em>서로 피드백할 기준</em>으로 쓰기</p>
 </section>
 
 <section class="slide divider" id="div1" data-part="정보 구조" data-title="정보 구조" data-note="화면을 그리기 전 단계. 서비스에 있는 내용을 모두 꺼내 놓고(내용 목록) · 무엇끼리 묶을지 정하고(분류 기준) · 계층으로 그리고(사이트맵) · 이름을 붙이고 · 이용자에게 확인(카드 소팅 · 트리 테스트). 예시는 9 · 10주차의 '밤 창밖'(잠이 안 오는 사람이 낯선 창밖을 넘겨 보다가 자기 창밖도 올리는 웹).">
@@ -2358,7 +2514,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
         <div style="--k:0"><i class="n">1</i><span>이용자가 쓰는 말</span></div>
         <div style="--k:1"><i class="n">2</i><span>서비스 안에서 같은 이름</span></div>
         <div style="--k:2"><i class="n">3</i><span>메뉴끼리 뜻이 겹치지 않게</span></div>
-        <div style="--k:3"><i class="n">4</i><span>링크 글자만으로 갈 곳을 알 수 있게<small class="xsm2">KWCAG 6.4.3</small></span></div>
+        <div style="--k:3"><i class="n">4</i><span>링크 글자만으로 갈 곳을 알 수 있게<small class="xsm2">KWCAG 적절한 링크 텍스트</small></span></div>
       </div>
       <div class="card flat" style="background:var(--accent-soft)"><span class="k">확인 방법</span><p>처음 쓰는 사람에게 메뉴 이름만 보여 주고 · "여기에는 무엇이 있을까요?"</p></div>
     </div>
@@ -2366,36 +2522,59 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   <p class="msg a" style="--d:.6s">메뉴 이름은 <em>이용자가 쓰는 말</em>로</p>
 </section>
 
-<section class="slide" id="cardsort" data-title="카드 소팅과 트리 테스트" data-note="카드 소팅: 내용 카드를 참가자가 직접 묶음. 열린 방식은 묶음 이름까지 참가자가 정함 → 처음 구조를 정할 때 · 이용자의 말을 모을 때. 닫힌 방식은 팀이 정한 메뉴에 카드만 나눠 넣음 → 정한 메뉴가 통하는지. 트리 테스트는 반대 방향: 화면 디자인 없이 메뉴 글자만 보여 주고 '비 오는 밤 사진은 어디에?' 같은 과제를 줌 → 처음 고른 메뉴와 도착 여부를 봄. 몇 명? Nielsen(2004)은 Tullis · Wood(2004)의 시뮬레이션(168명 결과에서 일부를 뽑아 비교)을 근거로 카드 소팅 15명 안팎을 권함: 전체 결과와의 상관 5명 0.75 · 15명 0.90 · 30명 0.95 · 60명 0.98. 수업에서는 다른 팀과 서로 해 주면 15명 가까이 모을 수 있음.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 메뉴 구조를 이용자에게 확인하는 방법</p>
-  <h2 class="a" style="--d:.2s">카드 소팅과 트리 테스트</h2>
-  <div class="g3 mt a" style="--d:.3s">
-    <div class="card flat"><span class="k">열린 카드 소팅</span><h4>묶고 이름까지</h4><p>참가자가 묶음을 만들고 이름 · 처음 구조를 정할 때</p></div>
-    <div class="card flat"><span class="k">닫힌 카드 소팅</span><h4>정한 메뉴에 나누기</h4><p>팀이 정한 메뉴에 카드만 · 메뉴가 통하는지</p></div>
-    <div class="card flat"><span class="k">트리 테스트</span><h4>메뉴 글자만으로 찾기</h4><p>"비 오는 밤 사진은 어디에?" · 처음 고른 메뉴 · 도착 여부</p></div>
-  </div>
-  <div class="split a" style="--d:.45s;grid-template-columns:7fr 5fr;margin:20px 0 18px">
-    <div class="xhb card flat">
-      <h4>참가자 수에 따른 결과의 안정성 <small class="xsm2">168명 전체 결과와의 상관 · Tullis · Wood 2004</small></h4>
-      <div class="xrw"><small>5명</small><div class="xtr"><i class="xbr lo" style="--w:75%"></i><b class="xv" style="--w:75%">0.75</b></div></div>
-      <div class="xrw"><small>15명</small><div class="xtr"><i class="xbr hi" style="--w:90%"></i><b class="xv" style="--w:90%">0.90</b></div></div>
-      <div class="xrw"><small>30명</small><div class="xtr"><i class="xbr lo" style="--w:95%"></i><b class="xv" style="--w:95%">0.95</b></div></div>
-      <div class="xrw"><small>60명</small><div class="xtr"><i class="xbr lo" style="--w:98%"></i><b class="xv" style="--w:98%">0.98</b></div></div>
+<section class="slide" id="cardsort" data-title="카드 소팅" data-note="카드 소팅: 서비스의 내용을 카드 한 장에 하나씩 적어 참가자에게 주고, 비슷하다고 느끼는 것끼리 묶게 함. 위 버튼으로 한 사람의 진행을 단계별로 봄. 1 카드 펼치기: 내용 목록에서 카드를 만들어 순서 없이 펼침. 2 묶기: 정답 없음 · 망설인 카드와 혼잣말을 기록(왜 망설였는지가 메뉴 이름의 단서). 3 이름 붙이기: 열린 방식은 묶음 이름까지 참가자가 정함 → 이용자가 쓰는 말이 모임(예시의 '구경하기' · '도움'). 닫힌 방식은 팀이 정한 메뉴(둘러보기 · 올리기 · 내 창밖 · 도움말)에 카드만 나눠 넣음 → 정한 메뉴가 통하는지 확인. 4 합치기: 사람마다 결과가 다름 → 카드 두 장이 같은 묶음에 들어간 사람 수를 셈. 예시에서 최신 창밖과 동네별 창밖은 15명 중 13명(87%), 내가 올린 창밖과 창밖 올리기는 15명 중 7명(47%). 모든 쌍을 세면 비율 표가 됨. 몇 명: Nielsen(2004)은 Tullis · Wood(2004)의 시뮬레이션(168명 결과에서 일부를 뽑아 비교)을 근거로 15명 안팎을 권함(전체 결과와의 상관 5명 0.75 · 15명 0.90 · 30명 0.95 · 60명 0.98). 수업에서는 다른 팀과 서로 해 주면 15명 가까이 모을 수 있음 · FigJam 스티커로 하고 묶음 사진을 남김.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 참가자가 내용 카드를 묶는 과정 · 예시 서비스 밤 창밖</p>
+  <h2 class="a" style="--d:.2s">카드 소팅</h2>
+  <div class="split" style="grid-template-columns:8fr 4fr;margin:16px 0 18px">
+    <div class="zst zcs a" style="--d:.3s" data-k="1">
+      <div class="zsb" role="group" aria-label="카드 소팅 단계">
+        <button type="button" data-k="1" aria-pressed="true"><b>1</b>카드 펼치기</button>
+        <button type="button" data-k="2"><b>2</b>묶기</button>
+        <button type="button" data-k="3"><b>3</b>이름 붙이기</button>
+        <button type="button" data-k="4"><b>4</b>여러 사람 합치기</button>
+      </div>
+      <div class="zcst">
+        <span class="zcl" style="--x:36px;--y:20px;--r:-2deg">구경하기</span>
+        <span class="zcl" style="--x:344px;--y:20px;--r:1.5deg">내 사진 올리기</span>
+        <span class="zcl" style="--x:652px;--y:20px;--r:-1deg">도움</span>
+        <div class="zcc pa" style="--x0:60px;--y0:56px;--r0:-5deg;--x1:36px;--y1:84px;--r1:-1.5deg">최신 창밖</div>
+        <div class="zcc pa" style="--x0:392px;--y0:118px;--r0:4deg;--x1:42px;--y1:142px;--r1:1deg">동네별 창밖</div>
+        <div class="zcc" style="--x0:662px;--y0:46px;--r0:-3deg;--x1:34px;--y1:200px;--r1:-.5deg">비 오는 밤 모음</div>
+        <div class="zcc pb" style="--x0:122px;--y0:196px;--r0:3deg;--x1:344px;--y1:84px;--r1:1deg">창밖 올리기</div>
+        <div class="zcc" style="--x0:472px;--y0:250px;--r0:-4deg;--x1:350px;--y1:142px;--r1:-1.5deg">공개 범위 정하기</div>
+        <div class="zcc pb" style="--x0:652px;--y0:176px;--r0:5deg;--x1:342px;--y1:200px;--r1:1.5deg">내가 올린 창밖</div>
+        <div class="zcc" style="--x0:84px;--y0:326px;--r0:-2deg;--x1:652px;--y1:84px;--r1:-1deg">신고하기</div>
+        <div class="zcc" style="--x0:404px;--y0:372px;--r0:3deg;--x1:658px;--y1:142px;--r1:1deg">사진 올리는 방법</div>
+        <p class="zcap"><span data-k="1">내용 하나에 카드 한 장 · 순서 없이 펼쳐 놓기</span><span data-k="2">비슷하다고 느끼는 것끼리 · 정답 없음 · 망설인 카드는 메모</span><span data-k="3">묶음마다 참가자가 직접 이름 · 이용자가 쓰는 말</span></p>
+        <div class="zcm">
+          <h5>카드 쌍마다 같은 묶음에 넣은 사람 · 참가자 15명 중</h5>
+          <div class="zpr"><span class="zpc a">최신 창밖 + 동네별 창밖</span><span class="zpp"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><b>13명 · 87%</b></div>
+          <div class="zpr"><span class="zpc b">내가 올린 창밖 + 창밖 올리기</span><span class="zpp b"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>7명 · 47%</b></div>
+          <small>모든 카드 쌍을 같은 방식으로 세면 비율 표</small>
+        </div>
+      </div>
     </div>
-    <div class="col">
-      <div class="card flat"><span class="k">몇 명</span><h4>카드 소팅은 15명 안팎</h4><p>Nielsen 2004 · 그 이상은 늘어나는 폭이 작음</p></div>
-      <div class="card flat" style="background:var(--accent-soft)"><span class="k">수업에서</span><p>다른 팀과 서로 해 주기 · FigJam 스티커 · 묶음 사진과 망설인 카드 기록</p></div>
+    <div class="col a zcsr" style="--d:.45s">
+      <div class="card flat"><span class="k">열린 카드 소팅</span><h4>묶음 이름도 참가자가</h4><p>처음 구조를 정할 때 · 이용자가 쓰는 말 모으기</p></div>
+      <div class="card flat"><span class="k">닫힌 카드 소팅</span><h4>팀이 정한 메뉴에 카드만</h4><div class="zbins"><span>둘러보기</span><span>올리기</span><span>내 창밖</span><span>도움말</span></div><p>정한 메뉴가 통하는지 확인</p></div>
+      <div class="xhb card flat zfew">
+        <h4>몇 명 · 15명 안팎<small class="xsm2">168명 결과와의 상관 · Tullis · Wood 2004</small></h4>
+        <div class="xrw"><small>5명</small><div class="xtr"><i class="xbr lo" style="--w:75%"></i><b class="xv" style="--w:75%">0.75</b></div></div>
+        <div class="xrw"><small>15명</small><div class="xtr"><i class="xbr hi" style="--w:90%"></i><b class="xv" style="--w:90%">0.90</b></div></div>
+        <div class="xrw"><small>30명</small><div class="xtr"><i class="xbr lo" style="--w:95%"></i><b class="xv" style="--w:95%">0.95</b></div></div>
+        <div class="xrw"><small>60명</small><div class="xtr"><i class="xbr lo" style="--w:98%"></i><b class="xv" style="--w:98%">0.98</b></div></div>
+      </div>
     </div>
   </div>
-  <p class="msg a" style="--d:.6s">카드 소팅으로 묶음을 정하고 · <em>트리 테스트로 찾아지는지 확인</em></p>
+  <p class="msg a" style="--d:.6s">여러 사람의 묶음을 <em>합쳐서</em> 메뉴 정하기</p>
 </section>
 
-<section class="slide" id="cardresult" data-title="카드 소팅 결과 읽기" data-note="예시 데이터: 15명이 열린 카드 소팅을 했다고 가정. 칸의 숫자 = 두 카드를 같은 묶음에 넣은 사람의 비율(%). 짙은 군집: 1–3번(둘러보기) · 4–5번(올리기) · 7–8번(도움말). 6번 '내가 올린 창밖'은 4번과 47% · 5번과 53%로 갈림 → 사람마다 '올리기'의 일부로 보기도, 따로 보기도 함 → 메뉴는 '내 창밖'에 두고 올리기 완료 화면에도 링크. 8번 '사진 올리는 방법'은 4번 '창밖 올리기'와 33% → 도움말에 두되 올리기 화면 옆에도 링크(맥락 내비게이션). 온라인 카드 소팅 도구는 이 표를 자동으로 만들어 줌. FigJam으로 했다면 묶음 사진을 보고 직접 셈.">
+<section class="slide" id="cardresult" data-title="카드 소팅 결과 읽기" data-note="예시 데이터: 15명이 열린 카드 소팅을 했다고 가정. 칸의 숫자 = 카드 쌍마다 같은 묶음에 넣은 사람의 비율(%). 짙은 군집: 1–3번(둘러보기) · 4–5번(올리기) · 7–8번(도움말). 6번 '내가 올린 창밖'은 4번과 47% · 5번과 53%로 갈림 → 사람마다 '올리기'의 일부로 보기도, 따로 보기도 함 → 메뉴는 '내 창밖'에 두고 올리기 완료 화면에도 링크. 8번 '사진 올리는 방법'은 4번 '창밖 올리기'와 33% → 도움말에 두되 올리기 화면 옆에도 링크(맥락 내비게이션). 온라인 카드 소팅 도구는 이 표를 자동으로 만들어 줌. FigJam으로 했다면 묶음 사진을 보고 직접 셈.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 예시 데이터 · 15명 · 열린 카드 소팅</p>
   <h2 class="a" style="--d:.2s">카드 소팅 결과 읽기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
     <div class="xhm a" style="--d:.3s">
-      <h4>두 카드를 같은 묶음에 넣은 사람 <small>%</small></h4>
+      <h4>카드 쌍마다 같은 묶음에 넣은 사람 <small>%</small></h4>
       <table>
         <tr><th><i>1</i>최신 창밖</th><td class="s0">·</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><th><i>2</i>동네별 창밖</th><td class="s4">87</td><td class="s0">·</td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -2416,6 +2595,51 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
     </div>
   </div>
   <p class="msg a" style="--d:.6s">짙은 칸끼리 한 메뉴 · <em>갈린 카드는 두 곳에서 연결</em></p>
+</section>
+
+<section class="slide" id="treetest" data-title="트리 테스트" data-note="트리 테스트: 사이트맵을 화면 디자인 없이 글자 목록으로만 보여 주고 과제를 줌. 참가자는 메뉴를 눌러 아래 단계를 열어 가며 내려가고, 찾았다고 생각한 곳에서 '여기서 찾겠어요'를 누름(참가자에게는 누른 단계만 열려 보임 · 슬라이드는 전체 목록과 정답 위치를 함께 보여 줌). 위 버튼으로 참가자 세 명의 경로를 봄. A: 둘러보기 → 모음 → 비 오는 밤(바로 찾음). B: 내 창밖 → 저장한 창밖에서 되돌아가 둘러보기 → 모음 → 비 오는 밤(돌아서 찾음). C: 둘러보기 → 동네별 창밖에서 끝냄(못 찾음). NN/g가 보는 값: 성공률(맞는 곳을 찾은 비율) · 바로 찾은 비율(되돌아가거나 다른 메뉴를 열지 않고 곧장 찾은 비율) · 처음 고른 메뉴 · 끝낸 곳 · 걸린 시간. 오른쪽은 20명이 했다고 가정한 예시 데이터: 찾음 15명(75%) 중 바로 찾음 11명(55%). 처음 고른 메뉴가 둘러보기 14 · 내 창밖 4 · 도움말 2 → '모음'을 자기 기록으로 생각한 사람이 있음 → 이름을 '주제별 모음'으로 바꾸거나 내 창밖에서도 연결하는 안을 만들어 다시 테스트. 몇 명: 두 트리를 수치로 비교하려면 보통 트리마다 50명 이상(NN/g) · 문제를 찾는 목적이면 적은 인원으로도 시작할 수 있음. 도구: 온라인 트리 테스트 도구(Optimal Workshop 등)나 문서의 접히는 목록으로 진행. 카드 소팅은 구조를 만들 때 · 트리 테스트는 만든 구조를 확인할 때.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 화면 디자인 없이 메뉴 글자만으로 찾기 · 예시 서비스 밤 창밖</p>
+  <h2 class="a" style="--d:.2s">트리 테스트</h2>
+  <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
+    <div class="zst ztt a" style="--d:.3s" data-k="a">
+      <div class="zsb" role="group" aria-label="참가자별 경로">
+        <button type="button" data-k="a" aria-pressed="true" class="ok">참가자 A<span>바로 찾음</span></button>
+        <button type="button" data-k="b" class="ok2">참가자 B<span>돌아서 찾음</span></button>
+        <button type="button" data-k="c" class="no">참가자 C<span>못 찾음</span></button>
+      </div>
+      <div class="ztq"><span class="k">과제</span><p>비 오는 밤에 찍힌 창밖 사진만 모아 보려면 어디로 가나요?</p></div>
+      <div class="ztr" aria-label="메뉴 목록">
+        <div class="zr l0">밤 창밖</div>
+        <div class="zr l1" data-a="1" data-b="3" data-c="1">둘러보기</div>
+        <div class="zr l2">최신 창밖</div>
+        <div class="zr l2" data-c="2" data-ce="no">동네별 창밖</div>
+        <div class="zr l2" data-a="2" data-b="4">모음</div>
+        <div class="zr l3 zgo" data-a="3" data-ae="ok" data-b="5" data-be="ok">비 오는 밤<em>정답 위치</em></div>
+        <div class="zr l3">불 켜진 창</div>
+        <div class="zr l1">올리기</div>
+        <div class="zr l1" data-b="1">내 창밖</div>
+        <div class="zr l2">내가 올린 창밖</div>
+        <div class="zr l2" data-b="2" data-bb="back">저장한 창밖</div>
+        <div class="zr l1">도움말</div>
+      </div>
+    </div>
+    <div class="col a ztres" style="--d:.45s">
+      <div class="card flat">
+        <span class="k">찾은 비율 · 예시 데이터 20명</span>
+        <div class="zsq" aria-hidden="true"><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d1"></i><i class="d2"></i><i class="d2"></i><i class="d2"></i><i class="d2"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="zlg"><span class="d1">바로 찾음 <b>11명</b></span><span class="d2">돌아서 찾음 <b>4명</b></span><span class="d3">못 찾음 <b>5명</b></span></div>
+        <p class="zsum">성공률 <b>75%</b> · 바로 찾은 비율 <b>55%</b></p>
+      </div>
+      <div class="xhb card flat zfc">
+        <span class="k">처음 고른 메뉴</span>
+        <div class="xrw"><small>둘러보기</small><div class="xtr"><i class="xbr hi" style="--w:70%"></i><b class="xv" style="--w:70%">14명</b></div></div>
+        <div class="xrw"><small>내 창밖</small><div class="xtr"><i class="xbr lo" style="--w:20%"></i><b class="xv" style="--w:20%">4명</b></div></div>
+        <div class="xrw"><small>도움말</small><div class="xtr"><i class="xbr lo" style="--w:10%"></i><b class="xv" style="--w:10%">2명</b></div></div>
+      </div>
+      <div class="card flat" style="background:var(--accent-soft)"><span class="k">읽는 법</span><p>처음 고른 메뉴가 갈리면 메뉴 이름 · 못 찾은 사람이 끝낸 곳에는 연결 추가</p></div>
+    </div>
+  </div>
+  <p class="msg a" style="--d:.6s">처음 고른 메뉴와 끝낸 곳을 보고 <em>메뉴 이름 · 위치</em> 고치기</p>
 </section>
 
 <section class="slide divider" id="div2" data-part="내비게이션과 흐름" data-title="내비게이션과 흐름" data-note="사이트맵을 화면 위의 길로 바꾸는 단계. 메뉴의 종류(전역 · 지역 · 이동 경로 · 맥락 · 보조), 아무 화면에서나 현재 위치가 보이는지(트렁크 테스트), 메뉴를 숨겼을 때 생기는 일(NN/g 조사), 과업 하나의 흐름도, 색을 칠하기 전의 와이어프레임.">
@@ -2444,15 +2668,86 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       <div><i class="xmk">2</i><span>지역 내비게이션<small>현재 범주 안에서 이동</small></span></div>
       <div><i class="xmk">3</i><span>이동 경로<small>현재 위치를 계층으로 · 상위 단계로 이동</small></span></div>
       <div><i class="xmk">4</i><span>맥락 링크<small>본문 속 관련 내용 · 약하게 이어진 카드 연결</small></span></div>
-      <div><i class="xmk">5</i><span>보조 내비게이션<small>자주 쓰지 않는 것 · 도움말은 화면마다 같은 자리 · KWCAG 7.2.2</small></span></div>
+      <div><i class="xmk">5</i><span>보조 내비게이션<small>자주 쓰지 않는 것 · 도움말은 화면마다 같은 자리 · KWCAG 찾기 쉬운 도움 정보</small></span></div>
     </div>
   </div>
   <p class="msg a" style="--d:.6s">전역 메뉴는 <em>모든 화면에서 같은 자리</em></p>
 </section>
 
-<section class="slide" id="trunk" data-title="트렁크 테스트" data-note="Steve Krug 『Don't Make Me Think』의 트렁크 테스트: 아무 페이지나 열어(사이트 안 깊은 곳 포함) 트렁크 테스트 질문에 바로 답할 수 있는지 봄. 위 버튼으로 같은 화면의 두 판을 비교. '표시 없음' 판은 메뉴에 선택 표시가 없고, 페이지 제목과 이동 경로가 없고, 브라우저 탭 제목이 모든 화면에서 '밤 창밖'으로 같음. '표시 있음' 판은 선택된 메뉴 · 이동 경로 · 페이지 제목(h1)과 화면마다 다른 탭 제목(title)이 있음 → KWCAG 2.2 6.4.2 제목 제공(페이지마다 서로 다른 제목). 스크린 리더 이용자는 탭 제목과 h1을 먼저 들음.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> Steve Krug · 아무 화면에서나 현재 위치 확인</p>
+<section class="slide" id="trunkhow" data-title="트렁크 테스트" data-note="Steve Krug 『Don't Make Me Think』의 트렁크 테스트. 상황: 눈이 가려진 채 차 트렁크에 실려 한참 돌다가, 사이트 안 깊은 곳의 아무 화면에 내려졌다고 가정. 눈을 뜨자마자 망설임 없이 아래 질문에 답할 수 있으면 잘 설계된 화면. 첫 화면만 보는 시험이 아님: 검색이나 링크로 들어오는 사람은 사이트 안 아무 화면에서 시작함. 하는 법(Krug): 사이트 안 아무 화면이나 골라 인쇄하고, 자세히 읽지 못하게 팔 길이만큼 떨어뜨리거나 눈을 가늘게 뜬 채, 질문마다 답이 되는 부분을 최대한 빨리 동그라미로 표시. 화면으로 할 때는 브라우저 창을 멀리 두고 봄. 동그라미를 치지 못한 질문 = 고칠 곳. 질문: 1 무슨 사이트인가(사이트 이름 · 로고) 2 무슨 화면인가(페이지 제목) 3 주요 섹션은 무엇인가(전역 메뉴) 4 이 단계에서 고를 수 있는 것은(지역 메뉴) 5 전체에서 지금 어디쯤인가(선택된 메뉴 · 이동 경로) 6 어떻게 검색하나(검색 칸).">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> Steve Krug 『Don't Make Me Think』 · 아무 화면에서나 현재 위치 확인</p>
   <h2 class="a" style="--d:.2s">트렁크 테스트</h2>
+  <div class="ztk3 a" style="--d:.3s">
+    <div><svg viewBox="0 0 120 70" aria-hidden="true"><path d="M8 50 Q8 38 18 37 L34 36 L46 20 Q49 16 55 16 L88 16 Q94 16 97 21 L106 36 Q114 38 114 46 L114 50 Q114 54 110 54 L12 54 Q8 54 8 50 Z" fill="var(--canvas)" stroke="var(--ink2)" stroke-width="2.5" stroke-linejoin="round"/><path d="M9 39 L34 37 L34 53 L9 53 Z" fill="var(--accent)" opacity=".85"/><path d="M49 21 L58 21 L58 35 L40 35 Z M64 21 L88 21 Q91 21 93 24 L99 35 L64 35 Z" fill="#fff" stroke="var(--ink2)" stroke-width="2"/><circle cx="30" cy="56" r="8" fill="var(--ink2)"/><circle cx="92" cy="56" r="8" fill="var(--ink2)"/><text x="21" y="50" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">?</text></svg><p><b>눈을 가리고 차 트렁크에</b><small>한참을 돌아다님</small></p></div>
+    <i>→</i>
+    <div><svg viewBox="0 0 120 70" aria-hidden="true"><g stroke="#BDBDB5" stroke-width="2" fill="none"><path d="M60 12 V22 M24 22 H96 M24 22 V30 M60 22 V30 M96 22 V30 M60 38 V46 M44 46 H76 M44 46 V52 M76 46 V52"/></g><rect x="50" y="4" width="20" height="10" rx="3" fill="#C9C9C2"/><rect x="14" y="30" width="20" height="9" rx="3" fill="#C9C9C2"/><rect x="50" y="30" width="20" height="9" rx="3" fill="#C9C9C2"/><rect x="86" y="30" width="20" height="9" rx="3" fill="#C9C9C2"/><rect x="34" y="52" width="20" height="9" rx="3" fill="#C9C9C2"/><rect x="66" y="52" width="20" height="9" rx="3" fill="var(--accent)"/><path d="M76 49 C76 42 70 38 70 33 A6 6 0 0 1 82 33 C82 38 76 42 76 49 Z" fill="var(--no)"/><circle cx="76" cy="33" r="2.4" fill="#fff"/></svg><p><b>사이트 깊은 곳 아무 화면에</b><small>첫 화면이 아닌 곳에 내려짐</small></p></div>
+    <i>→</i>
+    <div><svg viewBox="0 0 120 70" aria-hidden="true"><path d="M14 35 Q60 -4 106 35 Q60 74 14 35 Z" fill="#fff" stroke="var(--ink2)" stroke-width="2.5"/><circle cx="60" cy="35" r="14" fill="var(--accent)"/><circle cx="60" cy="35" r="6" fill="var(--ink)"/><circle cx="64" cy="31" r="2.6" fill="#fff"/></svg><p><b>눈을 뜨자마자 답하기</b><small>망설임 없이 답할 수 있나</small></p></div>
+  </div>
+  <div class="split" style="grid-template-columns:7fr 5fr;margin:14px 0 18px">
+    <div class="ztkw a" style="--d:.4s">
+      <svg viewBox="0 0 640 330" role="img" aria-label="질문마다 답이 되는 부분에 번호 동그라미를 친 화면 예시">
+        <rect x="1" y="1" width="638" height="328" rx="12" fill="#fff" stroke="var(--strong)" stroke-width="2"/>
+        <path d="M1 57 V13 Q1 1 13 1 H627 Q639 1 639 13 V57 Z" fill="var(--canvas)"/>
+        <line x1="1" y1="57" x2="639" y2="57" stroke="var(--line)" stroke-width="2"/>
+        <rect x="22" y="18" width="22" height="22" rx="6" fill="var(--accent)"/>
+        <rect x="52" y="23" width="70" height="12" rx="4" fill="var(--ink2)"/>
+        <rect x="168" y="19" width="66" height="20" rx="10" fill="var(--accent)"/>
+        <rect x="246" y="23" width="54" height="12" rx="4" fill="#C9C9C2"/>
+        <rect x="312" y="23" width="54" height="12" rx="4" fill="#C9C9C2"/>
+        <rect x="378" y="23" width="54" height="12" rx="4" fill="#C9C9C2"/>
+        <rect x="486" y="16" width="134" height="26" rx="13" fill="#fff" stroke="#BDBDB5" stroke-width="2"/>
+        <circle cx="601" cy="28" r="5.5" fill="none" stroke="#8A8A84" stroke-width="2"/><line x1="605" y1="32" x2="610" y2="37" stroke="#8A8A84" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="22" y="72" width="34" height="10" rx="3" fill="#C9C9C2"/><text x="62" y="82" font-size="13" fill="#8A8A84">›</text>
+        <rect x="72" y="72" width="44" height="10" rx="3" fill="#C9C9C2"/><text x="122" y="82" font-size="13" fill="#8A8A84">›</text>
+        <rect x="132" y="70" width="58" height="14" rx="3" fill="var(--ink2)"/>
+        <rect x="22" y="106" width="122" height="24" rx="6" fill="var(--accent-soft)"/>
+        <rect x="32" y="114" width="70" height="9" rx="3" fill="var(--accent)"/>
+        <rect x="32" y="146" width="84" height="9" rx="3" fill="#C9C9C2"/>
+        <rect x="32" y="170" width="64" height="9" rx="3" fill="#C9C9C2"/>
+        <rect x="32" y="194" width="76" height="9" rx="3" fill="#C9C9C2"/>
+        <rect x="174" y="104" width="214" height="22" rx="5" fill="var(--ink)"/>
+        <rect x="174" y="142" width="430" height="9" rx="3" fill="#E2E2DC"/>
+        <rect x="174" y="160" width="396" height="9" rx="3" fill="#E2E2DC"/>
+        <rect x="174" y="186" width="136" height="118" rx="8" fill="#E9E9E4"/>
+        <rect x="322" y="186" width="136" height="118" rx="8" fill="#E9E9E4"/>
+        <rect x="470" y="186" width="136" height="118" rx="8" fill="#E9E9E4"/>
+        <g class="zrg">
+          <ellipse cx="72" cy="29" rx="64" ry="21"/>
+          <ellipse cx="281" cy="115" rx="120" ry="21"/>
+          <ellipse cx="300" cy="29" rx="146" ry="21"/>
+          <ellipse cx="84" cy="158" rx="74" ry="56"/>
+          <ellipse cx="106" cy="77" rx="98" ry="14"/>
+          <ellipse cx="553" cy="29" rx="78" ry="21"/>
+        </g>
+        <g class="zbd">
+          <circle cx="12" cy="10" r="12"/><text x="12" y="15">1</text>
+          <circle cx="166" cy="96" r="12"/><text x="166" y="101">2</text>
+          <circle cx="158" cy="10" r="12"/><text x="158" y="15">3</text>
+          <circle cx="16" cy="112" r="12"/><text x="16" y="117">4</text>
+          <circle cx="206" cy="66" r="12"/><text x="206" y="71">5</text>
+          <circle cx="478" cy="10" r="12"/><text x="478" y="15">6</text>
+        </g>
+      </svg>
+    </div>
+    <div class="col a" style="--d:.5s;gap:10px">
+      <div class="chk ztkq">
+        <div style="--k:0"><i class="n">1</i><span>무슨 사이트인가<small>사이트 이름 · 로고</small></span></div>
+        <div style="--k:1"><i class="n">2</i><span>무슨 화면인가<small>페이지 제목</small></span></div>
+        <div style="--k:2"><i class="n">3</i><span>주요 섹션은<small>전역 메뉴</small></span></div>
+        <div style="--k:3"><i class="n">4</i><span>여기서 고를 수 있는 것은<small>지역 메뉴</small></span></div>
+        <div style="--k:4"><i class="n">5</i><span>전체에서 지금 어디쯤인가<small>선택 표시 · 이동 경로</small></span></div>
+        <div style="--k:5"><i class="n">6</i><span>어떻게 검색하나<small>검색 칸</small></span></div>
+      </div>
+      <div class="card flat" style="background:var(--accent-soft);padding:14px 20px"><span class="k">하는 법</span><p>아무 화면 하나 · 멀리서 흐리게 보며 질문마다 동그라미</p></div>
+    </div>
+  </div>
+  <p class="msg a" style="--d:.6s">동그라미를 못 친 질문이 <em>고칠 곳</em></p>
+</section>
+
+<section class="slide" id="trunk" data-v="no" data-title="망원동 창밖 화면의 트렁크 테스트" data-note="같은 망원동 화면의 두 판을 트렁크 테스트 질문으로 확인. 위 버튼으로 판을 바꾸면 오른쪽 답이 바뀜. '표시 없음' 판: 로고와 전역 메뉴는 있지만 선택 표시 · 페이지 제목 · 이동 경로 · 지역 메뉴 · 검색 칸이 없고, 브라우저 탭 제목이 모든 화면에서 '밤 창밖'으로 같음 → 무슨 화면인지 · 여기서 고를 것 · 현재 위치 · 검색에 답하지 못함. '표시 있음' 판: 선택된 메뉴 · 지역 메뉴(최신 · 동네별 · 모음) · 이동 경로 · 페이지 제목(h1)과 화면마다 다른 탭 제목(title) · 검색 칸 → 모두 답함. 탭 제목은 KWCAG 2.2 제목 제공(페이지마다 서로 다른 제목). 스크린 리더 이용자는 탭 제목과 h1을 먼저 들음.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 표시 없음과 표시 있음 · 질문마다 답이 보이는지</p>
+  <h2 class="a" style="--d:.2s">망원동 창밖 화면의 트렁크 테스트</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
     <div class="xtog a" style="--d:.3s;display:flex;flex-direction:column;gap:12px;min-height:0">
       <div class="xtb"><button type="button" data-v="no" class="bad" aria-pressed="true">표시 없음</button><button type="button" data-v="yes" class="good" aria-pressed="false">표시 있음</button></div>
@@ -2476,13 +2771,13 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       </div>
     </div>
     <div class="col a" style="--d:.45s">
-      <div class="chk xtq">
-        <div style="--k:0"><i class="n">1</i><span>무슨 사이트<small>로고 · 사이트 이름</small></span></div>
-        <div style="--k:1"><i class="n">2</i><span>무슨 페이지<small>페이지 제목 · 탭 제목</small></span></div>
-        <div style="--k:2"><i class="n">3</i><span>주요 섹션<small>전역 메뉴</small></span></div>
-        <div style="--k:3"><i class="n">4</i><span>이 단계의 선택지<small>지역 메뉴</small></span></div>
-        <div style="--k:4"><i class="n">5</i><span>현재 위치<small>선택된 메뉴 · 이동 경로</small></span></div>
-        <div style="--k:5"><i class="n">6</i><span>찾는 방법<small>검색 칸</small></span></div>
+      <div class="chk xtq ztkr">
+        <div style="--k:0" data-no="ok" data-yes="ok"><i class="n">1</i><span>무슨 사이트<small data-v="no">로고 · 밤 창밖</small><small data-v="yes">로고 · 밤 창밖</small></span></div>
+        <div style="--k:1" data-no="no" data-yes="ok"><i class="n">2</i><span>무슨 화면<small data-v="no">페이지 제목 없음 · 탭 제목이 모두 같음</small><small data-v="yes">h1 망원동 창밖 · 탭 제목</small></span></div>
+        <div style="--k:2" data-no="ok" data-yes="ok"><i class="n">3</i><span>주요 섹션<small data-v="no">전역 메뉴</small><small data-v="yes">전역 메뉴</small></span></div>
+        <div style="--k:3" data-no="no" data-yes="ok"><i class="n">4</i><span>여기서 고를 것<small data-v="no">지역 메뉴 없음</small><small data-v="yes">최신 · 동네별 · 모음</small></span></div>
+        <div style="--k:4" data-no="no" data-yes="ok"><i class="n">5</i><span>현재 위치<small data-v="no">선택 표시 · 이동 경로 없음</small><small data-v="yes">선택된 메뉴 · 이동 경로</small></span></div>
+        <div style="--k:5" data-no="no" data-yes="ok"><i class="n">6</i><span>검색<small data-v="no">검색 칸 없음</small><small data-v="yes">동네 이름 검색</small></span></div>
       </div>
     </div>
   </div>
@@ -2648,7 +2943,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       <div class="q">오류가 발생했습니다 (413)</div><i>→</i><div class="d">사진이 10MB보다 커요<small>10MB 이하 사진으로 다시 고르기</small></div>
       <div class="q">잘못된 입력입니다</div><i>→</i><div class="d">'망원역'과 맞는 동네가 없어요<small>동 이름으로 찾기 · 예: 망원동</small></div>
       <div class="q">네트워크 오류</div><i>→</i><div class="d">연결이 끊겨 올리지 못했어요<small>쓴 설명은 그대로 · 다시 올리기</small></div>
-      <div class="q">빨간 테두리만</div><i>→</i><div class="d">칸 아래에 아이콘과 글자<small>색만으로 표시하지 않기 · KWCAG 5.4.1</small></div>
+      <div class="q">빨간 테두리만</div><i>→</i><div class="d">칸 아래에 아이콘과 글자<small>색만으로 표시하지 않기 · KWCAG 색에 무관한 콘텐츠 인식</small></div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
       <div class="xform">
@@ -2658,7 +2953,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
       <div class="chk">
         <div style="--k:0"><i class="n">1</i><span>잘못된 점을 사람의 말로</span></div>
         <div style="--k:1"><i class="n">2</i><span>고치는 방법까지</span></div>
-        <div style="--k:2"><i class="n">3</i><span>칸 바로 옆 · 쓴 내용은 그대로<small>KWCAG 7.3.1 오류 정정</small></span></div>
+        <div style="--k:2"><i class="n">3</i><span>칸 바로 옆 · 쓴 내용은 그대로<small>KWCAG 오류 정정</small></span></div>
       </div>
     </div>
   </div>
@@ -2685,8 +2980,8 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
     <div class="pairs a" style="--d:.45s;margin-top:0;align-content:start;grid-template-columns:1fr 34px 1.2fr">
       <span class="cap">기억해야 하는 화면</span><span></span><span class="cap">보고 고르는 화면</span>
       <div class="q">아이콘만 ☰ ＋</div><i>→</i><div class="d">글자가 있는 버튼<small>'창밖 올리기'</small></div>
-      <div class="q">칸 안 안내 글자만</div><i>→</i><div class="d">칸 위에 늘 보이는 레이블<small>KWCAG 7.3.2</small></div>
-      <div class="q">고른 값이 다음 화면에서 사라짐</div><i>→</i><div class="d">고른 사진 · 공개 범위를 다시 보여 주기<small>KWCAG 7.3.4</small></div>
+      <div class="q">칸 안 안내 글자만</div><i>→</i><div class="d">칸 위에 늘 보이는 레이블<small>KWCAG 레이블 제공</small></div>
+      <div class="q">고른 값이 다음 화면에서 사라짐</div><i>→</i><div class="d">고른 사진 · 공개 범위를 다시 보여 주기<small>KWCAG 반복 입력 정보</small></div>
     </div>
   </div>
   <p class="msg a" style="--d:.6s">최근 기록 · 자동 완성 · 레이블로 <em>보고 고르게</em></p>
@@ -2769,25 +3064,25 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 </section>
 
 <section class="slide" id="reflow" data-title="폭 320px · 글자 200% · 글자 간격" data-note="WCAG 2.1 AA의 세 항목. 1.4.10 리플로: 폭 320 CSS px(1280px 화면을 400%로 확대한 것과 같음)에서 세로 스크롤만으로 모든 내용과 기능을 쓸 수 있어야 함 · 지도 · 도표 · 데이터 표처럼 2차원 배치가 꼭 필요한 부분만 예외. 1.4.4 글자 크기 조정: 보조 기술 없이 글자를 200%까지 키워도 내용과 기능이 사라지지 않아야 함. 1.4.12 글자 간격: 줄 간격 1.5배 · 문단 뒤 간격 2배 · 글자 간격 0.12배 · 단어 간격 0.16배로 바꿔도 겹치거나 잘리지 않아야 함. 흔한 원인은 고정 폭(width: 1200px) · 고정 높이(height: 40px) · overflow: hidden. 고치는 방향은 max-width · min-height · rem · 자동 줄바꿈 Grid(repeat(auto-fit, minmax(160px, 1fr))). 시력이 낮은 사람은 크게 확대해서 보는 경우가 많고, 확대하면 데스크톱에서도 한 화면의 폭이 휴대폰만큼 좁아짐. 가운데 그림의 잘린 버튼은 일부러 잘리게 만든 예.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> WCAG 2.1 AA · 1.4.10 · 1.4.4 · 1.4.12</p>
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> WCAG 2.1 AA · 확대와 좁은 화면의 기준</p>
   <h2 class="a" style="--d:.2s">폭 320px · 글자 200% · 글자 간격</h2>
   <div class="xrf a" style="--d:.3s">
     <div class="xrc">
-      <span class="k">1.4.10 리플로</span>
+      <span class="k">리플로 · Reflow</span>
       <h4>폭 320px · 가로 스크롤 없이</h4>
       <div class="xrfm"><div class="xvp"><span class="xvl">폭 320px</span><div class="xr4"><div class="xwin"></div><div class="xwin w2"></div><div class="xwin w3"></div><div class="xwin"></div></div><div class="xsb"><i></i></div></div></div>
       <p class="xcz"><b>원인</b><code>width: 1200px</code></p>
       <p class="xfz"><b>고침</b><code>max-width: 100%</code> · auto-fit Grid</p>
     </div>
     <div class="xrc">
-      <span class="k">1.4.4 글자 크기</span>
+      <span class="k">글자 크기 · Resize Text</span>
       <h4>글자 200% · 잘림 없이</h4>
       <div class="xrfm"><div class="xzz"><div><small>100%</small><span class="xbt">창밖 올리기</span></div><div><small>200%</small><span class="xbt big">창밖<br>올리기</span></div></div></div>
       <p class="xcz"><b>원인</b><code>height: 40px</code> · <code>overflow: hidden</code></p>
       <p class="xfz"><b>고침</b><code>min-height</code> · <code>rem</code> · 위아래 여백</p>
     </div>
     <div class="xrc">
-      <span class="k">1.4.12 글자 간격</span>
+      <span class="k">글자 간격 · Text Spacing</span>
       <h4>간격을 늘려도 겹침 없이</h4>
       <div class="xrfm"><div class="xts"><div><small>기본</small><div class="xtc"><b>비 오는 망원동</b><p>창 세 개에 불이 켜진 골목 · 비가 그친 직후</p></div><div class="xtc"><b>연남동 골목</b><p>가로등 아래 창 하나 · 늦은 밤</p></div></div><div><small>간격 늘림</small><div class="xtc sp"><b>비 오는 망원동</b><p>창 세 개에 불이 켜진 골목 · 비가 그친 직후</p></div><div class="xtc sp"><b>연남동 골목</b><p>가로등 아래 창 하나 · 늦은 밤</p></div></div></div></div>
       <p class="xcz"><b>바꾸는 값</b>줄 1.5배 · 문단 뒤 2배 · 글자 0.12배 · 단어 0.16배</p>
@@ -2798,20 +3093,20 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 </section>
 
 <section class="slide" id="target" data-title="터치 영역의 최소 크기" data-note="WCAG 2.2 2.5.8 누르기 대상 크기(최소, AA): 24×24 CSS px 이상 · 더 작으면 간격으로 보충(대상 중심에 지름 24px 원을 그렸을 때 다른 대상이나 다른 원과 겹치지 않게). 2.5.5(AAA)는 44×44 CSS px. KWCAG 2.2 6.1.3 조작 가능: 컨트롤의 대각선 길이 6.0mm 이상 · 인접한 컨트롤 사이 1픽셀 이상 여백. 플랫폼 지침: Apple Human Interface Guidelines 44×44pt · Material Design 48×48dp(눈에 보이는 아이콘이 24dp여도 터치 영역은 48dp). 문장 속 링크는 예외. 예시: 밤 창밖 카드의 좋아요 · 공유 · 신고가 작은 글자로 붙어 있으면 손가락이 굵은 사람 · 손이 떨리는 사람 · 걸으며 쓰는 사람이 엉뚱한 것을 누름 → 글자 크기는 그대로 두고 패딩으로 터치 영역을 넓힘. 점선 = 터치 영역. 왼쪽 그림은 크기 비교를 위해 2배로 그림.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> WCAG 2.2 2.5.8 · KWCAG 6.1.3 · Apple 44pt · Material 48dp</p>
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> WCAG 2.2 Target Size · KWCAG 조작 가능 · Apple 44pt · Material 48dp</p>
   <h2 class="a" style="--d:.2s">터치 영역의 최소 크기</h2>
   <div class="split" style="grid-template-columns:6fr 6fr;margin:18px 0 18px">
     <div class="xtsz card flat a" style="--d:.3s">
       <h4>터치 영역의 크기 <small class="xsm2">비교를 위해 2배로 그림</small></h4>
       <div class="no"><i style="--z:16px"></i><b>16px</b><span>흔한 아이콘 크기<small>붙어 있으면 옆의 것을 누름</small></span></div>
-      <div><i style="--z:24px"></i><b>24px</b><span>WCAG 2.2 · 2.5.8 최소<small>AA · 더 작으면 간격으로 보충</small></span></div>
-      <div><i style="--z:44px"></i><b>44</b><span>Apple 44pt · WCAG 2.5.5<small>AAA는 44px</small></span></div>
+      <div><i style="--z:24px"></i><b>24px</b><span>WCAG 2.2 최소 크기<small>AA · 더 작으면 간격으로 보충</small></span></div>
+      <div><i style="--z:44px"></i><b>44</b><span>Apple 44pt<small>WCAG AAA 기준도 44px</small></span></div>
       <div><i style="--z:48px"></i><b>48</b><span>Material 48dp<small>아이콘이 24dp여도 터치 영역은 48dp</small></span></div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
       <div class="xicb no"><div class="xwin"></div><div class="xicr"><span>좋아요 12</span><span>공유</span><span>신고</span></div><em>작은 글자 · 서로 붙음</em></div>
       <div class="xicb ok"><div class="xwin"></div><div class="xicr"><span>좋아요 12</span><span>공유</span><span>신고</span></div><em>터치 영역 44px · 간격 8px</em></div>
-      <div class="card flat" style="background:var(--accent-soft)"><span class="k">KWCAG 2.2 · 6.1.3 조작 가능</span><p>대각선 6.0mm 이상 · 사이 1px 이상 여백</p></div>
+      <div class="card flat" style="background:var(--accent-soft)"><span class="k">KWCAG 2.2 · 조작 가능</span><p>대각선 6.0mm 이상 · 사이 1px 이상 여백</p></div>
       <div class="card flat"><span class="k">예외</span><p>문장 속 링크 · 24px보다 작으면 간격으로 보충</p></div>
     </div>
   </div>
@@ -2842,7 +3137,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   aspect-ratio: 4 / 3;
   <b>object-fit: cover</b>;
 }</div></div>
-      <ul class="xml"><li><b>aspect-ratio</b>폭이 바뀌어도 비율 그대로</li><li><b>object-fit</b>썸네일은 잘라서 채우기</li><li><b>자막</b>KWCAG 5.2.1</li></ul>
+      <ul class="xml"><li><b>aspect-ratio</b>폭이 바뀌어도 비율 그대로</li><li><b>object-fit</b>썸네일은 잘라서 채우기</li><li><b>자막</b>소리가 있는 영상 · KWCAG 자막 제공</li></ul>
     </div>
     <div class="col">
       <div class="file" style="height:auto"><div class="hd">표</div><div class="bd">&lt;div class="table-wrap"
@@ -2852,7 +3147,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 &lt;/div&gt;
 
 .table-wrap { <b>overflow-x: auto</b>; }</div></div>
-      <ul class="xml"><li><b>표만 가로 스크롤</b>데이터 표는 1.4.10의 예외</li><li><b>tabindex · 이름</b>키보드로도 스크롤</li><li><b>th · scope</b>KWCAG 5.3.1</li></ul>
+      <ul class="xml"><li><b>표만 가로 스크롤</b>데이터 표는 WCAG Reflow 기준의 예외</li><li><b>tabindex · 이름</b>키보드로도 스크롤</li><li><b>th · scope</b>KWCAG 표의 구성</li></ul>
     </div>
   </div>
   <p class="msg a" style="--d:.6s">폭에 맞는 파일 · <em>비율 유지 · 표만 따로 스크롤</em></p>
@@ -2923,21 +3218,21 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
       <span><i>8.1.1</i>마크업 오류 방지</span><span><i>8.2.1</i>웹 애플리케이션 접근성 준수</span>
     </div></div>
   </div>
-  <p class="msg a" style="--d:.6s">점검 기록에는 <em>검사 항목 번호</em>를 함께</p>
+  <p class="msg a" style="--d:.6s">점검 기록에는 <em>검사 항목</em>을 함께</p>
 </section>
 
-<section class="slide" id="common6" data-title="흔한 접근성 오류" data-note="WebAIM Million 2026: 방문이 많은 웹사이트 첫 화면 100만 개를 자동 검사(2026년 2월 자료). 95.9%의 첫 화면에서 WCAG 2 실패가 나왔고, 한 화면에 평균 56.1개. 찾은 오류의 96%가 여섯 종류: 낮은 명도 대비 83.9% · 이미지 대체 텍스트 없음 53.1% · 입력 칸 레이블 없음 51% · 빈 링크 46.3% · 빈 버튼 30.6% · 문서 언어 없음 13.5%(첫 화면 중 해당 오류가 있는 비율). 오른쪽 번호는 관련 KWCAG 2.2 항목(빈 버튼은 아이콘만 있는 버튼이 흔한 원인 → 5.1.1 · 이름이 없는 컨트롤 → 8.2.1). 자동 검사로 찾을 수 있는 것만 센 숫자라서 실제 문제는 더 많음. 여섯 가지 모두 HTML 몇 줄로 고칠 수 있음 → 수업 프로젝트에서 먼저 없앨 것.">
+<section class="slide" id="common6" data-title="흔한 접근성 오류" data-note="WebAIM Million 2026: 방문이 많은 웹사이트 첫 화면 100만 개를 자동 검사(2026년 2월 자료). 95.9%의 첫 화면에서 WCAG 2 실패가 나왔고, 한 화면에 평균 56.1개. 찾은 오류의 96%: 낮은 명도 대비 83.9% · 이미지 대체 텍스트 없음 53.1% · 입력 칸 레이블 없음 51% · 빈 링크 46.3% · 빈 버튼 30.6% · 문서 언어 없음 13.5%(첫 화면 중 해당 오류가 있는 비율). 관련 KWCAG 2.2 항목: 텍스트 콘텐츠의 명도 대비 · 적절한 대체 텍스트 제공 · 레이블 제공 · 적절한 링크 텍스트 · 기본 언어 표시 · 빈 버튼은 적절한 대체 텍스트 제공(아이콘만 있는 버튼이 흔한 원인)과 웹 애플리케이션 접근성 준수(이름이 없는 컨트롤). 자동 검사로 찾을 수 있는 것만 센 숫자라서 실제 문제는 더 많음. 모두 HTML 몇 줄로 고칠 수 있음 → 수업 프로젝트에서 먼저 없앨 것.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> WebAIM Million 2026 · 첫 화면 100만 개 · 2026년 2월 자료</p>
   <h2 class="a" style="--d:.2s">흔한 접근성 오류</h2>
   <div class="split" style="grid-template-columns:8fr 4fr;margin:18px 0 18px">
     <div class="xhb card flat xc6 a" style="--d:.3s">
       <h4>해당 오류가 있는 첫 화면의 비율</h4>
-      <div class="xrw"><small>낮은 명도 대비</small><div class="xtr"><i class="xbr hi" style="--w:83.9%"></i><b class="xv" style="--w:83.9%">83.9%</b></div><span class="xkn">5.4.3</span></div>
-      <div class="xrw"><small>대체 텍스트 없음</small><div class="xtr"><i class="xbr hi" style="--w:53.1%"></i><b class="xv" style="--w:53.1%">53.1%</b></div><span class="xkn">5.1.1</span></div>
-      <div class="xrw"><small>입력 칸 레이블 없음</small><div class="xtr"><i class="xbr hi" style="--w:51%"></i><b class="xv" style="--w:51%">51%</b></div><span class="xkn">7.3.2</span></div>
-      <div class="xrw"><small>빈 링크</small><div class="xtr"><i class="xbr hi" style="--w:46.3%"></i><b class="xv" style="--w:46.3%">46.3%</b></div><span class="xkn">6.4.3</span></div>
-      <div class="xrw"><small>빈 버튼</small><div class="xtr"><i class="xbr hi" style="--w:30.6%"></i><b class="xv" style="--w:30.6%">30.6%</b></div><span class="xkn">5.1.1 · 8.2.1</span></div>
-      <div class="xrw"><small>문서 언어 없음</small><div class="xtr"><i class="xbr hi" style="--w:13.5%"></i><b class="xv" style="--w:13.5%">13.5%</b></div><span class="xkn">7.1.1</span></div>
+      <div class="xrw"><small>낮은 명도 대비</small><div class="xtr"><i class="xbr hi" style="--w:83.9%"></i><b class="xv" style="--w:83.9%">83.9%</b></div></div>
+      <div class="xrw"><small>대체 텍스트 없음</small><div class="xtr"><i class="xbr hi" style="--w:53.1%"></i><b class="xv" style="--w:53.1%">53.1%</b></div></div>
+      <div class="xrw"><small>입력 칸 레이블 없음</small><div class="xtr"><i class="xbr hi" style="--w:51%"></i><b class="xv" style="--w:51%">51%</b></div></div>
+      <div class="xrw"><small>빈 링크</small><div class="xtr"><i class="xbr hi" style="--w:46.3%"></i><b class="xv" style="--w:46.3%">46.3%</b></div></div>
+      <div class="xrw"><small>빈 버튼</small><div class="xtr"><i class="xbr hi" style="--w:30.6%"></i><b class="xv" style="--w:30.6%">30.6%</b></div></div>
+      <div class="xrw"><small>문서 언어 없음</small><div class="xtr"><i class="xbr hi" style="--w:13.5%"></i><b class="xv" style="--w:13.5%">13.5%</b></div></div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
       <div class="xstat"><b>95.9%</b><span>자동 검사에서 오류가 나온 첫 화면</span></div>
@@ -2948,22 +3243,55 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">모두 <em>HTML 몇 줄</em>로 고칠 수 있는 오류</p>
 </section>
 
-<section class="slide" id="order" data-title="접근성 15분 점검 순서" data-note="화면 하나를 15분 안에 점검하는 순서. 1 자동 검사 3분: Lighthouse(Chrome 개발자 도구) · axe DevTools · WAVE 중 하나 → 대비 · alt · 레이블 · 언어 · 빈 링크처럼 기계가 찾는 것부터 없앰. 2 키보드만 4분: 마우스를 치우고 Tab · Shift+Tab · Enter · Space · Esc로 과업 하나를 끝까지. 3 확대 2분: 200% · 400%(반응형 점검). 4 스크린 리더 4분: 같은 과업을 스크린 리더로 · 제목 목록 · 링크 목록. 5 색과 대비 2분: 색만으로 구별하는 곳 · 대비 확인 도구. 자동 검사가 '통과'여도 2–5를 건너뛰지 않음. 결과는 docs/a11y.md에 KWCAG 번호와 함께.">
+<section class="slide" id="order" data-title="접근성 15분 점검 순서" data-note="화면 하나를 15분 안에 점검하는 순서. 1 자동 검사 3분: Lighthouse(Chrome 개발자 도구) · axe DevTools · WAVE 중 하나 → 대비 · alt · 레이블 · 언어 · 빈 링크처럼 기계가 찾는 것부터 없앰. 2 키보드만 4분: 마우스를 치우고 Tab · Shift+Tab · Enter · Space · Esc로 과업 하나를 끝까지. 3 확대 2분: 200% · 400%(반응형 점검). 4 스크린 리더 4분: 같은 과업을 스크린 리더로 · 제목 목록 · 링크 목록. 5 색과 대비 2분: 색만으로 구별하는 곳 · 대비 확인 도구. 자동 검사가 '통과'여도 2–5를 건너뛰지 않음. 결과는 docs/a11y.md에 KWCAG 항목과 함께.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 화면 하나 · 과업 하나 · 자동 검사부터</p>
   <h2 class="a" style="--d:.2s">접근성 15분 점검 순서</h2>
   <div class="xpipe xord a" style="--d:.3s">
-    <div class="on"><b class="n">3분</b><h4>자동 검사</h4><p>Lighthouse · axe · WAVE 중 하나</p><span class="xkc">5.4.3 · 5.1.1 · 7.3.2 · 7.1.1</span></div><i>→</i>
-    <div><b class="n">4분</b><h4>키보드만</h4><p>마우스 없이 과업 하나 끝까지</p><span class="xkc">6.1.1 · 6.1.2 · 6.4.1</span></div><i>→</i>
+    <div class="on"><b class="n">3분</b><h4>자동 검사</h4><p>Lighthouse · axe · WAVE 중 하나</p><span class="xkc">명도 대비 · 대체 텍스트 · 레이블 · 기본 언어</span></div><i>→</i>
+    <div><b class="n">4분</b><h4>키보드만</h4><p>마우스 없이 과업 하나 끝까지</p><span class="xkc">키보드 사용 · 초점 표시 · 건너뛰기 링크</span></div><i>→</i>
     <div><b class="n">2분</b><h4>확대</h4><p>200% · 400% · 잘림 · 가로 스크롤</p><span class="xkc">반응형 점검</span></div><i>→</i>
-    <div><b class="n">4분</b><h4>스크린 리더</h4><p>같은 과업 · 제목 목록 · 링크 목록</p><span class="xkc">5.1.1 · 6.4.2 · 6.4.3</span></div><i>→</i>
-    <div><b class="n">2분</b><h4>색 · 대비</h4><p>색으로만 구별하는 곳 · 대비 값</p><span class="xkc">5.4.1 · 5.4.3</span></div>
+    <div><b class="n">4분</b><h4>스크린 리더</h4><p>같은 과업 · 제목 목록 · 링크 목록</p><span class="xkc">대체 텍스트 · 제목 · 링크 텍스트</span></div><i>→</i>
+    <div><b class="n">2분</b><h4>색 · 대비</h4><p>색으로만 구별하는 곳 · 대비 값</p><span class="xkc">색에 무관한 인식 · 명도 대비</span></div>
   </div>
   <div class="g3 a" style="--d:.45s;margin:22px 0 18px">
     <div class="card flat"><span class="k">자동 검사가 통과여도</span><p>키보드 · 스크린 리더 확인은 건너뛰지 않기</p></div>
     <div class="card flat"><span class="k">과업 하나</span><p>창밖 올리기처럼 시작부터 끝까지</p></div>
-    <div class="card flat" style="background:var(--accent-soft)"><span class="k">docs/a11y.md</span><p>문제마다 KWCAG 번호와 함께</p></div>
+    <div class="card flat" style="background:var(--accent-soft)"><span class="k">docs/a11y.md</span><p>문제마다 KWCAG 항목과 함께</p></div>
   </div>
   <p class="msg a" style="--d:.6s">자동 검사로 찾은 오류부터 고치고 · <em>키보드 · 스크린 리더로 확인</em></p>
+</section>
+
+<section class="slide" id="tools" data-title="Lighthouse · axe · WAVE" data-note="자동 검사 도구 중 팀이 하나를 정해서 씀. Lighthouse: Google이 만든 검사 도구 · Chrome 개발자 도구(F12)의 Lighthouse 탭에 들어 있음 · 범주(성능 · 접근성 · 권장사항 · 검색엔진 최적화)에서 접근성만 체크하고 페이지 로드 분석 → 0–100 점수와 실패한 항목 목록 · 접근성 검사는 Deque의 axe-core 엔진을 씀 · 점수는 가중 평균이라 100점이어도 문제가 없다는 뜻이 아님(직접 확인할 항목을 따로 보여 줌). axe DevTools: Deque의 무료 브라우저 확장 프로그램(Chrome · Edge · Firefox) · 개발자 도구에 axe DevTools 탭이 생김 → 전체 페이지 검사 → 규칙별 문제 목록 · 심각도(Critical · Serious · Moderate · Minor) · 해당 요소 강조 · 고치는 법 링크. WAVE: WebAIM이 만든 확장 프로그램(Chrome · Firefox · Edge)과 웹 서비스(wave.webaim.org · 공개된 주소만) · 아이콘을 누르면 화면 위에 아이콘이 붙음(빨강 오류 · 대비 오류 · 노랑 경고 · 초록 접근성 기능 · 파랑 구조) · 왼쪽 요약에 개수 · 제목과 영역 구조도 함께 보임. 로그인이 필요한 화면 · localhost는 확장 프로그램으로. 어느 도구든 기계가 판단할 수 있는 것만 찾음 → alt 내용이 사진과 맞는지 · Tab 순서 · 스크린 리더가 읽는 말은 사람이 확인. 고친 뒤에는 같은 도구로 다시 검사해서 숫자를 비교.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 자동 검사 도구 · 여는 곳과 결과 화면</p>
+  <h2 class="a" style="--d:.2s">Lighthouse · axe · WAVE</h2>
+  <div class="g3 ztl a" style="--d:.3s">
+    <div class="card flat">
+      <span class="k">Google · Chrome에 기본</span>
+      <h4>Lighthouse</h4>
+      <div class="ztm zlh"><div class="zgau" style="--v:78%"><b>78</b><small>접근성</small></div><ul><li>배경과 글자의 명도 대비 부족</li><li>img 요소에 alt 속성 없음</li><li>입력 칸에 연결된 label 없음</li></ul></div>
+      <ol class="zts"><li>F12 → Lighthouse 탭</li><li>범주에서 접근성만 체크</li><li>페이지 로드 분석</li></ol>
+      <p class="ztn">점수와 실패 항목 · 엔진은 axe-core</p>
+    </div>
+    <div class="card flat">
+      <span class="k">Deque · 확장 프로그램</span>
+      <h4>axe DevTools</h4>
+      <div class="ztm zax"><div><span class="zim c">Critical</span>이미지에 대체 텍스트 없음<b>1</b></div><div><span class="zim s">Serious</span>명도 대비 부족<b>3</b></div><div><span class="zim m">Moderate</span>제목 단계 건너뜀<b>1</b></div></div>
+      <ol class="zts"><li>설치 → F12 → axe DevTools 탭</li><li>전체 페이지 검사</li><li>문제마다 강조 표시로 위치 확인</li></ol>
+      <p class="ztn">해당 요소 · 고치는 법까지</p>
+    </div>
+    <div class="card flat">
+      <span class="k">WebAIM · 확장 프로그램 · 웹 서비스</span>
+      <h4>WAVE</h4>
+      <div class="ztm zwv"><div class="zwp"><i class="e" style="left:8%;top:14%">!</i><i class="ct" style="left:46%;top:12%"></i><i class="w" style="left:76%;top:46%">!</i><i class="f" style="left:20%;top:58%">✓</i><i class="h" style="left:52%;top:62%">H1</i></div><div class="zws"><span class="e">오류 <b>2</b></span><span class="ct">대비 <b>3</b></span><span class="w">경고 <b>4</b></span></div></div>
+      <ol class="zts"><li>설치 → 주소창 옆 WAVE 아이콘</li><li>화면 위에 아이콘이 붙음</li><li>왼쪽 요약에서 개수 확인</li></ol>
+      <p class="ztn">제목 · 영역 구조도 함께</p>
+    </div>
+  </div>
+  <div class="split a" style="--d:.45s;margin:16px 0 18px;flex:none">
+    <div class="card flat"><span class="k">도구가 찾는 것</span><p>명도 대비 · alt 유무 · 레이블 · 문서 언어 · 빈 링크 · 제목 단계</p></div>
+    <div class="card flat" style="background:var(--warn-soft)"><span class="k">사람이 확인할 것</span><p>alt 내용이 사진과 맞는지 · Tab 순서 · 스크린 리더가 읽는 말</p></div>
+  </div>
+  <p class="msg a" style="--d:.6s">도구 하나를 정해 · <em>고친 뒤 같은 도구로 다시 검사</em></p>
 </section>
 
 <section class="slide" id="auto" data-title="자동 검사 도구의 한계" data-note="GOV.UK(영국 정부 디지털 서비스)의 2017년 시험: 접근성 문제 143개를 일부러 넣은 페이지를 자동 검사 도구 10개로 검사. 도구를 모두 합쳐도 71%만 찾음 → 29%(42개)는 어느 도구도 못 찾음. 하나만 놓고 보면 가장 많이 찾은 도구가 41%(Asqatasun · 사람이 확인하라는 안내까지 셈) · 오류와 경고만 세면 Tenon 37% · 당시 Chrome 개발자 도구는 17%. 도구는 그 뒤로 좋아졌지만 '자동 검사만으로는 부족'은 그대로. 기계가 판단하기 어려운 것: alt가 사진을 맞게 설명하는지 · 키보드 순서가 자연스러운지 · 오류 문구가 이해되는지 · 초점이 보이는지 · 제목이 내용을 잘 요약하는지. 도구: Lighthouse(Chrome 개발자 도구 안) · axe DevTools(브라우저 확장) · WAVE(WebAIM의 확장).">
@@ -3006,9 +3334,9 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
     </div>
     <div class="col a" style="--d:.45s;gap:12px">
       <div class="chk xkc4">
-        <div style="--k:0"><i class="n">1</i><span>모든 기능을 키보드로<small>6.1.1 · div 대신 button</small></span></div>
-        <div style="--k:1"><i class="n">2</i><span>초점이 늘 보이고 순서대로<small>6.1.2</small></span></div>
-        <div style="--k:2"><i class="n">3</i><span>맨 앞에 본문 바로가기<small>6.4.1</small></span></div>
+        <div style="--k:0"><i class="n">1</i><span>모든 기능을 키보드로<small>KWCAG 키보드 사용 보장 · div 대신 button</small></span></div>
+        <div style="--k:1"><i class="n">2</i><span>초점이 늘 보이고 순서대로<small>KWCAG 초점 이동과 표시</small></span></div>
+        <div style="--k:2"><i class="n">3</i><span>맨 앞에 본문 바로가기<small>KWCAG 반복 영역 건너뛰기</small></span></div>
         <div style="--k:3"><i class="n">4</i><span>창은 Esc로 닫고 초점 돌려놓기</span></div>
       </div>
       <div class="file mini" style="height:auto;margin-top:0"><div class="hd">style.css</div><div class="bd"><b>:focus-visible</b> {
@@ -3048,7 +3376,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
 </section>
 
 <section class="slide" id="alt" data-title="대체 텍스트 정하기" data-note="W3C WAI의 대체 텍스트 결정 나무(An alt Decision Tree)를 다섯 경우로 줄인 것. 1 정보를 주는 사진: 무엇이 보이는지 · 그 사진이 왜 거기 있는지 · '사진'이라는 말은 빼기(이미지라고 읽어 줌). 2 꾸밈: alt=&quot;&quot;(비워 두기 · alt 속성 자체를 빼면 파일 이름을 읽음) · CSS 배경으로 넣는 방법도. 3 링크 · 버튼 안의 이미지: 생김새 대신 갈 곳 · 할 일(로고 → '밤 창밖 첫 화면'). 4 글자가 든 이미지: 그 글자. 5 차트 · 지도: 짧은 alt + 본문이나 표에 자세한 내용. 밤 창밖처럼 이용자가 사진을 올리는 서비스는 올리기 폼의 설명 칸이 곧 alt · 비어 있으면 동네와 날짜로 만들기('망원동에서 어젯밤 올린 창밖 사진'). KWCAG 2.2 5.1.1 적절한 대체 텍스트 제공.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> W3C WAI 대체 텍스트 결정 나무 · KWCAG 5.1.1</p>
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> W3C WAI 대체 텍스트 결정 나무 · KWCAG 적절한 대체 텍스트 제공</p>
   <h2 class="a" style="--d:.2s">대체 텍스트 정하기</h2>
   <div class="split" style="grid-template-columns:8fr 4fr;margin:18px 0 18px">
     <div class="xalt a" style="--d:.3s">
@@ -3070,14 +3398,14 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">alt에는 <em>그 자리에서 사진이 하는 역할</em></p>
 </section>
 
-<section class="slide" id="headings" data-title="언어 · 탭 제목 · 제목 구조 · 영역" data-note="페이지의 뼈대 다섯. 1 html lang=&quot;ko&quot;: 스크린 리더가 한국어 발음으로 읽음(KWCAG 2.2 7.1.1 기본 언어 표시 · 자주 걸리는 여섯 중 하나). 2 title: 화면마다 다른 탭 제목 · '페이지 이름 · 사이트 이름' 순서(6.4.2 제목 제공 · 내비게이션과 흐름의 트렁크 테스트). 3 건너뛰기 링크: 맨 앞에서 본문으로(6.4.1). 4 제목 구조: h1은 화면 이름 하나 · h2 · h3 순서로 · 글자 크기를 위해 단계를 건너뛰지 않기(크기는 CSS로) · 스크린 리더 이용자는 제목 목록으로 훑어봄. 5 영역(랜드마크): header · nav · main · footer · 메뉴가 둘이면 aria-label로 구분. 오른쪽은 스크린 리더의 제목 목록 · 영역 목록으로 보이는 모습.">
+<section class="slide" id="headings" data-title="언어 · 탭 제목 · 제목 구조 · 영역" data-note="페이지의 뼈대 다섯. 1 html lang=&quot;ko&quot;: 스크린 리더가 한국어 발음으로 읽음(KWCAG 기본 언어 표시 · 흔한 접근성 오류 중 하나). 2 title: 화면마다 다른 탭 제목 · '페이지 이름 · 사이트 이름' 순서(KWCAG 제목 제공 · 트렁크 테스트의 '무슨 화면인가'). 3 건너뛰기 링크: 맨 앞에서 본문으로(반복 영역 건너뛰기). 4 제목 구조: h1은 화면 이름 하나 · h2 · h3 순서로 · 글자 크기를 위해 단계를 건너뛰지 않기(크기는 CSS로) · 스크린 리더 이용자는 제목 목록으로 훑어봄. 5 영역(랜드마크): header · nav · main · footer · 메뉴가 둘이면 aria-label로 구분. 오른쪽은 스크린 리더의 제목 목록 · 영역 목록으로 보이는 모습.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 페이지 구조 · 예시 서비스 밤 창밖의 망원동 화면</p>
   <h2 class="a" style="--d:.2s">언어 · 탭 제목 · 제목 구조 · 영역</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:18px 0 18px">
-    <div class="file a" style="--d:.3s;height:auto"><div class="hd">browse/mangwon.html</div><div class="bd xhd">&lt;html <b>lang="ko"</b>&gt;                  <span class="xkt">7.1.1</span>
-&lt;title&gt;<b>망원동 창밖 · 밤 창밖</b>&lt;/title&gt;  <span class="xkt">6.4.2</span>
+    <div class="file a" style="--d:.3s;height:auto"><div class="hd">browse/mangwon.html</div><div class="bd xhd">&lt;html <b>lang="ko"</b>&gt;                  <span class="xkt">기본 언어 표시</span>
+&lt;title&gt;<b>망원동 창밖 · 밤 창밖</b>&lt;/title&gt;  <span class="xkt">제목 제공</span>
 &lt;body&gt;
-  &lt;a href="#main" class="skip"&gt;<b>본문 바로가기</b>&lt;/a&gt;  <span class="xkt">6.4.1</span>
+  &lt;a href="#main" class="skip"&gt;<b>본문 바로가기</b>&lt;/a&gt;  <span class="xkt">반복 영역 건너뛰기</span>
   &lt;<b>header</b>&gt; … &lt;<b>nav</b> aria-label="주 메뉴"&gt; … &lt;/nav&gt; &lt;/header&gt;
   &lt;<b>main</b> id="main"&gt;
     &lt;<b>h1</b>&gt;망원동 창밖&lt;/h1&gt;
@@ -3094,15 +3422,15 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">제목 목록만 읽어도 · <em>화면이 요약되게</em></p>
 </section>
 
-<section class="slide" id="names" data-title="이름 · 역할 · 상태" data-note="스크린 리더는 요소마다 이름(창밖 올리기) · 역할(버튼) · 상태(눌림 · 펼침)를 읽음. 가장 쉬운 방법은 맞는 HTML 요소: button · a · label · input은 이름 · 역할 · 키보드 동작을 이미 가짐. W3C 'Using ARIA'의 첫 규칙: 필요한 의미와 동작을 가진 HTML 요소가 있으면 ARIA를 붙이는 대신 그 요소를 씀. WebAIM Million 2026: 첫 화면의 82.7%가 ARIA를 쓰는데(랜드마크 역할 제외) ARIA가 있는 화면의 평균 오류가 59.1개로 없는 화면(42개)보다 많음 → ARIA를 많이 쓴다고 접근성이 좋아지지는 않음. ARIA가 필요한 자리: 아이콘만 있는 버튼의 이름(aria-label) · 켜고 끄는 버튼의 상태(aria-pressed) · 펼침(aria-expanded) · 화면에 나타나는 상태 메시지(role=status · 사용성 원칙의 '올리는 중'). 보이는 글자와 이름을 맞추기(KWCAG 2.2 6.5.3 레이블과 네임) · 이름 · 역할 · 상태를 갖춘 사용자 인터페이스(8.2.1).">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> W3C Using ARIA · KWCAG 6.5.3 · 8.2.1</p>
+<section class="slide" id="names" data-title="이름 · 역할 · 상태" data-note="스크린 리더는 요소마다 이름(창밖 올리기) · 역할(버튼) · 상태(눌림 · 펼침)를 읽음. 가장 쉬운 방법은 맞는 HTML 요소: button · a · label · input은 이름 · 역할 · 키보드 동작을 이미 가짐. W3C 'Using ARIA'의 첫 규칙: 필요한 의미와 동작을 가진 HTML 요소가 있으면 ARIA를 붙이는 대신 그 요소를 씀. WebAIM Million 2026: 첫 화면의 82.7%가 ARIA를 쓰는데(랜드마크 역할 제외) ARIA가 있는 화면의 평균 오류가 59.1개로 없는 화면(42개)보다 많음 → ARIA를 많이 쓴다고 접근성이 좋아지지는 않음. ARIA가 필요한 자리: 아이콘만 있는 버튼의 이름(aria-label) · 켜고 끄는 버튼의 상태(aria-pressed) · 펼침(aria-expanded) · 화면에 나타나는 상태 메시지(role=status · 사용성 원칙의 '올리는 중'). 보이는 글자와 이름을 맞추기(KWCAG 2.2 6.5.3 레이블과 네임) · 이름 · 역할 · 상태를 갖춘 사용자 인터페이스(KWCAG 웹 애플리케이션 접근성 준수).">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> W3C Using ARIA · KWCAG 레이블과 네임 · 웹 애플리케이션 접근성 준수</p>
   <h2 class="a" style="--d:.2s">이름 · 역할 · 상태</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:18px 0 18px">
     <div class="pairs xnm a" style="--d:.3s;margin-top:0;align-content:start">
       <span class="cap">흔한 코드</span><span></span><span class="cap">고친 코드</span>
       <div class="q"><code>&lt;div onclick&gt;</code></div><i>→</i><div class="d"><code>&lt;button&gt;</code><small>이름 · 역할 · 키보드가 따라옴</small></div>
       <div class="q"><code>&lt;span class="link"&gt;</code></div><i>→</i><div class="d"><code>&lt;a href&gt;</code><small>링크 목록에 나타남</small></div>
-      <div class="q">아이콘만 있는 버튼</div><i>→</i><div class="d"><code>aria-label="창밖 올리기"</code><small>보이는 글자가 있으면 그 글자와 같게 · 6.5.3</small></div>
+      <div class="q">아이콘만 있는 버튼</div><i>→</i><div class="d"><code>aria-label="창밖 올리기"</code><small>보이는 글자가 있으면 그 글자와 같게 · KWCAG 레이블과 네임</small></div>
       <div class="q">글자만 바뀌는 '올리는 중'</div><i>→</i><div class="d"><code>role="status"</code><small>스크린 리더가 알려 줌</small></div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
@@ -3114,18 +3442,18 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">ARIA를 더하기 전에 · <em>맞는 HTML 요소부터</em></p>
 </section>
 
-<section class="slide" id="a11yrec" data-title="접근성 점검 기록" data-note="점검한 결과를 저장소에 남기는 형식. 화면 · 점검 방법 · 문제 · KWCAG 번호 · 고친 커밋. 통과한 항목도 '통과'로 남기면 다음 점검 때 비교가 쉬움. 자동 검사 결과는 캡처를 같이 · 키보드 순서와 스크린 리더에서 들은 말은 글로. 발표 · 최종 보고서에서 '접근성을 어떻게 확인했는가'에 그대로 쓰임(요약판 '팀 프로젝트 테스트 · 배포 · 발표'). 표의 줄은 밤 창밖에서 나올 법한 예시. 커밋 번호 칸의 값은 예시.">
+<section class="slide" id="a11yrec" data-title="접근성 점검 기록" data-note="점검한 결과를 저장소에 남기는 형식. 화면 · 점검 방법 · 문제 · KWCAG 항목 · 고친 커밋. 통과한 항목도 '통과'로 남기면 다음 점검 때 비교가 쉬움. 자동 검사 결과는 캡처를 같이 · 키보드 순서와 스크린 리더에서 들은 말은 글로. 발표 · 최종 보고서에서 '접근성을 어떻게 확인했는가'에 그대로 쓰임(요약판 '팀 프로젝트 테스트 · 배포 · 발표'). 표의 줄은 밤 창밖에서 나올 법한 예시. 커밋 번호 칸의 값은 예시.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> docs/a11y.md · 저장소에 남기는 형식 · 예시 서비스 밤 창밖</p>
   <h2 class="a" style="--d:.2s">접근성 점검 기록</h2>
-  <div class="file xrec a" style="--d:.3s;height:auto"><div class="hd">docs/a11y.md</div><div class="bd ko xmdb"><b class="xmh2">## 접근성 점검 · 올리기 화면</b><table class="xmdt"><thead><tr><th>점검</th><th>문제</th><th>KWCAG</th><th>결과</th><th>고친 곳</th></tr></thead><tbody>
-<tr><td>자동 검사</td><td>도움말 글자 대비 3.45 : 1</td><td>5.4.3</td><td><span class="xres no">미달</span></td><td>글자색 #595959 · <code>a1f3c2e</code></td></tr>
-<tr><td>자동 검사</td><td>html에 lang 없음</td><td>7.1.1</td><td><span class="xres no">미달</span></td><td>lang="ko" · <code>a1f3c2e</code></td></tr>
-<tr><td>키보드</td><td>＋ 버튼에 Tab이 닿지 않음</td><td>6.1.1</td><td><span class="xres no">미달</span></td><td>div → button · <code>7b2e0d4</code></td></tr>
-<tr><td>키보드</td><td>초점 표시</td><td>6.1.2</td><td><span class="xres ok">통과</span></td><td>—</td></tr>
-<tr><td>스크린 리더</td><td>사진이 파일 이름으로 읽힘</td><td>5.1.1</td><td><span class="xres no">미달</span></td><td>설명 칸 → alt · <code>c94d1a7</code></td></tr>
-<tr><td>스크린 리더</td><td>'더보기' 링크</td><td>6.4.3</td><td><span class="xres no">미달</span></td><td>'망원동 창밖 더 보기'</td></tr>
+  <div class="file xrec a" style="--d:.3s;height:auto"><div class="hd">docs/a11y.md</div><div class="bd ko xmdb"><b class="xmh2">## 접근성 점검 · 올리기 화면</b><table class="xmdt"><thead><tr><th>점검</th><th>문제</th><th>KWCAG 항목</th><th>결과</th><th>고친 곳</th></tr></thead><tbody>
+<tr><td>자동 검사</td><td>도움말 글자 대비 3.45 : 1</td><td>명도 대비</td><td><span class="xres no">미달</span></td><td>글자색 #595959 · <code>a1f3c2e</code></td></tr>
+<tr><td>자동 검사</td><td>html에 lang 없음</td><td>기본 언어 표시</td><td><span class="xres no">미달</span></td><td>lang="ko" · <code>a1f3c2e</code></td></tr>
+<tr><td>키보드</td><td>＋ 버튼에 Tab이 닿지 않음</td><td>키보드 사용 보장</td><td><span class="xres no">미달</span></td><td>div → button · <code>7b2e0d4</code></td></tr>
+<tr><td>키보드</td><td>초점 표시</td><td>초점 이동과 표시</td><td><span class="xres ok">통과</span></td><td>—</td></tr>
+<tr><td>스크린 리더</td><td>사진이 파일 이름으로 읽힘</td><td>대체 텍스트</td><td><span class="xres no">미달</span></td><td>설명 칸 → alt · <code>c94d1a7</code></td></tr>
+<tr><td>스크린 리더</td><td>'더보기' 링크</td><td>링크 텍스트</td><td><span class="xres no">미달</span></td><td>'망원동 창밖 더 보기'</td></tr>
 </tbody></table><i>캡처 · docs/img/a11y/ · 들은 말은 글로</i></div></div>
-  <p class="msg a" style="--d:.6s">통과한 항목도 · <em>번호와 함께 기록</em></p>
+  <p class="msg a" style="--d:.6s">통과한 것도 · <em>KWCAG 항목</em>과 함께 기록</p>
 </section>
 
 <section class="slide divider" id="div6" data-part="사용성 테스트" data-title="사용성 테스트" data-note="9주차에 미리 본 알파 테스트(할 일만 알려 주기 · 소리 내어 생각하기 · 돕지 않고 막힌 곳 적기 · 끝나고 TAG)를 조금 더 자세히. 몇 명에게 할지 · 과업 시나리오 쓰는 법 · 테스트 진행 · 관찰 기록 · 고칠 순서. 사용성 원칙의 휴리스틱 평가는 만든 사람의 눈, 사용성 테스트는 이용자의 손 → 둘을 합쳐 고칠 순서를 정함.">
@@ -3287,21 +3615,21 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">점검표 하나로 <em>알파 전 · 베타 전</em> 나눠서 확인</p>
 </section>
 
-<section class="slide" id="askai" data-title="AI에게 1차 점검 부탁하기" data-note="10주차의 요청 네 칸(목표 · 어디를 · 지킬 것 · 끝나는 조건)을 그대로 씀. 코드를 읽는 AI는 코드에 드러나는 문제를 빨리 모음: alt 없는 img · label 없는 입력 · div로 만든 버튼 · html의 lang 없음 · 제목 단계 건너뜀. 계산이나 화면이 필요한 것은 틀리기 쉬움: 대비 숫자 · 실제 Tab 순서 · 초점이 보이는지 · 대체 텍스트가 사진 장면에 맞는지 · 스크린 리더가 실제로 읽는 말. KWCAG 번호를 WCAG 번호(1.4.3 등)와 섞어 쓰기도 함 → 번호는 KWCAG 2.2 원문 목록으로 확인. 받은 표는 확인할 후보 목록: 줄마다 파일을 열어 보고(위치) · 도구로 재고(숫자) · 직접 써 보고(키보드 · 스크린 리더) 맞음 · 틀림 · 사람 확인을 적음. 아래 예시에서 5.4.3 줄은 AI가 4.6 : 1 통과라고 했지만 실제는 3.45 : 1 → 대비 검사 도구로 직접 재면 드러남. 복잡성 · 보안 · 개인정보까지 포함한 AI 코드 검토는 요약판 'AI 코드 검토'.">
+<section class="slide" id="askai" data-title="AI에게 1차 점검 부탁하기" data-note="10주차의 요청 네 칸(목표 · 어디를 · 지킬 것 · 끝나는 조건)을 그대로 씀. 코드를 읽는 AI는 코드에 드러나는 문제를 빨리 모음: alt 없는 img · label 없는 입력 · div로 만든 버튼 · html의 lang 없음 · 제목 단계 건너뜀. 계산이나 화면이 필요한 것은 틀리기 쉬움: 대비 숫자 · 실제 Tab 순서 · 초점이 보이는지 · 대체 텍스트가 사진 장면에 맞는지 · 스크린 리더가 실제로 읽는 말. KWCAG 항목을 WCAG 번호(1.4.3 등)와 섞어 쓰기도 함 → 항목은 KWCAG 2.2 원문 목록으로 확인. 받은 표는 확인할 후보 목록: 줄마다 파일을 열어 보고(위치) · 도구로 재고(숫자) · 직접 써 보고(키보드 · 스크린 리더) 맞음 · 틀림 · 사람 확인을 적음. 아래 예시에서 명도 대비 줄은 AI가 4.6 : 1 통과라고 했지만 실제는 3.45 : 1 → 대비 검사 도구로 직접 재면 드러남. 복잡성 · 보안 · 개인정보까지 포함한 AI 코드 검토는 요약판 'AI 코드 검토'.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 10주차 요청 틀 · 받은 표는 확인할 후보</p>
   <h2 class="a" style="--d:.2s">AI에게 1차 점검 부탁하기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
     <div class="col a" style="--d:.3s;gap:12px">
       <div class="file xreq"><div class="hd">요청<span class="exq" style="margin-left:auto;font-family:var(--body)">예시 · 밤 창밖</span></div><div class="bd ko"><b>목표</b>  올리기 화면의 접근성 문제 후보 목록
 <b>어디를</b>  upload.html · style.css · upload.js
-<b>지킬 것</b>  코드는 고치지 않음 · 문제마다 KWCAG 2.2 번호와 줄
+<b>지킬 것</b>  코드는 고치지 않음 · 문제마다 KWCAG 2.2 항목과 줄
      화면을 봐야 아는 것은 '사람 확인'으로 표시
-<b>끝나는 조건</b>  표 한 장 · 번호 · 위치 · 문제 · 고칠 방법</div></div>
-      <div class="file xaires"><div class="hd">받은 표 · 팀이 확인한 뒤<span class="exq" style="margin-left:auto;font-family:var(--body)">예시</span></div><div class="bd ko xmdb"><table class="xmdt"><thead><tr><th>KWCAG</th><th>위치</th><th>AI가 적은 문제</th><th>팀 확인</th></tr></thead><tbody><tr><td>5.1.1</td><td>upload.html 18줄</td><td>미리보기 img에 alt 없음</td><td><span class="xres ok">맞음</span></td></tr><tr><td>6.1.1</td><td>upload.html 9줄</td><td>div onclick 버튼</td><td><span class="xres ok">맞음</span></td></tr><tr><td>5.4.3</td><td>style.css 41줄</td><td>.hint #8A8A8A · 4.6 : 1 통과</td><td><span class="xres no">틀림 · 3.45 : 1</span></td></tr><tr><td>6.1.2</td><td>—</td><td>초점 표시</td><td><span class="xres wa">사람 확인</span></td></tr></tbody></table></div></div>
+<b>끝나는 조건</b>  표 한 장 · 항목 · 위치 · 문제 · 고칠 방법</div></div>
+      <div class="file xaires"><div class="hd">받은 표 · 팀이 확인한 뒤<span class="exq" style="margin-left:auto;font-family:var(--body)">예시</span></div><div class="bd ko xmdb"><table class="xmdt"><thead><tr><th>KWCAG 항목</th><th>위치</th><th>AI가 적은 문제</th><th>팀 확인</th></tr></thead><tbody><tr><td>대체 텍스트</td><td>upload.html 18줄</td><td>미리보기 img에 alt 없음</td><td><span class="xres ok">맞음</span></td></tr><tr><td>키보드 사용</td><td>upload.html 9줄</td><td>div onclick 버튼</td><td><span class="xres ok">맞음</span></td></tr><tr><td>명도 대비</td><td>style.css 41줄</td><td>.hint #8A8A8A · 4.6 : 1 통과</td><td><span class="xres no">틀림 · 3.45 : 1</span></td></tr><tr><td>초점 표시</td><td>—</td><td>초점 표시</td><td><span class="xres wa">사람 확인</span></td></tr></tbody></table></div></div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
       <div class="card flat" style="background:var(--ok-soft)"><span class="k">코드만 보고 찾기 쉬운 것</span><p>alt 없는 img · label 없는 입력 · div 버튼 · lang 없음 · 제목 단계</p></div>
-      <div class="card flat" style="background:var(--warn-soft)"><span class="k">꼭 다시 확인할 것</span><p>대비 숫자 · 실제 Tab 순서 · 초점 표시 · 사진에 맞는 대체 텍스트 · KWCAG와 WCAG 번호</p></div>
+      <div class="card flat" style="background:var(--warn-soft)"><span class="k">꼭 다시 확인할 것</span><p>대비 숫자 · 실제 Tab 순서 · 초점 표시 · 사진에 맞는 대체 텍스트 · AI가 고른 KWCAG 항목</p></div>
       <div class="card flat"><span class="k">확인 방법</span><p>파일 열어 보기 · 도구로 재기 · 키보드와 스크린 리더로 써 보기</p></div>
       <div class="card flat" style="background:var(--accent-soft)"><span class="k">같은 방식으로</span><p>복잡성 · 보안 · 개인정보 검토</p></div>
     </div>
@@ -3309,8 +3637,8 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">AI가 준 표는 <em>줄마다 직접 확인</em></p>
 </section>
 
-<section class="slide" id="verify" data-title="명도 대비 직접 재기" data-note="AI 결과의 5.4.3 줄을 직접 확인. 막대로 글자 밝기를 바꾸면 흰 바탕과의 대비를 바로 계산(WCAG의 상대 휘도 공식 · 수업용 계산기). #8A8A8A는 3.45 : 1 → 보통 글자 기준 4.5 : 1 미달 · 큰 글자 기준 3 : 1은 통과 · AI가 적은 4.6 : 1은 틀린 값. 흰 바탕에서 4.5 : 1을 넘는 가장 밝은 회색은 #767676(4.54 : 1) · 한 단계 밝은 #777777은 4.48 : 1로 미달. 밤 창밖은 도움말 글자를 #595959(7.0 : 1)로 고침 → 접근성 점검의 docs/a11y.md 첫 줄. KWCAG 2.2 5.4.3: 텍스트 콘텐츠와 배경 간의 명도 대비 4.5 : 1 이상 · 큰 글자(18pt 또는 굵은 14pt 이상)는 3 : 1 이상. 1pt = 4/3px → 18pt = 24px · 14pt ≈ 18.7px. 실제 화면에서는 WebAIM Contrast Checker에 글자색과 바탕색을 넣거나, 개발자 도구에서 글자 요소를 고르고 color 값의 색 견본을 누르면 대비 값이 나옴. 사진 위 글자는 사진에서 가장 밝은 부분을 바탕으로 잼.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> KWCAG 5.4.3 · AI가 준 표의 대비 값 · 흰 바탕</p>
+<section class="slide" id="verify" data-title="명도 대비 직접 재기" data-note="AI 결과의 명도 대비 줄을 직접 확인. 막대로 글자 밝기를 바꾸면 흰 바탕과의 대비를 바로 계산(WCAG의 상대 휘도 공식 · 수업용 계산기). #8A8A8A는 3.45 : 1 → 보통 글자 기준 4.5 : 1 미달 · 큰 글자 기준 3 : 1은 통과 · AI가 적은 4.6 : 1은 틀린 값. 흰 바탕에서 4.5 : 1을 넘는 가장 밝은 회색은 #767676(4.54 : 1) · 한 단계 밝은 #777777은 4.48 : 1로 미달. 밤 창밖은 도움말 글자를 #595959(7.0 : 1)로 고침 → 접근성 점검의 docs/a11y.md 첫 줄. KWCAG 2.2 텍스트 콘텐츠의 명도 대비: 텍스트와 배경의 명도 대비 4.5 : 1 이상 · 큰 글자(18pt 또는 굵은 14pt 이상)는 3 : 1 이상. 1pt = 4/3px → 18pt = 24px · 14pt ≈ 18.7px. 실제 화면에서는 WebAIM Contrast Checker에 글자색과 바탕색을 넣거나, 개발자 도구에서 글자 요소를 고르고 color 값의 색 견본을 누르면 대비 값이 나옴. 사진 위 글자는 사진에서 가장 밝은 부분을 바탕으로 잼.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> KWCAG 명도 대비 · AI가 준 표의 대비 값 · 흰 바탕</p>
   <h2 class="a" style="--d:.2s">명도 대비 직접 재기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
     <div class="xcc a" style="--d:.3s">
@@ -3332,7 +3660,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
       </div>
     </div>
     <div class="col a" style="--d:.45s;gap:14px">
-      <div class="card flat"><span class="k">KWCAG 2.2 · 5.4.3 명도 대비</span><h4>4.5 : 1 · 큰 글자 3 : 1</h4><p>큰 글자 · 18pt(24px) 이상 · 굵게 14pt(약 18.7px) 이상</p></div>
+      <div class="card flat"><span class="k">KWCAG 2.2 · 명도 대비</span><h4>4.5 : 1 · 큰 글자 3 : 1</h4><p>큰 글자 · 18pt(24px) 이상 · 굵게 14pt(약 18.7px) 이상</p></div>
       <div class="xgy">
         <span class="cap2">흰 바탕의 회색 글자</span>
         <div><i style="background:#8A8A8A"></i><code>#8A8A8A</code><b>3.45 : 1</b><span class="xres no">미달</span></div>
@@ -3346,7 +3674,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">AI가 적은 숫자도 · <em>도구로 다시 재기</em></p>
 </section>
 
-<section class="slide" id="showcase" data-title="처음 안과 고친 안" data-note="표지의 두 화면을 부분별로 다시 봄. 처음 안(A)의 문제 넷은 각각 다른 방법으로 드러남. 1 숨긴 메뉴 → 트렁크 테스트(내비게이션과 흐름)에서 주요 섹션 · 현재 위치를 답하지 못함 → 보이는 탭. 2 ＋ 아이콘 → 휴리스틱 6 기억보다 알아보기(사용성 원칙) · 사용성 테스트에서 5명 중 3명이 못 알아봄(사용성 테스트) → 글자 버튼 '창밖 올리기'. 3 설명 글자 #B4B4AC 2.1 : 1 → 자동 검사 · 대비(접근성 점검 · 5.4.3) → #3D3D3A 10.9 : 1. 4 div onclick → 키보드 점검(접근성 점검 · 6.1.1)에서 Tab이 닿지 않음 → button 요소. 고친 뒤에는 찾을 때와 같은 방법으로 다시 확인: 같은 과업을 다른 2–3명에게 · 같은 도구로 다시 재기. 다시 테스트한 숫자(3명 중 3명)는 예시. 발표에서는 이 장처럼 처음 안 → 찾은 방법 → 고친 안 → 다시 확인한 결과 순서로 보여 주면 됨(요약판 '팀 프로젝트 테스트 · 배포 · 발표').">
+<section class="slide" id="showcase" data-title="처음 안과 고친 안" data-note="표지의 두 화면을 부분별로 다시 봄. 처음 안(A)의 문제 넷은 각각 다른 방법으로 드러남. 1 숨긴 메뉴 → 트렁크 테스트(내비게이션과 흐름)에서 주요 섹션 · 현재 위치를 답하지 못함 → 보이는 탭. 2 ＋ 아이콘 → 휴리스틱 6 기억보다 알아보기(사용성 원칙) · 사용성 테스트에서 5명 중 3명이 못 알아봄(사용성 테스트) → 글자 버튼 '창밖 올리기'. 3 설명 글자 #B4B4AC 2.1 : 1 → 자동 검사 · 대비(KWCAG 명도 대비) → #3D3D3A 10.9 : 1. 4 div onclick → 키보드 점검(KWCAG 키보드 사용 보장)에서 Tab이 닿지 않음 → button 요소. 고친 뒤에는 찾을 때와 같은 방법으로 다시 확인: 같은 과업을 다른 2–3명에게 · 같은 도구로 다시 재기. 다시 테스트한 숫자(3명 중 3명)는 예시. 발표에서는 이 장처럼 처음 안 → 찾은 방법 → 고친 안 → 다시 확인한 결과 순서로 보여 주면 됨(요약판 '팀 프로젝트 테스트 · 배포 · 발표').">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 예시 서비스 밤 창밖 · 표지 화면 그대로</p>
   <h2 class="a" style="--d:.2s">처음 안과 고친 안</h2>
   <div class="split" style="grid-template-columns:5fr 7fr;margin:16px 0 18px">
@@ -3368,32 +3696,32 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
     <div class="xchg a" style="--d:.45s">
       <div><i class="n">1</i><span class="pt">트렁크 테스트</span><p><span class="b4">숨긴 메뉴 ☰</span><em>→</em>보이는 탭</p><small>다시 확인 · 주요 섹션과 현재 위치가 첫 화면에 보임</small></div>
       <div><i class="n">2</i><span class="pt">알아보기 · 사용성 테스트</span><p><span class="b4">＋ 아이콘</span><em>→</em>글자 버튼 '창밖 올리기'</p><small>다시 확인 · 다른 3명 · 과업 2를 도움 없이 3명 모두 (예시)</small></div>
-      <div><i class="n">3</i><span class="pt">대비 · 5.4.3</span><p><span class="b4">설명 글자 2.1 : 1</span><em>→</em>10.9 : 1</p><small>다시 확인 · 같은 도구로 다시 잼 · #B4B4AC → #3D3D3A</small></div>
-      <div><i class="n">4</i><span class="pt">키보드 · 6.1.1</span><p><span class="b4">div onclick</span><em>→</em>button 요소</p><small>다시 확인 · Tab으로 닿음 · Enter와 Space로 열림</small></div>
+      <div><i class="n">3</i><span class="pt">명도 대비</span><p><span class="b4">설명 글자 2.1 : 1</span><em>→</em>10.9 : 1</p><small>다시 확인 · 같은 도구로 다시 잼 · #B4B4AC → #3D3D3A</small></div>
+      <div><i class="n">4</i><span class="pt">키보드 사용</span><p><span class="b4">div onclick</span><em>→</em>button 요소</p><small>다시 확인 · Tab으로 닿음 · Enter와 Space로 열림</small></div>
     </div>
   </div>
   <p class="msg a" style="--d:.6s">고친 뒤 · <em>찾을 때와 같은 방법으로 다시 확인</em></p>
 </section>
-<section class="slide" id="practice" data-part="실습 · 정리" data-title="실습 · 다른 팀 화면 15분 점검" data-note="두 팀씩 짝을 지어 서로의 배포 주소로 15분씩 · 바꿔서 한 번 더. 점검하는 팀의 역할 셋: 진행(과업을 읽고 시간을 잼) · 이용자(처음 보는 사람으로 써 봄) · 기록(본 것과 들은 말). 만든 팀은 지켜보기만 하고 설명하지 않음(사용성 테스트 · 테스트 진행 · 돕지 않기). 1 2분 트렁크 테스트(내비게이션과 흐름): 아무 화면에서 트렁크 테스트 질문. 2 4분 과업 하나(사용성 테스트): 만든 팀이 미리 정한 과업 · 소리 내어 생각하기. 3 3분 키보드만(접근성 점검): Tab · Shift+Tab · Enter · Space · Esc · 초점이 보이는지. 4 3분 320px · 200% · 대비(반응형 점검 · 접근성 점검): 개발자 도구 기기 모드 · 브라우저 확대 · 자동 검사 도구 한 번. 5 3분 심각도 · 전달(사용성 원칙): 0–4로 매기고 높은 것부터 세 줄을 말로 전달 · 기록 한 장을 넘김. 만든 팀은 받은 기록을 docs/ux-a11y.md의 기록 칸으로 옮김. 오른쪽 기록은 밤 창밖을 다른 팀이 점검했다고 가정한 예시.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 팀끼리 짝 · 서로의 배포 주소 · 15분씩 바꿔서</p>
-  <h2 class="a" style="--d:.2s">실습 · 다른 팀 화면 15분 점검</h2>
+<section class="slide" id="practice" data-part="실습 · 정리" data-title="실습 · 팀 내 15분 점검" data-note="알파 테스트 전에 우리 팀 화면을 팀 내에서 15분 점검. 팀 점검표의 '알파 전' 항목을 우리 화면에 대고 봄. 이번에는 적기만 하고 고치지 않음 · 테스트 시작을 막는 문제만 먼저 고침. 역할: 진행(순서와 시간) · 이용자(그 화면을 만들지 않은 팀원이 처음 보는 사람처럼 씀) · 기록(본 것과 들은 말). 1 메뉴 이름 · 사이트맵 3분: 메뉴 이름만 보여 주고 '여기에는 무엇이 있을까요?' · 과제 하나로 메뉴 글자만 따라가기(트리 테스트). 2 현재 위치 · 흐름 3분: 아무 화면에서 트렁크 테스트 질문 · 과업 하나를 끝까지 · 소리 내어 생각하기. 3 320px · 200% 3분: 기기 모드 · 브라우저 확대 · 가로 스크롤 · 잘림 · 터치 영역. 4 자동 검사 · 키보드 3분: 고른 도구로 한 번 · Tab · Shift+Tab · Enter · Esc · 초점. 5 심각도 3분: 0–4로 매기고 높은 것부터 고칠 목록. 기록은 docs/ux-a11y.md로 옮김. 같은 기준을 알파 테스트에서 다른 팀에게 피드백할 때 씀. 왼쪽 기록은 밤 창밖 팀이 팀 내 점검을 했다고 가정한 예시.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 알파 테스트 전 · 우리 팀 화면 · 팀 점검표의 알파 전 항목</p>
+  <h2 class="a" style="--d:.2s">실습 · 팀 내 15분 점검</h2>
   <div class="xpipe xpr a" style="--d:.3s">
-    <div><b class="n">1 · 2분</b><h4>트렁크 테스트</h4><p>아무 화면에서 현재 위치 확인</p></div><i>→</i>
-    <div class="on"><b class="n">2 · 4분</b><h4>과업 하나</h4><p>소리 내어 생각하기 · 돕지 않기</p></div><i>→</i>
-    <div><b class="n">3 · 3분</b><h4>키보드만</h4><p>Tab · Enter · Esc · 초점</p></div><i>→</i>
-    <div><b class="n">4 · 3분</b><h4>320px · 200% · 대비</h4><p>기기 모드 · 확대 · 자동 검사</p></div><i>→</i>
-    <div><b class="n">5 · 3분</b><h4>심각도 · 전달</h4><p>0–4 · 심각도 높은 것부터</p></div>
+    <div><b class="n">1 · 3분</b><h4>메뉴 이름 · 사이트맵</h4><p>메뉴 이름만 보여 주고 "여기에는?"</p></div><i>→</i>
+    <div class="on"><b class="n">2 · 3분</b><h4>현재 위치 · 흐름</h4><p>트렁크 테스트 · 과업 하나 끝까지</p></div><i>→</i>
+    <div><b class="n">3 · 3분</b><h4>320px · 200%</h4><p>가로 스크롤 · 잘림 · 터치 영역</p></div><i>→</i>
+    <div><b class="n">4 · 3분</b><h4>자동 검사 · 키보드</h4><p>도구 한 번 · Tab 순서 · 초점</p></div><i>→</i>
+    <div><b class="n">5 · 3분</b><h4>심각도</h4><p>0–4 · 높은 것부터 고칠 목록</p></div>
   </div>
   <div class="split a" style="--d:.45s;grid-template-columns:7fr 5fr;margin:18px 0 18px">
-    <div class="file xprec" style="height:auto"><div class="hd">기록 한 장<span class="exq" style="margin-left:auto;font-family:var(--body)">예시 · 밤 창밖을 점검한 팀</span></div><div class="bd ko xmdb"><table class="xmdt"><thead><tr><th>어디서</th><th>본 것 · 들은 말</th><th>관련</th><th>심각도</th></tr></thead><tbody><tr><td>첫 화면</td><td>Tab이 사진 열두 장을 지나야 메뉴에 닿음</td><td>접근성</td><td><span class="sv s3">3</span></td></tr><tr><td>올리기 완료</td><td>올린 사진을 찾지 못함 · "어디 갔지?"</td><td>흐름 · 테스트</td><td><span class="sv s3">3</span></td></tr><tr><td>사진 보기</td><td>어느 동네 목록인지 표시 없음</td><td>내비게이션</td><td><span class="sv s2">2</span></td></tr><tr><td>올리기</td><td>'업로드' · '올리기'가 섞여 멈춤 · "같은 거예요?"</td><td>이름 · 원칙</td><td><span class="sv s2">2</span></td></tr><tr><td>둘러보기</td><td>320px에서 사진 설명이 두 줄째에서 잘림</td><td>반응형</td><td><span class="sv s2">2</span></td></tr></tbody></table></div></div>
+    <div class="file xprec" style="height:auto"><div class="hd">기록 한 장<span class="exq" style="margin-left:auto;font-family:var(--body)">예시 · 밤 창밖 팀의 팀 내 점검</span></div><div class="bd ko xmdb"><table class="xmdt"><thead><tr><th>어디서</th><th>본 것 · 들은 말</th><th>관련</th><th>심각도</th></tr></thead><tbody><tr><td>첫 화면</td><td>Tab이 사진 12장을 지나야 메뉴에 닿음</td><td>접근성</td><td><span class="sv s3">3</span></td></tr><tr><td>올리기 완료</td><td>올린 사진을 찾지 못함 · "어디 갔지?"</td><td>흐름 · 테스트</td><td><span class="sv s3">3</span></td></tr><tr><td>사진 보기</td><td>어느 동네 목록인지 표시 없음</td><td>내비게이션</td><td><span class="sv s2">2</span></td></tr><tr><td>올리기</td><td>'업로드' · '올리기'가 섞여 멈춤 · "같은 거예요?"</td><td>이름 · 원칙</td><td><span class="sv s2">2</span></td></tr><tr><td>둘러보기</td><td>320px에서 사진 설명이 두 줄째에서 잘림</td><td>반응형</td><td><span class="sv s2">2</span></td></tr></tbody></table></div></div>
     <div class="col" style="gap:12px">
       <div class="card flat"><span class="k">준비</span><p>배포 주소 · 휴대폰 · 과업 한 줄 · 기록 표</p></div>
-      <div class="card flat"><span class="k">점검하는 팀의 역할</span><p>진행 · 이용자 · 기록 · 짝을 바꿀 때 역할도 바꾸기</p></div>
-      <div class="card flat" style="background:var(--warn-soft)"><span class="k">만든 팀</span><p>지켜보기만 · 설명은 끝난 뒤</p></div>
-      <div class="card flat" style="background:var(--accent-soft)"><span class="k">끝나면</span><p>기록 한 장을 넘김 → docs/ux-a11y.md 기록 칸으로</p></div>
+      <div class="card flat"><span class="k">역할</span><p>진행 · 이용자 · 기록 · 이용자는 그 화면을 만들지 않은 팀원</p></div>
+      <div class="card flat" style="background:var(--warn-soft)"><span class="k">이번에는</span><p>적기만 · 테스트 시작을 막는 문제만 먼저 고치기</p></div>
+      <div class="card flat" style="background:var(--accent-soft)"><span class="k">알파 테스트에서</span><p>같은 기준으로 다른 팀에게 피드백</p></div>
     </div>
   </div>
-  <p class="msg a" style="--d:.6s">15분씩 바꿔서 · <em>본 것 · 들은 말 · 심각도</em></p>
+  <p class="msg a" style="--d:.6s">본 것 · 들은 말을 적고 <em>심각도 순</em>으로 고칠 목록 만들기</p>
 </section>
 
 <section class="slide" id="summary" data-title="정리" data-note="첫 장의 목표 다섯 가지와 짝: 내용을 묶고 이름 붙여 사이트맵으로(정보 구조) · 내비게이션과 흐름으로 화면 순서 설계(내비게이션과 흐름) · 휴리스틱으로 점검하고 심각도 매기기(사용성 원칙) · 반응형 · 접근성을 정해진 순서로 점검하고 기록(반응형 점검 · 접근성 점검) · 사용성 테스트로 고칠 순서 정하기(사용성 테스트). '우리 서비스에 적용'은 팀 프로젝트에 적용. 이어서 볼 자료: AI가 쓴 코드의 복잡성 · 접근성 · 보안 · 개인정보 검토는 요약판 'AI 코드 검토', 시연 · 최종 발표 준비는 요약판 '팀 프로젝트 테스트 · 배포 · 발표', 디지털 포용과 접근성 법은 요약판 '웹과 사회 · 디지털 문화'.">
@@ -3406,7 +3734,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
     <div class="card ac a" style="--d:.46s"><h4>접근성 점검</h4><ul><li>KWCAG 2.2 · 33항목</li><li>자동 검사 · 키보드 · 스크린 리더</li><li>대체 텍스트 · HTML 먼저</li></ul></div>
     <div class="card ac a" style="--d:.5s"><h4>사용성 테스트</h4><ul><li>5명 × 3번</li><li>과업 · 돕지 않기</li><li>겪은 사람 × 심각도</li></ul></div>
     <div class="card ac a" style="--d:.54s"><h4>우리 서비스에 적용</h4><ul><li>팀 점검표 · 알파 · 베타</li><li>AI가 준 표는 확인할 후보</li><li>숫자는 도구로 다시</li></ul></div>
-    <div class="card ac a" style="--d:.58s"><span class="k">실습</span><h4>다른 팀 화면</h4><ul><li>15분 점검 순서</li><li>기록 한 장 · 심각도</li><li>docs/ux-a11y.md로</li></ul></div>
+    <div class="card ac a" style="--d:.58s"><span class="k">실습</span><h4>팀 내 점검</h4><ul><li>알파 전 항목 15분</li><li>기록 한 장 · 심각도</li><li>docs/ux-a11y.md로</li></ul></div>
   </div>
   <p class="msg a" style="--d:.75s">내용에서 구조 · 정해진 순서로 점검 · <em>이용자에게 직접 시켜 보기</em></p>
 </section>
@@ -3668,7 +3996,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   document.querySelectorAll('.xtog').forEach(t=>{
     const btns=[...t.querySelectorAll('.xtb button[data-v]')], panes=[...t.querySelectorAll('[data-pane]')];
     if(!btns.length) return;
-    const set=v=>{btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));panes.forEach(p=>p.classList.toggle('show',p.dataset.pane===v))};
+    const sl=t.closest('.slide');
+    const set=v=>{btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));panes.forEach(p=>p.classList.toggle('show',p.dataset.pane===v));if(sl) sl.dataset.v=v};
     btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.v)));
     const first=(btns.find(b=>b.getAttribute('aria-pressed')==='true')||btns[0]).dataset.v;
     set(first);
@@ -3703,6 +4032,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     r.addEventListener('input',upd);
     upd();
     onEnter(cc.closest('.slide'),()=>{r.value=init;upd()});
+  });
+
+  /* 단계 · 참가자 버튼으로 그림 바꾸기 (카드 소팅 · 트리 테스트) */
+  document.querySelectorAll('.zst').forEach(box=>{
+    const btns=[...box.querySelectorAll('.zsb button[data-k]')];
+    if(!btns.length) return;
+    const set=k=>{box.dataset.k=k;btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===k)))};
+    btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.k)));
+    const first=(btns.find(b=>b.getAttribute('aria-pressed')==='true')||btns[0]).dataset.k;
+    set(first);
+    onEnter(box.closest('.slide'),()=>set(first));
   });
 })();
 
