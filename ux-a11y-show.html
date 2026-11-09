@@ -2193,7 +2193,6 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
 </section>
 
 <section class="slide" id="map" data-title="목차" data-note="정보 구조 · 내비게이션과 흐름은 화면을 그리기 전(내용 묶기 · 이름 · 메뉴 · 흐름). 사용성 원칙은 화면을 보는 기준(휴리스틱 · 심각도). 반응형 점검 · 접근성 점검은 만든 뒤 점검(반응형 · KWCAG 2.2). 사용성 테스트는 사람에게 직접 써 보게 하는 단계. '우리 서비스에 적용'은 팀 프로젝트에 그대로 쓰는 점검표와 AI 사용법. 상자를 누르면 그 부분으로 바로 감. 마지막에 실습 · 정리 · 참고 문서.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 부분별 바로 가기</p>
   <h2 class="a" style="--d:.2s">목차</h2>
   <div class="h4g a" style="--d:.3s;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr">
     <button class="jmp" data-go="div1"><h3>정보 구조</h3><p>내용 목록 · 분류 기준 · 사이트맵 · 이름 · 카드 소팅</p></button>
@@ -2320,7 +2319,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   <p class="msg a" style="--d:.6s">한 기준으로 다 묶기 어려움 · <em>층마다 다른 기준</em></p>
 </section>
 
-<section class="slide" id="sitemap" data-title="사이트맵 그리기" data-note="과업별로 묶은 결과를 계층으로: 맨 위 메뉴 넷(둘러보기 · 올리기 · 내 창밖 · 도움말) → 그 아래 화면 열다섯 → 회색 글씨는 화면 안의 세부. 깊이와 너비는 서로 맞바꿈: 넓고 얕게(한 화면에 고를 것이 많음 · 이름이 분명하면 빠름) · 좁고 깊게(단계마다 고르기 쉬움 · 이름이 모호하면 중간에 길을 잃음). 몇 번 클릭인지보다 각 단계에서 다음 갈 곳이 분명한지가 중요 → 트리 테스트로 확인(다음 장). 팀 저장소 docs/sitemap.md에 들여쓰기 목록으로 남기면 AI에게 화면 목록을 설명할 때도 그대로 씀.">
+<section class="slide" id="sitemap" data-title="사이트맵 그리기" data-note="과업별로 묶은 결과를 계층으로: 맨 위 메뉴 넷(둘러보기 · 올리기 · 내 창밖 · 도움말) → 그 아래 화면 열다섯 → 회색 글씨는 화면 안의 세부. 깊이와 너비는 서로 맞바꿈: 넓고 얕게(한 화면에 고를 것이 많음 · 이름이 분명하면 빠름) · 좁고 깊게(단계마다 고르기 쉬움 · 이름이 모호하면 중간에 길을 잃음). 몇 번 클릭인지보다 각 단계에서 다음 갈 곳이 분명한지가 중요 → 트리 테스트로 확인. 팀 저장소 docs/sitemap.md에 들여쓰기 목록으로 남기면 AI에게 화면 목록을 설명할 때도 그대로 씀.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 예시 서비스 밤 창밖 · 과업별 묶음을 계층으로</p>
   <h2 class="a" style="--d:.2s">사이트맵 그리기</h2>
   <div class="split" style="grid-template-columns:8fr 4fr;margin:18px 0 18px">
@@ -2569,13 +2568,13 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   <p class="msg a" style="--d:.6s">회색 상자에 <em>실제 문구와 상태</em>까지</p>
 </section>
 
-<section class="slide divider" id="div3" data-part="사용성 원칙" data-title="사용성 원칙" data-note="화면을 보는 기준. Nielsen의 휴리스틱을 훑고, 수업 프로젝트에서 자주 걸리는 넷(상태 보이기 · 통제와 자유 · 오류 회복 · 기억보다 알아보기)을 예시 서비스로 자세히 봄. 이어서 팀원끼리 서로의 화면을 휴리스틱으로 점검하는 방법과 심각도 매기기.">
+<section class="slide divider" id="div3" data-part="사용성 원칙" data-title="사용성 원칙" data-note="화면을 보는 기준. Nielsen의 휴리스틱을 훑고, 수업 프로젝트에서 자주 걸리는 넷(상태 보이기 · 통제와 자유 · 오류 회복 · 기억보다 알아보기)을 예시 서비스에 적용해 봄. 이어서 팀원끼리 서로의 화면을 휴리스틱으로 점검하는 방법과 심각도 매기기.">
   <div class="dvis fd" style="--d:.05s"><canvas data-pat="shapes" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">휴리스틱</span><span class="ko on" style="--k:1">상태 보이기</span><span class="ko" style="--k:2">되돌리기</span><span class="ko" style="--k:3">오류 문구</span><span class="ko" style="--k:4">심각도</span></div></div>
   <div class="dcard a" style="--d:.2s"><h2>사용성 원칙</h2><p>휴리스틱 · 상태 보이기 · 되돌리기 · 오류 문구 · 기억보다 알아보기 · 심각도</p></div>
 </section>
 
-<section class="slide" id="heur10" data-title="Nielsen의 사용성 휴리스틱" data-note="Jakob Nielsen의 10 Usability Heuristics. 1990년 Rolf Molich와 처음 정리하고, 1994년 249개 사용성 문제를 분석해 다듬음. 넓게 적용하는 경험칙(경험에서 나온 어림 규칙)이라서 '휴리스틱'. 영어 원문: 1 Visibility of system status · 2 Match between the system and the real world · 3 User control and freedom · 4 Consistency and standards · 5 Error prevention · 6 Recognition rather than recall · 7 Flexibility and efficiency of use · 8 Aesthetic and minimalist design · 9 Help users recognize, diagnose, and recover from errors · 10 Help and documentation. 카드 아래 줄은 예시 서비스 밤 창밖에 적용한 모습. 파란 카드 넷(1 · 3 · 9 · 6)은 다음 장들에서 자세히.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> Jakob Nielsen · 1994 · 파란 칸은 자세히 보는 원칙</p>
+<section class="slide" id="heur10" data-title="Nielsen의 사용성 휴리스틱" data-note="Jakob Nielsen의 10 Usability Heuristics. 1990년 Rolf Molich와 처음 정리하고, 1994년 249개 사용성 문제를 분석해 다듬음. 넓게 적용하는 경험칙(경험에서 나온 어림 규칙)이라서 '휴리스틱'. 영어 원문: 1 Visibility of system status · 2 Match between the system and the real world · 3 User control and freedom · 4 Consistency and standards · 5 Error prevention · 6 Recognition rather than recall · 7 Flexibility and efficiency of use · 8 Aesthetic and minimalist design · 9 Help users recognize, diagnose, and recover from errors · 10 Help and documentation. 카드 아래 줄은 예시 서비스 밤 창밖에 적용한 모습. 파란 카드는 수업 프로젝트에서 자주 걸리는 원칙(상태 보이기 · 통제와 자유 · 오류 회복 · 기억보다 알아보기).">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> Jakob Nielsen · 1994 · 파란 칸은 수업 프로젝트에서 자주 걸리는 원칙</p>
   <h2 class="a" style="--d:.2s">Nielsen의 사용성 휴리스틱</h2>
   <div class="xh10 a" style="--d:.3s">
     <div class="on"><b>1</b><h4>시스템 상태 보이기</h4><p>올리는 중 · 3장 중 2장</p></div>
@@ -2603,7 +2602,7 @@ b.xw{display:inline-grid;place-items:center;width:26px;height:26px;border-radius
   <div class="g3 a" style="--d:.45s;margin:20px 0 18px">
     <div class="card flat" style="background:var(--no-soft)"><span class="k">표시가 없으면</span><p>버튼을 다시 누름 · 같은 창밖이 중복으로 올라감</p></div>
     <div class="card flat"><span class="k">끝나면</span><p>결과와 다음 할 일 · 내 창밖에서 보기</p></div>
-    <div class="card flat" style="background:var(--accent-soft)"><span class="k">요약판 · HTTP와 외부 API</span><p>데이터 화면의 상태 · 로딩 · 성공 · 빈 결과 · 오류</p></div>
+    <div class="card flat" style="background:var(--accent-soft)"><span class="k">데이터 화면의 상태</span><p>로딩 · 성공 · 빈 결과 · 오류</p></div>
   </div>
   <p class="msg a" style="--d:.6s">기다리는 동안 <em>진행 상태를 화면에</em></p>
 </section>
@@ -3162,7 +3161,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
 </section>
 
 <section class="slide" id="tasks" data-title="과업 시나리오 쓰기" data-note="과업(과업 시나리오)은 상황과 목표만 주고 방법은 주지 않음. 1 버튼 이름 · 메뉴 이름을 넣으면 화면에서 같은 글자를 찾는 시험이 됨('＋ 버튼을 눌러' → 그 버튼을 찾는 문제가 가려짐). 2 화면의 말 대신 이용자의 말('공개 범위 설정' → '모르는 사람은 못 보게'). 3 끝이 분명하게 · 성공인지 아닌지 판단할 수 있게('둘러보세요' → '세 장 찾아보세요'). 9주차 시트 8의 네 줄(확인할 것 · 누구에게 · 과업 · 성공 기준)을 그대로 씀 · '성공 기준'는 숫자로(몇 명 중 몇 명이 · 몇 초 안에 · 묻지 않고). 오른쪽 예시는 9주차 밤 창밖의 네 줄.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 9주차 시트 8 · 예시 서비스 밤 창밖</p>
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 상황과 목표만 · 예시 서비스 밤 창밖</p>
   <h2 class="a" style="--d:.2s">과업 시나리오 쓰기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:18px 0 18px">
     <div class="pairs xtk2 a" style="--d:.3s;margin-top:0;align-content:start">
@@ -3194,7 +3193,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">막혀도 바로 돕지 않고 <em>막힌 곳을 기록</em></p>
 </section>
 
-<section class="slide" id="observe" data-title="관찰 기록표" data-note="기록자는 해석보다 본 것과 들은 것을 적음: 성공(도움 없이) · 도움(힌트를 받고 끝냄) · 실패(포기하거나 다른 곳에서 끝냄) · 걸린 시간 · 막힌 곳에서 한 말. 사람마다 한 줄 · 과업마다 한 칸. 끝나면 막힌 곳을 모아 몇 명이 같은 곳에서 막혔는지 셈 → 다음 장의 고칠 순서. 표는 밤 창밖 알파 테스트를 5명에게 했다고 가정한 예시 데이터. 과업 2(창밖 올리기)에서 5명 중 3명이 ＋ 버튼을 올리기로 알아보지 못함 · 둘은 로그인 뒤 첫 화면으로 돌아가 헤맴 → 표지의 A안 문제가 실제로 드러난 모습. 소리 내어 한 말은 따옴표로 그대로.">
+<section class="slide" id="observe" data-title="관찰 기록표" data-note="기록자는 해석보다 본 것과 들은 것을 적음: 성공(도움 없이) · 도움(힌트를 받고 끝냄) · 실패(포기하거나 다른 곳에서 끝냄) · 걸린 시간 · 막힌 곳에서 한 말. 사람마다 한 줄 · 과업마다 한 칸. 끝나면 막힌 곳을 모아 몇 명이 같은 곳에서 막혔는지 셈 → 고칠 순서를 정하는 근거. 표는 밤 창밖 알파 테스트를 5명에게 했다고 가정한 예시 데이터. 과업 2(창밖 올리기)에서 5명 중 3명이 ＋ 버튼을 올리기로 알아보지 못함 · 둘은 로그인 뒤 첫 화면으로 돌아가 헤맴 → 표지의 A안 문제가 실제로 드러난 모습. 소리 내어 한 말은 따옴표로 그대로.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 예시 데이터 · 밤 창밖 알파 테스트</p>
   <h2 class="a" style="--d:.2s">관찰 기록표</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:18px 0 18px">
@@ -3220,7 +3219,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s"><em>본 것과 들은 말</em>을 그대로 기록</p>
 </section>
 
-<section class="slide" id="fixorder" data-title="고칠 순서 정하기" data-note="막힌 곳마다 두 가지를 봄: 몇 명이 겪었나(빈도) · 겪으면 과업을 못 끝내나(심각도 · 사용성 원칙의 0–4와 같은 생각). 많이 겪고 막히는 것 → 이번 주에 고치기. 적게 겪어도 막히는 것 → 다음 · 다시 테스트할 때 확인. 많이 겪지만 가벼운 것 → 고치기 쉬우면 바로. 적게 겪고 가벼운 것 → 목록에만. 사용성 원칙의 휴리스틱 평가 기록과 합쳐서 한 표로(docs/heuristics.md · docs/a11y.md와 같은 줄 형식). 고친 뒤 다시 2–3명에게 같은 과업 → 같은 곳에서 막히는지 확인(곡선의 '5명씩 세 번'). 예시 칸의 문제는 앞 장의 예시 데이터.">
+<section class="slide" id="fixorder" data-title="고칠 순서 정하기" data-note="막힌 곳마다 두 가지를 봄: 몇 명이 겪었나(빈도) · 겪으면 과업을 못 끝내나(심각도 · 사용성 원칙의 0–4와 같은 생각). 많이 겪고 막히는 것 → 이번 주에 고치기. 적게 겪어도 막히는 것 → 다음 · 다시 테스트할 때 확인. 많이 겪지만 가벼운 것 → 고치기 쉬우면 바로. 적게 겪고 가벼운 것 → 목록에만. 사용성 원칙의 휴리스틱 평가 기록과 합쳐서 한 표로(docs/heuristics.md · docs/a11y.md와 같은 줄 형식). 고친 뒤 다시 2–3명에게 같은 과업 → 같은 곳에서 막히는지 확인(곡선의 '5명씩 세 번'). 예시 칸의 문제는 관찰 기록표의 예시 데이터.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 예시 데이터 · 겪은 사람 수 × 심각도</p>
   <h2 class="a" style="--d:.2s">고칠 순서 정하기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
@@ -3244,7 +3243,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   </div>
   <p class="msg a" style="--d:.6s">많이 겪고 막히는 곳부터 · <em>고치고 다시 테스트</em></p>
 </section>
-<section class="slide divider" id="div7" data-part="우리 서비스에 적용" data-title="우리 서비스에 적용" data-note="앞의 여섯 부분을 팀 프로젝트에 적용. 팀 점검표(언제 · 누가 · 무엇을) → AI에게 1차 점검 부탁 · 결과는 확인할 후보 목록 → 숫자는 도구로 다시 재기(대비) → 처음 안과 고친 안 비교 · 부분마다 찾은 문제와 다시 확인한 결과. 예시는 9 · 10주차의 '밤 창밖'. AI가 쓴 코드의 복잡성 · 보안 · 개인정보 검토는 요약판 'AI 코드 검토'에서 자세히.">
+<section class="slide divider" id="div7" data-part="우리 서비스에 적용" data-title="우리 서비스에 적용" data-note="정보 구조부터 사용성 테스트까지를 팀 프로젝트에 적용. 팀 점검표(언제 · 누가 · 무엇을) → AI에게 1차 점검 부탁 · 결과는 확인할 후보 목록 → 숫자는 도구로 다시 재기(대비) → 처음 안과 고친 안 비교 · 부분마다 찾은 문제와 다시 확인한 결과. 예시는 9 · 10주차의 '밤 창밖'. AI가 쓴 코드의 복잡성 · 보안 · 개인정보 검토는 요약판 'AI 코드 검토'에서 다룸.">
   <div class="dvis fd" style="--d:.05s"><canvas data-pat="branches" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">팀 점검표</span><span class="ko on" style="--k:1">AI 1차 점검</span><span class="ko" style="--k:2">대비 확인</span><span class="ko" style="--k:3">전후 비교</span></div></div>
   <div class="dcard a" style="--d:.2s"><h2>우리 서비스에 적용</h2><p>팀 점검표 · AI 1차 점검 · 대비 직접 재기 · 처음 안과 고친 안</p></div>
 </section>
@@ -3288,7 +3287,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
   <p class="msg a" style="--d:.6s">점검표 하나로 <em>알파 전 · 베타 전</em> 나눠서 확인</p>
 </section>
 
-<section class="slide" id="askai" data-title="AI에게 1차 점검 부탁하기" data-note="10주차의 요청 네 칸(목표 · 어디를 · 지킬 것 · 끝나는 조건)을 그대로 씀. 코드를 읽는 AI는 코드에 드러나는 문제를 빨리 모음: alt 없는 img · label 없는 입력 · div로 만든 버튼 · html의 lang 없음 · 제목 단계 건너뜀. 계산이나 화면이 필요한 것은 틀리기 쉬움: 대비 숫자 · 실제 Tab 순서 · 초점이 보이는지 · 대체 텍스트가 사진 장면에 맞는지 · 스크린 리더가 실제로 읽는 말. KWCAG 번호를 WCAG 번호(1.4.3 등)와 섞어 쓰기도 함 → 번호는 KWCAG 2.2 원문 목록으로 확인. 받은 표는 확인할 후보 목록: 줄마다 파일을 열어 보고(위치) · 도구로 재고(숫자) · 직접 써 보고(키보드 · 스크린 리더) 맞음 · 틀림 · 사람 확인을 적음. 아래 예시에서 5.4.3 줄은 AI가 4.6 : 1 통과라고 했지만 실제는 3.45 : 1 → 다음 장에서 직접 재 봄. 복잡성 · 보안 · 개인정보까지 포함한 AI 코드 검토는 요약판 'AI 코드 검토'.">
+<section class="slide" id="askai" data-title="AI에게 1차 점검 부탁하기" data-note="10주차의 요청 네 칸(목표 · 어디를 · 지킬 것 · 끝나는 조건)을 그대로 씀. 코드를 읽는 AI는 코드에 드러나는 문제를 빨리 모음: alt 없는 img · label 없는 입력 · div로 만든 버튼 · html의 lang 없음 · 제목 단계 건너뜀. 계산이나 화면이 필요한 것은 틀리기 쉬움: 대비 숫자 · 실제 Tab 순서 · 초점이 보이는지 · 대체 텍스트가 사진 장면에 맞는지 · 스크린 리더가 실제로 읽는 말. KWCAG 번호를 WCAG 번호(1.4.3 등)와 섞어 쓰기도 함 → 번호는 KWCAG 2.2 원문 목록으로 확인. 받은 표는 확인할 후보 목록: 줄마다 파일을 열어 보고(위치) · 도구로 재고(숫자) · 직접 써 보고(키보드 · 스크린 리더) 맞음 · 틀림 · 사람 확인을 적음. 아래 예시에서 5.4.3 줄은 AI가 4.6 : 1 통과라고 했지만 실제는 3.45 : 1 → 대비 검사 도구로 직접 재면 드러남. 복잡성 · 보안 · 개인정보까지 포함한 AI 코드 검토는 요약판 'AI 코드 검토'.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 10주차 요청 틀 · 받은 표는 확인할 후보</p>
   <h2 class="a" style="--d:.2s">AI에게 1차 점검 부탁하기</h2>
   <div class="split" style="grid-template-columns:7fr 5fr;margin:16px 0 18px">
@@ -3304,7 +3303,7 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
       <div class="card flat" style="background:var(--ok-soft)"><span class="k">코드만 보고 찾기 쉬운 것</span><p>alt 없는 img · label 없는 입력 · div 버튼 · lang 없음 · 제목 단계</p></div>
       <div class="card flat" style="background:var(--warn-soft)"><span class="k">꼭 다시 확인할 것</span><p>대비 숫자 · 실제 Tab 순서 · 초점 표시 · 사진에 맞는 대체 텍스트 · KWCAG와 WCAG 번호</p></div>
       <div class="card flat"><span class="k">확인 방법</span><p>파일 열어 보기 · 도구로 재기 · 키보드와 스크린 리더로 써 보기</p></div>
-      <div class="card flat" style="background:var(--accent-soft)"><span class="k">관련 요약판 · AI 코드 검토</span><p>복잡성 · 보안 · 개인정보까지 같은 방식으로</p></div>
+      <div class="card flat" style="background:var(--accent-soft)"><span class="k">같은 방식으로</span><p>복잡성 · 보안 · 개인정보 검토</p></div>
     </div>
   </div>
   <p class="msg a" style="--d:.6s">AI가 준 표는 <em>줄마다 직접 확인</em></p>
@@ -3398,7 +3397,6 @@ h2   { font-size: <b>1.5rem</b>; }</div></div><p>브라우저의 기본 글자 �
 </section>
 
 <section class="slide" id="summary" data-title="정리" data-note="첫 장의 목표 다섯 가지와 짝: 내용을 묶고 이름 붙여 사이트맵으로(정보 구조) · 내비게이션과 흐름으로 화면 순서 설계(내비게이션과 흐름) · 휴리스틱으로 점검하고 심각도 매기기(사용성 원칙) · 반응형 · 접근성을 정해진 순서로 점검하고 기록(반응형 점검 · 접근성 점검) · 사용성 테스트로 고칠 순서 정하기(사용성 테스트). '우리 서비스에 적용'은 팀 프로젝트에 적용. 이어서 볼 자료: AI가 쓴 코드의 복잡성 · 접근성 · 보안 · 개인정보 검토는 요약판 'AI 코드 검토', 시연 · 최종 발표 준비는 요약판 '팀 프로젝트 테스트 · 배포 · 발표', 디지털 포용과 접근성 법은 요약판 '웹과 사회 · 디지털 문화'.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 부분별 핵심</p>
   <h2 class="a" style="--d:.2s">정리</h2>
   <div class="g4 mt fill" style="grid-template-rows:1fr 1fr">
     <div class="card ac a" style="--d:.3s"><h4>정보 구조</h4><ul><li>내용 목록 · 분류 기준</li><li>사이트맵 · 이름</li><li>카드 소팅 · 트리 테스트</li></ul></div>
