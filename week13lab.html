@@ -615,6 +615,14 @@ figure.shot figcaption .exq{vertical-align:1px}
 }
 .day.nb span b{font-size:12.5px;font-weight:600;opacity:.85}
 .tbl td:has(.bar),.tbl td:nth-child(4){white-space:nowrap}
+.wk2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.wk{border:1px solid var(--line);border-top:4px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--surface)}
+.wk.on{border-top-color:var(--accent);background:var(--accent-soft)}
+.wk .k{display:block;font-size:.85em;font-weight:700;color:var(--muted)}
+.wk.on .k{color:var(--accent)}
+.wk b{display:block;margin:4px 0 8px;font-size:1.05em}
+.wk ul{margin:0;padding-left:18px}.wk li{margin:3px 0}
+@media (max-width:700px){.wk2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -675,7 +683,7 @@ figure.shot figcaption .exq{vertical-align:1px}
       <li>F12 → Console 빨간 오류</li>
       <li>처음 상태로 되돌리는 법 · 시크릿 창 · <code>?reset</code></li>
     </ol>
-    <p class="sm mut">안 열리면 손 들기 · 시연회 전 1순위</p>
+    <p class="sm mut">안 열리면 손 들기 · 14주차 전 1순위</p>
   </section>
 
   <section class="sec" id="p1">
@@ -772,7 +780,7 @@ figure.shot figcaption .exq{vertical-align:1px}
     </table></div>
     <p class="sm mut">확인 질문을 통과했으면 피그잼 ①의 테스터 칸에 ○ · 아니면 ×</p>
     <div class="sev" aria-label="심각도">
-      <span class="s4"><b>4</b>시연을 막음</span><span class="s3"><b>3</b>여럿이 못 끝냄</span><span class="s2"><b>2</b>도움 받고 끝냄</span><span class="s1"><b>1</b>겉모양</span><span class="s0"><b>0</b>문제 아님</span>
+      <span class="s4"><b>4</b>사용을 막음</span><span class="s3"><b>3</b>여럿이 못 끝냄</span><span class="s2"><b>2</b>도움 받고 끝냄</span><span class="s1"><b>1</b>겉모양</span><span class="s0"><b>0</b>문제 아님</span>
     </div>
 
     <div class="h3">끝나고 묻는 말</div>
@@ -792,7 +800,7 @@ figure.shot figcaption .exq{vertical-align:1px}
       <li>피그잼 ① · 테스터 칸을 세어 베타 통과 수 적고 판정</li>
       <li>같은 곳에서 막힌 것끼리 묶기</li>
       <li>묶음마다 GitHub 이슈 1개</li>
-      <li>피그잼 ④ · 시연 전 수정 목록 최대 3개 · 맡은 사람</li>
+      <li>피그잼 ④ · 14주차 전 수정 목록 최대 3개 · 맡은 사람</li>
       <li><code>docs/beta-test.md</code> → PR</li>
     </ol>
 
@@ -835,7 +843,7 @@ labels: 베타 테스트
     <div class="h3">고칠 순서</div>
     <div class="mx">
       <span></span><span class="mh">금방 고침</span><span class="mh">오래 걸림</span>
-      <span class="mh">영향 큼</span><span class="c on">시연회 전 · 바로</span><span class="c on">시연회 전 · 담당 한 명</span>
+      <span class="mh">영향 큼</span><span class="c on">14주차 전 · 바로</span><span class="c on">14주차 전 · 담당 한 명</span>
       <span class="mh">영향 작음</span><span class="c">시간이 남으면</span><span class="c">나중</span>
     </div>
 
@@ -848,7 +856,7 @@ labels: 베타 테스트
 ## 새로 본 막힌 곳
 - ○명 중 ○명 (막힌 곳) · 심각도 ○ → #이슈
 
-## 시연회 전에 고칠 것
+## 14주차 전에 고칠 것
 #이슈 · #이슈 · #이슈</code></pre></div>
 
     <div class="h3">기록 정리 · AI에게</div>
@@ -875,10 +883,16 @@ labels: 베타 테스트
   <section class="sec" id="next">
     <h2>오늘 점검 · 다음 주까지</h2>
     <ul class="bul">
-      <li>피그잼 ① 알파 · 베타 비교표 (판정까지) · ② 베타 카드 · ③ 관찰 기록 · ④ 먼저 고칠 것 · GitHub 이슈</li>
-      <li><code>docs/beta-test.md</code> · tasks.md 시연회 줄</li>
-      <li><span class="k">다음 주까지</span> 시연 전 이슈 → PR <code>Fixes #번호</code> → 배포 주소에서 다시 확인</li>
+      <li>피그잼 ① 알파 · 베타 비교표 (판정까지) · ② 베타 카드 · ③ 관찰 기록 · ④ 14주차 전 수정 목록 · GitHub 이슈</li>
+      <li><code>docs/beta-test.md</code> · tasks.md의 14주차 전 줄</li>
+      <li><span class="k">다음 주까지</span> 14주차 전 이슈 → PR <code>Fixes #번호</code> → 배포 주소에서 다시 확인</li>
     </ul>
+    <div class="wk2">
+      <div class="wk"><span class="k">14주차</span><b>폴리싱 · 아카이빙 영상 · 과제전 준비</b>
+        <ul><li>작년 산출물 보기 · AI Slop 피하기</li><li>팀별 스킬 공유 · 갤러리 워크</li><li>아카이빙 영상 제작</li><li>과제 · 개인 과제(온라인 사진 전시회) 아카이빙 · 한 장 설명</li></ul></div>
+      <div class="wk on"><span class="k">15주차</span><b>팀 영상 상영 · 포스트모템 발표</b>
+        <ul><li>팀 영상을 틀고 이어서 팀원마다 1분쯤 발표</li><li>직접 겪은 시행착오 하나 · 원인 · 바꾼 방법</li><li>재료 · 베타 이슈 · PR · <code>docs/beta-test.md</code> · 알파 · 베타 비교표</li><li>오늘 이슈와 PR에 겪은 일을 남겨 두면 그대로 발표 재료가 됨</li></ul></div>
+    </div>
   </section>
 
 </main>
