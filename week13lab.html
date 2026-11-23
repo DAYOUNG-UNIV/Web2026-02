@@ -521,6 +521,54 @@ figure.shot figcaption .exq{vertical-align:1px}
 .gl div:last-child{border-bottom:0}
 .gl dt code{font-size:.9em}
 
+
+/* 13주차 · 알파 → 베타 시각화 */
+.ab{display:grid;gap:6px;margin:14px 0 22px}
+.ab>div{display:grid;grid-template-columns:7em 1fr 1.3fr;gap:6px}
+.ab span{padding:9px 14px;border-radius:10px;font-size:15.5px;line-height:1.5}
+.ab span:first-child{font-weight:700;color:var(--ink2);padding-left:0}
+.ab .a{background:var(--surface);color:var(--muted)}
+.ab .b{background:var(--accent-soft);color:var(--accent-strong);font-weight:700;border-left:4px solid var(--accent)}
+.ab .ab-h span{background:none;border:0;font-weight:800;font-size:14px;padding-top:0;padding-bottom:0}
+.ab .ab-h .b{color:var(--accent)}
+.ab .ab-h .a{color:var(--muted)}
+.day{display:flex;gap:3px;margin:8px 0 4px;font-size:13px;font-weight:700}
+.day span{flex:var(--w) 1 0;min-width:0;background:var(--surface);color:var(--ink2);border-radius:8px;padding:7px 8px;display:flex;flex-direction:column;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.day span b{font-size:17px;font-weight:800}
+.day .on{background:var(--accent);color:var(--bg)}
+.day .rest{background:transparent;border:1px dashed var(--strong);color:var(--muted)}
+.card2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.card2>div{border-radius:12px;padding:12px 16px}
+.card2 p{margin:4px 0;font-size:15.5px}
+.card2 .same{background:var(--surface);color:var(--muted)}
+.card2 .new{background:var(--accent-soft);border-left:4px solid var(--accent);color:var(--accent-strong);font-weight:700}
+.card2 .tg{font-size:12.5px;font-weight:800;letter-spacing:.02em}
+.bar{display:inline-block;vertical-align:middle;width:70px;height:9px;border-radius:9px;margin-right:8px;background:linear-gradient(90deg,var(--accent) calc(var(--p)*1%),var(--line) 0)}
+.bar.a{background:linear-gradient(90deg,var(--muted) calc(var(--p)*1%),var(--line) 0)}
+.rings{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:10px 0}
+.rings figure{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px}
+.rings figcaption{font-size:15px;color:var(--ink2)}
+.rings figcaption b{color:var(--accent)}
+.rings svg{display:block;width:100%;max-width:260px;margin:6px auto}
+.rings p{margin:0;text-align:center;font-family:var(--mono);font-size:14px;font-weight:700}
+.tbl .nb{background:var(--accent-soft);color:var(--accent-strong);font-weight:700}
+.sev{display:flex;gap:4px;margin:8px 0;font-size:13.5px}
+.sev span{flex:1;border-radius:8px;padding:7px 9px;display:flex;flex-direction:column;line-height:1.35}
+.sev b{font-size:18px}
+.sev .s4{background:var(--no);color:var(--bg)}.sev .s3{background:var(--no-soft);color:var(--no)}
+.sev .s2{background:var(--warn-soft);color:var(--warn)}.sev .s1,.sev .s0{background:var(--surface);color:var(--muted)}
+.mx{display:grid;grid-template-columns:6em 1fr 1fr;gap:6px;margin:10px 0;font-size:15px}
+.mx .mh{font-weight:700;color:var(--muted);font-size:13.5px;align-self:end}
+.mx .c{background:var(--surface);color:var(--muted);border-radius:10px;padding:12px 14px}
+.mx .c.on{background:var(--accent);color:var(--bg);font-weight:700}
+@media (max-width:640px){
+  .ab>div{grid-template-columns:4.6em 1fr 1fr}
+  .ab span{padding:8px 9px;font-size:14px}
+  .card2,.rings{grid-template-columns:1fr}
+  .day{flex-wrap:wrap}.day span{flex:1 1 30%}
+  .sev{flex-wrap:wrap}.sev span{flex:1 1 30%}
+  .mx{grid-template-columns:4.6em 1fr 1fr;font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -537,7 +585,7 @@ figure.shot figcaption .exq{vertical-align:1px}
 <nav class="toc" aria-label="이 페이지 차례">
   <b>차례</b>
   <ol id="tocList">
-    <li><a href="#summary">한눈에 · 알파와 달라지는 것</a><a href="#ready">시작 점검</a></li>
+    <li><a href="#summary">알파 → 베타</a><a href="#ready">시작 점검</a></li>
     <li><a href="#p1">실습 1 · 베타 준비</a></li>
     <li><a href="#p2">실습 2 · 교차 테스트</a></li>
     <li><a href="#p3">실습 3 · 결과 정리</a></li>
@@ -549,319 +597,222 @@ figure.shot figcaption .exq{vertical-align:1px}
 <main id="main">
   <p class="eyebrow">웹프로그래밍개론 · 13주차 · 실습 안내</p>
   <h1>베타 테스트 · <em>실습 단계별 안내</em></h1>
-  <p class="lede">수업 덱의 실습 1 · 2 · 3을 순서대로 따라 할 수 있게 모은 페이지입니다. 알파 카드를 베타 카드로 바꾸는 법, 그대로 읽는 시작 대본과 첫인상 5초 대본, 기기 · 심각도까지 적는 관찰 기록, 알파 대비 결과표, GitHub 이슈 틀과 <code>docs/beta-test.md</code> 틀이 있습니다. 진행하는 법(소리 내어 생각하기 · 돕지 않기 · 본 것 그대로)은 <a href="week11lab.html#p2" target="_blank" rel="noopener">11주차 실습 안내</a>와 같습니다. 진행 중에는 휴대폰으로 이 페이지를 열어 두면 편합니다.</p>
-  <p class="exnote"><span class="exq">예시 질문 · 밤 창밖</span>예시 서비스는 <code>night-windows</code>(잠이 안 오는 밤, 낯선 사람의 창밖을 넘겨 보고 내 창밖도 올리는 웹) · 문장 · 숫자 · 파일 이름은 우리 팀 것으로 바꿔 읽기</p>
+  <p class="lede">수업 덱의 실습을 순서대로 모은 페이지입니다. 진행하는 법(소리 내어 생각하기 · 돕지 않기)은 <a href="week11lab.html#p2" target="_blank" rel="noopener">11주차 실습 안내</a>와 같습니다.</p>
+  <p class="exnote"><span class="exq">예시 · 밤 창밖</span><code>night-windows</code> · 낯선 사람의 밤 창밖을 넘겨 보고 내 창밖도 올리는 웹 · 우리 팀 것으로 바꿔 읽기</p>
 
   <section class="sec" id="summary">
-    <h2>한눈에 · 알파와 달라지는 것</h2>
-    <div class="twrap"><table class="tbl">
-      <tr><th></th><th>알파 테스트</th><th>베타 테스트</th></tr>
-      <tr><td>확인하는 것</td><td>가설 한 줄 · 핵심 장면 하나</td><td>알파에서 고친 곳이 고쳐졌나 · 처음 들어온 사람이 처음부터 끝까지 쓰나</td></tr>
-      <tr><td>화면</td><td>가짜 구간 · 팀원 노트북 · Live Server도 가능</td><td>배포 주소만 · 남은 가짜는 화면에 밝히기</td></tr>
-      <tr><td>기기</td><td>노트북 또는 휴대폰</td><td>테스터의 반은 자기 휴대폰 · 기기와 브라우저를 기록</td></tr>
-      <tr><td>테스터</td><td>옆 팀 (시계 · 반시계 방향 다음 팀)</td><td>알파 때 오지 않은 팀 (한 팀 건너)</td></tr>
-      <tr><td>과업 시나리오</td><td>2개 · 핵심 장면</td><td>첫인상 5초 + 3개 · 과업 1 · 2는 알파 문장 그대로 · 과업 3은 끝난 뒤까지</td></tr>
-      <tr><td>끝나고 묻는 말</td><td>좋았던 점 · 궁금한 점 · 제안할 점</td><td>가장 헷갈린 곳 · 한 줄 소개 · 하나만 바꾼다면 · 다시 쓴다면 언제</td></tr>
-      <tr><td>기록</td><td>성공 · 도움 · 실패 · 들은 말</td><td>+ 기기 · 심각도 0–4</td></tr>
-      <tr><td>남기는 곳</td><td><code>docs/alpha-test.md</code> · tasks.md 베타 줄</td><td><code>docs/beta-test.md</code> · GitHub 이슈 · tasks.md 시연회 줄</td></tr>
-      <tr><td>다음</td><td>베타까지 고칠 일</td><td>시연회까지 고칠 순서 · 기능 동결 (새 기능은 넣지 않고 고치기만)</td></tr>
-    </table></div>
-    <div class="twrap"><table class="tbl">
-      <tr><th>순서</th><th>무엇을</th><th>남는 것</th></tr>
-      <tr><td>시작 점검 · 10분</td><td>배포 주소 · 휴대폰 · 알파 뒤 PR이 반영됐나</td><td>열리는 팀 · 안 열리는 팀</td></tr>
-      <tr><td>강의 · 20분</td><td>알파와 달라지는 것 · 베타 카드 · 진행과 기록</td><td></td></tr>
-      <tr><td>실습 1 · 25분</td><td>tasks 상태 · 남은 가짜 정리 · 베타 카드 · 확인 질문 · 역할</td><td>베타 카드 · 확인 질문 표</td></tr>
-      <tr><td>실습 2 · 라운드마다 25분</td><td>교차 테스트 라운드 1 · 2 · 반은 지킴이 · 반은 테스터 · 한 팀 건너</td><td>관찰 기록 (기기 · 심각도)</td></tr>
-      <tr><td>실습 3 · 30분</td><td>알파 대비 통과 수 · 막힌 곳 묶기 · 이슈 · 고칠 순서 · 저장소</td><td>이슈 · <code>docs/beta-test.md</code> · tasks · checklist</td></tr>
-      <tr><td>마무리</td><td>팀별 30초 · 고친 곳 결과 → 새로 본 막힌 곳 → 시연회 전에 고칠 것</td><td></td></tr>
-    </table></div>
+    <h2>알파 → 베타</h2>
+    <div class="ab" role="table" aria-label="알파와 베타 비교">
+      <div class="ab-h" role="row"><span role="columnheader"></span><span class="a" role="columnheader">알파</span><span class="b" role="columnheader">베타</span></div>
+      <div role="row"><span role="rowheader">확인</span><span class="a" role="cell">가설 · 핵심 장면</span><span class="b" role="cell">고친 곳 다시 세기 · 처음부터 끝까지</span></div>
+      <div role="row"><span role="rowheader">화면</span><span class="a" role="cell">팀원 노트북도 가능</span><span class="b" role="cell">배포 주소만</span></div>
+      <div role="row"><span role="rowheader">기기</span><span class="a" role="cell">노트북</span><span class="b" role="cell">테스터 반은 자기 휴대폰</span></div>
+      <div role="row"><span role="rowheader">테스터</span><span class="a" role="cell">양옆 팀</span><span class="b" role="cell">한 팀 건너</span></div>
+      <div role="row"><span role="rowheader">과업</span><span class="a" role="cell">2개</span><span class="b" role="cell">첫인상 5초 + 3개</span></div>
+      <div role="row"><span role="rowheader">기록</span><span class="a" role="cell">결과 · 들은 말</span><span class="b" role="cell">+ 기기 · 심각도 0–4</span></div>
+      <div role="row"><span role="rowheader">남기는 곳</span><span class="a" role="cell"><code>docs/alpha-test.md</code></span><span class="b" role="cell"><code>docs/beta-test.md</code> · GitHub 이슈</span></div>
+      <div role="row"><span role="rowheader">다음</span><span class="a" role="cell">새 기능 더하기</span><span class="b" role="cell">기능 동결 · 고치기만</span></div>
+    </div>
+    <div class="day" aria-label="오늘 순서">
+      <span style="--w:10">시작 점검<b>10</b></span><span style="--w:20">강의<b>20</b></span><span class="on" style="--w:25">실습 1<b>25</b></span><span class="rest" style="--w:10">쉬는 시간<b>10</b></span><span class="on" style="--w:25">라운드 1<b>25</b></span><span class="on" style="--w:25">라운드 2<b>25</b></span><span class="on" style="--w:30">결과 정리<b>30</b></span><span style="--w:15">공유<b>15</b></span>
+    </div>
   </section>
 
   <section class="sec" id="ready">
-    <h2>시작 점검 · 10분<small>배포 주소로만 · 노트북과 휴대폰에서</small></h2>
+    <h2>시작 점검 · 10분<small>배포 주소 · 노트북과 휴대폰</small></h2>
     <ol class="steps">
-      <li>배포 주소(Settings → Pages)를 노트북 하나 · 휴대폰 하나에서 열기 · 휴대폰에는 QR이나 메시지로 보내기</li>
-      <li><code>docs/tasks.md</code>의 베타 줄마다 상태 확인 · 병합한 줄은 배포 주소에서 반영됐는지 (몇 분 걸림 · 강력 새로 고침)</li>
-      <li>사용 장면을 처음부터 끝까지 한 번 · 첫 화면 → 핵심 장면 → 마지막 화면 · 휴대폰에서도</li>
-      <li>F12 → Console의 빨간 오류 · 휴대폰은 멈추는 곳 적기</li>
-      <li>처음 상태로 되돌리는 법 · 시크릿 창 · 주소 뒤 <code>?reset</code> · 탭 닫고 새로</li>
+      <li>배포 주소를 노트북 · 휴대폰에서 열기 · 휴대폰은 QR로</li>
+      <li><code>docs/tasks.md</code> 베타 줄 · 병합한 것이 배포 주소에 보이나 (강력 새로 고침)</li>
+      <li>첫 화면 → 핵심 장면 → 마지막 화면 · 휴대폰에서도</li>
+      <li>F12 → Console 빨간 오류</li>
+      <li>처음 상태로 되돌리는 법 · 시크릿 창 · <code>?reset</code></li>
     </ol>
-    <p class="sm mut">알파 때 허용한 팀원 노트북 · Live Server · 사람이 대신 보여 주기는 베타에서 쓰지 않습니다 · 배포 주소가 끝내 안 열리면 손 들기 (시연회 전 1순위)</p>
+    <p class="sm mut">안 열리면 손 들기 · 시연회 전 1순위</p>
   </section>
 
   <section class="sec" id="p1">
-    <h2>실습 1 · 베타 준비<small>쉬는 시간 전까지 25분 · 2명은 정리 · 나머지는 카드와 역할</small></h2>
-    <div class="h3">1 · 남은 가짜 구간 정리 · 2명</div>
+    <h2>실습 1 · 베타 준비<small>25분 · 2명은 가짜 정리 · 나머지는 카드</small></h2>
+    <div class="h3">남은 가짜 구간</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>알파 때 가짜 · 예시</th><th>베타에서</th><th>어떻게</th></tr>
-      <tr><td>올린 창이 새로 고침하면 사라짐</td><td><span class="tl ok">실제로 만들기</span></td><td>localStorage에 저장 · 다시 들어와도 목록에 남음</td></tr>
-      <tr><td>켜진 창 12 · 고정 숫자</td><td><span class="tl ok">실제 값으로</span></td><td>이 기기에서 올린 창의 수 · 셀 수 없으면 빼기</td></tr>
-      <tr><td>다른 사람 창 10장 · 미리 넣은 사진</td><td><span class="tl gr">화면에 밝히기</span></td><td>사진 위에 '예시 창' 표시 · 같은 사진이 이어서 나오지 않게 섞기</td></tr>
-      <tr><td>로그인 없음 · 이 기기에만 저장</td><td><span class="tl gr">화면에 밝히기</span></td><td>첫 화면 한 줄 · "남긴 창은 이 기기에만 저장돼요"</td></tr>
-      <tr><td>끊긴 뒤를 사람이 대신 보여 줌</td><td><span class="tl no">쓰지 않음</span></td><td>이어 두기 · 못 이으면 '준비 중' 화면과 돌아가는 버튼</td></tr>
+      <tr><th>알파 때 가짜</th><th>베타에서</th></tr>
+      <tr><td>올린 창이 새로 고침하면 사라짐</td><td><span class="tl ok">실제로</span> localStorage에 저장</td></tr>
+      <tr><td>다른 사람 창 · 미리 넣은 사진</td><td><span class="tl gr">밝히기</span> 사진 위 '예시 창'</td></tr>
+      <tr><td>끊긴 뒤를 사람이 대신 보여 줌</td><td><span class="tl no">쓰지 않음</span> '준비 중' 화면</td></tr>
     </table></div>
-    <p class="sm mut">고칠 때도 브랜치 → PR → 옆 팀원 승인 · 시작을 막는 것만 지금 고치고 새 기능은 넣지 않기 (기능 동결) · 떠오른 기능은 이슈로 남기고 '나중' 라벨</p>
+    <p class="sm mut">고칠 때도 브랜치 → PR · 새 기능 아이디어는 이슈에 '나중' 라벨</p>
 
-    <div class="h3">2 · 베타 테스트 카드 · 알파 카드를 복사해서</div>
+    <div class="h3">베타 카드 · 알파 카드를 복사해서</div>
+    <div class="card2">
+      <div class="same"><span class="tg">알파 그대로</span><p>확인할 것</p><p>과업 1 · 2 문장</p><p>이러면 맞다 · 6명 중 4명</p></div>
+      <div class="new"><span class="tg">새로 쓰기</span><p>알파 뒤 바꾼 것 · tasks 줄 번호</p><p>첫인상 5초 · 맞게 말한 기준 한 줄</p><p>과업 3 · 끝난 뒤 장면</p><p>남은 가짜</p></div>
+    </div>
+    <p class="sm">과업 3 예 · "다음 날 밤 다시 들어왔다고 생각하고, 어젯밤 남긴 창을 찾아보세요"</p>
+    <div class="cpy"><div class="cpy-h"><span>베타 카드 점검 · 어떤 대화창이든</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 우리 팀의 알파 카드와 베타 카드야. 고칠 곳만 찾아 줘. (1) 확인할 것 · 이러면 맞다 · 과업 1 · 2가 알파와 글자까지 같은가 (2) 과업 3에 버튼 이름 · 위치 힌트가 들어갔나, 끝이 분명한가 (3) 첫인상 5초의 기준이 한 줄로 있나. 다른 칸은 바꾸지 마.
+
+[알파 카드]
+
+[베타 카드]</code></pre></div>
+
+    <div class="h3">확인 질문 표</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>칸</th><th>쓰는 법</th><th>예시 · 밤 창밖</th></tr>
-      <tr><td>배포 주소</td><td>테스터가 여는 주소 · QR</td><td><code>우리팀.github.io/night-windows/</code></td></tr>
-      <tr><td><b>알파 뒤 바꾼 것</b></td><td>tasks.md 줄 번호 · PR · 테스터에게는 끝난 뒤에만</td><td>tasks 7 올리기 버튼에 '내 창 남기기' 글자 · tasks 8 휴대폰 '다음' 위치</td></tr>
-      <tr><td>확인할 것</td><td>알파 그대로</td><td>낯선 창밖을 넘기다 보면 자기 창밖도 올릴까</td></tr>
-      <tr><td><b>첫인상 5초</b></td><td>질문 2개 · 맞게 말한 기준을 팀이 한 줄로</td><td>"무엇을 하는 서비스 같아요?" · "먼저 무엇을 누를 것 같아요?" · 기준: '밤 · 창밖 · 남기기' 중 하나</td></tr>
-      <tr><td>과업 시나리오 1 · 2</td><td>알파 문장 그대로 · 고친 곳을 전후로 비교</td><td>"잠이 안 오는 밤이라고 생각하고, 창을 3장만 넘겨 보세요" · "지금 내 창밖을 여기에 남겨 보세요"</td></tr>
-      <tr><td><b>과업 시나리오 3</b></td><td>끝난 뒤까지 · 다시 찾기 · 공유 · 다시 하기 · 상황과 목표만 · 버튼 이름 없이</td><td>"다음 날 밤 다시 들어왔다고 생각하고, 어젯밤 남긴 창을 찾아보세요"</td></tr>
-      <tr><td>이러면 맞다</td><td>알파 그대로 · 결과를 보고 바꾸지 않기</td><td>6명 중 4명 이상이 묻지 않고 자기 창밖을 올림</td></tr>
-      <tr><td><b>남은 가짜</b></td><td>정리하고 남은 것만 · 테스터에게는 끝난 뒤</td><td>다른 사람 창은 '예시 창' · 이 기기에만 저장</td></tr>
+      <tr><th>확인 질문</th><th>알파</th><th>베타</th></tr>
+      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td><span class="bar" style="--p:83"></span>5/6</td></tr>
+      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td><span class="bar" style="--p:100"></span>6/6</td></tr>
+      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td><span class="bar" style="--p:33"></span>2/6</td></tr>
+      <tr><td>무엇을 하는 서비스인지 · 첫인상</td><td>–</td><td><span class="bar" style="--p:67"></span>4/6</td></tr>
     </table></div>
-    <div class="cpy"><div class="cpy-h"><span>베타 카드 점검 · 알파 카드와 베타 카드를 함께 붙이기 → 어떤 대화창이든</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 우리 팀의 알파 테스트 카드와 베타 테스트 카드야. 고칠 곳만 찾아 줘. (1) 확인할 것 · 이러면 맞다 · 과업 시나리오 1 · 2가 알파와 글자까지 같은가 (2) 과업 시나리오 3에 버튼 이름 · 메뉴 이름 · 순서 · 위치 힌트가 들어갔나, 끝이 분명한가 (3) 첫인상 5초의 '맞게 말한 기준'이 한 줄로 정해져 있나. 다른 칸의 뜻은 바꾸지 마.
+    <p class="sm mut">알파 질문은 문장 그대로 · 첫인상 · 과업 3 질문만 더하기</p>
 
-[알파 카드 붙여 넣기]
-
-[베타 카드 붙여 넣기]</code></pre></div>
-
-    <div class="h3">3 · 확인 질문</div>
-    <p class="sm">알파 확인 질문은 문장 그대로 두고, 첫인상 · 과업 3 질문을 더합니다 · 결과 정리에서 알파 결과 옆에 통과 수를 적습니다</p>
-    <div class="twrap"><table class="tbl">
-      <tr><th>확인 질문 · 예시 · 밤 창밖</th><th>어디서</th><th>알파</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>베타</th></tr>
-      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td>알파 그대로</td><td>3/6</td><td>×</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td><td>5/6</td></tr>
-      <tr><td>올리는 곳을 10초 안에 찾았나</td><td>알파 그대로</td><td>3/6</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td><td>6/6</td></tr>
-      <tr><td>창을 3장 넘겼나</td><td>알파 그대로 · 회귀 확인</td><td>5/6</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td><td>6/6</td></tr>
-      <tr><td>어젯밤 남긴 창을 다시 찾았나</td><td>과업 3</td><td>–</td><td>○</td><td>×</td><td>×</td><td>○</td><td>×</td><td>×</td><td>2/6</td></tr>
-      <tr><td>무엇을 하는 서비스인지 맞게 말했나</td><td>첫인상 5초</td><td>–</td><td>○</td><td>○</td><td>×</td><td>○</td><td>○</td><td>×</td><td>4/6</td></tr>
-    </table></div>
-
-    <div class="h3">4 · 역할 · 라운드 표</div>
-    <div class="twrap"><table class="tbl">
-      <tr><th>팀 크기</th><th>라운드 1 · 지킴이 · 테스터</th><th>라운드 2</th></tr>
-      <tr><td>6명</td><td>3 · 3</td><td>3 · 3 (바꿈)</td></tr>
-      <tr><td>5명</td><td>3 · 2</td><td>2 · 3</td></tr>
-      <tr><td>4명</td><td>2 · 2</td><td>2 · 2 (바꿈)</td></tr>
-      <tr><td>3명</td><td>2 · 1</td><td>1 · 2</td></tr>
-    </table></div>
-    <div class="twrap"><table class="tbl">
-      <tr><th>라운드</th><th>규칙</th><th>예 · 팀 A B E F G가 원으로 앉았을 때</th></tr>
-      <tr><td>알파 · 지난번</td><td>시계 방향 다음 팀 · 반시계 방향 이전 팀</td><td>A → B · A → G (양옆 팀은 이미 봄)</td></tr>
-      <tr><td>베타 라운드 1</td><td>시계 방향으로 한 팀 건너</td><td>A → E · B → F · E → G · F → A · G → B</td></tr>
-      <tr><td>베타 라운드 2</td><td>역할 바꿔 · 반시계 방향으로 한 팀 건너</td><td>A → F · B → G · E → A · F → B · G → E</td></tr>
-    </table></div>
+    <div class="h3">라운드 표</div>
+    <div class="rings">
+      <figure><figcaption><b>라운드 1</b> · 반시계 방향 · 한 팀 건너</figcaption><svg class="bt-ring" viewBox="0 0 320 320" role="img" aria-label="라운드 1 · 반시계 방향으로 한 팀 건너 · A에서 F로, B에서 G로, E에서 A로, F에서 B로, G에서 E로"><defs><marker id="bm1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs><g stroke="var(--line)" stroke-width="10" stroke-linecap="round"><line x1="160" y1="53" x2="267" y2="130"/><line x1="267" y1="130" x2="226" y2="256"/><line x1="226" y1="256" x2="94" y2="256"/><line x1="94" y1="256" x2="53" y2="130"/><line x1="53" y1="130" x2="160" y2="53"/></g><g stroke="var(--accent)" stroke-width="4" fill="none" marker-end="url(#bm1)"><path d="M149 85L106 219"/><path d="M233 130L91 130"/><path d="M215 223L172 89"/><path d="M122 236L236 153"/><path d="M81 150L195 233"/></g><g font-size="26" font-weight="800" text-anchor="middle" fill="var(--ink)"><circle cx="160" cy="53" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="160" y="62">A</text><circle cx="267" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="267" y="139">B</text><circle cx="226" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="226" y="265">E</text><circle cx="94" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="94" y="265">F</text><circle cx="53" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="53" y="139">G</text></g></svg><p>A → F · B → G · E → A · F → B · G → E</p></figure>
+      <figure><figcaption><b>라운드 2</b> · 역할 바꿔 · 시계 방향</figcaption><svg class="bt-ring" viewBox="0 0 320 320" role="img" aria-label="라운드 2 · 시계 방향으로 한 팀 건너 · A에서 E로, B에서 F로, E에서 G로, F에서 A로, G에서 B로"><defs><marker id="bm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--warn)"/></marker></defs><g stroke="var(--line)" stroke-width="10" stroke-linecap="round"><line x1="160" y1="53" x2="267" y2="130"/><line x1="267" y1="130" x2="226" y2="256"/><line x1="226" y1="256" x2="94" y2="256"/><line x1="94" y1="256" x2="53" y2="130"/><line x1="53" y1="130" x2="160" y2="53"/></g><g stroke="var(--warn)" stroke-width="4" stroke-dasharray="9 7" fill="none" marker-end="url(#bm2)"><path d="M171 85L214 219"/><path d="M239 150L125 233"/><path d="M198 236L84 153"/><path d="M105 223L148 89"/><path d="M87 130L229 130"/></g><g font-size="26" font-weight="800" text-anchor="middle" fill="var(--ink)"><circle cx="160" cy="53" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="160" y="62">A</text><circle cx="267" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="267" y="139">B</text><circle cx="226" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="226" y="265">E</text><circle cx="94" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="94" y="265">F</text><circle cx="53" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="53" y="139">G</text></g></svg><p>A → E · B → F · E → G · F → A · G → B</p></figure>
+    </div>
     <ul class="bul">
-      <li><span class="k">지킴이</span> · 남아서 진행과 기록 · 테스터 한 명에 한 명 · 휴대폰 테스터가 오면 QR 보여 주기</li>
-      <li><span class="k">테스터</span> · 라운드 표의 팀으로 · 휴대폰 챙기기 · 테스터의 반은 자기 휴대폰으로 테스트</li>
-      <li>팀이 5개면 알파와 베타를 합쳐 모든 팀을 한 번씩 · 팀 수가 다르면 실제 순서는 기록 칸의 라운드 표</li>
-      <li><span class="k">선택 · 한 명</span> · <a href="ux-a11y-show.html" target="_blank" rel="noopener">정보 구조 · UX · 접근성 덱</a> 팀 점검표의 베타 전 항목 · 스크린 리더로 핵심 흐름을 끝까지 듣기</li>
+      <li><span class="k">지킴이</span> 남아서 진행 · 기록 · 테스터 한 명에 한 명</li>
+      <li><span class="k">테스터</span> 라운드 표의 팀으로 · 반은 자기 휴대폰</li>
+      <li>팀 크기별 · 6명 3 · 3 · 5명 3 · 2 → 2 · 3 · 4명 2 · 2 · 3명 2 · 1 → 1 · 2</li>
     </ul>
-    <p class="when"><span><b>실습 1 끝</b> · 베타 카드 · 확인 질문 표 · 역할에 모두의 이름 · 배포 주소 QR이 준비되면</span></p>
+    <p class="when"><span><b>실습 1 끝</b> · 베타 카드 · 확인 질문 표 · 역할 · QR</span></p>
   </section>
 
   <section class="sec" id="p2">
-    <h2>실습 2 · 교차 테스트 라운드 1 · 2<small>라운드마다 25분 · 한 팀 건너 · 알파 때 가지 않은 팀으로</small></h2>
-    <div class="twrap"><table class="tbl">
-      <tr><th>한 라운드 · 25분</th><th>할 일</th></tr>
-      <tr><td>2분</td><td>이동 · 테스터는 라운드 표의 팀으로</td></tr>
-      <tr><td>2분</td><td>자리 잡기 · 휴대폰 테스터는 QR로 열기 · 시작하는 말</td></tr>
-      <tr><td>1분</td><td>첫인상 5초 · 누르기 전에</td></tr>
-      <tr><td>12분</td><td>과업 시나리오 3개 · 소리 내어 · 돕지 않고 적기</td></tr>
-      <tr><td>4분</td><td>끝나고 묻기 · 바꾼 것과 남은 가짜 알려 주기</td></tr>
-      <tr><td>4분</td><td>기록 정리 · 기기 · 심각도까지 한 줄 완성 · 이슈 초안 한 줄</td></tr>
-    </table></div>
+    <h2>실습 2 · 라운드 1 · 2<small>라운드마다 25분</small></h2>
+    <div class="day" aria-label="한 라운드 25분">
+      <span style="--w:2">이동<b>2</b></span><span style="--w:2">시작<b>2</b></span><span class="on" style="--w:1">5초<b>1</b></span><span class="on" style="--w:12">과업 3개<b>12</b></span><span style="--w:4">묻기<b>4</b></span><span style="--w:4">기록<b>4</b></span>
+    </div>
 
-    <div class="h3">시작하는 말 · 그대로 읽기</div>
-    <div class="cpy"><div class="cpy-h"><span>대본 · 1분 · 모든 테스터에게 같은 말 · 알파 대본 그대로</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>와 주셔서 고마워요. 오늘은 저희 서비스를 시험하는 자리예요. 잘못하실 수 있는 건 없어요.
+    <div class="h3">시작하는 말 · 알파 대본 그대로</div>
+    <div class="cpy"><div class="cpy-h"><span>대본 · 1분</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>와 주셔서 고마워요. 오늘은 저희 서비스를 시험하는 자리예요. 잘못하실 수 있는 건 없어요.
 
-쓰시면서 보이는 것, 찾는 것, 헷갈리는 것을 생각나는 대로 소리 내어 말해 주세요.
+보이는 것, 찾는 것, 헷갈리는 것을 생각나는 대로 소리 내어 말해 주세요.
 
-질문하셔도 바로 답하지 않을 수 있어요. 처음 쓰는 분이 어디서 멈추는지 보려고 그래요.
+질문하셔도 바로 답하지 않을 수 있어요.
 
-이름은 적지 않고 번호로만 적어요. 화면 녹화는 하지 않아요. 언제든 그만하셔도 돼요.</code></pre></div>
+이름은 적지 않고 번호로만 적어요. 언제든 그만하셔도 돼요.</code></pre></div>
 
-    <div class="h3">첫인상 5초 · 그대로 읽기</div>
-    <div class="cpy"><div class="cpy-h"><span>대본 · 1분 · 첫 화면을 띄운 기기를 테스터 앞에</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>먼저 첫 화면을 5초만 보여 드릴게요. 아무것도 누르지 말고 보기만 해 주세요.
-
-(5초 뒤 화면을 가리고)
+    <div class="h3">첫인상 5초 · 새로</div>
+    <div class="cpy"><div class="cpy-h"><span>대본 · 1분 · 5초 뒤 화면 가리기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>첫 화면을 5초만 보여 드릴게요. 누르지 말고 보기만 해 주세요.
 
 무엇을 하는 서비스 같아요?
 
-먼저 무엇을 누를 것 같아요?
+먼저 무엇을 누를 것 같아요?</code></pre></div>
+    <p class="sm mut">답은 따옴표로 그대로 · 맞았는지는 결과 정리 때 카드 기준으로</p>
 
-고마워요. 그럼 이제 첫 번째 일이에요.</code></pre></div>
-    <ul class="bul">
-      <li>5초는 지킴이가 셈 · 노트북은 화면을 덮고 휴대폰은 뒤집기</li>
-      <li>들은 말을 따옴표로 그대로 · 맞게 말했는지는 카드의 기준 한 줄로 결과 정리 때 판정</li>
-      <li>쇼케이스 관람객은 설명 없이 첫 화면만 보고 지나가기 쉬움 · 틀리게 말한 답은 첫 화면 문구 후보</li>
-    </ul>
-
-    <div class="h3">진행하는 말 · 알파와 같음</div>
+    <div class="h3">하지 않는 말</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>하지 않는 말</th><th>하는 말</th></tr>
-      <tr><td>"오른쪽 위에 있어요" · 알려 주기</td><td>"어떻게 될 것 같아요?" · 되묻기</td></tr>
-      <tr><td>"그건 지난번에 고쳤어요" · 고친 곳 알려 주기</td><td>"지금 무엇을 찾고 계세요?" · 말 이어 가기</td></tr>
-      <tr><td>"원래는 여기 안내가 들어갈 거예요" · 변명하기</td><td>"지금 무슨 생각 하세요?" · 10초 넘게 조용할 때 한 번</td></tr>
-      <tr><td>"잘하셨어요" · 칭찬 · 평가</td><td>3분 넘게 막히면 "여기까지 하고 다음으로 갈게요" → 기록은 실패</td></tr>
+      <tr><th>하지 않는 말</th><th>대신</th></tr>
+      <tr><td>"그건 지난번에 고쳤어요"</td><td>"지금 무엇을 찾고 계세요?"</td></tr>
+      <tr><td>"오른쪽 위에 있어요"</td><td>"어떻게 될 것 같아요?"</td></tr>
+      <tr><td>"이 버튼 이제 잘 보여요?"</td><td>"가장 헷갈린 곳 하나만 짚어 주세요"</td></tr>
     </table></div>
 
-    <div class="h3">관찰 기록 · 지킴이가 적기 · 테스터 한 명 = 한 줄</div>
-    <ul class="bul">
-      <li><span class="k">기기</span> · iPhone Safari · Android Chrome · 노트북 Chrome처럼 기기와 브라우저 · 한 기기에서만 막히면 기기 문제</li>
-      <li><span class="k">결과</span> · 성공 (도움 없이) · 도움 (되묻거나 힌트 받고) · 실패 (포기 · 3분 넘음) · – (못 해 봄)</li>
-      <li><span class="k">막힌 곳 · 들은 말</span> · 본 것 그대로 · 어디서 · 몇 초 · 한 말은 따옴표로</li>
-      <li><span class="k">심각도</span> · 막힌 곳마다 0–4 · 지킴이가 1차로 적고 결과 정리 때 팀이 다시 정함</li>
-      <li>이름은 적지 않고 번호로 · 알파 때 우리 서비스를 본 테스터는 번호 옆에 표시</li>
-    </ul>
+    <div class="h3">관찰 기록 · 한 사람 한 줄</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>참가자</th><th>기기</th><th>과업 1</th><th>과업 2</th><th>과업 3</th><th>막힌 곳 · 들은 말</th><th>심각도</th></tr>
-      <tr><td>1</td><td>iPhone · Safari</td><td>성공</td><td>도움</td><td>성공</td><td>큰 사진을 고르자 화면이 멈춤 · "다시 해야 해요?"</td><td>3</td></tr>
-      <tr><td>3</td><td>Android · Chrome</td><td>성공</td><td>성공</td><td>실패</td><td>"어젯밤 거는 어디 갔지" · 3분</td><td>3</td></tr>
+      <tr><th>번호</th><th class="nb">기기</th><th>과업 1</th><th>과업 2</th><th>과업 3</th><th>들은 말</th><th class="nb">심각도</th></tr>
+      <tr><td>1</td><td class="nb">iPhone · Safari</td><td>성공</td><td>도움</td><td>성공</td><td>"다시 해야 해요?"</td><td class="nb">3</td></tr>
+      <tr><td>3</td><td class="nb">Android · Chrome</td><td>성공</td><td>성공</td><td>실패</td><td>"어젯밤 거는 어디 갔지"</td><td class="nb">3</td></tr>
     </table></div>
-    <div class="twrap"><table class="tbl">
-      <tr><th>심각도</th><th>뜻</th><th>예</th></tr>
-      <tr><td><span class="tl no">4</span></td><td>시연을 막음 · 사용 장면이 끝까지 안 됨 · 데이터가 사라짐</td><td>배포 주소가 휴대폰에서 안 열림 · 올린 창이 사라짐</td></tr>
-      <tr><td><span class="tl no">3</span></td><td>큰 문제 · 여럿이 끝내지 못함</td><td>어젯밤 남긴 창을 찾지 못함</td></tr>
-      <tr><td><span class="tl gr">2</span></td><td>작은 문제 · 도움 받고 끝냄 · 느려짐</td><td>첫인상에서 사진 앨범으로 봄</td></tr>
-      <tr><td><span class="tl gr">1</span></td><td>겉모양 · 시간이 남으면</td><td>버튼 간격 · 글자 줄바꿈</td></tr>
-      <tr><td><span class="tl gr">0</span></td><td>문제 아님 · 궁금한 점 · 취향</td><td>"'예시 창'은 진짜 사람이 올린 건가요?"</td></tr>
-    </table></div>
+    <div class="sev" aria-label="심각도">
+      <span class="s4"><b>4</b>시연을 막음</span><span class="s3"><b>3</b>여럿이 못 끝냄</span><span class="s2"><b>2</b>도움 받고 끝냄</span><span class="s1"><b>1</b>겉모양</span><span class="s0"><b>0</b>문제 아님</span>
+    </div>
 
     <div class="h3">끝나고 묻는 말 · 4분</div>
     <ol class="steps">
-      <li>"가장 헷갈린 곳 하나만 짚어 주세요" · 화면에서 손으로 짚게</li>
-      <li>"친구에게 한 줄로 소개한다면 뭐라고 하실래요?" · 쇼케이스 소개 문구 후보</li>
-      <li>"하나만 바꿀 수 있다면 무엇을요?"</li>
-      <li>"다시 쓴다면 언제일 것 같아요?" · "기분을 한 단어로 말하면?"</li>
-      <li>알파 뒤 바꾼 것과 남은 가짜 알려 주기 · 고맙다고 인사</li>
+      <li>"가장 헷갈린 곳 하나만 짚어 주세요"</li>
+      <li>"친구에게 한 줄로 소개한다면?"</li>
+      <li>"하나만 바꿀 수 있다면?"</li>
+      <li>바꾼 것 · 남은 가짜 알려 주고 인사</li>
     </ol>
-    <p class="sm mut">빼는 말 · "좋았어요?" · "편했어요?" (답이 '네'로 정해짐) · "이 버튼 이제 잘 보여요?" (고친 곳을 알려 줌) · 듣는 동안 설명 · 변명하지 않고 "왜 그렇게 생각하셨어요?"만</p>
-
-    <div class="h3">테스터가 될 때</div>
-    <ul class="bul">
-      <li>평소 웹을 쓰듯이 · 자기 휴대폰으로 · 만든 사람의 뜻을 맞히려 하지 않기</li>
-      <li>생각나는 대로 소리 내어 · 막히면 막혔다고</li>
-      <li>내 정보는 넣지 않기 · 가짜 이름 · 아무 사진 · 진짜 위치 빼기 · 화면 사진은 개인 정보가 보이지 않게 · 본 내용은 그 팀의 것</li>
-    </ul>
-    <p class="when"><span><b>라운드 끝</b> · 테스터마다 기록 한 줄 완성 (기기 · 심각도까지) · 라운드 사이에 지킴이와 테스터 바꾸기</span></p>
+    <p class="when"><span><b>라운드 끝</b> · 기록 한 줄 완성 · 지킴이와 테스터 바꾸기</span></p>
   </section>
 
   <section class="sec" id="p3">
-    <h2>실습 3 · 결과 정리<small>30분 · 알파 결과 옆에 · 이슈는 오늘 안에</small></h2>
+    <h2>실습 3 · 결과 정리<small>30분</small></h2>
     <ol class="steps">
-      <li>기록 모아 읽기 · 빈 칸 채우기 (기기 · 심각도)</li>
-      <li>확인 질문마다 통과 수를 알파 결과 옆에 · 고쳐짐 · 그대로 · 줄어듦 · 새로 봄</li>
-      <li>막힌 곳을 같은 곳끼리 묶기 · 겪은 사람 수 · 심각도를 팀이 다시 정하기</li>
-      <li>묶음 하나 = GitHub 이슈 하나 · 오늘 안에 · 라벨</li>
-      <li>고칠 순서 · 영향과 품 · 시연회 전 칸에서 3개까지 · 담당</li>
-      <li>저장소 · 한 사람이 브랜치에서 <code>docs/beta-test.md</code> · tasks · checklist → PR · 나머지 리뷰</li>
-      <li>팀별 30초 · 고친 곳 결과 → 새로 본 막힌 곳 → 시연회 전에 고칠 것</li>
+      <li>빈 칸 채우기 · 기기 · 심각도</li>
+      <li>확인 질문마다 알파 옆에 베타 통과 수</li>
+      <li>같은 곳에서 막힌 것끼리 묶기</li>
+      <li>묶음 하나 = GitHub 이슈 하나</li>
+      <li>시연회 전에 고칠 것 3개까지 · 담당</li>
+      <li><code>docs/beta-test.md</code> → PR</li>
     </ol>
 
-    <div class="h3">알파 대비 결과 읽기</div>
+    <div class="h3">알파 대비 읽기</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>읽기</th><th>뜻</th><th>다음</th></tr>
-      <tr><td><span class="tl ok">고쳐짐</span></td><td>알파보다 통과가 늘어남</td><td>이슈 닫기 · 이러면 맞다도 다시 판정</td></tr>
-      <tr><td><span class="tl gr">그대로</span></td><td>통과 수가 비슷함</td><td>고친 방법이 막힌 이유에 닿지 않음 · 들은 말을 다시 읽고 다른 방법</td></tr>
-      <tr><td><span class="tl no">줄어듦</span></td><td>원래 되던 곳에서 통과가 줄어듦</td><td>회귀 · 고친 PR이 이웃 장면을 깼는지 확인 · 시연 전 1순위</td></tr>
-      <tr><td><span class="tl gr">새로 봄</span></td><td>알파에서 확인하지 않은 곳 · 과업 3 · 첫인상</td><td>막힌 곳을 이슈로 · 심각도로 순서</td></tr>
+      <tr><th>결과</th><th>다음</th></tr>
+      <tr><td><span class="tl ok">고쳐짐</span> 3/6 → 5/6</td><td>이슈 닫기</td></tr>
+      <tr><td><span class="tl gr">그대로</span> 3/6 → 3/6</td><td>들은 말 다시 읽고 다른 방법</td></tr>
+      <tr><td><span class="tl no">줄어듦</span> 5/6 → 3/6</td><td>고친 PR이 깬 곳 · 1순위</td></tr>
     </table></div>
-    <p class="sm mut">판정은 테스트 전에 정한 숫자로만 · 테스터 수가 다르면 비율로 읽기 (알파 3/6 → 베타 4/5)</p>
+    <p class="sm mut">테스터 수가 다르면 비율로 · 판정 숫자는 테스트 전에 정한 것으로만</p>
 
-    <div class="h3">GitHub 이슈 틀 · 저장소에 한 번만</div>
-    <p class="sm">기본 브랜치에 <code>.github/ISSUE_TEMPLATE/beta-feedback.md</code>를 두면 New issue에서 틀을 고를 수 있습니다 · 라벨은 Issues → Labels에서 먼저 만들기 (시연 전 · 나중 · 베타 테스트)</p>
+    <div class="h3">GitHub 이슈 틀</div>
     <div class="cpy"><div class="cpy-h"><span>.github/ISSUE_TEMPLATE/beta-feedback.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>---
 name: 베타 테스트 피드백
-about: 베타 테스트에서 막힌 곳 하나 (같은 곳끼리 묶은 것)
+about: 베타 테스트에서 막힌 곳 하나
 title: "[베타] "
 labels: 베타 테스트
 ---
 
 ## 과업
-(과업 번호 · 과업 시나리오 문장 그대로)
-
-## 겪은 사람
-(몇 명 중 몇 명 · 실패 몇 · 도움 몇 · 테스터 번호)
-
+## 겪은 사람 (○/○ · 번호)
 ## 기기
-(기기 · 브라우저 · 한 기기에서만이면 그 기기)
-
 ## 들은 말
-(따옴표로 그대로 · 이름은 빼고)
+## 심각도 (0–4)</code></pre></div>
+    <p class="sm">고치는 PR 설명에 <code>Fixes #24</code> → 병합되면 이슈가 닫힘 · 테스터 이름은 넣지 않기</p>
 
-## 심각도
-(0–4)
-
-## 관련
-(docs/beta-test.md · 알파 tasks 줄 번호가 있으면)</code></pre></div>
-    <ul class="bul">
-      <li>제목은 "무엇을 하면 무엇이 됨" 한 줄 · 예: "다음 날 다시 들어오면 내가 남긴 창을 찾지 못함"</li>
-      <li>고치는 PR 설명에 <code>Fixes #24</code> → main에 병합되면 이슈가 자동으로 닫힘</li>
-      <li>테스터 이름 · 얼굴 · 개인 정보는 이슈에도 넣지 않기 · 공개 저장소면 누구나 봄</li>
-    </ul>
-
-    <div class="h3">시연회까지 고칠 순서 · 영향과 품</div>
-    <div class="twrap"><table class="tbl">
-      <tr><th></th><th>품 적음 · 금방 고치고 확인</th><th>품 큼 · 시간이 많이 듦</th></tr>
-      <tr><td>영향 큼 · 심각도 3–4 · 여럿</td><td><b>시연회 전에 바로</b> · 같은 문제에 작은 해결부터</td><td><b>시연회 전 · 담당 한 명</b> · 다른 일과 겹치지 않게</td></tr>
-      <tr><td>영향 작음 · 심각도 1–2 · 적게</td><td>시간이 남으면</td><td>나중 · 이슈는 열어 두고 README의 다음에 할 것으로</td></tr>
-    </table></div>
-    <p class="sm mut">시연회 전 칸에서 3개까지 · 담당과 함께 tasks.md 줄로 · 오늘부터 새 기능은 넣지 않고 고치기만</p>
+    <div class="h3">고칠 순서</div>
+    <div class="mx">
+      <span></span><span class="mh">품 적음</span><span class="mh">품 큼</span>
+      <span class="mh">영향 큼</span><span class="c on">시연회 전 · 바로</span><span class="c on">시연회 전 · 담당 한 명</span>
+      <span class="mh">영향 작음</span><span class="c">시간이 남으면</span><span class="c">나중</span>
+    </div>
 
     <div class="h3">docs/beta-test.md 틀</div>
-    <div class="cpy"><div class="cpy-h"><span>docs/beta-test.md · 새 파일</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 베타 테스트 (수업 안 · 다른 팀 ○명)
+    <div class="cpy"><div class="cpy-h"><span>docs/beta-test.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 베타 테스트
 
-## 카드
-확인할 것: (알파 그대로)
-이러면 맞다: (알파 그대로)
-알파 뒤 바꾼 것: (tasks 줄 번호 · PR)
-첫인상 기준: (한 줄)
-과업 3: (문장)
-남은 가짜: (화면에 밝힌 것)
+## 알파 대비
+- (질문) 알파 ○/○ → 베타 ○/○
 
-## 알파 대비 (확인 질문)
-- (질문) 알파 ○/○ → 베타 ○/○ · 고쳐짐 · 그대로 · 줄어듦
-
-## 새로 본 막힌 곳 (사람 수 순서)
+## 새로 본 막힌 곳
 - ○/○ (막힌 곳) · 심각도 ○ → #이슈
 
 ## 시연회 전에 고칠 것
-#이슈 · #이슈 · #이슈 (담당은 tasks.md)
+#이슈 · #이슈 · #이슈</code></pre></div>
 
-## 쇼케이스 소개 문구 후보
-(한 줄 소개에서 들은 말)</code></pre></div>
+    <div class="h3">기록 정리 · AI에게</div>
+    <div class="cpy"><div class="cpy-h"><span>관찰 기록 · 확인 질문 표 · 알파 결과를 함께 붙이기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 관찰 기록과 확인 질문 표, 알파 결과야. (1) 질문마다 알파 → 베타 통과 수 표 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 이슈 초안. 기록에 있는 그대로만 쓰고 없는 원인은 '확인 필요'로. 심각도는 비워 둬.
 
-    <div class="h3">기록 정리 · AI에게 맡겨도 됨</div>
-    <div class="cpy"><div class="cpy-h"><span>관찰 기록 · 확인 질문 표 · 알파 결과를 함께 붙이기 → 어떤 대화창이든</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 테스트 관찰 기록과 확인 질문 표, 그리고 알파 테스트 결과야. (1) 확인 질문마다 알파 → 베타 통과 수를 표로 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 .github/ISSUE_TEMPLATE/beta-feedback.md 틀로 이슈 초안을 써 줘. 사람 수 · 들은 말 · 기기는 기록에 있는 그대로만 쓰고, 기록에 없는 원인은 추측하지 말고 '확인 필요'로 남겨 줘. 심각도는 비워 둬.
+[관찰 기록]
 
-[관찰 기록 붙여 넣기]
+[확인 질문 표]
 
-[확인 질문 표 붙여 넣기]
-
-[docs/alpha-test.md 붙여 넣기]</code></pre></div>
-    <p class="sm mut">사람 수 · 심각도 · 판정은 원래 기록으로 팀이 직접 · 테스트 자체를 AI에게 대신 시키지 않기 · AGENTS.md에 "고치기 전에 docs/beta-test.md와 이슈를 먼저 읽는다" 한 줄</p>
+[docs/alpha-test.md]</code></pre></div>
+    <p class="sm mut">사람 수 · 심각도 · 판정은 팀이 직접</p>
   </section>
 
   <section class="sec" id="stuck">
     <h2>막혔을 때</h2>
     <div class="twrap"><table class="tbl">
       <tr><th>상황</th><th>이렇게</th></tr>
-      <tr><td>배포 주소가 테스터 휴대폰에서 안 열림</td><td>그대로 기록 (심각도 4 · 기기) · 노트북으로 계속 · 결과 정리 때 1순위</td></tr>
-      <tr><td>병합한 PR이 배포 주소에 안 보임</td><td>Actions 탭에서 배포가 끝났는지 · 강력 새로 고침 · 시크릿 창</td></tr>
-      <tr><td>한 기기에서만 깨짐</td><td>기기 · 브라우저 · 화면 사진 (테스터 동의) · 이슈의 기기 칸에</td></tr>
-      <tr><td>알파 때 본 테스터가 옴</td><td>테스트는 하고 기록에 표시 · 셀 때 따로</td></tr>
-      <tr><td>시간이 모자람</td><td>과업 2 (고친 곳)부터 · 첫인상은 빼지 않기</td></tr>
-      <tr><td>테스트 중에 고치고 싶어짐</td><td>라운드 중에는 고치지 않기 · 같은 서비스를 봐야 셀 수 있음 · 결과 정리 뒤에</td></tr>
-      <tr><td>새 기능 아이디어가 나옴</td><td>이슈로 남기고 '나중' 라벨 · 기능 동결</td></tr>
+      <tr><td>휴대폰에서 안 열림</td><td>기록 · 심각도 4 · 노트북으로 계속</td></tr>
+      <tr><td>병합한 PR이 안 보임</td><td>Actions 탭 · 강력 새로 고침</td></tr>
+      <tr><td>알파 때 본 테스터</td><td>테스트하고 표시 · 따로 세기</td></tr>
+      <tr><td>시간이 모자람</td><td>과업 2부터 · 첫인상은 빼지 않기</td></tr>
+      <tr><td>라운드 중에 고치고 싶음</td><td>결과 정리 뒤에</td></tr>
     </table></div>
   </section>
 
   <section class="sec" id="next">
     <h2>오늘 점검 · 다음 주까지</h2>
     <ul class="bul">
-      <li>베타 카드 · 확인 질문 표 · 라운드 1 · 2 관찰 기록 (기기 · 심각도)</li>
-      <li>알파 대비 결과 · GitHub 이슈 (라벨) · 시연회까지 고칠 순서</li>
-      <li>저장소 · <code>docs/beta-test.md</code> · tasks.md 시연회 줄과 이름 · checklist.md 베타 구역</li>
-      <li>각자 활동 보고서 · 파일 이름 · 내용 · 마감은 eTL 안내</li>
-      <li><span class="k">다음 주까지</span> · 시연 전 이슈 (3개까지) → PR · <code>Fixes #번호</code> → 병합 → 배포 주소에서 checklist 베타 구역을 모든 기기로 · 할 수 있으면 수업을 듣지 않는 사람 2–3명에게 첫인상과 과업 3만 다시</li>
-      <li><span class="k">14주차</span> · 팀 프로토타입 시연회 · 고친 곳이 시연의 앞 장면 · <span class="k">15주차</span> · 쇼케이스 · 최종 발표</li>
+      <li>베타 카드 · 관찰 기록 · 알파 대비 결과 · 이슈</li>
+      <li><code>docs/beta-test.md</code> · tasks.md 시연회 줄</li>
+      <li><span class="k">다음 주까지</span> 시연 전 이슈 → PR <code>Fixes #번호</code> → 배포 주소에서 다시 확인</li>
     </ul>
   </section>
+
 </main>
 </div>
 <footer>웹프로그래밍개론 · 13주차 실습 안내 · 화면이 다르면 공식 문서가 기준</footer>
