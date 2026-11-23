@@ -569,6 +569,50 @@ figure.shot figcaption .exq{vertical-align:1px}
   .sev{flex-wrap:wrap}.sev span{flex:1 1 30%}
   .mx{grid-template-columns:4.6em 1fr 1fr;font-size:14px}
 }
+
+/* 13주차 v3 · 알파 대비 판정 그림 */
+.thr{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:10px 0 4px;font-size:14.5px;font-weight:700}
+.thr>b{align-self:center;color:var(--accent);margin-right:6px;font-size:15px}
+.thr>span{display:flex;flex-direction:column;border:1.5px solid var(--accent);border-radius:10px;padding:7px 12px;line-height:1.4;background:var(--bg)}
+.thr>span small{font-size:12px;font-weight:800;color:var(--accent)}
+.thr>span.on{background:var(--accent);color:var(--bg)}.thr>span.on small{color:var(--bg);opacity:.8}
+.thr>i{font-style:normal;align-self:center;color:var(--accent)}
+.dc{margin:12px 0 6px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px 16px}
+.dc>div{display:grid;grid-template-columns:230px 1fr 112px;column-gap:16px;align-items:stretch;border-top:1px solid var(--line)}
+.dc>div.hd{border-top:0}
+.dc .vd{display:flex;flex-direction:column;justify-content:center;padding:9px 0;line-height:1.4}
+.dc .vd b{font-size:16.5px}
+.dc .vd small{font-size:13.5px;color:var(--muted);font-weight:600}
+.dc .ok .vd b{color:var(--ok)}.dc .wa .vd b{color:var(--warn)}.dc .no .vd b{color:var(--no)}
+.dc .trk{position:relative;display:grid;grid-template-columns:repeat(7,1fr);min-height:58px;--c:var(--accent)}
+.dc .hd .trk{min-height:34px}
+.dc .ok .trk{--c:var(--ok)}.dc .wa .trk{--c:var(--warn)}.dc .no .trk{--c:var(--no)}
+.dc .trk>i{font-style:normal;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--muted)}
+.dc .trk>i:empty::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--strong)}
+.dc .trk>i.z{background:var(--ok-soft);color:var(--ok)}
+.dc .trk>i.z0{box-shadow:inset 3px 0 0 var(--ok)}
+.dc .da,.dc .db,.dc .ln{position:absolute;top:50%}
+.dc .da{left:calc((var(--a) + .5)/7*100%);width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:4px solid var(--muted);background:var(--bg);z-index:1}
+.dc .db{left:calc((var(--b) + .5)/7*100%);width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--c);z-index:2;box-shadow:0 0 0 3px var(--bg)}
+.dc .ln{left:calc((min(var(--a),var(--b)) + .5)/7*100%);width:calc((max(var(--a),var(--b)) - min(var(--a),var(--b)))/7*100%);height:5px;margin-top:-2.5px;background:var(--muted)}
+.dc .eq .da{width:42px;height:42px;margin:-21px 0 0 -21px}.dc .eq .db{box-shadow:none}
+.dc .nm{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:14.5px;font-weight:700;white-space:nowrap}
+.dc .nm s{text-decoration:none;color:var(--muted)}
+.dc .nm small{font-family:var(--body);font-size:12.5px;color:var(--muted)}
+.dc-lg{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 10px;font-size:13.5px;font-weight:700;color:var(--ink2)}
+.dc-lg span{display:inline-flex;align-items:center;gap:6px}
+.dc-lg i{display:inline-block}
+.dc-lg .da{width:15px;height:15px;border-radius:50%;border:3.5px solid var(--muted)}
+.dc-lg .db{width:15px;height:15px;border-radius:50%;background:var(--ink)}
+.dc-lg .zz{width:24px;height:15px;border-radius:4px;background:var(--ok-soft);box-shadow:inset 3px 0 0 var(--ok)}
+@media (max-width:640px){
+  .dc{padding:4px 12px}
+  .dc>div{grid-template-columns:1fr auto;column-gap:10px}
+  .dc .trk{grid-column:1/-1;grid-row:2;min-height:46px}
+  .dc .hd .vd{padding:6px 0 0}.dc .hd .trk{min-height:26px}
+  .dc .vd{padding:8px 0 0}
+  .thr>i{display:none}.thr>b{flex-basis:100%}
+}
 </style>
 </head>
 <body>
@@ -597,7 +641,7 @@ figure.shot figcaption .exq{vertical-align:1px}
 <main id="main">
   <p class="eyebrow">웹프로그래밍개론 · 13주차 · 실습 안내</p>
   <h1>베타 테스트 · <em>실습 단계별 안내</em></h1>
-  <p class="lede">수업 덱의 실습을 순서대로 모은 페이지입니다. 진행하는 법(소리 내어 생각하기 · 돕지 않기)은 <a href="week11lab.html#p2" target="_blank" rel="noopener">11주차 실습 안내</a>와 같습니다.</p>
+  <p class="lede">알파 때 막힌 곳이 충분히 고쳐졌는지, 알파 숫자 옆에 오늘 숫자를 적어 확인합니다. 진행하는 법(소리 내어 생각하기 · 돕지 않기)은 <a href="week11lab.html#p2" target="_blank" rel="noopener">11주차 실습 안내</a>와 같습니다.</p>
   <p class="exnote"><span class="exq">예시 · 밤 창밖</span><code>night-windows</code> · 낯선 사람의 밤 창밖을 넘겨 보고 내 창밖도 올리는 웹 · 우리 팀 것으로 바꿔 읽기</p>
 
   <section class="sec" id="summary">
@@ -610,12 +654,14 @@ figure.shot figcaption .exq{vertical-align:1px}
       <div role="row"><span role="rowheader">테스터</span><span class="a" role="cell">양옆 팀</span><span class="b" role="cell">한 팀 건너</span></div>
       <div role="row"><span role="rowheader">과업</span><span class="a" role="cell">2개</span><span class="b" role="cell">첫인상 5초 + 3개</span></div>
       <div role="row"><span role="rowheader">기록</span><span class="a" role="cell">결과 · 들은 말</span><span class="b" role="cell">+ 기기 · 심각도 0–4</span></div>
+      <div role="row"><span role="rowheader">판정</span><span class="a" role="cell">맞음 · 아님</span><span class="b" role="cell">알파 숫자 옆에 적고 목표와 비교</span></div>
       <div role="row"><span role="rowheader">남기는 곳</span><span class="a" role="cell"><code>docs/alpha-test.md</code></span><span class="b" role="cell"><code>docs/beta-test.md</code> · GitHub 이슈</span></div>
       <div role="row"><span role="rowheader">다음</span><span class="a" role="cell">새 기능 더하기</span><span class="b" role="cell">기능 동결 · 고치기만</span></div>
     </div>
     <div class="day" aria-label="오늘 순서">
       <span style="--w:10">시작 점검<b>10</b></span><span style="--w:20">강의<b>20</b></span><span class="on" style="--w:25">실습 1<b>25</b></span><span class="rest" style="--w:10">쉬는 시간<b>10</b></span><span class="on" style="--w:25">라운드 1<b>25</b></span><span class="on" style="--w:25">라운드 2<b>25</b></span><span class="on" style="--w:30">결과 정리<b>30</b></span><span style="--w:15">공유<b>15</b></span>
     </div>
+    <div class="thr"><b>알파 대비 표</b><span><small>실습 1</small>알파 숫자 · 목표</span><i>→</i><span><small>라운드 1 · 2</small>알파 때 확인 질문으로 다시 세기</span><i>→</i><span class="on"><small>결과 정리</small>베타 숫자 · 판정</span></div>
   </section>
 
   <section class="sec" id="ready">
@@ -631,7 +677,7 @@ figure.shot figcaption .exq{vertical-align:1px}
   </section>
 
   <section class="sec" id="p1">
-    <h2>실습 1 · 베타 준비<small>25분 · 2명은 가짜 정리 · 나머지는 카드</small></h2>
+    <h2>실습 1 · 베타 준비<small>25분 · 2명은 가짜 정리 · 나머지는 카드와 알파 대비 표</small></h2>
     <div class="h3">남은 가짜 구간</div>
     <div class="twrap"><table class="tbl">
       <tr><th>알파 때 가짜</th><th>베타에서</th></tr>
@@ -643,7 +689,7 @@ figure.shot figcaption .exq{vertical-align:1px}
 
     <div class="h3">베타 카드 · 알파 카드를 복사해서</div>
     <div class="card2">
-      <div class="same"><span class="tg">알파 그대로</span><p>확인할 것</p><p>과업 1 · 2 문장</p><p>이러면 맞다 · 6명 중 4명</p></div>
+      <div class="same"><span class="tg">알파 그대로</span><p>확인할 것</p><p>과업 1 · 2 문장</p><p>이러면 맞다 · 6명 중 4명 (알파 대비 표의 목표)</p></div>
       <div class="new"><span class="tg">새로 쓰기</span><p>알파 뒤 바꾼 것 · tasks 줄 번호</p><p>첫인상 5초 · 맞게 말한 기준 한 줄</p><p>과업 3 · 끝난 뒤 장면</p><p>남은 가짜</p></div>
     </div>
     <p class="sm">과업 3 예 · "다음 날 밤 다시 들어왔다고 생각하고, 어젯밤 남긴 창을 찾아보세요"</p>
@@ -653,15 +699,27 @@ figure.shot figcaption .exq{vertical-align:1px}
 
 [베타 카드]</code></pre></div>
 
-    <div class="h3">확인 질문 표</div>
+    <div class="h3">알파 대비 표 · 알파 칸 먼저</div>
+    <ol class="steps">
+      <li>확인 질문 · 알파 문장 그대로</li>
+      <li>알파 · 통과한 사람 수 (<code>docs/alpha-test.md</code> · 알파 기록)</li>
+      <li>고친 것 · tasks 줄 번호나 PR</li>
+      <li>목표 · 알파 카드의 이러면 맞다 숫자</li>
+      <li>첫인상 · 과업 3 줄 더하기 (알파 칸은 –)</li>
+    </ol>
     <div class="twrap"><table class="tbl">
-      <tr><th>확인 질문</th><th>알파</th><th>베타</th></tr>
-      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td><span class="bar" style="--p:83"></span>5/6</td></tr>
-      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td><span class="bar" style="--p:100"></span>6/6</td></tr>
-      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td><span class="bar" style="--p:33"></span>2/6</td></tr>
-      <tr><td>무엇을 하는 서비스인지 · 첫인상</td><td>–</td><td><span class="bar" style="--p:67"></span>4/6</td></tr>
+      <tr><th>확인 질문</th><th>알파</th><th>고친 것</th><th>목표</th><th class="nb">베타</th><th class="nb">판정</th></tr>
+      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td>버튼에 '내 창 남기기' 글자 · tasks 7</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td>휴대폰 '다음' 위치 · tasks 8</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td>–</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>무엇을 하는 서비스인지 말했나 · 첫인상</td><td>–</td><td>–</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
     </table></div>
-    <p class="sm mut">알파 질문은 문장 그대로 · 첫인상 · 과업 3 질문만 더하기</p>
+    <p class="sm mut">파란 칸은 라운드 뒤에 · 목표는 테스트 전에 적고 결과를 본 뒤에 바꾸지 않기</p>
+    <div class="cpy"><div class="cpy-h"><span>알파 대비 표 틀 · 기록 칸이나 docs/beta-test.md에</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>| 확인 질문 | 알파 | 고친 것 | 목표 | 베타 | 판정 |
+|---|---|---|---|---|---|
+| (알파 문장 그대로) | ○/○ | tasks ○ · PR | ○/○ | | |
+| (과업 3) | – | – | ○/○ | | |
+| (첫인상 5초) | – | – | ○/○ | | |</code></pre></div>
 
     <div class="h3">라운드 표</div>
     <div class="rings">
@@ -669,11 +727,11 @@ figure.shot figcaption .exq{vertical-align:1px}
       <figure><figcaption><b>라운드 2</b> · 역할 바꿔 · 시계 방향</figcaption><svg class="bt-ring" viewBox="0 0 320 320" role="img" aria-label="라운드 2 · 시계 방향으로 한 팀 건너 · A에서 E로, B에서 F로, E에서 G로, F에서 A로, G에서 B로"><defs><marker id="bm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--warn)"/></marker></defs><g stroke="var(--line)" stroke-width="10" stroke-linecap="round"><line x1="160" y1="53" x2="267" y2="130"/><line x1="267" y1="130" x2="226" y2="256"/><line x1="226" y1="256" x2="94" y2="256"/><line x1="94" y1="256" x2="53" y2="130"/><line x1="53" y1="130" x2="160" y2="53"/></g><g stroke="var(--warn)" stroke-width="4" stroke-dasharray="9 7" fill="none" marker-end="url(#bm2)"><path d="M171 85L214 219"/><path d="M239 150L125 233"/><path d="M198 236L84 153"/><path d="M105 223L148 89"/><path d="M87 130L229 130"/></g><g font-size="26" font-weight="800" text-anchor="middle" fill="var(--ink)"><circle cx="160" cy="53" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="160" y="62">A</text><circle cx="267" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="267" y="139">B</text><circle cx="226" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="226" y="265">E</text><circle cx="94" cy="256" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="94" y="265">F</text><circle cx="53" cy="130" r="30" fill="var(--bg)" stroke="var(--strong)" stroke-width="3"/><text x="53" y="139">G</text></g></svg><p>A → E · B → F · E → G · F → A · G → B</p></figure>
     </div>
     <ul class="bul">
-      <li><span class="k">지킴이</span> 남아서 진행 · 기록 · 테스터 한 명에 한 명</li>
+      <li><span class="k">지킴이</span> 남아서 진행 · 기록 · 테스터 1명에 지킴이 1명</li>
       <li><span class="k">테스터</span> 라운드 표의 팀으로 · 반은 자기 휴대폰</li>
       <li>팀 크기별 · 6명 3 · 3 · 5명 3 · 2 → 2 · 3 · 4명 2 · 2 · 3명 2 · 1 → 1 · 2</li>
     </ul>
-    <p class="when"><span><b>실습 1 끝</b> · 베타 카드 · 확인 질문 표 · 역할 · QR</span></p>
+    <p class="when"><span><b>실습 1 끝</b> · 베타 카드 · 알파 대비 표의 알파 칸과 목표 · 역할 · QR</span></p>
   </section>
 
   <section class="sec" id="p2">
@@ -707,7 +765,7 @@ figure.shot figcaption .exq{vertical-align:1px}
       <tr><td>"이 버튼 이제 잘 보여요?"</td><td>"가장 헷갈린 곳 하나만 짚어 주세요"</td></tr>
     </table></div>
 
-    <div class="h3">관찰 기록 · 한 사람 한 줄</div>
+    <div class="h3">관찰 기록 · 테스터마다 1줄</div>
     <div class="twrap"><table class="tbl">
       <tr><th>번호</th><th class="nb">기기</th><th>과업 1</th><th>과업 2</th><th>과업 3</th><th>들은 말</th><th class="nb">심각도</th></tr>
       <tr><td>1</td><td class="nb">iPhone · Safari</td><td>성공</td><td>도움</td><td>성공</td><td>"다시 해야 해요?"</td><td class="nb">3</td></tr>
@@ -731,26 +789,38 @@ figure.shot figcaption .exq{vertical-align:1px}
     <h2>실습 3 · 결과 정리<small>30분</small></h2>
     <ol class="steps">
       <li>빈 칸 채우기 · 기기 · 심각도</li>
-      <li>확인 질문마다 알파 옆에 베타 통과 수</li>
+      <li>알파 대비 표 · 베타 통과 수 적고 판정</li>
       <li>같은 곳에서 막힌 것끼리 묶기</li>
-      <li>묶음 하나 = GitHub 이슈 하나</li>
+      <li>묶음마다 GitHub 이슈 1개</li>
       <li>시연회 전에 고칠 것 3개까지 · 담당</li>
       <li><code>docs/beta-test.md</code> → PR</li>
     </ol>
 
-    <div class="h3">알파 대비 읽기</div>
+    <div class="h3">알파 대비 판정</div>
+    <div class="dc" role="img" aria-label="통과한 사람 수를 0에서 6까지 놓은 그림. 목표는 4명 이상. 알파 3명에서 베타 5명은 충분, 알파 2명에서 베타 3명은 나아졌지만 부족, 알파 3명에서 베타 3명은 그대로, 알파 5명에서 베타 3명은 줄어듦.">
+      <div class="hd"><span class="vd"><small>통과한 사람 수</small></span><span class="trk"><i>0</i><i>1</i><i>2</i><i>3</i><i class="z z0">4</i><i class="z">5</i><i class="z">6</i></span><span class="nm"><small>알파 → 베타</small></span></div>
+      <div class="ok"><span class="vd"><b>충분</b><small>목표에 들어옴 → 이슈 닫기</small></span><span class="trk" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s> → 5/6</span></div>
+      <div class="wa"><span class="vd"><b>나아졌지만 부족</b><small>늘었지만 목표 아래 → 한 번 더 고치기</small></span><span class="trk" style="--b:3;--a:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>2/6</s> → 3/6</span></div>
+      <div class="wa eq"><span class="vd"><b>그대로</b><small>알파와 같은 숫자 → 다른 방법으로</small></span><span class="trk" style="--b:3;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s> → 3/6</span></div>
+      <div class="no"><span class="vd"><b>줄어듦</b><small>알파보다 낮은 숫자 → 고친 PR부터 확인</small></span><span class="trk" style="--b:3;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5/6</s> → 3/6</span></div>
+    </div>
+    <p class="dc-lg"><span><i class="da"></i>알파</span><span><i class="db"></i>베타 · 오늘</span><span><i class="zz"></i>목표 · 이러면 맞다 숫자</span></p>
+    <ul class="bul">
+      <li>알파 숫자가 없는 줄(첫인상 · 과업 3)은 목표와만 비교</li>
+      <li>테스터 수가 알파와 다르면 비율로 · 1명 차이는 우연일 수 있어 들은 말도 함께 보기</li>
+    </ul>
     <div class="twrap"><table class="tbl">
-      <tr><th>결과</th><th>다음</th></tr>
-      <tr><td><span class="tl ok">고쳐짐</span> 3/6 → 5/6</td><td>이슈 닫기</td></tr>
-      <tr><td><span class="tl gr">그대로</span> 3/6 → 3/6</td><td>들은 말 다시 읽고 다른 방법</td></tr>
-      <tr><td><span class="tl no">줄어듦</span> 5/6 → 3/6</td><td>고친 PR이 깬 곳 · 1순위</td></tr>
+      <tr><th>확인 질문</th><th>알파</th><th>목표</th><th class="nb">베타</th><th class="nb">판정</th></tr>
+      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td>4/6</td><td class="nb"><span class="bar" style="--p:83"></span>5/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
+      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td>4/6</td><td class="nb"><span class="bar" style="--p:100"></span>6/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
+      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td>4/6</td><td class="nb"><span class="bar" style="--p:33"></span>2/6</td><td class="nb"><span class="tl no">부족</span> 이슈로</td></tr>
+      <tr><td>무엇을 하는 서비스인지 말했나 · 첫인상</td><td>–</td><td>4/6</td><td class="nb"><span class="bar" style="--p:67"></span>4/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
     </table></div>
-    <p class="sm mut">테스터 수가 다르면 비율로 · 판정 숫자는 테스트 전에 정한 것으로만</p>
 
     <div class="h3">GitHub 이슈 틀</div>
     <div class="cpy"><div class="cpy-h"><span>.github/ISSUE_TEMPLATE/beta-feedback.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>---
 name: 베타 테스트 피드백
-about: 베타 테스트에서 막힌 곳 하나
+about: 베타 테스트에서 막힌 곳 묶음 1개
 title: "[베타] "
 labels: 베타 테스트
 ---
@@ -764,7 +834,7 @@ labels: 베타 테스트
 
     <div class="h3">고칠 순서</div>
     <div class="mx">
-      <span></span><span class="mh">품 적음</span><span class="mh">품 큼</span>
+      <span></span><span class="mh">금방 고침</span><span class="mh">오래 걸림</span>
       <span class="mh">영향 큼</span><span class="c on">시연회 전 · 바로</span><span class="c on">시연회 전 · 담당 한 명</span>
       <span class="mh">영향 작음</span><span class="c">시간이 남으면</span><span class="c">나중</span>
     </div>
@@ -772,8 +842,8 @@ labels: 베타 테스트
     <div class="h3">docs/beta-test.md 틀</div>
     <div class="cpy"><div class="cpy-h"><span>docs/beta-test.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 베타 테스트
 
-## 알파 대비
-- (질문) 알파 ○/○ → 베타 ○/○
+## 알파 대비 (목표 ○/○)
+- (질문) 알파 ○/○ → 베타 ○/○ · 충분 / 부족 / 그대로 / 줄어듦
 
 ## 새로 본 막힌 곳
 - ○/○ (막힌 곳) · 심각도 ○ → #이슈
@@ -782,14 +852,14 @@ labels: 베타 테스트
 #이슈 · #이슈 · #이슈</code></pre></div>
 
     <div class="h3">기록 정리 · AI에게</div>
-    <div class="cpy"><div class="cpy-h"><span>관찰 기록 · 확인 질문 표 · 알파 결과를 함께 붙이기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 관찰 기록과 확인 질문 표, 알파 결과야. (1) 질문마다 알파 → 베타 통과 수 표 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 이슈 초안. 기록에 있는 그대로만 쓰고 없는 원인은 '확인 필요'로. 심각도는 비워 둬.
+    <div class="cpy"><div class="cpy-h"><span>관찰 기록 · 확인 질문 표 · 알파 결과를 함께 붙이기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 관찰 기록과 확인 질문 표, 알파 결과야. (1) 알파 대비 표에 베타 통과 수 채우기 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 이슈 초안. 기록에 있는 그대로만 쓰고 없는 원인은 '확인 필요'로. 판정과 심각도는 비워 둬.
 
 [관찰 기록]
 
 [확인 질문 표]
 
 [docs/alpha-test.md]</code></pre></div>
-    <p class="sm mut">사람 수 · 심각도 · 판정은 팀이 직접</p>
+    <p class="sm mut">사람 수 · 판정 · 심각도는 팀이 직접</p>
   </section>
 
   <section class="sec" id="stuck">
@@ -807,7 +877,7 @@ labels: 베타 테스트
   <section class="sec" id="next">
     <h2>오늘 점검 · 다음 주까지</h2>
     <ul class="bul">
-      <li>베타 카드 · 관찰 기록 · 알파 대비 결과 · 이슈</li>
+      <li>베타 카드 · 관찰 기록 · 알파 대비 표 (판정까지) · 이슈</li>
       <li><code>docs/beta-test.md</code> · tasks.md 시연회 줄</li>
       <li><span class="k">다음 주까지</span> 시연 전 이슈 → PR <code>Fixes #번호</code> → 배포 주소에서 다시 확인</li>
     </ul>
