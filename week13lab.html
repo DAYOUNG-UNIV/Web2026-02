@@ -614,6 +614,7 @@ figure.shot figcaption .exq{vertical-align:1px}
   .thr>i{display:none}.thr>b{flex-basis:100%}
 }
 .day.nb span b{font-size:12.5px;font-weight:600;opacity:.85}
+.tbl td:has(.bar),.tbl td:nth-child(4){white-space:nowrap}
 </style>
 </head>
 <body>
@@ -653,7 +654,7 @@ figure.shot figcaption .exq{vertical-align:1px}
       <div role="row"><span role="rowheader">화면</span><span class="a" role="cell">팀원 노트북도 가능</span><span class="b" role="cell">배포 주소만</span></div>
       <div role="row"><span role="rowheader">기기</span><span class="a" role="cell">노트북</span><span class="b" role="cell">테스터 반은 자기 휴대폰</span></div>
       <div role="row"><span role="rowheader">테스터</span><span class="a" role="cell">양옆 팀</span><span class="b" role="cell">한 팀 건너</span></div>
-      <div role="row"><span role="rowheader">과업</span><span class="a" role="cell">2개</span><span class="b" role="cell">첫인상 5초 + 3개</span></div>
+      <div role="row"><span role="rowheader">과업</span><span class="a" role="cell">2개</span><span class="b" role="cell">5초 테스트 + 3개</span></div>
       <div role="row"><span role="rowheader">기록</span><span class="a" role="cell">결과 · 들은 말</span><span class="b" role="cell">+ 기기 · 심각도 0–4</span></div>
       <div role="row"><span role="rowheader">판정</span><span class="a" role="cell">맞음 · 아님</span><span class="b" role="cell">알파 숫자 옆에 적고 목표와 비교</span></div>
       <div role="row"><span role="rowheader">남기는 곳</span><span class="a" role="cell"><code>docs/alpha-test.md</code></span><span class="b" role="cell"><code>docs/beta-test.md</code> · GitHub 이슈</span></div>
@@ -662,7 +663,7 @@ figure.shot figcaption .exq{vertical-align:1px}
     <div class="day nb" aria-label="오늘 순서">
       <span style="--w:11">시작 점검</span><span style="--w:14">강의</span><span class="on" style="--w:22">시작 전 논의<b>10분쯤</b></span><span class="rest" style="--w:12">쉬는 시간</span><span class="on" style="--w:24">라운드 1<b>반시계 방향</b></span><span class="on" style="--w:24">라운드 2<b>시계 방향</b></span><span class="on" style="--w:27">결과 정리<b>판정 · 이슈</b></span><span style="--w:10">공유</span>
     </div>
-    <div class="thr"><b>알파 대비 표</b><span><small>시작 전 논의</small>알파 숫자 · 목표</span><i>→</i><span><small>라운드 1 · 2</small>알파 때 확인 질문으로 다시 세기</span><i>→</i><span class="on"><small>결과 정리</small>베타 숫자 · 판정</span></div>
+    <div class="thr"><b>알파 · 베타 비교표</b><span><small>시작 전 논의</small>알파 숫자 · 목표</span><i>→</i><span><small>라운드 1 · 2</small>알파 때 확인 질문으로 다시 세기</span><i>→</i><span class="on"><small>결과 정리</small>베타 숫자 · 판정</span></div>
   </section>
 
   <section class="sec" id="ready">
@@ -681,32 +682,32 @@ figure.shot figcaption .exq{vertical-align:1px}
     <h2>실습 1 · 시작 전 논의<small>10분쯤 · 피그잼 보드 우리 팀 베타 칸 · 알파 칸 오른쪽</small></h2>
     <ol class="steps">
       <li>왼쪽 알파 칸의 ⑤ 관찰 기록 · ⑥ 각자 메모 · ⑦ 고칠 순서 함께 보기 · 어디서 막혔나</li>
-      <li>피그잼 ① 알파 대비 표 · 흰 칸 채우기</li>
-      <li>피그잼 ② 베타 카드 · 새로 쓰는 칸</li>
+      <li>피그잼 ① 알파 · 베타 비교표 · 확인 질문 · 알파 결과 · 수정 사항 · 목표 채우기</li>
+      <li>피그잼 ② 베타 테스트 카드</li>
       <li>역할 · 휴대폰 테스터 · QR</li>
     </ol>
 
-    <div class="h3">알파 대비 표 · 피그잼 ① · 흰 칸 먼저</div>
+    <div class="h3">알파 · 베타 비교표 · 피그잼 ① · 테스트 전에 쓰는 칸 먼저</div>
     <ol class="steps">
       <li>확인 질문 · 알파 문장 그대로 · 보드에 옮겨 둔 것에서 오늘 볼 것만 남기기</li>
-      <li>알파 · 통과한 사람 수 · 알파 때 세지 않았으면 –</li>
-      <li>고친 것 · tasks 줄 번호나 PR</li>
-      <li>목표 · 오늘 몇 명 중 몇 명이 통과하면 충분한가 · 알파 카드의 이러면 맞다 숫자</li>
-      <li>첫인상 · 과업 3 줄은 알파 칸이 –</li>
+      <li>알파 결과 · 통과 인원을 "6명 중 3명"처럼 · 알파 때 세지 않았으면 "기록 없음"</li>
+      <li>수정 사항 · 알파 뒤 무엇을 바꿨는지 + PR이나 tasks 번호 · 예: 버튼 글자를 "내 창 올리기"로 변경 (PR #12)</li>
+      <li>목표 · 오늘 몇 명 중 몇 명이 통과하면 충분한가 · 예: 6명 중 4명</li>
+      <li>5초 테스트 · 과업 3 줄은 알파 결과가 "기록 없음"</li>
     </ol>
     <div class="twrap"><table class="tbl">
-      <tr><th>확인 질문</th><th>알파</th><th>고친 것</th><th>목표</th><th class="nb">베타</th><th class="nb">판정</th></tr>
-      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td>버튼에 '내 창 남기기' 글자 · tasks 7</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
-      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td>휴대폰 '다음' 위치 · tasks 8</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
-      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td>–</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
-      <tr><td>무엇을 하는 서비스인지 말했나 · 첫인상</td><td>–</td><td>–</td><td>4/6</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><th>확인 질문</th><th>알파 결과</th><th>수정 사항</th><th>목표</th><th class="nb">베타 결과</th><th class="nb">판정</th></tr>
+      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>6명 중 3명</td><td>버튼에 '내 창 남기기' 글자 · tasks 7</td><td>6명 중 4명</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>6명 중 5명</td><td>휴대폰 '다음' 위치 · tasks 8</td><td>6명 중 4명</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>기록 없음</td><td></td><td>6명 중 4명</td><td class="nb"></td><td class="nb"></td></tr>
+      <tr><td>무엇을 하는 서비스인지 말했나 · 5초 테스트</td><td>기록 없음</td><td></td><td>6명 중 4명</td><td class="nb"></td><td class="nb"></td></tr>
     </table></div>
-    <p class="sm mut">파란 칸(테스터 1–6 · 베타 · 판정)은 라운드 뒤에 · 목표는 테스트 전에 적고 결과를 본 뒤에 바꾸지 않기</p>
+    <p class="sm mut">테스터 번호 칸 · 베타 결과 · 판정은 테스트 후에 · 목표는 테스트 전에 적고 결과를 본 뒤에 바꾸지 않기</p>
 
-    <div class="h3">베타 카드 · 피그잼 ② · 새로 쓰는 칸</div>
+    <div class="h3">베타 카드 · 피그잼 ② · 우리 팀 칸</div>
     <div class="card2">
-      <div class="same"><span class="tg">알파 ② 그대로</span><p>확인할 것</p><p>과업 1 · 2 문장</p><p>이러면 맞다 · 6명 중 4명 (알파 대비 표의 목표)</p></div>
-      <div class="new"><span class="tg">새로 쓰기</span><p>알파 뒤 바꾼 것 · tasks 줄 번호</p><p>첫인상 5초 · 맞게 말한 기준 1줄</p><p>과업 3 · 끝난 뒤 장면</p><p>남은 가짜 · 화면에 밝히기</p></div>
+      <div class="same"><span class="tg">알파 ② 그대로</span><p>확인할 것</p><p>과업 1 · 2 문장</p><p>이러면 맞다 · 6명 중 4명 (알파 · 베타 비교표의 목표)</p></div>
+      <div class="new"><span class="tg">새로 쓰기</span><p>알파 뒤 바꾼 것 · tasks 줄 번호</p><p>5초 테스트 · 맞게 말한 기준 1줄</p><p>과업 3 · 끝난 뒤 장면</p><p>미구현 · 임시 데이터 (화면에 표시)</p></div>
     </div>
     <p class="sm">과업 3 예 · "다음 날 밤 다시 들어왔다고 생각하고, 어젯밤 남긴 창을 찾아보세요"</p>
 
@@ -729,13 +730,13 @@ figure.shot figcaption .exq{vertical-align:1px}
       <li><span class="k">테스터</span> 라운드 표의 팀으로 · 반은 자기 휴대폰</li>
       <li>팀 크기별 · 6명 3 · 3 · 5명 3 · 2 → 2 · 3 · 4명 2 · 2 · 3명 2 · 1 → 1 · 2</li>
     </ul>
-    <p class="when"><span><b>논의 끝</b> · 피그잼 ①의 흰 칸 · ② 베타 카드 · 역할 · QR</span></p>
+    <p class="when"><span><b>논의 끝</b> · 피그잼 ①의 테스트 전 칸 · ② 베타 카드 · 역할 · QR</span></p>
   </section>
 
   <section class="sec" id="p2">
     <h2>실습 2 · 라운드 1 · 2<small>라운드 1 반시계 방향 · 라운드 2 시계 방향 · 기록은 피그잼 ③</small></h2>
     <div class="day nb" aria-label="한 라운드 순서">
-      <span style="--w:3">이동</span><span style="--w:5">시작하는 말</span><span class="on" style="--w:5">첫인상 5초</span><span class="on" style="--w:9">과업 3개</span><span style="--w:5">끝나고 묻기</span><span style="--w:7">기록 정리</span>
+      <span style="--w:3">이동</span><span style="--w:5">시작하는 말</span><span class="on" style="--w:5">5초 테스트</span><span class="on" style="--w:9">과업 3개</span><span style="--w:5">끝나고 묻기</span><span style="--w:7">기록 정리</span>
     </div>
 
     <div class="h3">시작하는 말 · 알파 대본 그대로</div>
@@ -747,13 +748,13 @@ figure.shot figcaption .exq{vertical-align:1px}
 
 이름은 적지 않고 번호로만 적어요. 언제든 그만하셔도 돼요.</code></pre></div>
 
-    <div class="h3">첫인상 5초 · 새로</div>
+    <div class="h3">5초 테스트 · 새로</div>
     <div class="cpy"><div class="cpy-h"><span>대본 · 5초 뒤 화면 가리기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>첫 화면을 5초만 보여 드릴게요. 누르지 말고 보기만 해 주세요.
 
 무엇을 하는 서비스 같아요?
 
 먼저 무엇을 누를 것 같아요?</code></pre></div>
-    <p class="sm mut">답은 피그잼 ③ 첫인상 칸에 따옴표로 그대로 · 맞았는지는 결과 정리 때 ②의 기준으로</p>
+    <p class="sm mut">답은 피그잼 ③ 5초 테스트 칸에 따옴표로 그대로 · 맞았는지는 결과 정리 때 ②의 기준으로</p>
 
     <div class="h3">하지 않는 말</div>
     <div class="twrap"><table class="tbl">
@@ -765,7 +766,7 @@ figure.shot figcaption .exq{vertical-align:1px}
 
     <div class="h3">관찰 기록 · 피그잼 ③ · 테스터마다 1줄</div>
     <div class="twrap"><table class="tbl">
-      <tr><th>테스터</th><th>라운드</th><th class="nb">기기</th><th class="nb">첫인상 5초</th><th>과업 1</th><th>과업 2</th><th>과업 3</th><th>막힌 곳 · 들은 말</th><th class="nb">심각도</th></tr>
+      <tr><th>테스터</th><th>라운드</th><th class="nb">기기</th><th class="nb">5초 테스트</th><th>과업 1</th><th>과업 2</th><th>과업 3</th><th>막힌 곳 · 들은 말</th><th class="nb">심각도</th></tr>
       <tr><td>1</td><td>1</td><td class="nb">iPhone · Safari</td><td class="nb">"남의 창밖 사진 보는 곳?"</td><td>성공</td><td>도움</td><td>성공</td><td>큰 사진에서 멈춤 · "다시 해야 해요?"</td><td class="nb">3</td></tr>
       <tr><td>4</td><td>2</td><td class="nb">Android · Chrome</td><td class="nb">"사진 올리는 앱?"</td><td>성공</td><td>성공</td><td>실패</td><td>"어젯밤 거는 어디 갔지"</td><td class="nb">3</td></tr>
     </table></div>
@@ -785,35 +786,35 @@ figure.shot figcaption .exq{vertical-align:1px}
   </section>
 
   <section class="sec" id="p3">
-    <h2>실습 3 · 결과 정리<small>피그잼 ①의 베타 · 판정 칸부터</small></h2>
+    <h2>실습 3 · 결과 정리<small>피그잼 ①의 베타 결과 · 판정 칸부터</small></h2>
     <ol class="steps">
       <li>피그잼 ③ · 빈 칸 채우기 · 기기 · 심각도</li>
       <li>피그잼 ① · 테스터 칸을 세어 베타 통과 수 적고 판정</li>
       <li>같은 곳에서 막힌 것끼리 묶기</li>
       <li>묶음마다 GitHub 이슈 1개</li>
-      <li>피그잼 ④ · 먼저 고칠 것 3개까지 · 맡은 사람</li>
+      <li>피그잼 ④ · 시연 전 수정 목록 최대 3개 · 맡은 사람</li>
       <li><code>docs/beta-test.md</code> → PR</li>
     </ol>
 
     <div class="h3">알파 대비 판정</div>
-    <div class="dc" role="img" aria-label="통과한 사람 수를 0에서 6까지 놓은 그림. 목표는 4명 이상. 알파 3명에서 베타 5명은 충분, 알파 2명에서 베타 3명은 나아졌지만 부족, 알파 3명에서 베타 3명은 그대로, 알파 5명에서 베타 3명은 줄어듦.">
+    <div class="dc" role="img" aria-label="통과한 사람 수를 0에서 6까지 놓은 그림. 목표는 4명 이상. 알파 3명에서 베타 5명은 목표 달성, 알파 2명에서 베타 3명은 개선됐지만 미달, 알파 3명에서 베타 3명은 변화 없음, 알파 5명에서 베타 3명은 하락.">
       <div class="hd"><span class="vd"><small>통과한 사람 수</small></span><span class="trk"><i>0</i><i>1</i><i>2</i><i>3</i><i class="z z0">4</i><i class="z">5</i><i class="z">6</i></span><span class="nm"><small>알파 → 베타</small></span></div>
-      <div class="ok"><span class="vd"><b>충분</b><small>목표에 들어옴 → 이슈 닫기</small></span><span class="trk" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s> → 5/6</span></div>
-      <div class="wa"><span class="vd"><b>나아졌지만 부족</b><small>늘었지만 목표 아래 → 한 번 더 고치기</small></span><span class="trk" style="--b:3;--a:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>2/6</s> → 3/6</span></div>
-      <div class="wa eq"><span class="vd"><b>그대로</b><small>알파와 같은 숫자 → 다른 방법으로</small></span><span class="trk" style="--b:3;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s> → 3/6</span></div>
-      <div class="no"><span class="vd"><b>줄어듦</b><small>알파보다 낮은 숫자 → 고친 PR부터 확인</small></span><span class="trk" style="--b:3;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5/6</s> → 3/6</span></div>
+      <div class="ok"><span class="vd"><b>목표 달성</b><small>목표에 들어옴 → 이슈 닫기</small></span><span class="trk" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s> → 5명</span></div>
+      <div class="wa"><span class="vd"><b>개선됐지만 미달</b><small>늘었지만 목표 아래 → 한 번 더 고치기</small></span><span class="trk" style="--b:3;--a:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>2명</s> → 3명</span></div>
+      <div class="wa eq"><span class="vd"><b>변화 없음</b><small>알파와 같은 숫자 → 다른 방법으로</small></span><span class="trk" style="--b:3;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s> → 3명</span></div>
+      <div class="no"><span class="vd"><b>하락</b><small>알파보다 낮은 숫자 → 고친 PR부터 확인</small></span><span class="trk" style="--b:3;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5명</s> → 3명</span></div>
     </div>
     <p class="dc-lg"><span><i class="da"></i>알파</span><span><i class="db"></i>베타 · 오늘</span><span><i class="zz"></i>목표 · 이러면 맞다 숫자</span></p>
     <ul class="bul">
-      <li>알파 숫자가 없는 줄(첫인상 · 과업 3 · 알파 때 세지 않은 질문)은 목표와만 비교</li>
+      <li>알파 숫자가 없는 줄(5초 테스트 · 과업 3 · 알파 때 세지 않은 질문)은 목표와만 비교</li>
       <li>테스터 수가 알파와 다르면 비율로 · 1명 차이는 우연일 수 있어 들은 말도 함께 보기</li>
     </ul>
     <div class="twrap"><table class="tbl">
-      <tr><th>확인 질문</th><th>알파</th><th>목표</th><th class="nb">베타</th><th class="nb">판정</th></tr>
-      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>3/6</td><td>4/6</td><td class="nb"><span class="bar" style="--p:83"></span>5/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
-      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>5/6</td><td>4/6</td><td class="nb"><span class="bar" style="--p:100"></span>6/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
-      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>–</td><td>4/6</td><td class="nb"><span class="bar" style="--p:33"></span>2/6</td><td class="nb"><span class="tl no">부족</span> 이슈로</td></tr>
-      <tr><td>무엇을 하는 서비스인지 말했나 · 첫인상</td><td>–</td><td>4/6</td><td class="nb"><span class="bar" style="--p:67"></span>4/6</td><td class="nb"><span class="tl ok">충분</span></td></tr>
+      <tr><th>확인 질문</th><th>알파 결과</th><th>목표</th><th class="nb">베타 결과</th><th class="nb">판정</th></tr>
+      <tr><td>묻지 않고 자기 창밖을 올렸나</td><td><span class="bar a" style="--p:50"></span>6명 중 3명</td><td>6명 중 4명</td><td class="nb"><span class="bar" style="--p:83"></span>6명 중 5명</td><td class="nb"><span class="tl ok">목표 달성</span></td></tr>
+      <tr><td>창을 3장 넘겼나</td><td><span class="bar a" style="--p:83"></span>6명 중 5명</td><td>6명 중 4명</td><td class="nb"><span class="bar" style="--p:100"></span>6명 중 6명</td><td class="nb"><span class="tl ok">목표 달성</span></td></tr>
+      <tr><td>어젯밤 남긴 창을 찾았나 · 과업 3</td><td>기록 없음</td><td>6명 중 4명</td><td class="nb"><span class="bar" style="--p:33"></span>6명 중 2명</td><td class="nb"><span class="tl no">미달</span> 이슈로</td></tr>
+      <tr><td>무엇을 하는 서비스인지 말했나 · 5초 테스트</td><td>기록 없음</td><td>6명 중 4명</td><td class="nb"><span class="bar" style="--p:67"></span>6명 중 4명</td><td class="nb"><span class="tl ok">목표 달성</span></td></tr>
     </table></div>
 
     <div class="h3">GitHub 이슈 틀</div>
@@ -825,7 +826,7 @@ labels: 베타 테스트
 ---
 
 ## 과업
-## 겪은 사람 (○/○ · 번호)
+## 겪은 사람 (○명 중 ○명 · 번호)
 ## 기기
 ## 들은 말
 ## 심각도 (0–4)</code></pre></div>
@@ -841,21 +842,21 @@ labels: 베타 테스트
     <div class="h3">docs/beta-test.md 틀</div>
     <div class="cpy"><div class="cpy-h"><span>docs/beta-test.md</span><button class="cp" type="button">복사</button></div><pre class="ko"><code># 베타 테스트
 
-## 알파 대비 (목표 ○/○)
-- (질문) 알파 ○/○ → 베타 ○/○ · 충분 / 부족 / 그대로 / 줄어듦
+## 알파 · 베타 비교 (목표 ○명 중 ○명)
+- (질문) 알파 ○명 중 ○명 → 베타 ○명 중 ○명 · 목표 달성 / 미달 / 변화 없음 / 하락
 
 ## 새로 본 막힌 곳
-- ○/○ (막힌 곳) · 심각도 ○ → #이슈
+- ○명 중 ○명 (막힌 곳) · 심각도 ○ → #이슈
 
 ## 시연회 전에 고칠 것
 #이슈 · #이슈 · #이슈</code></pre></div>
 
     <div class="h3">기록 정리 · AI에게</div>
-    <div class="cpy"><div class="cpy-h"><span>피그잼 ① ③을 복사해 함께 붙이기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 관찰 기록과 알파 대비 표야. (1) 알파 대비 표의 테스터 칸을 세어 베타 통과 수 채우기 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 이슈 초안. 기록에 있는 그대로만 쓰고 없는 원인은 '확인 필요'로. 판정과 심각도는 비워 둬.
+    <div class="cpy"><div class="cpy-h"><span>피그잼 ① ③을 복사해 함께 붙이기</span><button class="cp" type="button">복사</button></div><pre class="ko"><code>아래는 베타 관찰 기록과 알파 · 베타 비교표야. (1) 알파 · 베타 비교표의 테스터 칸을 세어 베타 통과 수 채우기 (2) 같은 곳에서 막힌 것끼리 묶어 사람 수 순서로 (3) 묶음마다 이슈 초안. 기록에 있는 그대로만 쓰고 없는 원인은 '확인 필요'로. 판정과 심각도는 비워 둬.
 
 [관찰 기록 · 피그잼 ③]
 
-[알파 대비 표 · 피그잼 ①]</code></pre></div>
+[알파 · 베타 비교표 · 피그잼 ①]</code></pre></div>
     <p class="sm mut">사람 수 · 판정 · 심각도는 팀이 직접</p>
   </section>
 
@@ -866,7 +867,7 @@ labels: 베타 테스트
       <tr><td>휴대폰에서 안 열림</td><td>기록 · 심각도 4 · 노트북으로 계속</td></tr>
       <tr><td>병합한 PR이 안 보임</td><td>Actions 탭 · 강력 새로 고침</td></tr>
       <tr><td>알파 때 본 테스터</td><td>테스트하고 표시 · 따로 세기</td></tr>
-      <tr><td>시간이 모자람</td><td>과업 2부터 · 첫인상은 빼지 않기</td></tr>
+      <tr><td>시간이 모자람</td><td>과업 2부터 · 5초 테스트은 빼지 않기</td></tr>
       <tr><td>라운드 중에 고치고 싶음</td><td>결과 정리 뒤에</td></tr>
     </table></div>
   </section>
@@ -874,7 +875,7 @@ labels: 베타 테스트
   <section class="sec" id="next">
     <h2>오늘 점검 · 다음 주까지</h2>
     <ul class="bul">
-      <li>피그잼 ① 알파 대비 표 (판정까지) · ② 베타 카드 · ③ 관찰 기록 · ④ 먼저 고칠 것 · GitHub 이슈</li>
+      <li>피그잼 ① 알파 · 베타 비교표 (판정까지) · ② 베타 카드 · ③ 관찰 기록 · ④ 먼저 고칠 것 · GitHub 이슈</li>
       <li><code>docs/beta-test.md</code> · tasks.md 시연회 줄</li>
       <li><span class="k">다음 주까지</span> 시연 전 이슈 → PR <code>Fixes #번호</code> → 배포 주소에서 다시 확인</li>
     </ul>
