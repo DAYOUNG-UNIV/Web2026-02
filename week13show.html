@@ -1861,8 +1861,8 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
 .bt-fj .fj-t{display:flex;align-items:baseline;gap:12px}
 .bt-fj .fj-t b{font-size:19px;font-weight:800}
 .bt-fj .fj-t span{font-size:17px;font-weight:700;color:var(--ink2)}
-.bt-fj .fj-g{display:grid;grid-template-columns:2.5fr .8fr 1.5fr .8fr .8fr .8fr .9fr;gap:2px;font-size:15.5px;font-weight:600}
-.bt-fj .fj-g>span{background:#fff;padding:7px 8px;min-height:34px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt-fj .fj-g{display:grid;grid-template-columns:1.5fr 1fr 1.3fr 1fr .9fr 1fr 1fr;gap:2px;font-size:14px;font-weight:600}
+.bt-fj .fj-g>span{background:#fff;padding:6px 7px;min-height:34px;line-height:1.3;word-break:keep-all}
 .bt-fj .fj-g>.h{background:#3DADFF;color:#fff;font-weight:800}
 .bt-fj .fj-g>.h.l{background:var(--accent)}
 .bt-fj .fj-g>.l{background:var(--accent-soft)}
@@ -1894,7 +1894,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   </div>
 </section>
 
-<section class="slide" id="today" data-title="오늘 진행" data-note="시작 점검 → 강의 → 시작 전 논의 10분쯤(피그잼 보드 우리 팀 베타 칸 · 알파 기록을 함께 보며 ① 알파 대비 표의 흰 칸과 ② 베타 카드 쓰기) → 쉬는 시간 → 라운드 1 · 2(라운드 1은 반시계 방향으로 한 팀 건너 · 라운드 2는 역할 바꿔 시계 방향으로 한 팀 건너) → 결과 정리 → 팀별 공유 · 마무리. 시간은 진행을 보며 조정. 준비물: 노트북 · 충전한 휴대폰 · GitHub 로그인. 열어 둘 것: 배포 주소 · 피그잼 보드 · docs/alpha-test.md · tasks.md · checklist.md. 피그잼 보드 주소는 eTL 공지. 아래 줄: 알파 대비 표를 채우는 때 · 시작 전 논의에 알파 숫자와 목표 → 라운드에서 알파 때 확인 질문으로 다시 셈 → 결과 정리에 베타 숫자와 판정.">
+<section class="slide" id="today" data-title="오늘 진행" data-note="시작 점검 → 강의 → 시작 전 논의 10분쯤(피그잼 보드 우리 팀 베타 칸 · 알파 기록을 함께 보며 ① 알파 · 베타 비교표(확인 질문 · 알파 결과 · 수정 사항 · 목표)와 ② 베타 테스트 카드 쓰기) → 쉬는 시간 → 라운드 1 · 2(라운드 1은 반시계 방향으로 한 팀 건너 · 라운드 2는 역할 바꿔 시계 방향으로 한 팀 건너) → 결과 정리 → 팀별 공유 · 마무리. 시간은 진행을 보며 조정. 준비물: 노트북 · 충전한 휴대폰 · GitHub 로그인. 열어 둘 것: 배포 주소 · 피그잼 보드 · docs/alpha-test.md · tasks.md · checklist.md. 피그잼 보드 주소는 eTL 공지. 아래 줄: 알파 · 베타 비교표를 채우는 때 · 시작 전 논의에 알파 숫자와 목표 → 라운드에서 알파 때 확인 질문으로 다시 셈 → 결과 정리에 베타 숫자와 판정.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 휴대폰 필수 · 기록은 피그잼 보드 우리 팀 베타 칸</p>
   <h2 class="a" style="--d:.2s">오늘 진행</h2>
   <div class="ubar nb bt-day a" style="--d:.3s">
@@ -1908,7 +1908,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     <div style="--w:12"><span>공유</span></div>
   </div>
   <div class="bt-thr a" style="--d:.45s">
-    <b style="--w:10">알파 대비 표</b><u style="--w:18"></u>
+    <b style="--w:10">알파 · 베타 비교표</b><u style="--w:18"></u>
     <u style="--w:22"><span class="tg"><small>시작 전 논의</small><span>알파 숫자 · 목표</span></span></u>
     <i style="--w:8">→</i>
     <u style="--w:25"><span class="tg w2"><small>라운드 1 · 2</small><span>알파 때 확인 질문으로 다시 세기</span></span></u><u style="--w:25"></u>
@@ -1934,7 +1934,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <div class="dcard a" style="--d:.2s"><h2>알파와 달라지는 것</h2><p>진행하는 법은 그대로</p></div>
 </section>
 
-<section class="slide" id="diff" data-title="알파 테스트와 베타 테스트" data-note="한 장 비교 · 회색이 알파, 파란색이 베타. 확인하는 것: 알파는 핵심 장면 하나 · 베타는 처음부터 끝까지 + 알파에서 고친 곳(체크). 화면: 알파는 가짜 구간 허용 · 베타는 배포 주소만(남은 가짜는 화면에 밝힘) · 테스터의 반은 자기 휴대폰. 테스터: 알파는 양옆 팀 · 베타는 한 팀 건너(알파 때 오지 않은 팀). 과업: 알파 2개 · 베타는 첫인상 5초 + 3개. 기록: 성공 · 도움 · 실패에 기기와 심각도. 결과: 알파는 이러면 맞다 판정 · 베타는 알파 때 확인 질문으로 다시 세어 알파 숫자와 비교 + GitHub 이슈 + 시연회까지 고칠 순서 · 기능 동결.">
+<section class="slide" id="diff" data-title="알파 테스트와 베타 테스트" data-note="한 장 비교 · 회색이 알파, 파란색이 베타. 확인하는 것: 알파는 핵심 장면 하나 · 베타는 처음부터 끝까지 + 알파에서 고친 곳(체크). 화면: 알파는 가짜 구간 허용 · 베타는 배포 주소만(남은 가짜는 화면에 밝힘) · 테스터의 반은 자기 휴대폰. 테스터: 알파는 양옆 팀 · 베타는 한 팀 건너(알파 때 오지 않은 팀). 과업: 알파 2개 · 베타는 5초 테스트 + 3개. 기록: 성공 · 도움 · 실패에 기기와 심각도. 결과: 알파는 이러면 맞다 판정 · 베타는 알파 때 확인 질문으로 다시 세어 알파 숫자와 비교 + GitHub 이슈 + 시연회까지 고칠 순서 · 기능 동결.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 회색 알파 · 파랑 베타</p>
   <h2 class="a" style="--d:.2s">알파 테스트와 베타 테스트</h2>
   <div class="bt-six a" style="--d:.3s">
@@ -1952,7 +1952,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     </div></div>
     <div><h4>과업</h4><div class="pr">
       <div class="al"><div class="bt-tk"><i></i><i></i></div><span>2개</span></div>
-      <div class="be"><div class="bt-tk"><em>5초</em><i></i><i></i><i></i></div><span>첫인상 + 3개</span></div>
+      <div class="be"><div class="bt-tk"><em>5초</em><i></i><i></i><i></i></div><span>5초 테스트 + 과업 3개</span></div>
     </div></div>
     <div><h4>기록</h4><div class="pr">
       <div class="al"><div class="bt-ch"><i>성공</i><i>도움</i><i>실패</i></div></div>
@@ -1960,20 +1960,20 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     </div></div>
     <div><h4>결과</h4><div class="pr">
       <div class="al"><div class="bt-ch"><i>맞음</i><i>아님</i></div><span>판정</span></div>
-      <div class="be"><div class="bt-ba"><s>3/6</s>→<b>5/6</b></div><span>알파 숫자와 비교 · 이슈</span></div>
+      <div class="be"><div class="bt-ba"><s>6명 중 3명</s>→<b>6명 중 5명</b></div><span>알파 숫자와 비교 · 이슈</span></div>
     </div></div>
   </div>
 </section>
 
-<section class="slide" id="retest" data-title="알파 결과와 비교" data-note="베타의 첫 목적 = 알파 때 막힌 곳이 충분히 고쳐졌는지 확인. 재는 것은 확인 질문마다 통과한 사람 수. 알파 숫자(docs/alpha-test.md · 알파 기록의 확인 질문 표)를 왼쪽에, 오늘 숫자를 오른쪽에 놓음. 목표는 알파 카드의 이러면 맞다 숫자(예: 6명 중 4명 이상) · 테스트 전에 적고 결과를 본 뒤에 바꾸지 않음. 읽는 순서: 1 베타가 목표 칸(초록)에 들어왔나 → 들어왔으면 충분 · 이슈 닫기. 2 못 들어왔으면 알파와 비교 → 늘었으면 방향은 맞음 · 한 번 더 고치기 / 같으면 고친 방법이 막힌 이유와 맞지 않음 · 들은 말을 다시 읽고 다른 방법 / 줄었으면 고치다가 다른 곳이 깨짐 · 고친 PR부터 확인. 비교하려면 확인 질문 · 과업 1 · 2 문장 · 목표 숫자가 알파와 글자까지 같아야 함. 테스터가 6명 안팎이라 1명 차이는 우연일 수 있음 → 들은 말과 함께 읽기. 테스터 수가 알파와 다르면 비율로. 숫자는 예시 데이터.">
+<section class="slide" id="retest" data-title="알파 결과와 비교" data-note="베타의 첫 목적 = 알파 때 막힌 곳이 충분히 고쳐졌는지 확인. 재는 것은 확인 질문마다 통과한 사람 수. 알파 숫자(docs/alpha-test.md · 알파 기록의 확인 질문 표)를 왼쪽에, 오늘 숫자를 오른쪽에 놓음. 목표는 알파 카드의 이러면 맞다 숫자(예: 6명 중 4명 이상) · 테스트 전에 적고 결과를 본 뒤에 바꾸지 않음. 읽는 순서: 1 베타가 목표 칸(초록)에 들어왔나 → 들어왔으면 목표 달성 · 이슈 닫기. 2 못 들어왔으면 알파와 비교 → 늘었으면 방향은 맞음 · 한 번 더 고치기 / 같으면 고친 방법이 막힌 이유와 맞지 않음 · 들은 말을 다시 읽고 다른 방법 / 줄었으면 고치다가 다른 곳이 깨짐 · 고친 PR부터 확인. 비교하려면 확인 질문 · 과업 1 · 2 문장 · 목표 숫자가 알파와 글자까지 같아야 함. 테스터가 6명 안팎이라 1명 차이는 우연일 수 있음 → 들은 말과 함께 읽기. 테스터 수가 알파와 다르면 비율로. 숫자는 예시 데이터.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> <span class="bt-ab"><span class="a">알파 · 맞음 · 아님</span><i>→</i><span class="b">베타 · 알파 숫자 옆에 놓고 판정</span></span></p>
   <h2 class="a" style="--d:.2s">알파 결과와 비교</h2>
   <div class="bt-dc a" style="--d:.3s">
     <span class="h"></span><span class="tr h"><em style="--t:4">목표 · 4명 이상</em><i>0</i><i>1</i><i>2</i><i>3</i><i class="z z0">4</i><i class="z">5</i><i class="z zl">6</i></span><span class="h">알파 → 베타</span><span class="h">다음</span>
-    <span class="lb ok">충분<small>목표에 들어옴</small></span><span class="tr ok" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s><i>→</i>5/6</span><span class="ac">이슈 닫기</span>
-    <span class="lb wa">나아졌지만 부족<small>늘었지만 목표 아래</small></span><span class="tr wa" style="--b:3;--a:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>2/6</s><i>→</i>3/6</span><span class="ac">한 번 더 고치기</span>
-    <span class="lb wa">그대로<small>알파와 같은 숫자</small></span><span class="tr wa eq" style="--b:3;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s><i>→</i>3/6</span><span class="ac">다른 방법으로</span>
-    <span class="lb no">줄어듦<small>알파보다 낮은 숫자</small></span><span class="tr no dn last" style="--b:3;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5/6</s><i>→</i>3/6</span><span class="ac">고친 PR부터 확인</span>
+    <span class="lb ok">목표 달성<small>목표에 들어옴</small></span><span class="tr ok" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s><i>→</i>5명</span><span class="ac">이슈 닫기</span>
+    <span class="lb wa">개선됐지만 미달<small>늘었지만 목표 아래</small></span><span class="tr wa" style="--b:3;--a:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>2명</s><i>→</i>3명</span><span class="ac">한 번 더 고치기</span>
+    <span class="lb wa">변화 없음<small>알파와 같은 숫자</small></span><span class="tr wa eq" style="--b:3;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s><i>→</i>3명</span><span class="ac">다른 방법으로</span>
+    <span class="lb no">하락<small>알파보다 낮은 숫자</small></span><span class="tr no dn last" style="--b:3;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5명</s><i>→</i>3명</span><span class="ac">고친 PR부터 확인</span>
   </div>
   <div class="bt-lgd a" style="--d:.45s"><span><i class="da"></i>알파</span><span><i class="db"></i>베타 · 오늘</span><span><i class="zz"></i>목표 · 이러면 맞다 숫자</span><span style="color:var(--muted)">통과한 사람 수 · 예시 데이터</span></div>
 </section>
@@ -1999,12 +1999,12 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     <div><s>사람이 대신 보여 주기</s><i>→</i><b class="no">쓰지 않음</b></div>
   </div>
 </section>
-<section class="slide divider" id="div2" data-part="베타 테스트 카드" data-title="베타 테스트 카드" data-note="알파 카드를 복사해서 고침. 그대로 두는 칸(확인할 것 · 이러면 맞다 · 과업 1 · 2)과 더하는 칸(알파 뒤 바꾼 것 · 첫인상 5초 · 과업 3 · 남은 가짜).">
-  <div class="dvis fd" style="--d:.05s"><canvas data-pat="mosaic" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">알파 카드 복사</span><span class="ko on" style="--k:1">첫인상 5초</span><span class="ko" style="--k:2">과업 3</span></div></div>
+<section class="slide divider" id="div2" data-part="베타 테스트 카드" data-title="베타 테스트 카드" data-note="알파 카드를 복사해서 고침. 그대로 두는 칸(확인할 것 · 이러면 맞다 · 과업 1 · 2)과 더하는 칸(알파 뒤 바꾼 것 · 5초 테스트 · 과업 3 · 남은 가짜).">
+  <div class="dvis fd" style="--d:.05s"><canvas data-pat="mosaic" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">알파 카드 복사</span><span class="ko on" style="--k:1">5초 테스트</span><span class="ko" style="--k:2">과업 3</span></div></div>
   <div class="dcard a" style="--d:.2s"><h2>베타 테스트 카드</h2><p>알파 카드를 복사해서</p></div>
 </section>
 
-<section class="slide" id="card" data-title="베타 테스트 카드" data-note="알파 카드를 복사해서 시작. 회색 칸은 알파 그대로(알파 결과와 비교하려면 글자까지 같아야 함) · 이러면 맞다 숫자가 알파 대비 표의 목표 · 파란 칸은 더하거나 바꾸는 칸. 알파 뒤 바꾼 것: tasks.md 줄과 PR · 테스터에게는 끝난 뒤에만 말함(먼저 말하면 그곳을 찾아봄). 첫인상 5초 · 과업 3은 다음 슬라이드들. 남은 가짜는 정리하고 남은 것만. 카드는 지킴이가 그대로 읽는 대본.">
+<section class="slide" id="card" data-title="베타 테스트 카드" data-note="알파 카드를 복사해서 시작. 회색 칸은 알파 그대로(알파 결과와 비교하려면 글자까지 같아야 함) · 이러면 맞다 숫자가 알파 · 베타 비교표의 목표 · 파란 칸은 더하거나 바꾸는 칸. 알파 뒤 바꾼 것: tasks.md 줄과 PR · 테스터에게는 끝난 뒤에만 말함(먼저 말하면 그곳을 찾아봄). 5초 테스트 · 과업 3은 다음 슬라이드들. 남은 가짜는 정리하고 남은 것만. 카드는 지킴이가 그대로 읽는 대본.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 회색 알파 그대로 · 파랑 베타에서 더함 · 예시 질문 · 밤 창밖</p>
   <h2 class="a" style="--d:.2s">베타 테스트 카드</h2>
   <div class="x4l ucard bt-card a" style="--d:.3s;margin-top:16px">
@@ -2012,7 +2012,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     <div class="same"><b>과업 1 · 2</b><span>"창을 3장만 넘겨 보세요" · "지금 내 창밖을 여기에 남겨 보세요"</span></div>
     <div class="same"><b>이러면 맞다 · 목표</b><span class="pq"><span class="ppl"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="o"></i><i class="o"></i></span><b>4<small>/6 이상</small></b><span>묻지 않고 올림</span></span></div>
     <div class="on"><b>알파 뒤 바꾼 것</b><span>올리기 버튼 글자 · 휴대폰 '다음' 위치</span></div>
-    <div class="on"><b>첫인상 5초</b><span>"무엇을 하는 서비스 같아요?"</span></div>
+    <div class="on"><b>5초 테스트</b><span>"무엇을 하는 서비스 같아요?"</span></div>
     <div class="on"><b>과업 3</b><span>"어젯밤 남긴 창을 다시 찾아보세요"</span></div>
     <div class="on"><b>남은 가짜</b><span>'예시 창' 표시 · 이 기기에만 저장</span></div>
   </div>
@@ -2023,7 +2023,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <h2 class="a" style="--d:.2s">과업 3 · 끝난 뒤 장면</h2>
   <div class="bt-road a" style="--d:.3s">
     <div><small>링크 · QR</small><b>시작</b></div><i>→</i>
-    <div><small>첫인상 5초</small><b>첫 화면</b></div><i>→</i>
+    <div><small>5초 테스트</small><b>첫 화면</b></div><i>→</i>
     <div class="al"><small>과업 1 · 2</small><b>핵심 장면</b></div><i>→</i>
     <div class="on"><small>과업 3</small><b>끝난 뒤</b></div>
   </div>
@@ -2034,9 +2034,9 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   </div>
 </section>
 
-<section class="slide" id="first5" data-title="첫인상 5초" data-note="Five-second test. 쇼케이스 관람객은 설명 없이 첫 화면만 보고 지나가기 쉬움 → 첫 화면이 무엇을 하는 서비스인지 알려 주는지 확인. 시작하는 말 뒤 첫 화면을 5초만 보여 줌 → 화면을 가림(노트북 덮기 · 휴대폰 뒤집기) → '무엇을 하는 서비스 같아요?' · '먼저 무엇을 누를 것 같아요?' → 들은 말 그대로. 판정 기준은 팀이 미리 한 줄로(예: '밤 · 창밖 · 남기기' 중 하나를 말함). 5초 동안 누르지 않음. 예시는 6명 중 4명이 맞게 말함 · 2명은 사진 앨범으로 봄 → 첫 화면 문구 후보.">
+<section class="slide" id="first5" data-title="5초 테스트" data-note="Five-second test. 쇼케이스 관람객은 설명 없이 첫 화면만 보고 지나가기 쉬움 → 첫 화면이 무엇을 하는 서비스인지 알려 주는지 확인. 시작하는 말 뒤 첫 화면을 5초만 보여 줌 → 화면을 가림(노트북 덮기 · 휴대폰 뒤집기) → '무엇을 하는 서비스 같아요?' · '먼저 무엇을 누를 것 같아요?' → 들은 말 그대로. 판정 기준은 팀이 미리 한 줄로(예: '밤 · 창밖 · 남기기' 중 하나를 말함). 5초 동안 누르지 않음. 예시는 6명 중 4명이 맞게 말함 · 2명은 사진 앨범으로 봄 → 첫 화면 문구 후보.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 베타에서 더함 · Five-second test</p>
-  <h2 class="a" style="--d:.2s">첫인상 5초</h2>
+  <h2 class="a" style="--d:.2s">5초 테스트</h2>
   <div class="split" style="grid-template-columns:330px 1fr;margin-top:14px;align-items:center;gap:56px">
     <div class="phone bt-ph a" style="--d:.3s"><div class="ph-scr">
       <div class="ph-top"><b>밤 창밖</b><span>남긴 창 3</span></div>
@@ -2049,22 +2049,22 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     <div class="col a" style="--d:.45s;gap:22px">
       <div class="xloop bt-loop"><span>5초 보기</span><i>→</i><span>가리기</span><i>→</i><span class="on">묻기</span></div>
       <div class="say do bt-big"><small>질문</small>"무엇을 하는 서비스 같아요?"</div>
-      <div class="res bt-res"><span class="ppl"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="no"></i><i class="no"></i></span><div class="vd"><b>4/6</b><span>맞게 말함 · 2명은 "사진 앨범"</span></div></div>
+      <div class="res bt-res"><span class="ppl"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="no"></i><i class="no"></i></span><div class="vd"><b>6명 중 4명</b><span>맞게 말함 · 2명은 "사진 앨범"</span></div></div>
     </div>
   </div>
 </section>
-<section class="slide divider" id="div3" data-part="진행과 기록" data-title="진행과 기록" data-note="시작하는 말 · 소리 내어 생각하기 · 돕지 않기 · 본 것 그대로는 알파와 같음. 바뀌는 곳: 첫인상 5초가 앞에 붙음 · 과업 3개 · 기록에 기기와 심각도 · 끝나고 묻는 말.">
-  <div class="dvis fd" style="--d:.05s"><canvas data-pat="contour" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">첫인상 5초</span><span class="ko on" style="--k:1">과업 3개</span><span class="ko" style="--k:2">심각도</span><span class="ko" style="--k:3">끝나고 묻기</span></div></div>
-  <div class="dcard a" style="--d:.2s"><h2>진행과 기록</h2><p>첫인상 5초 · 기기 · 심각도를 더함</p></div>
+<section class="slide divider" id="div3" data-part="진행과 기록" data-title="진행과 기록" data-note="시작하는 말 · 소리 내어 생각하기 · 돕지 않기 · 본 것 그대로는 알파와 같음. 바뀌는 곳: 5초 테스트가 앞에 붙음 · 과업 3개 · 기록에 기기와 심각도 · 끝나고 묻는 말.">
+  <div class="dvis fd" style="--d:.05s"><canvas data-pat="contour" width="1600" height="825" aria-hidden="true"></canvas><div class="dl"><span class="ko" style="--k:0">5초 테스트</span><span class="ko on" style="--k:1">과업 3개</span><span class="ko" style="--k:2">심각도</span><span class="ko" style="--k:3">끝나고 묻기</span></div></div>
+  <div class="dcard a" style="--d:.2s"><h2>진행과 기록</h2><p>5초 테스트 · 기기 · 심각도를 더함</p></div>
 </section>
 
-<section class="slide" id="flow" data-title="테스트 진행 순서" data-note="테스터 1명에 지킴이 1명. 1 시작하는 말 · 알파 대본 그대로. 2 첫인상 5초 · 누르기 전에. 3 과업 시나리오 3개 · 가장 길게 · 소리 내어 생각하며 · 막혀도 바로 돕지 않고 10초 기다리기 · 질문에는 되묻기 · 3분 넘게 막히면 다음으로(실패). '그건 고쳤어요'처럼 고친 곳을 알려 주지 않기. 4 끝나고 묻기 · 행동 질문 · 바꾼 것과 남은 가짜는 이때 알려 줌. 파란 칸이 알파에서 바뀐 곳.">
+<section class="slide" id="flow" data-title="테스트 진행 순서" data-note="테스터 1명에 지킴이 1명. 1 시작하는 말 · 알파 대본 그대로. 2 5초 테스트 · 누르기 전에. 3 과업 시나리오 3개 · 가장 길게 · 소리 내어 생각하며 · 막혀도 바로 돕지 않고 10초 기다리기 · 질문에는 되묻기 · 3분 넘게 막히면 다음으로(실패). '그건 고쳤어요'처럼 고친 곳을 알려 주지 않기. 4 끝나고 묻기 · 행동 질문 · 바꾼 것과 남은 가짜는 이때 알려 줌. 파란 칸이 알파에서 바뀐 곳.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 파랑은 알파에서 바뀐 곳</p>
   <h2 class="a" style="--d:.2s">테스트 진행 순서</h2>
   <div class="bt-steps a" style="--d:.3s">
     <div><h4>시작하는 말</h4><span>알파 대본 그대로</span></div>
     <i>→</i>
-    <div class="on"><h4>첫인상 5초</h4><span>누르기 전에</span></div>
+    <div class="on"><h4>5초 테스트</h4><span>누르기 전에</span></div>
     <i>→</i>
     <div class="on" style="flex:2.2"><h4>과업 3개</h4><span>소리 내어 · 돕지 않기</span></div>
     <i>→</i>
@@ -2108,28 +2108,27 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
     <div class="say x bt-big" style="opacity:.8"><small>빼기</small>"좋았어요?" · "이 버튼 이제 잘 보여요?"</div>
   </div>
 </section>
-<section class="slide hs" id="p1steps" data-part="실습 1 · 시작 전 논의" data-title="실습 1 · 시작 전 논의" data-note="강의 뒤 · 라운드 전에 팀마다 10분쯤. 피그잼 보드에서 우리 팀 베타 칸(알파 칸 오른쪽)을 엶. 1 왼쪽 알파 칸의 관찰 기록 · 각자 메모 · 고칠 순서를 함께 보며 알파 때 어디서 막혔는지 이야기. 2 ① 알파 대비 표의 흰 칸: 확인 질문은 알파 문장 그대로(보드에 옮겨 둠 · 오늘 볼 것만 남김) · 알파 통과 수(세지 않았으면 –) · 고친 것(tasks 줄 · PR) · 목표(오늘 몇 명 중 몇 명이 통과하면 충분한가 · 알파 카드의 이러면 맞다 숫자). 3 ② 베타 카드: 첫인상 5초에서 맞게 말한 기준 · 과업 3 · 남은 가짜. 4 역할 · 휴대폰 테스터 · QR. 파란 칸(테스터 1–6 · 베타 · 판정)은 라운드 뒤에. 기능 동결: 오늘부터 새 기능은 넣지 않고 고치기만 · 떠오른 기능은 이슈로 남기고 '나중' 라벨.">
+<section class="slide hs" id="p1steps" data-part="실습 1 · 시작 전 논의" data-title="실습 1 · 시작 전 논의" data-note="강의 뒤 · 라운드 전에 팀마다 10분쯤. 피그잼 보드에서 우리 팀 베타 칸(알파 칸 오른쪽)을 엶. 1 왼쪽 알파 칸의 관찰 기록 · 각자 메모 · 고칠 순서를 함께 보며 알파 때 어디서 막혔는지 이야기. 2 ① 알파 · 베타 비교표 · 테스트 전에 쓰는 칸: 확인 질문은 알파 문장 그대로(보드에 옮겨 둠 · 오늘 볼 것만 남김) · 알파 통과 수(세지 않았으면 –) · 고친 것(tasks 줄 · PR) · 목표(오늘 몇 명 중 몇 명이 통과하면 충분한가 · 알파 카드의 이러면 맞다 숫자). 3 ② 베타 카드: 5초 테스트에서 맞게 말한 기준 · 과업 3 · 남은 가짜. 4 역할 · 휴대폰 테스터 · QR. 테스터 번호 칸 · 베타 결과 · 판정은 테스트 후에. 기능 동결: 오늘부터 새 기능은 넣지 않고 고치기만 · 떠오른 기능은 이슈로 남기고 '나중' 라벨.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 10분쯤 · 피그잼 보드 우리 팀 베타 칸</p>
   <h2 class="a" style="--d:.2s">실습 1 · 시작 전 논의</h2>
   <div class="hx">
     <div class="hlf a" style="--d:.3s">
       <ol class="hdo">
         <li><b>1</b><span>알파 기록 함께 보기 · 어디서 막혔나</span></li>
-        <li><b>2</b><span><span class="tl both">①</span> 알파 대비 표 · 알파 숫자 · 고친 것 · 목표</span></li>
-        <li><b>3</b><span><span class="tl both">②</span> 베타 카드 · 첫인상 기준 · 과업 3 · 남은 가짜</span></li>
+        <li><b>2</b><span><span class="tl both">①</span> 알파 · 베타 비교표 · 알파 결과 · 수정 사항 · 목표</span></li>
+        <li><b>3</b><span><span class="tl both">②</span> 베타 테스트 카드 · 5초 테스트 정답 · 과업 3 · 미구현 부분</span></li>
         <li><b>4</b><span>역할 · 휴대폰 테스터 · QR</span></li>
       </ol>
     </div>
     <div class="gd a" style="--d:.45s">
-      <div class="bt-fj" role="img" aria-label="피그잼 보드 우리 팀 베타 칸의 알파 대비 표. 확인 질문 · 알파 · 고친 것 · 목표 칸은 지금 쓰고, 테스터 1에서 6 · 베타 · 판정 칸은 라운드 뒤에 씀.">
-        <div class="fj-t"><b>피그잼 · 우리 팀 베타 칸</b><span>① 알파 대비 표</span></div>
+      <div class="bt-fj" role="img" aria-label="피그잼 보드 우리 팀 베타 칸의 알파 · 베타 비교표. 확인 질문 · 알파 결과 · 수정 사항 · 목표는 테스트 전에, 테스터 번호 칸 · 베타 결과 · 판정은 테스트 후에 씀.">
+        <div class="fj-t"><b>피그잼 · 우리 팀 베타 칸</b><span>① 알파 · 베타 비교표</span></div>
         <div class="fj-g">
-          <span class="h">확인 질문</span><span class="h">알파</span><span class="h">고친 것</span><span class="h">목표</span><span class="h l">1–6</span><span class="h l">베타</span><span class="h l">판정</span>
-          <span>자기 창밖을 올렸나</span><span>3/6</span><span>버튼 글자</span><span>4/6</span><span class="l"></span><span class="l"></span><span class="l"></span>
-          <span>창을 3장 넘겼나</span><span>5/6</span><span>'다음' 위치</span><span>4/6</span><span class="l"></span><span class="l"></span><span class="l"></span>
-          <span>첫인상 5초</span><span>–</span><span>–</span><span>4/6</span><span class="l"></span><span class="l"></span><span class="l"></span>
+          <span class="h">확인 질문</span><span class="h">알파 결과</span><span class="h">수정 사항</span><span class="h">목표</span><span class="h l">1–6</span><span class="h l">베타 결과</span><span class="h l">판정</span>
+          <span>올리기 버튼을 찾았나</span><span>6명 중 3명</span><span>버튼 글자 (PR #12)</span><span>6명 중 4명</span><span class="l">○ ○ ×</span><span class="l">6명 중 5명</span><span class="l">목표 달성</span>
+          <span>5초 테스트</span><span>기록 없음</span><span></span><span>6명 중 4명</span><span class="l"></span><span class="l"></span><span class="l"></span>
         </div>
-        <div class="fj-k"><span><i></i>흰 칸 · 지금</span><span><i class="l"></i>파란 칸 · 라운드 뒤</span></div>
+        <div class="fj-k"><span><i></i>테스트 전</span><span><i class="l"></i>테스트 후</span></div>
       </div>
       <div class="card line" style="--c:var(--no)"><span class="k">기능 동결 · 오늘부터</span><h4>새 기능 없이 고치기만</h4></div>
       <div class="row" style="gap:10px;flex-wrap:wrap"><a class="pill" href="week13lab.html#p1" target="_blank" rel="noopener">실습 안내 페이지 · 실습 1</a></div>
@@ -2137,29 +2136,29 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   </div>
 </section>
 
-<section class="slide" id="round" data-part="실습 2 · 교차 테스트" data-title="라운드 1 · 2" data-note="쉬는 시간 뒤 라운드 1 · 2. 라운드 하나 = 이동 → 자리와 시작하는 말 → 첫인상 5초 → 과업 3개(가장 길게) → 끝나고 묻기 → 기록 정리(피그잼 ③에 기기 · 심각도까지 1줄 완성 · 확인 질문을 통과했으면 ①의 테스터 칸에 ○ · 아니면 ×). 라운드 1은 반시계 방향으로 한 팀 건너 · 라운드 2는 역할 바꿔 시계 방향으로 한 팀 건너. 자주 생기는 일: 테스터 휴대폰에서 안 열림 → 그대로 기록(심각도 4) · 노트북으로 계속 / 한 기기에서만 깨짐 → 기기 · 브라우저 · 화면 사진(동의) / 알파 때 본 테스터 → 표시 · 셀 때 따로 / 시간이 모자람 → 과업 2(고친 곳)부터.">
+<section class="slide" id="round" data-part="실습 2 · 교차 테스트" data-title="라운드 1 · 2" data-note="쉬는 시간 뒤 라운드 1 · 2. 라운드 하나 = 이동 → 자리와 시작하는 말 → 5초 테스트 → 과업 3개(가장 길게) → 끝나고 묻기 → 기록 정리(피그잼 ③에 기기 · 심각도까지 1줄 완성 · 확인 질문을 통과했으면 ①의 테스터 칸에 ○ · 아니면 ×). 라운드 1은 반시계 방향으로 한 팀 건너 · 라운드 2는 역할 바꿔 시계 방향으로 한 팀 건너. 자주 생기는 일: 테스터 휴대폰에서 안 열림 → 그대로 기록(심각도 4) · 노트북으로 계속 / 한 기기에서만 깨짐 → 기기 · 브라우저 · 화면 사진(동의) / 알파 때 본 테스터 → 표시 · 셀 때 따로 / 시간이 모자람 → 과업 2(고친 곳)부터.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 라운드 1 반시계 방향 · 라운드 2 시계 방향</p>
   <h2 class="a" style="--d:.2s">라운드 1 · 2</h2>
   <div class="ubar nb a" style="--d:.3s">
     <div style="--w:3"><span>이동</span></div>
     <div style="--w:5"><span>시작하는 말</span></div>
-    <div class="bt-n" style="--w:5"><span>첫인상 5초</span></div>
+    <div class="bt-n" style="--w:5"><span>5초 테스트</span></div>
     <div class="on" style="--w:9"><span>과업 3개</span><small>가장 길게</small></div>
     <div style="--w:5"><span>끝나고 묻기</span></div>
     <div class="on" style="--w:7"><span>기록 정리</span><small>피그잼 ③ · ①에 ○ · ×</small></div>
   </div>
   <p class="msg a" style="--d:.5s">테스터가 떠나기 전에 기록 1줄 완성 · 심각도까지</p>
 </section>
-<section class="slide hs" id="p3steps" data-part="실습 3 · 결과 정리" data-title="실습 3 · 결과 정리" data-note="라운드 2 뒤. 1 기록 모아 읽기 · 빈 칸(기기 · 심각도) 채우기. 2 피그잼 ① 알파 대비 표에 베타 통과 수를 적고 판정(충분 · 나아졌지만 부족 · 그대로 · 줄어듦). 3 막힌 곳을 같은 곳끼리 묶고 겪은 사람 수 · 심각도 다시 정하기. 4 묶음 하나 = GitHub 이슈 하나 · 오늘 안에. 5 고칠 순서 · 시연회 전 칸에서 3개까지 · 피그잼 ④에 맡은 사람과 함께. 6 한 사람이 docs/beta-test.md · tasks · checklist → PR · 나머지 리뷰. 7 팀별 공유 · 고친 곳 결과 → 새로 본 막힌 곳 → 시연회 전에 고칠 것. AI에게 묶기 · 이슈 초안을 맡겨도 되지만 사람 수 · 심각도 · 판정은 팀이 셈.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 피그잼 ①의 베타 · 판정 칸부터</p>
+<section class="slide hs" id="p3steps" data-part="실습 3 · 결과 정리" data-title="실습 3 · 결과 정리" data-note="라운드 2 뒤. 1 기록 모아 읽기 · 빈 칸(기기 · 심각도) 채우기. 2 피그잼 ① 알파 · 베타 비교표에 베타 통과 수를 적고 판정(목표 달성 · 개선됐지만 미달 · 변화 없음 · 하락). 3 막힌 곳을 같은 곳끼리 묶고 겪은 사람 수 · 심각도 다시 정하기. 4 묶음 하나 = GitHub 이슈 하나 · 오늘 안에. 5 고칠 순서 · 시연회 전 칸에서 3개까지 · 피그잼 ④에 맡은 사람과 함께. 6 한 사람이 docs/beta-test.md · tasks · checklist → PR · 나머지 리뷰. 7 팀별 공유 · 고친 곳 결과 → 새로 본 막힌 곳 → 시연회 전에 고칠 것. AI에게 묶기 · 이슈 초안을 맡겨도 되지만 사람 수 · 심각도 · 판정은 팀이 셈.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 피그잼 ①의 베타 결과 · 판정 칸부터</p>
   <h2 class="a" style="--d:.2s">실습 3 · 결과 정리</h2>
   <div class="hx">
     <div class="hlf a" style="--d:.3s">
       <ol class="hdo">
-        <li><b>1</b><span><span class="tl both">①</span> 알파 대비 표 · 베타 숫자 적고 판정</span></li>
+        <li><b>1</b><span><span class="tl both">①</span> 알파 · 베타 비교표 · 베타 숫자 적고 판정</span></li>
         <li><b>2</b><span>막힌 곳 묶기 · 사람 수 · 심각도</span></li>
         <li><b>3</b><span>묶음마다 이슈 1개</span></li>
-        <li><b>4</b><span><span class="tl both">④</span> 먼저 고칠 것 3개까지 · 맡은 사람</span></li>
+        <li><b>4</b><span><span class="tl both">④</span> 시연 전 수정 목록 최대 3개 · 맡은 사람</span></li>
         <li><b>5</b><span><code>docs/beta-test.md</code> → PR</span></li>
         <li><b>6</b><span>팀별 공유</span></li>
       </ol>
@@ -2170,16 +2169,16 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   </div>
 </section>
 
-<section class="slide" id="compare" data-title="알파 대비 표" data-note="알파 대비 표를 다 채운 모습 · 예시 데이터(밤 창밖 · 알파 6명 · 베타 6명 · 목표 4명 이상). 고친 곳 2개(올리기 버튼 글자 · 휴대폰 '다음' 위치)와 이어진 질문은 3/6 → 5/6, 3/6 → 6/6 → 목표 칸에 들어옴 → 충분 · 알파 카드의 이러면 맞다도 이번에는 맞음. 창 넘기기는 알파 때도 되던 곳 · 5/6 → 6/6 → 고치다가 깨지지 않았음. 과업 3(다시 찾기)과 첫인상은 알파 숫자가 없음 → 목표와만 비교: 2/6은 부족 → 이슈 #24 · 4/6은 충분(2명이 사진 앨범으로 본 것은 낮은 순서의 이슈로). 판정은 테스트 전에 정한 목표로만 · 결과를 보고 목표를 바꾸지 않음. 테스터 수가 다르면 비율로 읽음.">
+<section class="slide" id="compare" data-title="알파 · 베타 비교표" data-note="알파 · 베타 비교표를 다 채운 모습 · 예시 데이터(밤 창밖 · 알파 6명 · 베타 6명 · 목표 4명 이상). 고친 곳 2개(올리기 버튼 글자 · 휴대폰 '다음' 위치)와 이어진 질문은 6명 중 3명 → 6명 중 5명, 6명 중 3명 → 6명 중 6명 → 목표 칸에 들어옴 → 목표 달성 · 알파 카드의 이러면 맞다도 이번에는 맞음. 창 넘기기는 알파 때도 되던 곳 · 6명 중 5명 → 6명 중 6명 → 고치다가 깨지지 않았음. 과업 3(다시 찾기)과 5초 테스트은 알파 숫자가 없음 → 목표와만 비교: 6명 중 2명은 미달 → 이슈 #24 · 6명 중 4명은 목표 달성(2명이 사진 앨범으로 본 것은 낮은 순서의 이슈로). 판정은 테스트 전에 정한 목표로만 · 결과를 보고 목표를 바꾸지 않음. 테스터 수가 다르면 비율로 읽음.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 채운 모습 · 예시 데이터 · 밤 창밖 · 목표 6명 중 4명</p>
-  <h2 class="a" style="--d:.2s">알파 대비 표</h2>
+  <h2 class="a" style="--d:.2s">알파 · 베타 비교표</h2>
   <div class="bt-dc a" style="--d:.3s">
     <span class="h"></span><span class="tr h"><em style="--t:4">목표 · 4명 이상</em><i>0</i><i>1</i><i>2</i><i>3</i><i class="z z0">4</i><i class="z">5</i><i class="z zl">6</i></span><span class="h">알파 → 베타</span><span class="h">판정</span>
-    <span class="lb">묻지 않고 자기 창밖을 올렸나<small>고친 것 · 버튼에 '내 창 남기기' 글자</small></span><span class="tr ok" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s><i>→</i>5/6</span><span class="ac"><span class="tl ok">충분</span></span>
-    <span class="lb">올리는 곳을 10초 안에 찾았나<small>고친 것 · 버튼에 '내 창 남기기' 글자</small></span><span class="tr ok" style="--b:6;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3/6</s><i>→</i>6/6</span><span class="ac"><span class="tl ok">충분</span></span>
-    <span class="lb">창을 3장 넘겼나<small>고친 것 · 휴대폰 '다음' 위치</small></span><span class="tr ok" style="--b:6;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5/6</s><i>→</i>6/6</span><span class="ac"><span class="tl ok">충분</span></span>
-    <span class="lb">어젯밤 남긴 창을 다시 찾았나<small>과업 3 · 알파 숫자 없음</small></span><span class="tr no" style="--b:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="db"></span></span><span class="nm"><s>–</s><i>→</i>2/6</span><span class="ac"><span class="tl no">부족</span><small>이슈 #24</small></span>
-    <span class="lb">무엇을 하는 서비스인지 말했나<small>첫인상 5초 · 알파 숫자 없음</small></span><span class="tr ok last" style="--b:4"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="db"></span></span><span class="nm"><s>–</s><i>→</i>4/6</span><span class="ac"><span class="tl ok">충분</span></span>
+    <span class="lb">묻지 않고 자기 창밖을 올렸나<small>고친 것 · 버튼에 '내 창 남기기' 글자</small></span><span class="tr ok" style="--b:5;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s><i>→</i>5명</span><span class="ac"><span class="tl ok">목표 달성</span></span>
+    <span class="lb">올리는 곳을 10초 안에 찾았나<small>고친 것 · 버튼에 '내 창 남기기' 글자</small></span><span class="tr ok" style="--b:6;--a:3"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>3명</s><i>→</i>6명</span><span class="ac"><span class="tl ok">목표 달성</span></span>
+    <span class="lb">창을 3장 넘겼나<small>고친 것 · 휴대폰 '다음' 위치</small></span><span class="tr ok" style="--b:6;--a:5"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="ln"></span><span class="da"></span><span class="db"></span></span><span class="nm"><s>5명</s><i>→</i>6명</span><span class="ac"><span class="tl ok">목표 달성</span></span>
+    <span class="lb">어젯밤 남긴 창을 다시 찾았나<small>과업 3 · 알파 숫자 없음</small></span><span class="tr no" style="--b:2"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="db"></span></span><span class="nm"><s>–</s><i>→</i>2명</span><span class="ac"><span class="tl no">미달</span><small>이슈 #24</small></span>
+    <span class="lb">무엇을 하는 서비스인지 말했나<small>5초 테스트 · 알파 숫자 없음</small></span><span class="tr ok last" style="--b:4"><i></i><i></i><i></i><i></i><i class="z z0"></i><i class="z"></i><i class="z zl"></i><span class="db"></span></span><span class="nm"><s>–</s><i>→</i>4명</span><span class="ac"><span class="tl ok">목표 달성</span></span>
   </div>
 </section>
 
@@ -2188,7 +2187,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <h2 class="a" style="--d:.2s">막힌 곳을 GitHub 이슈로</h2>
   <div class="bt-iss a" style="--d:.3s;margin-top:18px">
     <div class="it"><span class="st">Open</span><b>다음 날 다시 들어오면 내가 남긴 창을 찾지 못함 <i>#24</i></b></div>
-    <div class="lb"><span class="l1">시연 전</span><span class="l3">심각도 3</span><span class="l2">4/6</span></div>
+    <div class="lb"><span class="l1">시연 전</span><span class="l3">심각도 3</span><span class="l2">6명 중 4명</span></div>
   </div>
   <div class="bt-pr a" style="--d:.45s"><span class="m">Merged</span><b>첫 화면에 '내가 남긴 창' 링크</b><code>Fixes #24</code><i>→</i><span class="c">#24 Closed</span></div>
 </section>
@@ -2199,10 +2198,10 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <div class="split" style="grid-template-columns:7.4fr 4.6fr;margin:16px 0 0">
     <div class="xmx bt-mx a" style="--d:.3s">
       <span class="yax">영향 큼 ↑</span>
-      <div class="q2" style="background:var(--warn-soft)"><b>시연회 전 · 담당 한 명</b><span class="it">#26 iPhone에서 큰 사진 멈춤 · 사진 크기 줄이기<span class="bt-sv s3">심각도 3 · 1/6</span></span></div>
-      <div class="q1"><b>시연회 전에 바로</b><span class="it">#24 다시 찾기 · 첫 화면에 '내가 남긴 창' 링크<span class="bt-sv s3">심각도 3 · 4/6</span></span></div>
+      <div class="q2" style="background:var(--warn-soft)"><b>시연회 전 · 담당 한 명</b><span class="it">#26 iPhone에서 큰 사진 멈춤 · 사진 크기 줄이기<span class="bt-sv s3">심각도 3 · 6명 중 1명</span></span></div>
+      <div class="q1"><b>시연회 전에 바로</b><span class="it">#24 다시 찾기 · 첫 화면에 '내가 남긴 창' 링크<span class="bt-sv s3">심각도 3 · 6명 중 4명</span></span></div>
       <div class="q3"><b>나중 · README</b><span class="it">#28 로그인 · 다른 기기에서도 보기<span class="bt-sv s1">새 기능 · 동결 뒤</span></span></div>
-      <div class="q4" style="background:var(--canvas)"><b>시간이 남으면</b><span class="it">#25 첫 화면 문구 · "사진 앨범"으로 봄<span class="bt-sv s2">심각도 2 · 2/6</span></span></div>
+      <div class="q4" style="background:var(--canvas)"><b>시간이 남으면</b><span class="it">#25 첫 화면 문구 · "사진 앨범"으로 봄<span class="bt-sv s2">심각도 2 · 6명 중 2명</span></span></div>
       <span class="xax">← 오래 걸림 · 금방 고침 →</span>
     </div>
     <div class="col a" style="--d:.45s;gap:14px"><div class="card flat" style="background:var(--no-soft)"><span class="k">기능 동결</span><h4>새 기능 없이 고치기만</h4></div><div class="card flat"><span class="k">시연회 전</span><h4>3개까지 · 담당과 함께</h4></div></div>
@@ -2214,14 +2213,14 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <h2 class="a" style="--d:.2s">docs/beta-test.md</h2>
   <div class="file a" style="--d:.3s;margin-top:16px"><div class="hd">docs/beta-test.md</div><div class="bd ko umd bt-md"># 베타 테스트 (수업 안 · 다른 팀 6명)
 
-## 알파 대비 (목표 4/6)
-- 묻지 않고 올림 3/6 → 5/6 · 충분
-- 10초 안에 찾음 3/6 → 6/6 · 충분
-- 다시 찾기 – → 2/6 · 부족 → #24
+## 알파 · 베타 비교 (목표 6명 중 4명)
+- 묻지 않고 올림 6명 중 3명 → 6명 중 5명 · 목표 달성
+- 10초 안에 찾음 6명 중 3명 → 6명 중 6명 · 목표 달성
+- 다시 찾기 – → 6명 중 2명 · 미달 → #24
 
 ## 새로 본 막힌 곳
-- 4/6 다시 찾기 · 심각도 3 → #24
-- 1/6 iPhone 큰 사진 멈춤 · 심각도 3 → #26
+- 다시 찾기 어려움 · 6명 중 4명 · 심각도 3 → #24
+- iPhone 큰 사진 멈춤 · 6명 중 1명 · 심각도 3 → #26
 
 ## 시연회 전에 고칠 것
 #24 · #26</div></div>
@@ -2233,7 +2232,7 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <div class="ticks mt a" style="--d:.3s">
     <label><input type="checkbox"><span>베타 카드</span></label>
     <label><input type="checkbox"><span>라운드 1 · 2 관찰 기록</span></label>
-    <label><input type="checkbox"><span>알파 대비 표 · 판정까지</span></label>
+    <label><input type="checkbox"><span>알파 · 베타 비교표 · 판정까지</span></label>
     <label><input type="checkbox"><span>GitHub 이슈</span></label>
     <label><input type="checkbox"><span>시연회까지 고칠 순서</span></label>
     <label><input type="checkbox"><span><code>docs/beta-test.md</code> · tasks.md · checklist.md</span></label>
@@ -2242,14 +2241,14 @@ kbd{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:600;
   <p class="msg a" style="--d:.5s">못 끝낸 일은 내 브랜치에 커밋 · PR은 열어 둔 채 제출</p>
 </section>
 
-<section class="slide" id="next" data-title="다음 주까지" data-note="팀: 시연 전 이슈(3개까지)를 PR로 고치고 Fixes #번호로 닫기 → 병합 · 배포 주소에서 checklist.md 베타 구역 확인 → 할 수 있으면 수업을 듣지 않는 사람 2–3명에게 첫인상과 과업 3만 다시 → beta-test.md에 이어서. 14주차 팀 프로토타입 시연회 · 15주차 쇼케이스 · 최종 발표. 개인 과제의 수정 · 업데이트 버전은 15주차까지. 마감 시각 · 제출 방법은 eTL 안내.">
+<section class="slide" id="next" data-title="다음 주까지" data-note="팀: 시연 전 이슈(3개까지)를 PR로 고치고 Fixes #번호로 닫기 → 병합 · 배포 주소에서 checklist.md 베타 구역 확인 → 할 수 있으면 수업을 듣지 않는 사람 2–3명에게 5초 테스트과 과업 3만 다시 → beta-test.md에 이어서. 14주차 팀 프로토타입 시연회 · 15주차 쇼케이스 · 최종 발표. 개인 과제의 수정 · 업데이트 버전은 15주차까지. 마감 시각 · 제출 방법은 eTL 안내.">
   <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 14주차 팀 프로토타입 시연회 · 15주차 쇼케이스</p>
   <h2 class="a" style="--d:.2s">다음 주까지</h2>
   <div class="xloop a" style="--d:.3s;margin-top:30px"><span>이슈</span><i>→</i><span>PR · Fixes #</span><i>→</i><span>병합 · 배포</span><i>→</i><span>모든 기기로 확인</span><i>→</i><span class="on">14주차 시연회</span></div>
 </section>
 
-<section class="slide" id="sources" data-title="참고한 글" data-note="베타에서 더한 방법(심각도 · 첫인상 5초 · 반복 테스트 · 이슈 연결)의 출처. Nielsen Norman Group 글은 한국어 번역이 없는 것이 많음 · 주요 내용은 덱에 옮김.">
-  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 심각도 · 첫인상 · 반복 테스트 · 이슈 연결</p>
+<section class="slide" id="sources" data-title="참고한 글" data-note="베타에서 더한 방법(심각도 · 5초 테스트 · 반복 테스트 · 이슈 연결)의 출처. Nielsen Norman Group 글은 한국어 번역이 없는 것이 많음 · 주요 내용은 덱에 옮김.">
+  <p class="eyebrow a" style="--d:.1s"><span class="mono">//</span> 심각도 · 5초 테스트 · 반복 테스트 · 이슈 연결</p>
   <h2 class="a" style="--d:.2s">참고한 글</h2>
   <div class="src">
     <div class="col a" style="--d:.3s">
